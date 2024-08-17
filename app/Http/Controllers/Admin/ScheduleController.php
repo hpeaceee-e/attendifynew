@@ -1,0 +1,56 @@
+<?php
+
+namespace App\Http\Controllers\Admin;
+
+use App\Http\Controllers\Controller;
+use App\Models\Schedule;
+use Illuminate\Http\Request;
+
+class ScheduleController extends Controller
+{
+    public function index()
+    {
+        $schedules = Schedule::get();
+        return view('pages.admin.kelolajadwalpegawai', compact('schedules'));
+    }
+
+    public function create()
+    {
+        return view('pages.admin.tambahjadwal'); // Pastikan Anda menyesuaikan dengan nama view yang tepat
+    }
+
+    public function store(Request $request)
+    {
+        // Validasi input dari form
+        $request->validate([
+            'clock_in' => 'required|date_format:H:i',
+            'clock_out' => 'required|date_format:H:i',
+            'break' => 'required|date_format:H:i',
+        ]);
+
+        // Simpan data jadwal ke database
+        Schedule::create([
+            'clock_in' => $request->input('clock_in'),
+            'clock_out' => $request->input('clock_out'),
+            'break' => $request->input('break'),
+        ]);
+
+        // Redirect kembali dengan pesan sukses
+        return redirect()->route('pages.admin.kelolajadwalpegawai')->with('success', 'Jadwal pegawai berhasil ditambahkan.');
+    }
+
+    public function show(Schedule $schedule)
+    {
+        // Tampilkan detail jadwal
+    }
+
+    public function update(Request $request, Schedule $schedule)
+    {
+        // Update jadwal
+    }
+
+    public function destroy(Schedule $schedule)
+    {
+        // Hapus jadwal
+    }
+}
