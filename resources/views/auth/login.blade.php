@@ -42,7 +42,7 @@
                                     <div class="nk-block-head-content">
                                         <h4 class="nk-block-title">Sign-In</h4>
                                         <div class="nk-block-des">
-                                            <p>Sistem Kehadiran Pegawai</p>
+                                            <p>Sistem Kehadiran Pegawai apisapisapis</p>
                                         </div>
                                     </div>
                                 </div>
