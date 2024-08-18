@@ -96,7 +96,6 @@
                                                     <td>Hafizh Alfaris</td>
                                                     <td>13 Aug 2024 - 17 Aug 2024</td>
                                                     <td></td>
-                                                    </td>
                                                     <td>
                                                         <div class="drodown">
                                                             <a href="#"
