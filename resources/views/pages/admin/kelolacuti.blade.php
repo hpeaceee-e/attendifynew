@@ -90,32 +90,32 @@
                                             </tr>
                                         </thead>
                                         <tbody>
-                                            @foreach ($data as $d)
-                                                <tr>
-                                                    <td>1</td>
-                                                    <td>Hafizh Alfaris</td>
-                                                    <td>13 Aug 2024 - 17 Aug 2024</td>
-                                                    <td></td>
-                                                    <td>
-                                                        <div class="drodown">
-                                                            <a href="#"
-                                                                class="btn btn-sm btn-icon btn-trigger dropdown-toggle"
-                                                                data-bs-toggle="dropdown"><em
-                                                                    class="icon ni ni-more-h"></em></a>
-                                                            <div class="dropdown-menu dropdown-menu-end">
-                                                                <ul class="link-list-opt no-bdr">
-                                                                    <li><a href="#"><em
-                                                                                class="icon ni ni-note-add-fill"></em><span>Persetujuan</span></a>
-                                                                    </li>
-                                                                    <li><a href="#"><em
-                                                                                class="icon ni ni-na"></em><span>Hapus</span></a>
-                                                                    </li>
-                                                                </ul>
-                                                            </div>
+                                            {{-- @foreach ($data as $d) --}}
+                                            <tr>
+                                                <td>1</td>
+                                                <td>Hafizh Alfaris</td>
+                                                <td>13 Aug 2024 - 17 Aug 2024</td>
+                                                <td></td>
+                                                <td>
+                                                    <div class="drodown">
+                                                        <a href="#"
+                                                            class="btn btn-sm btn-icon btn-trigger dropdown-toggle"
+                                                            data-bs-toggle="dropdown"><em
+                                                                class="icon ni ni-more-h"></em></a>
+                                                        <div class="dropdown-menu dropdown-menu-end">
+                                                            <ul class="link-list-opt no-bdr">
+                                                                <li><a href="#"><em
+                                                                            class="icon ni ni-note-add-fill"></em><span>Persetujuan</span></a>
+                                                                </li>
+                                                                <li><a href="#"><em
+                                                                            class="icon ni ni-na"></em><span>Hapus</span></a>
+                                                                </li>
+                                                            </ul>
                                                         </div>
-                                                    </td>
-                                                </tr>
-                                            @endforeach
+                                                    </div>
+                                                </td>
+                                            </tr>
+                                            {{-- @endforeach --}}
                                         </tbody>
                                     </table>
                                 </div><!-- .table-responsive -->
