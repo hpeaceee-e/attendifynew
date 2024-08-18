@@ -1,6 +1,6 @@
 @extends('layout.main')
 @section('title')
-    Kelola Cuti
+    Kelola Cuti dan Izin
 @endsection
 @section('content')
     <div class="nk-content nk-content-fluid">
@@ -9,7 +9,7 @@
                 <div class="nk-block-head nk-block-head-sm">
                     <div class="nk-block-between">
                         <div class="nk-block-head-content">
-                            <h3 class="nk-block-title page-title">Kelola Cuti Pegawai</h3>
+                            <h3 class="nk-block-title page-title">Kelola Cuti & Izin Pegawai</h3>
                         </div><!-- .nk-block-head-content -->
                         <div class="nk-block-head-content">
                             <div class="toggle-wrap nk-block-tools-toggle">
