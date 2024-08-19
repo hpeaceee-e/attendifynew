@@ -8,10 +8,11 @@
 
 
 <!-- Tombol Absen Masuk/Pulang -->
-<div class="mb-3">
+<br><br>
+<div class="mt-5">
     <a href="{{ route('pegawai.tambah-attendance') }}" class="btn btn-primary">Absen Masuk/Pulang</a>
 </div>
-<div class="container mt-5">
+<div class="container mt-2">
 <div class="card card-bordered card-full">
     <h4 class="card-title text-center mt-1"> Your Attendance </h4>
     <!-- Tabel Kehadiran -->
