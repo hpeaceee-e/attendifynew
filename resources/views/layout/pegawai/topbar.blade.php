@@ -6,7 +6,7 @@
                             class="icon ni ni-menu"></em></a>
                 </div>
                 <div class="nk-header-brand d-xl-none">
-                    <a href="{{route('admin.pages.admin.dashboard')}}" class="logo-link">
+                    <a href="{{route('pegawai.pages.pegawai.dashboard')}}" class="logo-link">
                         <img class="logo-light logo-img" src="{{ asset('demo5/src/images/logo.png') }}"
                             srcset="{{ asset('demo5/src/images/logo2x.png') }} 2x" alt="logo">
                         <p style="margin-top:-2rem" class="text-left text-allign-center"><b>PT. PRATAMA SOLUSI TEKNOLOGI</b></p>
@@ -37,7 +37,7 @@
                                         <em class="icon ni ni-user-alt"></em>
                                     </div>
                                     <div class="user-info d-none d-md-block">
-                                        <div class="user-status">Administrator</div>
+                                        <div class="user-status">Pegawai</div>
                                         <div class="user-name dropdown-indicator">{{ auth()->user()->name }}</div>
                                     </div>
                                 </div>

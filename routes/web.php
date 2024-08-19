@@ -1,10 +1,12 @@
 <?php
 
 use App\Http\Controllers\Admin\AdminController;
+use App\Http\Controllers\UserControllers1;
 use App\Http\Controllers\Admin\EmployeController;
 use App\Http\Controllers\LoginController;
 use App\Http\Controllers\AttendanceController;
 use App\Http\Controllers\Admin\ScheduleController;
+use App\Http\Controllers\ImportexcelController;
 use Illuminate\Support\Facades\Route;
 
 // Routes for authentication
@@ -43,4 +45,21 @@ Route::group(['prefix' => 'admin', 'middleware' => ['auth'], 'as' => 'admin.'], 
 
     // Manage Leave
     Route::get('/kelolacuti', [AdminController::class, 'cuti'])->name('kelolacuti');
+});
+
+
+Route::get('/import', [ImportexcelController::class,'index']);
+Route::post('/import/excel', [ImportexcelController::class,'post'])->name('post-excel');
+
+Route::group(['prefix' => 'pegawai', 'middleware' => ['auth'], 'as' => 'pegawai.'], function () {
+
+    Route::get('/dashboard', [UserControllers1::class, 'index'])->name('pages.pegawai.dashboard');
+
+    Route::prefix('attendance')->group(function () {
+        Route::get('/', [AttendanceController::class, 'index'])->name('attendance');
+        Route::get('/tambahjadwal', [AttendanceController::class, 'create'])->name('tambah-attendance');
+        Route::post('/tambahjadwal/store', [AttendanceController::class, 'store'])->name('store-attendance');
+        Route::get('/attendance/{id}/print', [AttendanceController::class, 'print'])->name('print-attendance');
+    });
+
 });

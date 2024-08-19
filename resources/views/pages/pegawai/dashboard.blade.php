@@ -1,8 +1,8 @@
-@extends('layout.main')
+@extends('layout.pegawai.main')
 @section('title')
     Dashboard User
 @endsection
-@section('content')
+@section('content-pegawai')
     <div class="nk-content nk-content-fluid">
         <div class="container-xl wide-lg">
             <div class="nk-content-body">
