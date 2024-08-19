@@ -36,7 +36,7 @@ class ScheduleController extends Controller
         ]);
 
         // Redirect kembali dengan pesan sukses
-        return redirect()->route('pages.admin.kelolajadwalpegawai')->with('success', 'Jadwal pegawai berhasil ditambahkan.');
+        return redirect()->route('admin.kelolajadwalpegawai')->with('success', 'Jadwal pegawai berhasil ditambahkan.');
     }
 
     public function show(Schedule $schedule)
@@ -51,9 +51,25 @@ class ScheduleController extends Controller
         return view('pages.admin.editjadwal', compact('schedules'));
     }
 
-    public function update(Request $request, Schedule $schedule)
+    public function update(Request $request, $id)
     {
-        // Update jadwal
+        $schedules = Schedule::find($id);
+
+        $request->validate([
+            'clock_in' => 'required|date_format:H:i',
+            'clock_out' => 'required|date_format:H:i',
+            'break' => 'required|date_format:H:i',
+        ]);
+
+        // Perbarui data jadwal di database
+        $schedules->update([
+            'clock_in' => $request->input('clock_in'),
+            'clock_out' => $request->input('clock_out'),
+            'break' => $request->input('break'),
+        ]);
+
+        // Redirect kembali dengan pesan sukses
+        return redirect()->route('admin.kelolajadwal')->with('success', 'Jadwal pegawai berhasil diperbarui.');
     }
 
     public function destroy(Schedule $schedule)
