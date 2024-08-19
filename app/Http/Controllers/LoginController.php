@@ -29,7 +29,7 @@ class LoginController extends Controller
             if (Auth::user()->role == 1) {
                 return redirect()->route('admin.pages.admin.dashboard');
             } elseif (Auth::user()->role == 2) {
-                return redirect()->route('pegawai.pages.user.dashboard');
+                return redirect()->route('pegawai.pages.pegawai.dashboard');
             }
         } else {
             return redirect()->route('auth.login')->with('failed', 'Username atau Password anda salah!');
