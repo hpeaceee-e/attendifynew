@@ -88,7 +88,8 @@
                                                                                 href="{{ route('admin.pegawaidetail', ['id' => $d->id]) }}"><em
                                                                                     class="icon ni ni-eye"></em><span>Detail</span></a>
                                                                         </li>
-                                                                        <li><a href="#"><em
+                                                                        <li><a
+                                                                                href="{{ route('admin.editpegawai', ['id' => $d->id]) }}"><em
                                                                                     class="icon ni ni-edit"></em><span>Edit</span></a>
                                                                         </li>
                                                                         <li><a href="#"><em

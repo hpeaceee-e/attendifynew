@@ -24,10 +24,10 @@ Route::group(['prefix' => 'admin', 'middleware' => ['auth'], 'as' => 'admin.'], 
         Route::get('/', [EmployeController::class, 'index'])->name('kelolapegawai');
         Route::get('/tambahpegawai', [EmployeController::class, 'create'])->name('tambahpegawai');
         Route::post('/tambahpegawai/store', [EmployeController::class, 'store'])->name('tambahpegawaistore');
-        Route::get('/{id}', [EmployeController::class, 'show'])->name('pegawaidetail');
-        Route::post('/edit/{id}', [EmployeController::class, 'update'])->name('editpegawai');
-        Route::get('/editpegawai', [AdminController::class, 'editpegawai']);
-        Route::get('/cetakpegawai', [AdminController::class, 'cetakpegawai']);
+        Route::get('/pegawai{id}', [EmployeController::class, 'show'])->name('pegawaidetail');
+        Route::get('/editpegawai/{id}', [EmployeController::class, 'edit'])->name('editpegawai');
+        Route::post('/updatepegawai/{id}', [EmployeController::class, 'update'])->name('editpegawaiupdate');
+        Route::get('/cetakpegawai', [EmployeController::class, 'cetakpegawai']);
     });
 
     // Manage Attendance
@@ -41,6 +41,8 @@ Route::group(['prefix' => 'admin', 'middleware' => ['auth'], 'as' => 'admin.'], 
         Route::get('/', [ScheduleController::class, 'index'])->name('kelolajadwal');
         Route::get('/tambahjadwal', [ScheduleController::class, 'create'])->name('tambahjadwal');
         Route::post('/tambahjadwal/store', [ScheduleController::class, 'store'])->name('tambahjadwalstore');
+        Route::get('/editjadwal/{id}', [ScheduleController::class, 'edit'])->name('editjadwal');
+        Route::post('/updatejadwal/{id}', [ScheduleController::class, 'update'])->name('updatejadwal');
     });
 
     // Manage Leave

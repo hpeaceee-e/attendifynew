@@ -44,6 +44,13 @@ class ScheduleController extends Controller
         // Tampilkan detail jadwal
     }
 
+    public function edit(Request $request, $id)
+    {
+        $schedules = Schedule::find($id);
+
+        return view('pages.admin.editjadwal', compact('schedules'));
+    }
+
     public function update(Request $request, Schedule $schedule)
     {
         // Update jadwal

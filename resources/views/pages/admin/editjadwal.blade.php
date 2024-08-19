@@ -11,24 +11,25 @@
                         <div class="nk-block-head-content">
                             <div class="nk-block-head-sub"><a class="back-to" href="{{ route('admin.kelolajadwal') }}"><em
                                         class="icon ni ni-arrow-left"></em><span>Back</span></a></div>
-                            <h2 class="nk-block-title fw-normal">Tambah Jadwal Pegawai</h2>
+                            <h2 class="nk-block-title fw-normal">Edit Jadwal Pegawai</h2>
                         </div>
                     </div>
                     <div class="nk-block nk-block-lg">
                         <div class="card card-bordered card-preview">
                             <div class="card-inner">
-                                <form action="{{ route('admin.tambahjadwalstore') }}" method="POST"
+                                <form action="{{ route('admin.updatejadwal', ['id' => $schedules->id]) }}" method="POST"
                                     enctype="multipart/form-data">
                                     @csrf
                                     <div class="preview-block">
-                                        <span class="preview-title-lg overline-title">Tambah Jadwal Pegawai</span>
+                                        <span class="preview-title-lg overline-title">Edit Jadwal Pegawai</span>
                                         <div class="row gy-4">
                                             <div class="col-sm-6">
                                                 <div class="form-group">
                                                     <label class="form-label" for="clock_in">Jam Masuk</label>
                                                     <div class="form-control-wrap">
                                                         <input type="time" class="form-control" id="clock_in"
-                                                            name="clock_in" required>
+                                                            name="clock_in"
+                                                            value="{{ \Carbon\Carbon::parse($schedules->clock_in)->format('H:i') }}">
                                                         @error('clock_in')
                                                             <small>{{ $message }}</small>
                                                         @enderror
@@ -40,7 +41,12 @@
                                                     <label class="form-label" for="clock_out">Jam Pulang</label>
                                                     <div class="form-control-wrap">
                                                         <input type="time" class="form-control" id="clock_out"
-                                                            name="clock_out" required>
+                                                            name="clock_out"
+                                                            value="{{ \Carbon\Carbon::parse($schedules->clock_out)->format('H:i') }}"
+                                                            required>
+                                                        @error('clock_out')
+                                                            <small>{{ $message }}</small>
+                                                        @enderror
                                                     </div>
                                                 </div>
                                             </div>
@@ -49,14 +55,19 @@
                                                     <label class="form-label" for="break">Istirahat</label>
                                                     <div class="form-control-wrap">
                                                         <input type="time" class="form-control" id="break"
-                                                            name="break" required>
+                                                            name="break"
+                                                            value="{{ \Carbon\Carbon::parse($schedules->break)->format('H:i') }}"
+                                                            required>
+                                                        @error('break')
+                                                            <small>{{ $message }}</small>
+                                                        @enderror
                                                     </div>
                                                 </div>
                                             </div>
                                         </div>
                                         <hr class="preview-hr">
                                         <div class="form-group">
-                                            <button type="submit" class="btn btn-primary">Tambah Jadwal</button>
+                                            <button type="submit" class="btn btn-primary">Update Jadwal</button>
                                         </div>
                                     </div>
                                 </form>
