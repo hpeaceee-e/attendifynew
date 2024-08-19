@@ -46,7 +46,7 @@
                                     <tbody>
                                         @foreach ($schedules as $schedule)
                                             <tr>
-                                                <td>{{ $loop->iteration }}</td>
+                                                <td>{{ $schedule->id }}</td>
                                                 <td>{{ \Carbon\Carbon::parse($schedule->clock_in)->format('H:i') }}</td>
                                                 <td>{{ \Carbon\Carbon::parse($schedule->clock_out)->format('H:i') }}</td>
                                                 <td>{{ \Carbon\Carbon::parse($schedule->break)->format('H:i') }}</td>
@@ -61,7 +61,8 @@
                                                                 </a>
                                                                 <div class="dropdown-menu dropdown-menu-end">
                                                                     <ul class="link-list-opt no-bdr">
-                                                                        <li><a href="#"><em
+                                                                        <li><a
+                                                                                href="{{ route('admin.editjadwal', ['id' => $schedule->id]) }}"><em
                                                                                     class="icon ni ni-edit"></em><span>Edit</span></a>
                                                                         </li>
                                                                         <li><a href="#"><em

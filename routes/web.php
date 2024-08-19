@@ -39,6 +39,8 @@ Route::group(['prefix' => 'admin', 'middleware' => ['auth'], 'as' => 'admin.'], 
         Route::get('/', [ScheduleController::class, 'index'])->name('kelolajadwal');
         Route::get('/tambahjadwal', [ScheduleController::class, 'create'])->name('tambahjadwal');
         Route::post('/tambahjadwal/store', [ScheduleController::class, 'store'])->name('tambahjadwalstore');
+        Route::get('/editjadwal/{id}', [ScheduleController::class, 'edit'])->name('editjadwal');
+        Route::post('/updatejadwal/{id}', [ScheduleController::class, 'update'])->name('updatejadwal');
     });
 
     // Manage Leave
