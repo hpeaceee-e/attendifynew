@@ -1,66 +1,73 @@
 @extends('layout.pegawai.main')
 
 @section('title')
-    Attendance
+    Pegawai
 @endsection
 
 @section('content-pegawai')
-    <div class="container" style="padding-top: 30px;">
-        <!-- Tombol Absen Masuk/Pulang -->
-        <div class="mt-5">
-            <a href="{{ route('pegawai.tambah-attendance') }}" class="btn btn-primary">Absen Masuk/Pulang</a>
+    <div class="nk-block-head-content">
+        <div class="toggle-wrap nk-block-tools-toggle">
+            <div class="container" style="padding-top: 30px;">
+                <!-- Tombol Absen Masuk/Pulang -->
+                <div class="mt-5">
+                    <a href="{{ route('pegawai.tambah-attendance') }}" class="btn btn-primary">Absen Masuk/Pulang</a>
+                </div>
+            </div>
         </div>
 
         <!-- Tabel Kehadiran -->
         <div class="container mt-2">
-            <div class="card card-bordered card-full">
-                <h4 class="card-title text-center mt-1">Your Attendance</h4>
-                <table class="table table-striped">
-                    <thead>
-                        <tr>
-                            <th>No</th>
-                            <th>Tanggal</th>
-                            <th>Waktu</th>
-                            <th>Status</th>
-                            <th>Coordinate</th>
-                            <th>Aksi</th>
-                        </tr>
-                    </thead>
-                    <tbody>
-                        @foreach ($attendances as $attendance)
+            <div class="card card-bordered card-preview">
+                <div class="card-inner">
+                    <h4 class="card-title text-center mt-1">Absensi Anda</h4>
+                    <table class="datatable-init table">
+                        <thead>
                             <tr>
-                                <td>{{ $loop->iteration }}</td>
-                                <td>{{ $attendance->date }}</td>
-                                <td>{{ $attendance->time }}</td>
-                                <td>
-                                    @if ($attendance->status == 0)
-                                        Masuk
-                                    @else
-                                        Pulang
-                                    @endif
-                                </td>
-                                <td>{{ $attendance->coordinate }}</td>
-                                <td>
-                                    <a href="{{ route('pegawai.print-attendance', $attendance->id) }}"
-                                        class="btn btn-info btn-sm">Print</a>
-                                </td>
+                                <th>No</th>
+                                <th>Tanggal</th>
+                                <th>Waktu</th>
+                                <th>Status</th>
+                                <th>Koordinat</th>
+                                <th>Aksi</th>
                             </tr>
-                        @endforeach
-                    </tbody>
-                </table>
+                        </thead>
+                        <tbody>
+                            @foreach ($attendances as $attendance)
+                                <tr>
+                                    <td>{{ $loop->iteration }}</td>
+                                    <td>{{ $attendance->date }}</td>
+                                    <td>{{ $attendance->time }}</td>
+                                    <td>
+                                        @if ($attendance->status == 0)
+                                            Masuk
+                                        @else
+                                            Pulang
+                                        @endif
+                                    </td>
+                                    <td>{{ $attendance->coordinate }}</td>
+                                    <td>
+                                        <a href="{{ route('pegawai.print-attendance', $attendance->id) }}"
+                                            class="btn btn-info btn-sm">Print</a>
+                                    </td>
+                                </tr>
+                            @endforeach
+                        </tbody>
+                    </table>
+                </div>
             </div>
-        </div>
-
-        <!-- Tempat Kalender -->
-        <div class="card mt-4">
-            <div class="card-inner py-3 border-bottom border-light">
-                <h3 class="card-title text-center">Calendar</h3>
-            </div>
-            <div class="card-body">
-                <div id="calendar"></div>
+            <!-- Tempat Kalender -->
+            <div class="card mt-4 card-bordered card-preview">
+                <div class="card-inner py-3 border-bottom border-light ">
+                    <h4 class="card-title text-center">Calendar</h4>
+                </div>
+                <div class="card-body">
+                    <div id="calendar"></div>
+                </div>
             </div>
         </div>
     </div>
+
+
 
     <!-- Modal Print -->
     <div id="printModal" style="display:none;">
