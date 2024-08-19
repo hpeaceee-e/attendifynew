@@ -1,20 +1,20 @@
 @extends('layout.pegawai.main')
+
 @section('title')
     Attendance
 @endsection
+
 @section('content-pegawai')
-    <div class="container">
-
-
+    <div class="container" style="padding-top: 30px;">
         <!-- Tombol Absen Masuk/Pulang -->
-        <br><br>
         <div class="mt-5">
             <a href="{{ route('pegawai.tambah-attendance') }}" class="btn btn-primary">Absen Masuk/Pulang</a>
         </div>
+
+        <!-- Tabel Kehadiran -->
         <div class="container mt-2">
             <div class="card card-bordered card-full">
-                <h4 class="card-title text-center mt-1"> Your Attendance </h4>
-                <!-- Tabel Kehadiran -->
+                <h4 class="card-title text-center mt-1">Your Attendance</h4>
                 <table class="table table-striped">
                     <thead>
                         <tr>
@@ -41,7 +41,6 @@
                                 </td>
                                 <td>{{ $attendance->coordinate }}</td>
                                 <td>
-                                    <!-- Tombol Print -->
                                     <a href="{{ route('pegawai.print-attendance', $attendance->id) }}"
                                         class="btn btn-info btn-sm">Print</a>
                                 </td>
@@ -52,11 +51,14 @@
             </div>
         </div>
 
-
         <!-- Tempat Kalender -->
-        <div class="card">
-            <h4 class="card-title mt-5 text-center">Calendar</h4>
-            <div id="calendar"></div>
+        <div class="card mt-4">
+            <div class="card-inner py-3 border-bottom border-light">
+                <h3 class="card-title text-center">Calendar</h3>
+            </div>
+            <div class="card-body">
+                <div id="calendar"></div>
+            </div>
         </div>
     </div>
 
@@ -64,7 +66,6 @@
     <div id="printModal" style="display:none;">
         <div id="printContent"></div>
     </div>
-
 
     <script src="https://cdn.jsdelivr.net/npm/fullcalendar@5.11.0/main.min.js"></script>
     <script>
@@ -84,27 +85,23 @@
         });
 
         function printAttendance(id) {
-            // Ambil data kehadiran berdasarkan ID
             var attendance = @json($attendances->keyBy('id'));
             var data = attendance[id];
 
-            // Format konten cetak
             var printContent = `
-            <h2>Detail Kehadiran</h2>
-            <p><strong>Tanggal:</strong> ${data.date}</p>
-            <p><strong>Waktu:</strong> ${data.time}</p>
-            <p><strong>Status:</strong> ${data.status == 0 ? 'Masuk' : 'Pulang'}</p>
-            <p><strong>Latitude:</strong> ${data.latitude}</p>
-            <p><strong>Longitude:</strong> ${data.longitude}</p>
-            <p><strong>Koordinat:</strong> ${data.coordinate}</p>
-            <div id="mapPrint" style="height: 300px;"></div>
-        `;
+                <h2>Detail Kehadiran</h2>
+                <p><strong>Tanggal:</strong> ${data.date}</p>
+                <p><strong>Waktu:</strong> ${data.time}</p>
+                <p><strong>Status:</strong> ${data.status == 0 ? 'Masuk' : 'Pulang'}</p>
+                <p><strong>Latitude:</strong> ${data.latitude}</p>
+                <p><strong>Longitude:</strong> ${data.longitude}</p>
+                <p><strong>Koordinat:</strong> ${data.coordinate}</p>
+                <div id="mapPrint" style="height: 300px;"></div>
+            `;
 
-            // Tampilkan konten cetak dalam modal
             document.getElementById('printContent').innerHTML = printContent;
             document.getElementById('printModal').style.display = 'block';
 
-            // Cetak konten modal
             var map = L.map('mapPrint').setView([data.latitude, data.longitude], 13);
             L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
                 maxZoom: 18,
