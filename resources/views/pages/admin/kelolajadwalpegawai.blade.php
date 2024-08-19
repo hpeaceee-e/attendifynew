@@ -1,6 +1,6 @@
 @extends('layout.main')
 @section('title')
-    Kelola Pegawai
+    Kelola Jadwal Pegawai
 @endsection
 @section('content')
     <div class="nk-content nk-content-fluid">

@@ -26,110 +26,64 @@
                     </div><!-- .nk-block-between -->
                 </div><!-- .nk-block-head -->
                 <div class="nk-block">
-                    <div class="card card-bordered card-stretch">
-                        <div class="card-inner-group">
-                            <div class="card-inner position-relative card-tools-toggle">
-                                <div class="card-title-group">
-                                    <div class="card-tools">
-                                        <div class="form-inline flex-nowrap gx-3">
-
-                                            <div class="btn-wrap">
-                                                <!-- Action Buttons -->
-                                            </div>
-                                        </div><!-- .form-inline -->
-                                    </div><!-- .card-tools -->
-                                    <div class="card-tools me-n1">
-                                        <ul class="btn-toolbar gx-1">
-                                            <li>
-                                                <a href="#" class="btn btn-icon search-toggle toggle-search"
-                                                    data-target="search"><em class="icon ni ni-search"></em></a>
-                                            </li><!-- li -->
-                                            <li class="btn-toolbar-sep"></li><!-- li -->
-                                            <li>
-                                                <div class="toggle-wrap">
-                                                    <a href="/admin/kelolapegawai" class="btn btn-icon btn-trigger toggle"
-                                                        data-target="cardTools"><em class="icon ni ni-menu-right"></em></a>
-                                                    <div class="toggle-content" data-content="cardTools">
-                                                        <ul class="btn-toolbar gx-1">
-                                                            <li class="toggle-close">
-                                                                <a href="/admin/kelolapegawai"
-                                                                    class="btn btn-icon btn-trigger toggle"
-                                                                    data-target="cardTools"><em
-                                                                        class="icon ni ni-arrow-left"></em></a>
-                                                            </li>
-                                                        </ul><!-- .btn-toolbar -->
-                                                    </div><!-- .toggle-content -->
-                                                </div><!-- .toggle-wrap -->
-                                            </li><!-- li -->
-                                        </ul><!-- .btn-toolbar -->
-                                    </div><!-- .card-tools -->
-                                </div><!-- .card-title-group -->
-                                <div class="card-search search-wrap" data-search="search">
-                                    <div class="card-body">
-                                        <div class="search-content">
-                                            <a href="#" class="search-back btn btn-icon toggle-search"
-                                                data-target="search"><em class="icon ni ni-arrow-left"></em></a>
-                                            <input type="text" class="form-control border-transparent form-focus-none"
-                                                placeholder="Cari sesuai nama pegawai">
-                                            <button class="search-submit btn btn-icon"><em
-                                                    class="icon ni ni-search"></em></button>
-                                        </div>
-                                    </div>
-                                </div><!-- .card-search -->
-                            </div><!-- .card-inner -->
-                            <div class="card-inner p-0">
-                                <div class="table-responsive">
-                                    <table class="table table-borderless">
-                                        <thead class="thead-light">
-                                            <tr>
-                                                <th>No</th>
-                                                <th>Nama Pegawai</th>
-                                                <th>Tanggal Cuti</th>
-                                                <th>Status</th>
-                                                <th>Action</th>
-                                            </tr>
-                                        </thead>
-                                        <tbody>
-                                            {{-- @foreach ($data as $d) --}}
-                                            <tr>
-                                                <td>1</td>
-                                                <td>Hafizh Alfaris</td>
-                                                <td>13 Aug 2024 - 17 Aug 2024</td>
-                                                <td></td>
-                                                <td>
+                    <div class="card card-bordered card-preview">
+                        <div class="card-inner">
+                            <table class="datatable-init table">
+                                <thead>
+                                    <tr>
+                                        <th>No</th>
+                                        <th>Nama Pegawai</th>
+                                        <th>Alasan</th>
+                                        <th>Tanggal Pengajuan</th>
+                                        <th>Mulai</th>
+                                        <th>Berakhir</th>
+                                        <th>Alasan Verifikasi</th>
+                                        <th>Status</th>
+                                        <th>Persetujuan</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    {{-- @foreach ($data as $d) --}}
+                                    <tr>
+                                        <td>1</td>
+                                        <td>Hafizh Alfaris</td>
+                                        <td></td>
+                                        <td>13 Aug 2024</td>
+                                        <td></td>
+                                        <td></td>
+                                        <td></td>
+                                        <td></td>
+                                        <td>
+                                            <ul class="nk-tb-actions gx-2">
+                                                <li>
                                                     <div class="drodown">
                                                         <a href="#"
                                                             class="btn btn-sm btn-icon btn-trigger dropdown-toggle"
-                                                            data-bs-toggle="dropdown"><em
-                                                                class="icon ni ni-more-h"></em></a>
+                                                            data-bs-toggle="dropdown">
+                                                            <em class="icon ni ni-more-h"></em>
+                                                        </a>
                                                         <div class="dropdown-menu dropdown-menu-end">
                                                             <ul class="link-list-opt no-bdr">
                                                                 <li><a href="#"><em
-                                                                            class="icon ni ni-note-add-fill"></em><span>Persetujuan</span></a>
+                                                                            class="icon ni ni-check"></em><span>Terima</span></a>
                                                                 </li>
                                                                 <li><a href="#"><em
-                                                                            class="icon ni ni-na"></em><span>Hapus</span></a>
+                                                                            class="icon ni ni-na"></em><span>Tolak</span></a>
                                                                 </li>
                                                             </ul>
                                                         </div>
                                                     </div>
-                                                </td>
-                                            </tr>
-                                            {{-- @endforeach --}}
-                                        </tbody>
-                                    </table>
-                                </div><!-- .table-responsive -->
-                            </div><!-- .card-inner -->
-                            <div class="card-inner">
-                                <ul class="pagination justify-content-center justify-content-md-start">
-                                    <li class="page-item"><a class="page-link" href="/admin/kelolapegawai">Prev</a></li>
-                                    <li class="page-item"><a class="page-link" href="/admin/kelolapegawai">1</a></li>
-                                    <li class="page-item"><a class="page-link" href="/admin/kelolapegawai">Next</a></li>
-                                </ul><!-- .pagination -->
-                            </div><!-- .card-inner -->
-                        </div><!-- .card-inner-group -->
-                    </div><!-- .card -->
-                </div><!-- .nk-block -->
+                                                </li>
+                                            </ul>
+                                        </td>
+                                    </tr>
+                                    {{-- @endforeach --}}
+                                </tbody>
+                            </table>
+                        </div>
+                    </div><!-- .card-preview -->
+                </div> <!-- nk-block -->
+
             </div>
         </div>
     </div>
