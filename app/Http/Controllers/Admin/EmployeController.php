@@ -81,6 +81,22 @@ class EmployeController extends Controller
         return redirect()->route('admin.kelolapegawai')->with('success', 'Pegawai berhasil ditambahkan.', compact('user'));
     }
 
+    public function edit(Request $request, $id)
+    {
+        $data = User::with('role', 'schedule')->find($id);
+
+        $roles = Role::all();
+
+        $schedules = Schedule::all();
+
+        $nextUserId = User::max('id');
+        // Periksa apakah data ditemukan
+        if (!$data) {
+            return redirect()->route('admin.kelolapegawai')->with('error', 'Pegawai tidak ditemukan');
+        }
+
+        return view('pages.admin.editpegawai', compact('data', 'nextUserId', 'roles', 'schedules'));
+    }
 
     public function update()
     {

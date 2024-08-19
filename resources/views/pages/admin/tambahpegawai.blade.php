@@ -45,6 +45,15 @@
                                             </div>
                                             <div class="col-sm-6">
                                                 <div class="form-group">
+                                                    <label class="form-label" for="name">Email</label>
+                                                    <div class="form-control-wrap">
+                                                        <input type="email" class="form-control" id="email"
+                                                            name="email" required>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div class="col-sm-6">
+                                                <div class="form-group">
                                                     <label class="form-label" for="role">Role</label>
                                                     <div class="form-control-wrap">
                                                         <select class="form-control" id="role" name="role" required>
