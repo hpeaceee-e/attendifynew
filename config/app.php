@@ -141,6 +141,10 @@ return [
             \App\Http\Middleware\CheckPegawai::class,
         ],
     ],
+
+    'middleware' => [
+        \App\Http\Middleware\AutoLogout::class,
+    ]
     
 
 ];
