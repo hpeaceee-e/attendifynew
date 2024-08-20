@@ -10,6 +10,7 @@ use App\Http\Controllers\ImportexcelController;
 use App\Http\Controllers\IzinController;
 use App\Http\Controllers\LeaveController;
 use App\Http\Controllers\LeavesController;
+use App\Http\Middleware\AutoLogout;
 use Illuminate\Support\Facades\Route;
 
 // Routes for authentication
@@ -17,10 +18,13 @@ Route::get('/', [LoginController::class, 'index'])->name('auth.login');
 Route::post('/login-proses', [LoginController::class, 'login_proses'])->name('login-proses');
 Route::get('/logout', [LoginController::class, 'logout'])->name('logout');
 
-// Admin routes group with middleware and prefix
-Route::group(['prefix' => 'admin', 'middleware' => ['admin'], 'as' => 'admin.'], function () {
-    // Dashboard
-    Route::get('/dashboard', [AdminController::class, 'index'])->name('pages.admin.dashboard');
+//auto Logout
+Route::middleware([AutoLogout::class])->group(function () {
+
+    // Admin routes group with middleware and prefix
+    Route::group(['prefix' => 'admin', 'middleware' => ['admin'], 'as' => 'admin.'], function () {
+        // Dashboard
+        Route::get('/dashboard', [AdminController::class, 'index'])->name('pages.admin.dashboard');
 
     // Manage Employees
     Route::prefix('kelolapegawai')->group(function () {
@@ -30,39 +34,35 @@ Route::group(['prefix' => 'admin', 'middleware' => ['admin'], 'as' => 'admin.'],
         Route::get('/pegawai{id}', [EmployeController::class, 'show'])->name('pegawaidetail');
         Route::get('/editpegawai/{id}', [EmployeController::class, 'edit'])->name('editpegawai');
         Route::post('/updatepegawai/{id}', [EmployeController::class, 'update'])->name('editpegawaiupdate');
-        Route::get('/cetakpegawai', [EmployeController::class, 'cetakpegawai'])->name('print-kelolapegawai');
+        Route::get('/cetakpegawai', [EmployeController::class, 'cetakpegawai']);
     });
 
     // Manage Attendance
     Route::prefix('kelolakehadiranpegawai')->group(function () {
         Route::get('/', [AttendanceController::class, 'kehadiran'])->name('kelolakehadiranpegawai');
-        Route::get('/cetakkehadiranpegawai', [AttendanceController::class, 'cetakkehadiran'])->name('print-kelolakehadiranpegawai');
+        Route::get('/cetakkehadiranpegawai', [AttendanceController::class, 'cetakkehadiran']);
     });
 
-    // Manage Schedules
-    Route::prefix('kelolajadwalpegawai')->group(function () {
-        Route::get('/', [ScheduleController::class, 'index'])->name('kelolajadwal');
-        Route::get('/tambahjadwal', [ScheduleController::class, 'create'])->name('tambahjadwal');
-        Route::post('/tambahjadwal/store', [ScheduleController::class, 'store'])->name('tambahjadwalstore');
-        Route::get('/editjadwal/{id}', [ScheduleController::class, 'edit'])->name('editjadwal');
-        Route::post('/updatejadwal/{id}', [ScheduleController::class, 'update'])->name('updatejadwal');
-    });
+        // Manage Schedules
+        Route::prefix('kelolajadwalpegawai')->group(function () {
+            Route::get('/', [ScheduleController::class, 'index'])->name('kelolajadwal');
+            Route::get('/tambahjadwal', [ScheduleController::class, 'create'])->name('tambahjadwal');
+            Route::post('/tambahjadwal/store', [ScheduleController::class, 'store'])->name('tambahjadwalstore');
+            Route::get('/editjadwal/{id}', [ScheduleController::class, 'edit'])->name('editjadwal');
+            Route::post('/updatejadwal/{id}', [ScheduleController::class, 'update'])->name('updatejadwal');
+        });
 
     // Manage Leave
-    Route::prefix('kelolacuti')->group(function () {
-
-        Route::get('/', [AdminController::class, 'cuti'])->name('kelolacuti');
-        Route::get('/cetakcuti', [AdminController::class, 'cetakcuti'])->name('print-kelolacuti');
-    });
+    Route::get('/kelolacuti', [AdminController::class, 'cuti'])->name('kelolacuti');
 });
 
 
-Route::get('/import', [ImportexcelController::class, 'index']);
-Route::post('/import/excel', [ImportexcelController::class, 'post'])->name('post-excel');
+Route::get('/import', [ImportexcelController::class,'index']);
+Route::post('/import/excel', [ImportexcelController::class,'post'])->name('post-excel');
 
-Route::group(['prefix' => 'pegawai', 'middleware' => ['pegawai'], 'as' => 'pegawai.'], function () {
+    Route::group(['prefix' => 'pegawai', 'middleware' => ['pegawai'], 'as' => 'pegawai.'], function () {
 
-    Route::get('/dashboard', [UserControllers1::class, 'index'])->name('pages.pegawai.dashboard');
+        Route::get('/dashboard', [UserControllers1::class, 'index'])->name('pages.pegawai.dashboard');
 
     Route::prefix('attendance')->group(function () {
         Route::get('/', [AttendanceController::class, 'index'])->name('attendance');
@@ -71,11 +71,25 @@ Route::group(['prefix' => 'pegawai', 'middleware' => ['pegawai'], 'as' => 'pegaw
         Route::get('/attendance/{id}/print', [AttendanceController::class, 'print'])->name('print-attendance');
     });
     Route::prefix('leaves')->group(function () {
+<<<<<<< HEAD
         Route::get('/', [LeavesController::class, 'index'])->name('leaves');
     });
     Route::prefix('izin')->group(function () {
         Route::get('/', [IzinController::class, 'index'])->name('izin');
+=======
+        Route::get('/',[LeavesController::class,'index'])->name('leaves');
+
+        });
+        Route::prefix('izin')->group(function () {
+            Route::get('/',[IzinController::class,'index'])->name('izin');
+
+        });
+
+>>>>>>> f44e842f34360207c8f0d0d182ffc1fcc920abc0
     });
 });
 
+<<<<<<< HEAD
 // });
+=======
+>>>>>>> f44e842f34360207c8f0d0d182ffc1fcc920abc0
