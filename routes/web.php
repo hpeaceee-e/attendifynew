@@ -70,17 +70,12 @@ Route::group(['prefix' => 'pegawai', 'middleware' => ['pegawai'], 'as' => 'pegaw
         Route::post('/tambahjadwal/store', [AttendanceController::class, 'store'])->name('store-attendance');
         Route::get('/attendance/{id}/print', [AttendanceController::class, 'print'])->name('print-attendance');
     });
-<<<<<<< HEAD
-});
-=======
     Route::prefix('leaves')->group(function () {
-        Route::get('/',[LeavesController::class,'index'])->name('leaves');
-
+        Route::get('/', [LeavesController::class, 'index'])->name('leaves');
     });
     Route::prefix('izin')->group(function () {
-        Route::get('/',[IzinController::class,'index'])->name('izin');
-
+        Route::get('/', [IzinController::class, 'index'])->name('izin');
     });
-
 });
->>>>>>> 02e2fa1dbfaf231adf340a75f8ee8f3517dc6cc4
+
+// });
