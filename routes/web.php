@@ -7,6 +7,9 @@ use App\Http\Controllers\LoginController;
 use App\Http\Controllers\AttendanceController;
 use App\Http\Controllers\Admin\ScheduleController;
 use App\Http\Controllers\ImportexcelController;
+use App\Http\Controllers\IzinController;
+use App\Http\Controllers\LeaveController;
+use App\Http\Controllers\LeavesController;
 use Illuminate\Support\Facades\Route;
 
 // Routes for authentication
@@ -15,7 +18,7 @@ Route::post('/login-proses', [LoginController::class, 'login_proses'])->name('lo
 Route::get('/logout', [LoginController::class, 'logout'])->name('logout');
 
 // Admin routes group with middleware and prefix
-Route::group(['prefix' => 'admin', 'middleware' => ['auth'], 'as' => 'admin.'], function () {
+Route::group(['prefix' => 'admin', 'middleware' => ['admin'], 'as' => 'admin.'], function () {
     // Dashboard
     Route::get('/dashboard', [AdminController::class, 'index'])->name('pages.admin.dashboard');
 
@@ -57,7 +60,7 @@ Route::group(['prefix' => 'admin', 'middleware' => ['auth'], 'as' => 'admin.'], 
 Route::get('/import', [ImportexcelController::class, 'index']);
 Route::post('/import/excel', [ImportexcelController::class, 'post'])->name('post-excel');
 
-Route::group(['prefix' => 'pegawai', 'middleware' => ['auth'], 'as' => 'pegawai.'], function () {
+Route::group(['prefix' => 'pegawai', 'middleware' => ['pegawai'], 'as' => 'pegawai.'], function () {
 
     Route::get('/dashboard', [UserControllers1::class, 'index'])->name('pages.pegawai.dashboard');
 
@@ -67,4 +70,17 @@ Route::group(['prefix' => 'pegawai', 'middleware' => ['auth'], 'as' => 'pegawai.
         Route::post('/tambahjadwal/store', [AttendanceController::class, 'store'])->name('store-attendance');
         Route::get('/attendance/{id}/print', [AttendanceController::class, 'print'])->name('print-attendance');
     });
+<<<<<<< HEAD
 });
+=======
+    Route::prefix('leaves')->group(function () {
+        Route::get('/',[LeavesController::class,'index'])->name('leaves');
+
+    });
+    Route::prefix('izin')->group(function () {
+        Route::get('/',[IzinController::class,'index'])->name('izin');
+
+    });
+
+});
+>>>>>>> 02e2fa1dbfaf231adf340a75f8ee8f3517dc6cc4

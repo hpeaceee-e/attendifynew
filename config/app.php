@@ -123,6 +123,24 @@ return [
         'driver' => env('APP_MAINTENANCE_DRIVER', 'file'),
         'store' => env('APP_MAINTENANCE_STORE', 'database'),
     ],
+
+    'middlewareGroups' => [
+        'web' => [
+            // Middleware web lainnya...
+        ],
+
+        'api' => [
+            // Middleware API lainnya...
+        ],
+
+        'admin' => [
+            \App\Http\Middleware\CheckAdmin::class,
+        ],
+
+        'pegawai' => [
+            \App\Http\Middleware\CheckPegawai::class,
+        ],
+    ],
     
 
 ];
