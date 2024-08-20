@@ -98,6 +98,14 @@ class EmployeController extends Controller
         return view('pages.admin.editpegawai', compact('data', 'nextUserId', 'roles', 'schedules'));
     }
 
+    public function cetakpegawai()
+    {
+        $data = User::with('role', 'schedule')->get();
+
+        // Menampilkan view dengan data pegawai
+        return view('pages.admin.printkelolapegawai', compact('data'));
+    }
+
     public function update()
     {
         //

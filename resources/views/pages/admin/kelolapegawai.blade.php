@@ -21,7 +21,8 @@
                                         data-target="pageMenu"><em class="icon ni ni-menu-alt-r"></em></a>
                                     <div class="toggle-expand-content" data-content="pageMenu">
                                         <ul class="nk-block-tools g-3">
-                                            <li><a href="#" class="btn btn-white btn-outline-light"><em
+                                            <li><a href="{{ route('admin.print-kelolapegawai') }}"
+                                                    class="btn btn-white btn-outline-light" target="_blank"><em
                                                         class="icon ni ni-download"></em><span>Cetak</span></a></li>
                                             <a href="{{ route('admin.tambahpegawai') }}" class="btn btn-icon btn-primary">
                                                 <em class="icon ni ni-plus"></em>
