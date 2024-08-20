@@ -22,7 +22,8 @@
                                     data-target="pageMenu"><em class="icon ni ni-menu-alt-r"></em></a>
                                 <div class="toggle-expand-content" data-content="pageMenu">
                                     <ul class="nk-block-tools g-3">
-                                        <li><a href="#" class="btn btn-white btn-outline-light"><em
+                                        <li><a href="{{ route('admin.print-kelolakehadiranpegawai') }}"
+                                                class="btn btn-white btn-outline-light" target="_blank"><em
                                                     class="icon ni ni-download"></em><span>Cetak</span></a></li>
                                     </ul>
                                 </div>
@@ -53,8 +54,20 @@
                                             <td>{{ $attendance->enhancer }}</td>
                                             <td>{{ $attendance->date }}</td>
                                             {{-- <td>{{ \Carbon\Carbon::parse($attendance->time)->format('H:i') }}</td> --}}
-                                            <td>{{ $attendance->status }}</td>
-                                            <td>{{ $attendance->status }}</td>
+                                            <td>
+                                                @if ($attendance->status == 0)
+                                                    Masuk
+                                                @else
+                                                    Pulang
+                                                @endif
+                                            </td>
+                                            <td>
+                                                @if ($attendance->status == 1)
+                                                    Pulang
+                                                @else
+                                                    Masuk
+                                                @endif
+                                            </td>
 
                                             <td><span class="badge bg-success">Tepat Waktu</span><span
                                                     class="badge bg-danger">Terlambat</span></td>

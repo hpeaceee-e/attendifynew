@@ -17,7 +17,8 @@
                                     data-target="pageMenu"><em class="icon ni ni-menu-alt-r"></em></a>
                                 <div class="toggle-expand-content" data-content="pageMenu">
                                     <ul class="nk-block-tools g-3">
-                                        <li><a href="#" class="btn btn-white btn-outline-light"><em
+                                        <li><a href="{{ route('admin.print-kelolacuti') }}"
+                                                class="btn btn-white btn-outline-light" target="_blank"><em
                                                     class="icon ni ni-download"></em><span>Cetak</span></a></li>
                                     </ul>
                                 </div>

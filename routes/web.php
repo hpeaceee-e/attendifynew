@@ -27,13 +27,13 @@ Route::group(['prefix' => 'admin', 'middleware' => ['auth'], 'as' => 'admin.'], 
         Route::get('/pegawai{id}', [EmployeController::class, 'show'])->name('pegawaidetail');
         Route::get('/editpegawai/{id}', [EmployeController::class, 'edit'])->name('editpegawai');
         Route::post('/updatepegawai/{id}', [EmployeController::class, 'update'])->name('editpegawaiupdate');
-        Route::get('/cetakpegawai', [EmployeController::class, 'cetakpegawai']);
+        Route::get('/cetakpegawai', [EmployeController::class, 'cetakpegawai'])->name('print-kelolapegawai');
     });
 
     // Manage Attendance
     Route::prefix('kelolakehadiranpegawai')->group(function () {
         Route::get('/', [AttendanceController::class, 'kehadiran'])->name('kelolakehadiranpegawai');
-        Route::get('/cetakkehadiranpegawai', [AttendanceController::class, 'cetakkehadiran']);
+        Route::get('/cetakkehadiranpegawai', [AttendanceController::class, 'cetakkehadiran'])->name('print-kelolakehadiranpegawai');
     });
 
     // Manage Schedules
@@ -46,12 +46,16 @@ Route::group(['prefix' => 'admin', 'middleware' => ['auth'], 'as' => 'admin.'], 
     });
 
     // Manage Leave
-    Route::get('/kelolacuti', [AdminController::class, 'cuti'])->name('kelolacuti');
+    Route::prefix('kelolacuti')->group(function () {
+
+        Route::get('/', [AdminController::class, 'cuti'])->name('kelolacuti');
+        Route::get('/cetakcuti', [AdminController::class, 'cetakcuti'])->name('print-kelolacuti');
+    });
 });
 
 
-Route::get('/import', [ImportexcelController::class,'index']);
-Route::post('/import/excel', [ImportexcelController::class,'post'])->name('post-excel');
+Route::get('/import', [ImportexcelController::class, 'index']);
+Route::post('/import/excel', [ImportexcelController::class, 'post'])->name('post-excel');
 
 Route::group(['prefix' => 'pegawai', 'middleware' => ['auth'], 'as' => 'pegawai.'], function () {
 
@@ -63,5 +67,4 @@ Route::group(['prefix' => 'pegawai', 'middleware' => ['auth'], 'as' => 'pegawai.
         Route::post('/tambahjadwal/store', [AttendanceController::class, 'store'])->name('store-attendance');
         Route::get('/attendance/{id}/print', [AttendanceController::class, 'print'])->name('print-attendance');
     });
-
 });

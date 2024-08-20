@@ -16,6 +16,13 @@ class AttendanceController extends Controller
 
         return view('pages.admin.kelolakehadiranpegawai', compact('attendances'));
     }
+
+    public function cetakkehadiran()
+    {
+        $attendance = Attendance::all();
+
+        return view('pages.admin.printkehadiranpegawai', compact('attendance'));
+    }
     // Tampilkan daftar kehadiran
     public function index()
     {

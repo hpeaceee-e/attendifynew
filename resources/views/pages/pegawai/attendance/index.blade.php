@@ -47,7 +47,7 @@
                                     <td>{{ $attendance->coordinate }}</td>
                                     <td>
                                         <a href="{{ route('pegawai.print-attendance', $attendance->id) }}"
-                                            class="btn btn-info btn-sm">Print</a>
+                                            class="btn btn-info btn-sm" target="_blank">Print</a>
                                     </td>
                                 </tr>
                             @endforeach
