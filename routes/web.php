@@ -71,25 +71,11 @@ Route::post('/import/excel', [ImportexcelController::class,'post'])->name('post-
         Route::get('/attendance/{id}/print', [AttendanceController::class, 'print'])->name('print-attendance');
     });
     Route::prefix('leaves')->group(function () {
-<<<<<<< HEAD
         Route::get('/', [LeavesController::class, 'index'])->name('leaves');
     });
     Route::prefix('izin')->group(function () {
         Route::get('/', [IzinController::class, 'index'])->name('izin');
-=======
-        Route::get('/',[LeavesController::class,'index'])->name('leaves');
-
-        });
-        Route::prefix('izin')->group(function () {
-            Route::get('/',[IzinController::class,'index'])->name('izin');
-
-        });
-
->>>>>>> f44e842f34360207c8f0d0d182ffc1fcc920abc0
     });
 });
 
-<<<<<<< HEAD
-// });
-=======
->>>>>>> f44e842f34360207c8f0d0d182ffc1fcc920abc0
+
