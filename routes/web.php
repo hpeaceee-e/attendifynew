@@ -77,5 +77,3 @@ Route::post('/import/excel', [ImportexcelController::class,'post'])->name('post-
         Route::get('/', [IzinController::class, 'index'])->name('izin');
     });
 });
-
-
