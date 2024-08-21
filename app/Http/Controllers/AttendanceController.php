@@ -10,7 +10,7 @@ class AttendanceController extends Controller
 {
     public function kehadiran()
     {
-        $attendances = Attendance::get();
+        // $attendances = Attendance::get();
 
         $attendances = Attendance::with('user')->get();
 

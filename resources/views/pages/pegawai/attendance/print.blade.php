@@ -125,7 +125,7 @@
             <div class="invoice-contact">
                 <span class="overline-title">Detail Kehadiran</span>
                 <div class="invoice-contact-info">
-                    <h4 class="title">Pegawai: {{ $attendance->employee_name }}</h4>
+                    <h4 class="title">Pegawai: {{ $attendance->enhancer }}</h4>
                     <br>
                     <ul class="list-plain">
                         <li><em class="icon ni ni-calendar-fill fs-18px"></em><span>Tanggal:
@@ -152,7 +152,7 @@
             if (latitude && longitude) {
                 var map = L.map('mapPrint').setView([latitude, longitude], 13);
                 L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
-                    maxZoom: 18,
+                    maxZoom: 15,
                 }).addTo(map);
                 L.marker([latitude, longitude]).addTo(map);
             } else {

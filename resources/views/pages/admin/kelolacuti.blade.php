@@ -34,10 +34,10 @@
                                     <tr>
                                         <th>No</th>
                                         <th>Nama Pegawai</th>
-                                        <th>Alasan</th>
+                                        {{-- <th>Alasan</th> --}}
                                         <th>Tanggal Pengajuan</th>
-                                        <th>Mulai</th>
-                                        <th>Berakhir</th>
+                                        {{-- <th>Mulai</th>
+                                        <th>Berakhir</th> --}}
                                         <th>Verifikasi</th>
                                         <th>Status</th>
                                         <th>Persetujuan</th>
@@ -48,11 +48,13 @@
                                     <tr>
                                         <td>1</td>
                                         <td>Hafizh Alfaris</td>
-                                        <td>Cuti Menikah</td>
+                                        {{-- <td>Cuti Menikah</td> --}}
                                         <td>13 Aug 2024</td>
-                                        <td>13 Aug 2024</td>
-                                        <td>17 Aug 2024</td>
-                                        <td>Sakinah Mawadah Warahmah ya atas pernikahannya</td>
+                                        {{-- <td>13 Aug 2024</td>
+                                        <td>17 Aug 2024</td> --}}
+                                        <td>
+                                            {{-- Sakinah Mawadah Warahmah ya atas pernikahannya --}}
+                                        </td>
                                         <td><span class="badge bg-success">Izin Cuti Diterima</span></td>
                                         <td>
                                             <ul class="nk-tb-actions gx-2">
@@ -81,12 +83,45 @@
                                     <tr>
                                         <td>2</td>
                                         <td>Hilmi Ramdani</td>
-                                        <td>Izin Liburan</td>
+                                        {{-- <td>Izin Liburan</td> --}}
                                         <td>15 Aug 2024</td>
-                                        <td>15 Aug 2024</td>
-                                        <td>20 Aug 2024</td>
+                                        {{-- <td>15 Aug 2024</td>
+                                        <td>20 Aug 2024</td> --}}
                                         <td>Kerja dulu dong</td>
                                         <td><span class="badge bg-danger">Izin Cuti Ditolak</span></td>
+                                        <td>
+                                            <ul class="nk-tb-actions gx-2">
+                                                <li>
+                                                    <div class="drodown">
+                                                        <a href="#"
+                                                            class="btn btn-sm btn-icon btn-trigger dropdown-toggle"
+                                                            data-bs-toggle="dropdown">
+                                                            <em class="icon ni ni-more-h"></em>
+                                                        </a>
+                                                        <div class="dropdown-menu dropdown-menu-end">
+                                                            <ul class="link-list-opt no-bdr">
+                                                                <li><a href="#"><em
+                                                                            class="icon ni ni-check"></em><span>Terima</span></a>
+                                                                </li>
+                                                                <li><a href="#"><em
+                                                                            class="icon ni ni-na"></em><span>Tolak</span></a>
+                                                                </li>
+                                                            </ul>
+                                                        </div>
+                                                    </div>
+                                                </li>
+                                            </ul>
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td>3</td>
+                                        <td>Rafly</td>
+                                        {{-- <td>Izin Liburan</td> --}}
+                                        <td>15 Aug 2024</td>
+                                        {{-- <td>15 Aug 2024</td>
+                                        <td>20 Aug 2024</td> --}}
+                                        <td>-</td>
+                                        <td><span class="badge bg-secondary">Menunggu Persetujuan</span></td>
                                         <td>
                                             <ul class="nk-tb-actions gx-2">
                                                 <li>

@@ -49,15 +49,12 @@ class User extends Authenticatable
         'password' => 'hashed',
     ];
 
-    // Relasi ke model Role
-    public function role()
+    public function roles()
     {
         return $this->belongsTo(Role::class);
     }
 
-
-    // Relasi ke model Schedule
-    public function schedule()
+    public function schedules()
     {
         return $this->belongsTo(Schedule::class);
     }

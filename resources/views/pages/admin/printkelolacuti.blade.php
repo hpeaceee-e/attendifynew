@@ -11,7 +11,7 @@
     <!-- Fav Icon  -->
     <link rel="shortcut icon" href="./images/favicon.png">
     <!-- Page Title  -->
-    <title>Cetak Kelola Cuti Bulan : Januari </title>
+    <title>Cetak Kelola Cuti </title>
     <!-- StyleSheets  -->
     <link rel="stylesheet" href="{{ asset('demo5/src/assets/css/dashlite.css?ver=3.0.3') }}">
     <link id="skin-default" rel="stylesheet" href="{{ asset('demo5/src/assets/css/theme.css?ver=3.0.3') }}">
@@ -29,7 +29,7 @@
                     <div class="invoice-contact">
                         <span class="overline-title">Report</span>
                         <div class="invoice-contact-info">
-                            <h4 class="title">Kelola Data Pegawai</h4>
+                            <h4 class="title">Kelola Cuti & Izin Pegawai</h4>
                             {{-- <ul class="list-plain">
                                 <li><em class="icon ni ni-map-pin-fill fs-18px"></em><span>House #65, 4328 Marion
                                         Street<br>Newbury, VT 05051</span></li>
@@ -43,61 +43,48 @@
                         <table class="table table-striped">
                             <thead>
                                 <tr>
-                                    <th>Username</th>
+                                    <th>No</th>
                                     <th>Nama Pegawai</th>
-                                    <th>Email</th>
-                                    <th>Password</th>
-                                    <th>Role</th>
-                                    <th>Tanggal Verifikasi</th>
-                                    <th>Jadwal</th>
-
+                                    {{-- <th>Alasan</th> --}}
+                                    <th>Tanggal Pengajuan</th>
+                                    {{-- <th>Mulai</th>
+                                    <th>Berakhir</th> --}}
+                                    <th>Alasan Verifikasi</th>
+                                    <th>Status</th>
                                 </tr>
                             </thead>
                             <tbody>
                                 <tr>
-                                    <td>00001</td>
-                                    <td>Faldi Reza</td>
-                                    <td>faldi@polsub</td>
-                                    <td>12345</td>
-                                    <td>Pegawai</td>
-                                    <td>20 Agustus 2024</td>
-                                    <td>08.00 - 15.00</td>
+                                    <td>1</td>
+                                    <td>Hafizh Alfaris</td>
+                                    {{-- <td>Cuti Menikah</td> --}}
+                                    <td>13 Aug 2024</td>
+                                    {{-- <td>13 Aug 2024</td>
+                                    <td>17 Aug 2024</td> --}}
+                                    <td>
+                                        {{-- Sakinah Mawadah Warahmah ya atas pernikahannya --}}-
+                                    </td>
+                                    <td><span class="badge bg-success">Izin Cuti Diterima</span></td>
                                 </tr>
                                 <tr>
-                                    <td>00001</td>
-                                    <td>Faldi Reza</td>
-                                    <td>faldi@polsub</td>
-                                    <td>12345</td>
-                                    <td>Pegawai</td>
-                                    <td>20 Agustus 2024</td>
-                                    <td>08.00 - 15.00</td>
+                                    <td>2</td>
+                                    <td>Hilmi Ramdani</td>
+                                    {{-- <td>Izin Liburan</td> --}}
+                                    <td>15 Aug 2024</td>
+                                    {{-- <td>15 Aug 2024</td>
+                                    <td>20 Aug 2024</td> --}}
+                                    <td>Kerja dulu dong</td>
+                                    <td><span class="badge bg-danger">Izin Cuti Ditolak</span></td>
                                 </tr>
                                 <tr>
-                                    <td>00001</td>
-                                    <td>Faldi Reza</td>
-                                    <td>faldi@polsub</td>
-                                    <td>12345</td>
-                                    <td>Pegawai</td>
-                                    <td>20 Agustus 2024</td>
-                                    <td>08.00 - 15.00</td>
-                                </tr>
-                                <tr>
-                                    <td>00001</td>
-                                    <td>Faldi Reza</td>
-                                    <td>faldi@polsub</td>
-                                    <td>12345</td>
-                                    <td>Pegawai</td>
-                                    <td>20 Agustus 2024</td>
-                                    <td>08.00 - 15.00</td>
-                                </tr>
-                                <tr>
-                                    <td>00001</td>
-                                    <td>Faldi Reza</td>
-                                    <td>faldi@polsub</td>
-                                    <td>12345</td>
-                                    <td>Pegawai</td>
-                                    <td>20 Agustus 2024</td>
-                                    <td>08.00 - 15.00</td>
+                                    <td>2</td>
+                                    <td>Rafly</td>
+                                    {{-- <td>Izin Liburan</td> --}}
+                                    <td>21 Aug 2024</td>
+                                    {{-- <td>15 Aug 2024</td>
+                                    <td>20 Aug 2024</td> --}}
+                                    <td>-</td>
+                                    <td><span class="badge bg-danger">Menunggu Persetujuan</span></td>
                                 </tr>
                             </tbody>
                             {{-- <tfoot>

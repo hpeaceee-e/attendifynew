@@ -12,7 +12,7 @@
     <link rel="shortcut icon" href="./images/favicon.png">
     <!-- Page Title  -->
     <title>
-        Cetak Kehadiran Pegawai Bulan : Januari
+        Cetak Kehadiran Pegawai
     </title>
     <!-- StyleSheets  -->
     <link rel="stylesheet" href="{{ asset('demo5/src/assets/css/dashlite.css?ver=3.0.3') }}">

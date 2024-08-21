@@ -51,8 +51,8 @@
                                     @foreach ($attendances as $attendance)
                                         <tr>
                                             <td>{{ $loop->iteration }}</td>
-                                            <td>{{ $attendance->enhancer }}</td>
-                                            <td>{{ $attendance->date }}</td>
+                                            <td>{{ $attendance->user->name }}</td>
+                                            <td>{{ \Carbon\Carbon::parse($attendance->date)->format('d M Y') }}</td>
                                             {{-- <td>{{ \Carbon\Carbon::parse($attendance->time)->format('H:i') }}</td> --}}
                                             <td>
                                                 @if ($attendance->status == 0)

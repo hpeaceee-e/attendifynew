@@ -46,60 +46,39 @@
                                     <th>Username</th>
                                     <th>Nama Pegawai</th>
                                     <th>Email</th>
-                                    <th>Password</th>
+                                    {{-- <th>Password</th> --}}
                                     <th>Role</th>
                                     <th>Tanggal Verifikasi</th>
                                     <th>Jadwal</th>
-
+                                    <th>Avatar</th>
+                                    <th>Status</th>
                                 </tr>
                             </thead>
                             <tbody>
-                                <tr>
-                                    <td>00001</td>
-                                    <td>Faldi Reza</td>
-                                    <td>faldi@polsub</td>
-                                    <td>12345</td>
-                                    <td>Pegawai</td>
-                                    <td>20 Agustus 2024</td>
-                                    <td>08.00 - 15.00</td>
-                                </tr>
-                                <tr>
-                                    <td>00001</td>
-                                    <td>Faldi Reza</td>
-                                    <td>faldi@polsub</td>
-                                    <td>12345</td>
-                                    <td>Pegawai</td>
-                                    <td>20 Agustus 2024</td>
-                                    <td>08.00 - 15.00</td>
-                                </tr>
-                                <tr>
-                                    <td>00001</td>
-                                    <td>Faldi Reza</td>
-                                    <td>faldi@polsub</td>
-                                    <td>12345</td>
-                                    <td>Pegawai</td>
-                                    <td>20 Agustus 2024</td>
-                                    <td>08.00 - 15.00</td>
-                                </tr>
-                                <tr>
-                                    <td>00001</td>
-                                    <td>Faldi Reza</td>
-                                    <td>faldi@polsub</td>
-                                    <td>12345</td>
-                                    <td>Pegawai</td>
-                                    <td>20 Agustus 2024</td>
-                                    <td>08.00 - 15.00</td>
-                                </tr>
-                                <tr>
-                                    <td>00001</td>
-                                    <td>Faldi Reza</td>
-                                    <td>faldi@polsub</td>
-                                    <td>12345</td>
-                                    <td>Pegawai</td>
-                                    <td>20 Agustus 2024</td>
-                                    <td>08.00 - 15.00</td>
-                                </tr>
+                                @foreach ($data as $d)
+                                    <tr>
+                                        <td>{{ $d->username }}</td>
+                                        <td>{{ $d->name }}</td>
+                                        <td>{{ $d->email }}</td>
+                                        {{-- <td>{{ $d->password }}</td> --}}
+                                        <td>{{ $d->role }}</td>
+                                        <td>{{ $d->created_at->format('d M Y') }}</td>
+                                        <td>{{ $d->schedule }}</td>
+                                        <td>
+                                            <div class="user-card">
+                                                <div class="user-avatar">
+                                                    <img src="{{ asset('storage/' . $d->avatar) }}" alt="Avatar">
+                                                </div>
+                                            </div>
+                                        </td>
+                                        <td>
+                                            <span class="badge  {{ $d->status == 0 ? 'bg-success' : 'bg-danger' }}">
+                                                {{ $d->status == 0 ? 'Aktif' : 'Tidak Aktif' }}
+                                            </span>
+                                        </td>
+                                    </tr>
                             </tbody>
+                            @endforeach
                             {{-- <tfoot>
                                 <tr>
                                     <td colspan="2"></td>
