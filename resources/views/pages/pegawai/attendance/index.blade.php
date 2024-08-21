@@ -1,7 +1,7 @@
 @extends('layout.pegawai.main')
 
 @section('title')
-    Pegawai
+    Pegawai {{ auth()->user()->name }}
 @endsection
 
 @section('content-pegawai')

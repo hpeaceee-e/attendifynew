@@ -30,12 +30,18 @@
     </script>
 
     <style>
-        .logo-light,
-        .logo-dark {
-            width: 100px;
-            /* Sesuaikan ukuran yang diinginkan */
+        .logo-container {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100px;
+            /* Sesuaikan tinggi jika diperlukan */
+        }
+
+        .logo-img {
+            max-width: 150px;
+            /* Sesuaikan ukuran maksimal logo */
             height: auto;
-            /* Menjaga rasio aspek gambar */
         }
     </style>
 

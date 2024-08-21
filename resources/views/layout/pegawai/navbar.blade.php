@@ -22,7 +22,7 @@
                             <h6 class="overline-title text-primary-alt">Hallo {{ auth()->user()->name }}</h6>
                         </li><!-- .nk-menu-item -->
                         <li class="nk-menu-item">
-                            <a href="{{ route('admin.pages.admin.dashboard') }}" class="nk-menu-link">
+                            <a href="{{ route('pegawai.pages.pegawai.dashboard') }}" class="nk-menu-link">
                                 <span class="nk-menu-icon"><em class="icon ni ni-home"></em></span>
                                 <span class="nk-menu-text">Dashboard</span>
                             </a>
@@ -33,21 +33,21 @@
                         </li><!-- .nk-menu-heading -->
                         <li class="nk-menu-item">
                             <a href="{{ route('pegawai.attendance') }}" class="nk-menu-link">
-                                <span class="nk-menu-icon"><em class="icon ni ni-users"></em></span>
+                                <span class="nk-menu-icon"><em class="icon ni ni-calendar-check"></em></span>
                                 <span class="nk-menu-text">Absensi</span>
                             </a>
                         </li><!-- .nk-menu-item -->
                         <li class="nk-menu-item">
                             <a href="{{ route('pegawai.leaves') }}" class="nk-menu-link">
-                                <span class="nk-menu-icon"><em class="icon ni ni-calendar-check"></em></span>
-                                <span class="nk-menu-text">pengajuan Cuti</span>
+                                <span class="nk-menu-icon"><em class="icon ni ni-calendar-alt"></em></span>
+                                <span class="nk-menu-text">Pengajuan Cuti</span>
                             </a>
-                        <li class="nk-menu-item">
+                            {{-- <li class="nk-menu-item">
                             <a href="{{ route('pegawai.izin') }}" class="nk-menu-link">
                                 <span class="nk-menu-icon"><em class="icon ni ni-calendar"></em></span>
                                 <span class="nk-menu-text">Pengajuan Izin</span>
                             </a>
-                        </li><!-- .nk-menu-item -->
+                        </li><!-- .nk-menu-item --> --}}
                 </div><!-- .nk-sidebar-menu -->
                 {{-- <div class="nk-sidebar-footer">
                     <ul class="nk-menu nk-menu-footer">
