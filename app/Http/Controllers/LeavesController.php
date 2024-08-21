@@ -7,7 +7,8 @@ use PhpParser\Node\Stmt\Return_;
 
 class LeavesController extends Controller
 {
-    public function index(){
+    public function index()
+    {
         return view('pages.pegawai.leaves.index');
     }
 }

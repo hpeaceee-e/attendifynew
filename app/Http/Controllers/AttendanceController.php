@@ -15,14 +15,14 @@ class AttendanceController extends Controller
 
         $attendances = Attendance::with('user')->get();
 
-        return view('pages.admin.kelolakehadiranpegawai', compact('attendances'));
+        return view('pages.admin.attendance.kelolakehadiranpegawai', compact('attendances'));
     }
 
     public function cetakkehadiran()
     {
         $attendance = Attendance::all();
 
-        return view('pages.admin.printkehadiranpegawai', compact('attendance'));
+        return view('pages.admin.attendance.printkehadiranpegawai', compact('attendance'));
     }
     // Tampilkan daftar kehadiran
     public function index()
@@ -79,6 +79,6 @@ class AttendanceController extends Controller
         $longitude = $coordinates[1] ?? null;
 
         // Tampilkan tampilan print
-        return view('pages.admin.printkehadiran-orang', compact('attendance', 'latitude', 'longitude'));
+        return view('pages.admin.attendance.printkehadiran-orang', compact('attendance', 'latitude', 'longitude'));
     }
 }

@@ -17,7 +17,7 @@ class EmployeController extends Controller
         $data = User::with('role', 'schedule')->get();
 
         // Menampilkan view dengan data pegawai
-        return view('pages.admin.kelolapegawai', compact('data'));
+        return view('pages.admin.managepegawai.kelolapegawai', compact('data'));
     }
 
     public function show($id)
@@ -31,7 +31,7 @@ class EmployeController extends Controller
         }
 
         // Menampilkan view dengan data pegawai
-        return view('pages.admin.detailkelolapegawai', compact('data'));
+        return view('pages.admin.managepegawai.detailkelolapegawai', compact('data'));
     }
 
 
@@ -45,7 +45,7 @@ class EmployeController extends Controller
         $nextUserId = User::max('id');
 
         // Menampilkan view form tambah pegawai
-        return view('pages.admin.tambahpegawai', compact('roles', 'schedules', 'nextUserId'));
+        return view('pages.admin.managepegawai.tambahpegawai', compact('roles', 'schedules', 'nextUserId'));
     }
 
     public function store(Request $request)
@@ -95,7 +95,7 @@ class EmployeController extends Controller
             return redirect()->route('admin.kelolapegawai')->with('error', 'Pegawai tidak ditemukan');
         }
 
-        return view('pages.admin.editpegawai', compact('data', 'nextUserId', 'roles', 'schedules'));
+        return view('pages.admin.managepegawai.editpegawai', compact('data', 'nextUserId', 'roles', 'schedules'));
     }
 
     public function cetakpegawai()
@@ -103,7 +103,7 @@ class EmployeController extends Controller
         $data = User::with('role', 'schedule')->get();
 
         // Menampilkan view dengan data pegawai
-        return view('pages.admin.printkelolapegawai', compact('data'));
+        return view('pages.admin.managepegawai.printkelolapegawai', compact('data'));
     }
 
     public function update()

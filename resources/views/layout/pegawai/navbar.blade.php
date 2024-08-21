@@ -19,7 +19,7 @@
                 <div class="nk-sidebar-menu">
                     <ul class="nk-menu">
                         <li class="nk-menu-heading">
-                            <h6 class="overline-title text-primary-alt">Hallo  {{ auth()->user()->name }}</h6>
+                            <h6 class="overline-title text-primary-alt">Hallo {{ auth()->user()->name }}</h6>
                         </li><!-- .nk-menu-item -->
                         <li class="nk-menu-item">
                             <a href="{{ route('admin.pages.admin.dashboard') }}" class="nk-menu-link">

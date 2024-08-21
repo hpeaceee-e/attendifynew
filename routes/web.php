@@ -27,7 +27,7 @@ Route::middleware([AutoLogout::class])->group(function () {
         Route::get('/dashboard', [AdminController::class, 'index'])->name('pages.admin.dashboard');
 
         // Manage Employees
-        Route::prefix('kelolapegawai')->group(function () {
+        Route::prefix('managepegawai.kelolapegawai')->group(function () {
             Route::get('/', [EmployeController::class, 'index'])->name('kelolapegawai');
             Route::get('/tambahpegawai', [EmployeController::class, 'create'])->name('tambahpegawai');
             Route::post('/tambahpegawai/store', [EmployeController::class, 'store'])->name('tambahpegawaistore');
@@ -38,14 +38,14 @@ Route::middleware([AutoLogout::class])->group(function () {
         });
 
         // Manage Attendance
-        Route::prefix('kelolakehadiranpegawai')->group(function () {
+        Route::prefix('attendance.kelolakehadiranpegawai')->group(function () {
             Route::get('/', [AttendanceController::class, 'kehadiran'])->name('kelolakehadiranpegawai');
             Route::get('/cetakkehadiranpegawai', [AttendanceController::class, 'cetakkehadiran'])->name('print-kelolakehadiranpegawai');
             Route::get('/cetakkehadiranpegawai{id}', [AttendanceController::class, 'cetakkehadiranorang'])->name('print-kelolakehadiranpegawai-orang');
         });
 
         // Manage Schedules
-        Route::prefix('kelolajadwalpegawai')->group(function () {
+        Route::prefix('schedule.kelolajadwalpegawai')->group(function () {
             Route::get('/', [ScheduleController::class, 'index'])->name('kelolajadwal');
             Route::get('/tambahjadwal', [ScheduleController::class, 'create'])->name('tambahjadwal');
             Route::post('/tambahjadwal/store', [ScheduleController::class, 'store'])->name('tambahjadwalstore');
@@ -54,8 +54,10 @@ Route::middleware([AutoLogout::class])->group(function () {
         });
 
         // Manage Leave
-        Route::get('/kelolacuti', [AdminController::class, 'cuti'])->name('kelolacuti');
-        Route::get('/printkelolacuti', [AdminController::class, 'cetakcuti'])->name('print-kelolacuti');
+        Route::prefix('schedule.kelolajadwalpegawai')->group(function () {
+            Route::get('/kelolacuti', [AdminController::class, 'cuti'])->name('kelolacuti');
+            Route::get('/printkelolacuti', [AdminController::class, 'cetakcuti'])->name('print-kelolacuti');
+        });
     });
 
 
