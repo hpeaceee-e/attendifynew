@@ -67,10 +67,10 @@
                                                         </a>
                                                         <div class="dropdown-menu dropdown-menu-end">
                                                             <ul class="link-list-opt no-bdr">
-                                                                <li><a href="#"><em
+                                                                <li><a href="{{ route('admin.terimacuti') }}"><em
                                                                             class="icon ni ni-check"></em><span>Terima</span></a>
                                                                 </li>
-                                                                <li><a href="#"><em
+                                                                <li><a href="{{ route('admin.tolakcuti') }}"><em
                                                                             class="icon ni ni-na"></em><span>Tolak</span></a>
                                                                 </li>
                                                             </ul>
@@ -100,10 +100,10 @@
                                                         </a>
                                                         <div class="dropdown-menu dropdown-menu-end">
                                                             <ul class="link-list-opt no-bdr">
-                                                                <li><a href="#"><em
+                                                                <li><a href="{{ route('admin.terimacuti') }}"><em
                                                                             class="icon ni ni-check"></em><span>Terima</span></a>
                                                                 </li>
-                                                                <li><a href="#"><em
+                                                                <li><a href="{{ route('admin.tolakcuti') }}"><em
                                                                             class="icon ni ni-na"></em><span>Tolak</span></a>
                                                                 </li>
                                                             </ul>
@@ -133,10 +133,10 @@
                                                         </a>
                                                         <div class="dropdown-menu dropdown-menu-end">
                                                             <ul class="link-list-opt no-bdr">
-                                                                <li><a href="#"><em
+                                                                <li><a href="{{ route('admin.terimacuti') }}"><em
                                                                             class="icon ni ni-check"></em><span>Terima</span></a>
                                                                 </li>
-                                                                <li><a href="#"><em
+                                                                <li><a href="{{ route('admin.tolakcuti') }}"><em
                                                                             class="icon ni ni-na"></em><span>Tolak</span></a>
                                                                 </li>
                                                             </ul>

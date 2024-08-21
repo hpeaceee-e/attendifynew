@@ -54,9 +54,11 @@ Route::middleware([AutoLogout::class])->group(function () {
         });
 
         // Manage Leave
-        Route::prefix('schedule.kelolajadwalpegawai')->group(function () {
-            Route::get('/kelolacuti', [AdminController::class, 'cuti'])->name('kelolacuti');
+        Route::prefix('leave.kelolacuti')->group(function () {
+            Route::get('/', [AdminController::class, 'cuti'])->name('kelolacuti');
             Route::get('/printkelolacuti', [AdminController::class, 'cetakcuti'])->name('print-kelolacuti');
+            Route::get('/terimacuti', [AdminController::class, 'terimacuti'])->name('terimacuti');
+            Route::get('/tolakcuti', [AdminController::class, 'tolakcuti'])->name('tolakcuti');
         });
     });
 

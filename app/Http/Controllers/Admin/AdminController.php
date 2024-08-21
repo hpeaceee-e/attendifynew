@@ -36,4 +36,15 @@ class AdminController extends Controller
         // Menampilkan view dengan data pegawai
         return view('pages.admin.leave.printkelolacuti', compact('data', 'cuti'));
     }
+
+    public function terimacuti()
+    {
+        return view('pages.admin.leave.terimacuti');
+    }
+
+
+    public function tolakcuti()
+    {
+        return view('pages.admin.leave.tolakcuti');
+    }
 }
