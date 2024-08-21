@@ -1,7 +1,7 @@
 <div class="nk-sidebar nk-sidebar-fixed " data-content="sidebarMenu" style="background-color: #ffffff;">
     <div class="nk-sidebar-element nk-sidebar-head">
         <div class="nk-sidebar-brand">
-            <a href="{{ route('admin.pages.admin.dashboard') }}" class="logo-link nk-sidebar-logo">
+            <a href="{{ route('pegawai.pages.pegawai.dashboard') }}" class="logo-link nk-sidebar-logo">
                 <img class="logo-light logo-img" src="{{ asset('demo5/src/images/logo.png') }}"
                     srcset="{{ asset('demo5/src/images/logo2x.png') }} 2x" alt="logo">
                 <img class="logo-dark logo-img" src="{{ asset('demo5/src/images/logo-dark.png') }}"
