@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Models\Attendance;
+
 use Illuminate\Support\Facades\Auth;
 
 class AttendanceController extends Controller
@@ -66,5 +67,18 @@ class AttendanceController extends Controller
 
         // Tampilkan tampilan print
         return view('pages.pegawai.attendance.print', compact('attendance', 'latitude', 'longitude'));
+    }
+
+    public function cetakkehadiranorang($id)
+    {
+        $attendance = Attendance::findOrFail($id);
+
+        // Mengolah string coordinate menjadi array
+        $coordinates = explode(',', $attendance->coordinate);
+        $latitude = $coordinates[0] ?? null;
+        $longitude = $coordinates[1] ?? null;
+
+        // Tampilkan tampilan print
+        return view('pages.admin.printkehadiran-orang', compact('attendance', 'latitude', 'longitude'));
     }
 }

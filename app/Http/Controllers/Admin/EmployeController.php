@@ -100,7 +100,7 @@ class EmployeController extends Controller
 
     public function cetakpegawai()
     {
-        $data = User::with('roles', 'schedules')->get();
+        $data = User::with('role', 'schedule')->get();
 
         // Menampilkan view dengan data pegawai
         return view('pages.admin.printkelolapegawai', compact('data'));

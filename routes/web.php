@@ -41,6 +41,7 @@ Route::middleware([AutoLogout::class])->group(function () {
         Route::prefix('kelolakehadiranpegawai')->group(function () {
             Route::get('/', [AttendanceController::class, 'kehadiran'])->name('kelolakehadiranpegawai');
             Route::get('/cetakkehadiranpegawai', [AttendanceController::class, 'cetakkehadiran'])->name('print-kelolakehadiranpegawai');
+            Route::get('/cetakkehadiranpegawai{id}', [AttendanceController::class, 'cetakkehadiranorang'])->name('print-kelolakehadiranpegawai-orang');
         });
 
         // Manage Schedules

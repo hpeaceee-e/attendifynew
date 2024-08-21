@@ -89,6 +89,10 @@
                                                                     <li><a href="#"><em
                                                                                 class="icon ni ni-na"></em><span>Hapus</span></a>
                                                                     </li>
+                                                                    <li><a
+                                                                            href="{{ route('admin.print-kelolakehadiranpegawai-orang', ['id' => $attendance->id]) }}"><em
+                                                                                class="icon ni ni-print"></em><span>Cetak</span></a>
+                                                                    </li>
                                                                 </ul>
                                                             </div>
                                                         </div>
