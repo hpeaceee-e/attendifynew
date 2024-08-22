@@ -17,4 +17,12 @@ class UserControllers1 extends Controller
         $attendances = Attendance::all();
         return view('pages.pegawai.dashboard', compact('data', 'cuti', 'attendances'));
     }
+
+    public function profil()
+    {
+        // Mengambil data pegawai dari database
+        $data = User::with('role', 'schedule')->get();
+
+        return view('pages.pegawai.profil.contohdetailprofil', compact('data'));
+    }
 }
