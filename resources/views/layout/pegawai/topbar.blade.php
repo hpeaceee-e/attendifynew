@@ -55,7 +55,7 @@
                                 </div>
                                 <div class="dropdown-inner">
                                     <ul class="link-list">
-                                        <li><a href="{{ route('pegawai.profil') }}"><em
+                                        <li><a href="{{ route('pegawai.profilakun') }}"><em
                                                     class="icon ni ni-account-setting-alt"></em><span>Informasi
                                                     Akun</span></a></li>
                                         <li><a href="html/user-profile-activity.html"><em

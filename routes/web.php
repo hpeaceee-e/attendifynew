@@ -83,7 +83,9 @@ Route::middleware([AutoLogout::class])->group(function () {
             Route::get('/', [IzinController::class, 'index'])->name('izin');
         });
         Route::prefix('profil')->group(function () {
-            Route::get('/', [UserControllers1::class, 'profil'])->name('profil');
+            Route::get('/akun', [UserControllers1::class, 'profilakun'])->name('profilakun');
+            Route::get('/biodata', [UserControllers1::class, 'profilbiodata'])->name('profilbiodata');
+            Route::get('/identitas', [UserControllers1::class, 'profilidentitas'])->name('profilidentitas');
         });
     });
 });

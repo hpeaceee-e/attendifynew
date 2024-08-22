@@ -18,11 +18,27 @@ class UserControllers1 extends Controller
         return view('pages.pegawai.dashboard', compact('data', 'cuti', 'attendances'));
     }
 
-    public function profil()
+    public function profilakun()
     {
         // Mengambil data pegawai dari database
         $data = User::with('role', 'schedule')->get();
 
-        return view('pages.pegawai.profil.contohdetailprofil', compact('data'));
+        return view('pages.pegawai.profil.profilakun', compact('data'));
+    }
+
+    public function profilbiodata()
+    {
+        // Mengambil data pegawai dari database
+        $data = User::with('role', 'schedule')->get();
+
+        return view('pages.pegawai.profil.profilbiodata', compact('data'));
+    }
+
+    public function profilidentitas()
+    {
+        // Mengambil data pegawai dari database
+        $data = User::with('role', 'schedule')->get();
+
+        return view('pages.pegawai.profil.profilidentitas', compact('data'));
     }
 }

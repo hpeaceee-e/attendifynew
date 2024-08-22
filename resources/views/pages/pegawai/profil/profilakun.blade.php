@@ -2,7 +2,7 @@
 @section('title')
     Informasi Akun
 @endsection
-@section('content')
+@section('content-pegawai')
     <div class="nk-content nk-content-fluid">
         <div class="container-xl wide-lg">
             <div class="nk-content-body">
@@ -35,15 +35,18 @@
                                         <!-- Tab Navigation -->
                                         <ul class="nav nav-tabs">
                                             <li class="nav-item">
-                                                <a class="nav-link active" data-toggle="tab" href="#account-info">
-                                                    <em class="icon ni ni-account-setting"></em>
+                                                <a class="nav-link active" data-toggle="tab"
+                                                    href="{{ route('pegawai.profilakun') }}">
+                                                    Akun
                                                 </a>
                                             </li>
                                             <li class="nav-item">
-                                                <a class="nav-link" data-toggle="tab" href="#biodata-info">Biodata</a>
+                                                <a class="nav-link" data-toggle="tab"
+                                                    href="{{ route('pegawai.profilbiodata') }}">Biodata</a>
                                             </li>
                                             <li class="nav-item">
-                                                <a class="nav-link" data-toggle="tab" href="#identity-info">Identitas</a>
+                                                <a class="nav-link" data-toggle="tab"
+                                                    href="{{ route('pegawai.profilidentitas') }}">Identitas</a>
                                             </li>
                                             <!-- Add other tabs as necessary -->
                                         </ul>
