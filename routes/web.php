@@ -57,8 +57,8 @@ Route::middleware([AutoLogout::class])->group(function () {
 });
 
 
-Route::get('/import', [ImportexcelController::class,'index']);
-Route::post('/import/excel', [ImportexcelController::class,'post'])->name('post-excel');
+    Route::get('/import', [ImportexcelController::class,'index']);
+    Route::post('/import/excel', [ImportexcelController::class,'post'])->name('post-excel');
 
     Route::group(['prefix' => 'pegawai', 'middleware' => ['pegawai'], 'as' => 'pegawai.'], function () {
 
