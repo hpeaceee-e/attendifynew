@@ -25,7 +25,7 @@ class AdminController extends Controller
         $cuti = Leave::all();  // Gunakan Leave::all() alih-alih Leave::get()
 
         // Menampilkan view dengan data pegawai
-        return view('pages.admin.kelolacuti', compact('data', 'cuti'));
+        return view('pages.admin.leave.kelolacuti', compact('data', 'cuti'));
     }
 
     public function cetakcuti()
@@ -34,6 +34,17 @@ class AdminController extends Controller
         $cuti = Leave::all();  // Gunakan Leave::all() alih-alih Leave::get()
 
         // Menampilkan view dengan data pegawai
-        return view('pages.admin.printkelolacuti', compact('data', 'cuti'));
+        return view('pages.admin.leave.printkelolacuti', compact('data', 'cuti'));
+    }
+
+    public function terimacuti()
+    {
+        return view('pages.admin.leave.terimacuti');
+    }
+
+
+    public function tolakcuti()
+    {
+        return view('pages.admin.leave.tolakcuti');
     }
 }

@@ -10,7 +10,7 @@ class LeaveController extends Controller
     public function index()
     {
         $leaves = Schedule::get();
-        return view('pages.admin.kelolajadwalpegawai', compact('leaves'));
+        return view('pages.admin.leave.kelolajadwalpegawai', compact('leaves'));
     }
     public function store(Request $request)
     {

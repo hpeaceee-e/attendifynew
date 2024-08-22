@@ -14,6 +14,7 @@ class UserControllers1 extends Controller
         // Mengambil data pegawai dari database
         $data = User::with('role', 'schedule')->get();
         $cuti = Leave::all();  // Gunakan Leave::all() alih-alih Leave::get()
-        return view('pages.pegawai.dashboard', compact('data','cuti'));
+        $attendances = Attendance::all();
+        return view('pages.pegawai.dashboard', compact('data', 'cuti', 'attendances'));
     }
 }

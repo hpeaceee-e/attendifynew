@@ -54,7 +54,7 @@
                                         </div>
                                         <div class="form-control-wrap">
                                             <input type="text" name="username" class="form-control form-control-lg"
-                                                id="username" placeholder="Enter your email address or username">
+                                                id="username" placeholder="Masukkan username atau email anda">
                                         </div>
                                     </div>
                                     @error('username')
@@ -70,10 +70,11 @@
                                             <a href="#" class="form-icon form-icon-right passcode-switch lg"
                                                 data-target="password">
                                                 <em class="passcode-icon icon-show icon ni ni-eye"></em>
-                                                <em class="passcode-icon icon-hide icon ni ni-eye-off"></em>
+                                                <em class="passcode-icon icon-hide icon ni ni-eye-off"
+                                                    style="display:none;"></em>
                                             </a>
                                             <input type="password" name="password"class="form-control form-control-lg"
-                                                id="password" placeholder="Enter your passcode">
+                                                id="password" placeholder="Masukkan password anda">
                                         </div>
                                     </div>
                                     @error('password')
@@ -104,7 +105,27 @@
     <!-- JavaScript -->
     <script src="./assets/js/bundle.js?ver=3.0.3"></script>
     <script src="./assets/js/scripts.js?ver=3.0.3"></script>
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            const togglePassword = document.querySelector('.passcode-switch');
+            const passwordInput = document.getElementById('password');
+            const iconShow = togglePassword.querySelector('.icon-show');
+            const iconHide = togglePassword.querySelector('.icon-hide');
 
+            togglePassword.addEventListener('click', function(e) {
+                e.preventDefault();
+                if (passwordInput.type === 'password') {
+                    passwordInput.type = 'text';
+                    iconShow.style.display = 'none';
+                    iconHide.style.display = 'block';
+                } else {
+                    passwordInput.type = 'password';
+                    iconShow.style.display = 'block';
+                    iconHide.style.display = 'none';
+                }
+            });
+        });
+    </script>
     <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11/dist/sweetalert2.min.js"></script>
     @if ($message = Session::get('succes'))
         <script>

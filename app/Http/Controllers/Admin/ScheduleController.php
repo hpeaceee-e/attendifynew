@@ -11,12 +11,12 @@ class ScheduleController extends Controller
     public function index()
     {
         $schedules = Schedule::get();
-        return view('pages.admin.kelolajadwalpegawai', compact('schedules'));
+        return view('pages.admin.schedule.kelolajadwalpegawai', compact('schedules'));
     }
 
     public function create()
     {
-        return view('pages.admin.tambahjadwal'); // Pastikan Anda menyesuaikan dengan nama view yang tepat
+        return view('pages.admin.schedule.tambahjadwal'); // Pastikan Anda menyesuaikan dengan nama view yang tepat
     }
 
     public function store(Request $request)
@@ -48,7 +48,7 @@ class ScheduleController extends Controller
     {
         $schedules = Schedule::find($id);
 
-        return view('pages.admin.editjadwal', compact('schedules'));
+        return view('pages.admin.schedule.editjadwal', compact('schedules'));
     }
 
     public function update(Request $request, $id)

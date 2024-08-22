@@ -6,24 +6,24 @@
                             class="icon ni ni-menu"></em></a>
                 </div>
                 <div class="nk-header-brand d-xl-none">
-                    <a href="{{route('admin.pages.admin.dashboard')}}" class="logo-link">
+                    <a href="{{ route('admin.pages.admin.dashboard') }}" class="logo-link">
                         <img class="logo-light logo-img" src="{{ asset('demo5/src/images/logo.png') }}"
                             srcset="{{ asset('demo5/src/images/logo2x.png') }} 2x" alt="logo">
-                        <p style="margin-top:-2rem" class="text-left text-allign-center"><b>PT. PRATAMA SOLUSI TEKNOLOGI</b></p>
+                        <p style="margin-top:-2rem" class="text-left text-allign-center"><b>SISTEM KEHADIRAN PEGAWAI</b>
+                        </p>
                     </a>
                 </div><!-- .nk-header-brand -->
                 <div class="nk-header-news d-none d-xl-block">
                     <div class="nk-news-list">
-                        <a class="nk-news-item" href="#">
-                            <div class="nk-header-search ms-3 ms-xl-0">
-                                <em class="icon ni ni-search"></em>
-                                <input type="text" id="search" value=""
-                                    class="form-control border-transparent form-focus-none"
-                                    placeholder="Cari pekerjaan">
-                            </div>
-                        </a>
+                        <div class="nk-header-search ms-3 ms-xl-0" style="display: flex; align-items: center;">
+                            <em class="icon ni ni-search" style="margin-right: 10px;"></em>
+                            <input type="text" id="search" value=""
+                                class="form-control border-transparent form-focus-none" placeholder="Cari pekerjaan"
+                                style="width: 300px; max-width: 100%;">
+                        </div>
                     </div>
                 </div><!-- .nk-header-news -->
+
 
                 <div class="nk-header-tools">
                     <ul class="nk-quick-nav">
@@ -37,7 +37,7 @@
                                         <em class="icon ni ni-user-alt"></em>
                                     </div>
                                     <div class="user-info d-none d-md-block">
-                                        <div class="user-status">Administrator</div>
+                                        <div class="user-status">Admin</div>
                                         <div class="user-name dropdown-indicator">{{ auth()->user()->name }}</div>
                                     </div>
                                 </div>
@@ -46,7 +46,7 @@
                                 <div class="dropdown-inner user-card-wrap bg-lighter d-none d-md-block">
                                     <div class="user-card">
                                         <div class="user-avatar">
-                                            <span>AB</span>
+                                            <span>{{ auth()->user()->avatar }}</span>
                                         </div>
                                         <div class="user-info">
                                             <span class="lead-text">{{ auth()->user()->name }}</span>

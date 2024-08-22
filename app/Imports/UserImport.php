@@ -8,8 +8,8 @@ use Maatwebsite\Excel\Concerns\ToCollection;
 class UserImport implements ToCollection
 {
     /**
-    * @param Collection $collection
-    */
+     * @param Collection $collection
+     */
     public function collection(Collection $collection)
     {
         dd($collection);

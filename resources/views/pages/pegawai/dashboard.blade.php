@@ -6,75 +6,6 @@
     <div class="nk-content nk-content-fluid">
         <div class="container-xl wide-lg">
             <div class="nk-content-body">
-                {{-- UNTUK MENAMPILKAN BAHWA DISINI SUDAH LOGIN TAMPILAN ADMIN --}}
-                DASHBOARD USER
-                {{-- <div class="nk-block">
-                    <div class="row g-gs">
-                        <div class="col-xl-4 col-md-6">
-                            <div class="card card-bordered card-full">
-                                <div class="card-inner">
-                                    <div class="card-title-group align-start mb-3">
-                                        <div class="card-title">
-                                            <h6 class="title">Total Pegawai</h6>
-                                        </div>
-                                    </div>
-                                    <div class="user-activity-group g-4">
-                                        <div class="user-activity">
-                                            <em class="icon ni ni-users"></em>
-                                            <div class="info">
-                                                <span class="amount">{{ count($data) }}</span>
-                                                <span class="title">Direct Join</span>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div><!-- .card -->
-                        </div><!-- .col -->
-
-                        <div class="col-xl-4 col-md-6">
-                            <div class="card card-bordered card-full">
-                                <div class="card-inner">
-                                    <div class="card-title-group align-start mb-3">
-                                        <div class="card-title">
-                                            <h6 class="title">Total Cuti dan Izin</h6>
-                                        </div>
-                                    </div>
-                                    <div class="user-activity-group g-4">
-                                        <div class="user-activity">
-                                            <em class="icon ni ni-calendar-alt"></em>
-                                            <div class="info">
-                                                <span class="amount">{{ count($cuti) }}</span>
-                                                <span class="title">Pegawai yang melakukan Cuti/Izin</span>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div><!-- .card -->
-                        </div><!-- .col -->
-
-                        <div class="col-xl-4 col-md-6">
-                            <div class="card card-bordered card-full">
-                                <div class="card-inner">
-                                    <div class="card-title-group align-start mb-3">
-                                        <div class="card-title">
-                                            <h6 class="title">Total Izin</h6>
-                                        </div>
-                                    </div>
-                                    <div class="user-activity-group g-4">
-                                        <div class="user-activity">
-                                            <em class="icon ni ni-users"></em>
-                                            <div class="info">
-                                                <span class="amount">345</span>
-                                                <span class="title">Direct Join</span>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div><!-- .card -->
-                        </div><!-- .col -->
-                    </div><!-- .row -->
-                </div><!-- .nk-block -->
-            </div> --}}
                 <div class="nk-content p-0">
                     <div class="nk-content-inner">
                         <div class="nk-content-body p-0">
@@ -102,3 +33,47 @@
             </div>
         </div>
     @endsection
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            var calendarEl = document.getElementById('calendar');
+            var calendar = new FullCalendar.Calendar(calendarEl, {
+                initialView: 'dayGridMonth',
+                events: @json(
+                    $attendances->map(function ($att) {
+                        return [
+                            'title' => ucfirst($att->status == 0 ? 'Masuk' : 'Pulang'),
+                            'start' => $att->date,
+                        ];
+                    })),
+            });
+            calendar.render();
+        });
+
+        function printAttendance(id) {
+            var attendance = @json($attendances->keyBy('id'));
+            var data = attendance[id];
+
+            var printContent = `
+                <h2>Detail Kehadiran</h2>
+                <p><strong>Tanggal:</strong> ${data.date}</p>
+                <p><strong>Waktu:</strong> ${data.time}</p>
+                <p><strong>Status:</strong> ${data.status == 0 ? 'Masuk' : 'Pulang'}</p>
+                <p><strong>Latitude:</strong> ${data.latitude}</p>
+                <p><strong>Longitude:</strong> ${data.longitude}</p>
+                <p><strong>Koordinat:</strong> ${data.coordinate}</p>
+                <div id="mapPrint" style="height: 300px;"></div>
+            `;
+
+            document.getElementById('printContent').innerHTML = printContent;
+            document.getElementById('printModal').style.display = 'block';
+
+            var map = L.map('mapPrint').setView([data.latitude, data.longitude], 13);
+            L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
+                maxZoom: 18,
+            }).addTo(map);
+            L.marker([data.latitude, data.longitude]).addTo(map);
+
+            window.print();
+            document.getElementById('printModal').style.display = 'none';
+        }
+    </script>

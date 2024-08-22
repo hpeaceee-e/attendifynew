@@ -59,7 +59,14 @@
                                                 {{-- <td>{{ $d->role }}</td> --}}
                                                 <td>{{ $d->email }}</td>
                                                 <td>{{ $d->created_at->format('d M Y') }}</td>
-                                                <td>{{ $d->schedule }}</td>
+                                                <td>
+                                                    @if (is_object($d->schedule))
+                                                        {{ $d->schedule->clock_in->format('H:i') }} -
+                                                        {{ $d->schedule->clock_out->format('H:i') }}
+                                                    @else
+                                                        No Schedule
+                                                    @endif
+                                                </td>
                                                 <td>
                                                     <div class="user-card">
                                                         <div class="user-avatar">

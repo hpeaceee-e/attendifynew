@@ -1,7 +1,7 @@
 <div class="nk-sidebar nk-sidebar-fixed " data-content="sidebarMenu" style="background-color: #ffffff;">
     <div class="nk-sidebar-element nk-sidebar-head">
         <div class="nk-sidebar-brand">
-            <a href="{{ route('admin.pages.admin.dashboard') }}" class="logo-link nk-sidebar-logo">
+            <a href="{{ route('pegawai.pages.pegawai.dashboard') }}" class="logo-link nk-sidebar-logo">
                 <img class="logo-light logo-img" src="{{ asset('demo5/src/images/logo.png') }}"
                     srcset="{{ asset('demo5/src/images/logo2x.png') }} 2x" alt="logo">
                 <img class="logo-dark logo-img" src="{{ asset('demo5/src/images/logo-dark.png') }}"
@@ -19,10 +19,10 @@
                 <div class="nk-sidebar-menu">
                     <ul class="nk-menu">
                         <li class="nk-menu-heading">
-                            <h6 class="overline-title text-primary-alt">Hallo  {{ auth()->user()->name }}</h6>
+                            <h6 class="overline-title text-primary-alt">Hallo {{ auth()->user()->name }}</h6>
                         </li><!-- .nk-menu-item -->
                         <li class="nk-menu-item">
-                            <a href="{{ route('admin.pages.admin.dashboard') }}" class="nk-menu-link">
+                            <a href="{{ route('pegawai.pages.pegawai.dashboard') }}" class="nk-menu-link">
                                 <span class="nk-menu-icon"><em class="icon ni ni-home"></em></span>
                                 <span class="nk-menu-text">Dashboard</span>
                             </a>
@@ -33,21 +33,21 @@
                         </li><!-- .nk-menu-heading -->
                         <li class="nk-menu-item">
                             <a href="{{ route('pegawai.attendance') }}" class="nk-menu-link">
-                                <span class="nk-menu-icon"><em class="icon ni ni-users"></em></span>
+                                <span class="nk-menu-icon"><em class="icon ni ni-calendar-check"></em></span>
                                 <span class="nk-menu-text">Absensi</span>
                             </a>
                         </li><!-- .nk-menu-item -->
                         <li class="nk-menu-item">
                             <a href="{{ route('pegawai.leaves') }}" class="nk-menu-link">
-                                <span class="nk-menu-icon"><em class="icon ni ni-calendar-check"></em></span>
-                                <span class="nk-menu-text">pengajuan Cuti</span>
+                                <span class="nk-menu-icon"><em class="icon ni ni-calendar-alt"></em></span>
+                                <span class="nk-menu-text">Pengajuan Cuti</span>
                             </a>
-                        <li class="nk-menu-item">
+                            {{-- <li class="nk-menu-item">
                             <a href="{{ route('pegawai.izin') }}" class="nk-menu-link">
                                 <span class="nk-menu-icon"><em class="icon ni ni-calendar"></em></span>
                                 <span class="nk-menu-text">Pengajuan Izin</span>
                             </a>
-                        </li><!-- .nk-menu-item -->
+                        </li><!-- .nk-menu-item --> --}}
                 </div><!-- .nk-sidebar-menu -->
                 {{-- <div class="nk-sidebar-footer">
                     <ul class="nk-menu nk-menu-footer">

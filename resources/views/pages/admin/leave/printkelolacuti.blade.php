@@ -11,7 +11,7 @@
     <!-- Fav Icon  -->
     <link rel="shortcut icon" href="./images/favicon.png">
     <!-- Page Title  -->
-    <title>Kehadiran Pegawai</title>
+    <title>Cetak Kelola Cuti </title>
     <!-- StyleSheets  -->
     <link rel="stylesheet" href="{{ asset('demo5/src/assets/css/dashlite.css?ver=3.0.3') }}">
     <link id="skin-default" rel="stylesheet" href="{{ asset('demo5/src/assets/css/theme.css?ver=3.0.3') }}">
@@ -27,22 +27,15 @@
                 </div>
                 <div class="invoice-head">
                     <div class="invoice-contact">
-                        <span class="overline-title">Invoice To</span>
+                        <span class="overline-title">Report</span>
                         <div class="invoice-contact-info">
-                            <h4 class="title">Gregory Anderson</h4>
-                            <ul class="list-plain">
+                            <h4 class="title">Kelola Cuti & Izin Pegawai</h4>
+                            {{-- <ul class="list-plain">
                                 <li><em class="icon ni ni-map-pin-fill fs-18px"></em><span>House #65, 4328 Marion
                                         Street<br>Newbury, VT 05051</span></li>
                                 <li><em class="icon ni ni-call-fill fs-14px"></em><span>+012 8764 556</span></li>
-                            </ul>
+                            </ul> --}}
                         </div>
-                    </div>
-                    <div class="invoice-desc">
-                        <h3 class="title">Invoice</h3>
-                        <ul class="list-plain">
-                            <li class="invoice-id"><span>Invoice ID</span>:<span>66K5W3</span></li>
-                            <li class="invoice-date"><span>Date</span>:<span>26 Jan, 2020</span></li>
-                        </ul>
                     </div>
                 </div><!-- .invoice-head -->
                 <div class="invoice-bills">
@@ -50,44 +43,51 @@
                         <table class="table table-striped">
                             <thead>
                                 <tr>
-                                    <th class="w-150px">Item ID</th>
-                                    <th class="w-60">Description</th>
-                                    <th>Price</th>
-                                    <th>Qty</th>
-                                    <th>Amount</th>
+                                    <th>No</th>
+                                    <th>Nama Pegawai</th>
+                                    {{-- <th>Alasan</th> --}}
+                                    <th>Tanggal Pengajuan</th>
+                                    {{-- <th>Mulai</th>
+                                    <th>Berakhir</th> --}}
+                                    <th>Alasan Verifikasi</th>
+                                    <th>Status</th>
                                 </tr>
                             </thead>
                             <tbody>
                                 <tr>
-                                    <td>24108054</td>
-                                    <td>Dashlite - Conceptual App Dashboard - Regular License</td>
-                                    <td>$40.00</td>
-                                    <td>5</td>
-                                    <td>$200.00</td>
+                                    <td>1</td>
+                                    <td>Hafizh Alfaris</td>
+                                    {{-- <td>Cuti Menikah</td> --}}
+                                    <td>13 Aug 2024</td>
+                                    {{-- <td>13 Aug 2024</td>
+                                    <td>17 Aug 2024</td> --}}
+                                    <td>
+                                        {{-- Sakinah Mawadah Warahmah ya atas pernikahannya --}}-
+                                    </td>
+                                    <td><span class="badge bg-success">Izin Cuti Diterima</span></td>
                                 </tr>
                                 <tr>
-                                    <td>24108054</td>
-                                    <td>6 months premium support</td>
-                                    <td>$25.00</td>
-                                    <td>1</td>
-                                    <td>$25.00</td>
+                                    <td>2</td>
+                                    <td>Hilmi Ramdani</td>
+                                    {{-- <td>Izin Liburan</td> --}}
+                                    <td>15 Aug 2024</td>
+                                    {{-- <td>15 Aug 2024</td>
+                                    <td>20 Aug 2024</td> --}}
+                                    <td>Kerja dulu dong</td>
+                                    <td><span class="badge bg-danger">Izin Cuti Ditolak</span></td>
                                 </tr>
                                 <tr>
-                                    <td>23604094</td>
-                                    <td>Invest Management Dashboard - Regular License</td>
-                                    <td>$131.25</td>
-                                    <td>1</td>
-                                    <td>$131.25</td>
-                                </tr>
-                                <tr>
-                                    <td>23604094</td>
-                                    <td>6 months premium support</td>
-                                    <td>$78.75</td>
-                                    <td>1</td>
-                                    <td>$78.75</td>
+                                    <td>2</td>
+                                    <td>Rafly</td>
+                                    {{-- <td>Izin Liburan</td> --}}
+                                    <td>21 Aug 2024</td>
+                                    {{-- <td>15 Aug 2024</td>
+                                    <td>20 Aug 2024</td> --}}
+                                    <td>-</td>
+                                    <td><span class="badge bg-danger">Menunggu Persetujuan</span></td>
                                 </tr>
                             </tbody>
-                            <tfoot>
+                            {{-- <tfoot>
                                 <tr>
                                     <td colspan="2"></td>
                                     <td colspan="2">Subtotal</td>
@@ -108,7 +108,7 @@
                                     <td colspan="2">Grand Total</td>
                                     <td>$478.50</td>
                                 </tr>
-                            </tfoot>
+                            </tfoot> --}}
                         </table>
                     </div>
                 </div><!-- .invoice-bills -->

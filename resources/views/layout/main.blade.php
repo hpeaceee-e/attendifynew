@@ -9,7 +9,7 @@
     <meta name="description"
         content="A powerful and conceptual apps base dashboard template that especially build for developers and programmers.">
     <!-- Fav Icon  -->
-    <link rel="shortcut icon" href="{{ asset('demo5/src/images/favicon.png') }}">
+    <link rel="shortcut icon" href="{{ asset('demo5/src/images/logokehadiarn.png') }}">
     <!-- Page Title  -->
     <title>@yield('title')</title>
     <!-- StyleSheets  -->
@@ -28,6 +28,22 @@
             calendar.render();
         });
     </script>
+
+    <style>
+        .logo-container {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100px;
+            /* Sesuaikan tinggi jika diperlukan */
+        }
+
+        .logo-img {
+            max-width: 150px;
+            /* Sesuaikan ukuran maksimal logo */
+            height: auto;
+        }
+    </style>
 
 </head>
 

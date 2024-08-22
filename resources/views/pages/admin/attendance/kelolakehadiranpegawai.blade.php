@@ -51,8 +51,8 @@
                                     @foreach ($attendances as $attendance)
                                         <tr>
                                             <td>{{ $loop->iteration }}</td>
-                                            <td>{{ $attendance->enhancer }}</td>
-                                            <td>{{ $attendance->date }}</td>
+                                            <td>{{ $attendance->user->name }}</td>
+                                            <td>{{ \Carbon\Carbon::parse($attendance->date)->format('d M Y') }}</td>
                                             {{-- <td>{{ \Carbon\Carbon::parse($attendance->time)->format('H:i') }}</td> --}}
                                             <td>
                                                 @if ($attendance->status == 0)
@@ -88,6 +88,10 @@
                                                                     </li>
                                                                     <li><a href="#"><em
                                                                                 class="icon ni ni-na"></em><span>Hapus</span></a>
+                                                                    </li>
+                                                                    <li><a
+                                                                            href="{{ route('admin.print-kelolakehadiranpegawai-orang', ['id' => $attendance->id]) }}"><em
+                                                                                class="icon ni ni-print"></em><span>Cetak</span></a>
                                                                     </li>
                                                                 </ul>
                                                             </div>

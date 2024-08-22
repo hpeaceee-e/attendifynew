@@ -4,24 +4,25 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Models\Attendance;
+
 use Illuminate\Support\Facades\Auth;
 
 class AttendanceController extends Controller
 {
     public function kehadiran()
     {
-        $attendances = Attendance::get();
+        // $attendances = Attendance::get();
 
         $attendances = Attendance::with('user')->get();
 
-        return view('pages.admin.kelolakehadiranpegawai', compact('attendances'));
+        return view('pages.admin.attendance.kelolakehadiranpegawai', compact('attendances'));
     }
 
     public function cetakkehadiran()
     {
         $attendance = Attendance::all();
 
-        return view('pages.admin.printkehadiranpegawai', compact('attendance'));
+        return view('pages.admin.attendance.printkehadiranpegawai', compact('attendance'));
     }
     // Tampilkan daftar kehadiran
     public function index()
@@ -66,5 +67,18 @@ class AttendanceController extends Controller
 
         // Tampilkan tampilan print
         return view('pages.pegawai.attendance.print', compact('attendance', 'latitude', 'longitude'));
+    }
+
+    public function cetakkehadiranorang($id)
+    {
+        $attendance = Attendance::findOrFail($id);
+
+        // Mengolah string coordinate menjadi array
+        $coordinates = explode(',', $attendance->coordinate);
+        $latitude = $coordinates[0] ?? null;
+        $longitude = $coordinates[1] ?? null;
+
+        // Tampilkan tampilan print
+        return view('pages.admin.attendance.printkehadiran-orang', compact('attendance', 'latitude', 'longitude'));
     }
 }

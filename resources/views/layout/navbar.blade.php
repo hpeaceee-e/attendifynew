@@ -7,11 +7,18 @@
                 <img class="logo-dark logo-img" src="{{ asset('demo5/src/images/logo-dark.png') }}"
                     srcset="{{ asset('demo5/src/images/logo-dark2x.png') }} 2x" alt="logo-dark">
             </a>
+            </a>
         </div>
         <div class="nk-menu-trigger me-n2">
-            <a href="#" class="nk-nav-toggle nk-quick-nav-icon d-xl-none" data-target="sidebarMenu"><em
-                    class="icon ni ni-arrow-left"></em></a>
+            <a href="#" class="nk-nav-toggle nk-quick-nav-icon d-xl-none" data-target="sidebarMenu">
+                <em class="icon ni ni-arrow-left"></em>
+            </a>
+            <a href="#" class="nk-nav-compact nk-quick-nav-icon d-none d-xl-inline-flex"
+                data-target="sidebarMenu">
+                <em class="icon ni ni-menu"></em>
+            </a>
         </div>
+
     </div><!-- .nk-sidebar-element -->
     <div class="nk-sidebar-element">
         <div class="nk-sidebar-body" data-simplebar>

@@ -11,7 +11,7 @@
     <!-- Fav Icon  -->
     <link rel="shortcut icon" href="./images/favicon.png">
     <!-- Page Title  -->
-    <title>Kelola Cuti Pegawai</title>
+    <title>Kelola Pegawai</title>
     <!-- StyleSheets  -->
     <link rel="stylesheet" href="{{ asset('demo5/src/assets/css/dashlite.css?ver=3.0.3') }}">
     <link id="skin-default" rel="stylesheet" href="{{ asset('demo5/src/assets/css/theme.css?ver=3.0.3') }}">
@@ -27,22 +27,15 @@
                 </div>
                 <div class="invoice-head">
                     <div class="invoice-contact">
-                        <span class="overline-title">Invoice To</span>
+                        <span class="overline-title">Report</span>
                         <div class="invoice-contact-info">
-                            <h4 class="title">Gregory Anderson</h4>
-                            <ul class="list-plain">
+                            <h4 class="title">Kelola Data Pegawai</h4>
+                            {{-- <ul class="list-plain">
                                 <li><em class="icon ni ni-map-pin-fill fs-18px"></em><span>House #65, 4328 Marion
                                         Street<br>Newbury, VT 05051</span></li>
                                 <li><em class="icon ni ni-call-fill fs-14px"></em><span>+012 8764 556</span></li>
-                            </ul>
+                            </ul> --}}
                         </div>
-                    </div>
-                    <div class="invoice-desc">
-                        <h3 class="title">Invoice</h3>
-                        <ul class="list-plain">
-                            <li class="invoice-id"><span>Invoice ID</span>:<span>66K5W3</span></li>
-                            <li class="invoice-date"><span>Date</span>:<span>26 Jan, 2020</span></li>
-                        </ul>
                     </div>
                 </div><!-- .invoice-head -->
                 <div class="invoice-bills">
@@ -50,44 +43,43 @@
                         <table class="table table-striped">
                             <thead>
                                 <tr>
-                                    <th class="w-150px">Item ID</th>
-                                    <th class="w-60">Description</th>
-                                    <th>Price</th>
-                                    <th>Qty</th>
-                                    <th>Amount</th>
+                                    <th>Username</th>
+                                    <th>Nama Pegawai</th>
+                                    <th>Email</th>
+                                    {{-- <th>Password</th> --}}
+                                    <th>Role</th>
+                                    <th>Tanggal Verifikasi</th>
+                                    <th>Jadwal</th>
+                                    <th>Avatar</th>
+                                    <th>Status</th>
                                 </tr>
                             </thead>
                             <tbody>
-                                <tr>
-                                    <td>24108054</td>
-                                    <td>Dashlite - Conceptual App Dashboard - Regular License</td>
-                                    <td>$40.00</td>
-                                    <td>5</td>
-                                    <td>$200.00</td>
-                                </tr>
-                                <tr>
-                                    <td>24108054</td>
-                                    <td>6 months premium support</td>
-                                    <td>$25.00</td>
-                                    <td>1</td>
-                                    <td>$25.00</td>
-                                </tr>
-                                <tr>
-                                    <td>23604094</td>
-                                    <td>Invest Management Dashboard - Regular License</td>
-                                    <td>$131.25</td>
-                                    <td>1</td>
-                                    <td>$131.25</td>
-                                </tr>
-                                <tr>
-                                    <td>23604094</td>
-                                    <td>6 months premium support</td>
-                                    <td>$78.75</td>
-                                    <td>1</td>
-                                    <td>$78.75</td>
-                                </tr>
+                                @foreach ($data as $d)
+                                    <tr>
+                                        <td>{{ $d->username }}</td>
+                                        <td>{{ $d->name }}</td>
+                                        <td>{{ $d->email }}</td>
+                                        {{-- <td>{{ $d->password }}</td> --}}
+                                        <td>{{ $d->role }}</td>
+                                        <td>{{ $d->created_at->format('d M Y') }}</td>
+                                        <td>{{ $d->schedule }}</td>
+                                        <td>
+                                            <div class="user-card">
+                                                <div class="user-avatar">
+                                                    <img src="{{ asset('storage/' . $d->avatar) }}" alt="Avatar">
+                                                </div>
+                                            </div>
+                                        </td>
+                                        <td>
+                                            <span class="badge  {{ $d->status == 0 ? 'bg-success' : 'bg-danger' }}">
+                                                {{ $d->status == 0 ? 'Aktif' : 'Tidak Aktif' }}
+                                            </span>
+                                        </td>
+                                    </tr>
                             </tbody>
-                            <tfoot>
+                            @endforeach
+                            {{-- <tfoot>
                                 <tr>
                                     <td colspan="2"></td>
                                     <td colspan="2">Subtotal</td>
@@ -108,7 +100,7 @@
                                     <td colspan="2">Grand Total</td>
                                     <td>$478.50</td>
                                 </tr>
-                            </tfoot>
+                            </tfoot> --}}
                         </table>
                     </div>
                 </div><!-- .invoice-bills -->
