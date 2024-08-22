@@ -10,7 +10,7 @@
                     <div class="nk-block-head nk-block-head-lg wide-sm">
                         <div class="nk-block-head-content">
                             <div class="nk-block-head-sub"><a class="back-to" href="{{ route('admin.kelolajadwal') }}"><em
-                                        class="icon ni ni-arrow-left"></em><span>Back</span></a></div>
+                                        class="icon ni ni-chevron-left-circle-fill"></em><span>Back</span></a></div>
                             <h2 class="nk-block-title fw-normal">Tambah Jadwal Pegawai</h2>
                         </div>
                     </div>

@@ -37,14 +37,14 @@ class AdminController extends Controller
         return view('pages.admin.leave.printkelolacuti', compact('data', 'cuti'));
     }
 
-    public function terimacuti()
+    public function persetujuancuti()
     {
-        return view('pages.admin.leave.terimacuti');
+        return view('pages.admin.leave.pengajuancuti');
     }
 
 
-    public function tolakcuti()
+    public function editcuti()
     {
-        return view('pages.admin.leave.tolakcuti');
+        return view('pages.admin.leave.editcuti');
     }
 }

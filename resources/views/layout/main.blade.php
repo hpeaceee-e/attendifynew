@@ -13,6 +13,7 @@
     <!-- Page Title  -->
     <title>@yield('title')</title>
     <!-- StyleSheets  -->
+
     <link href='https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css' rel='stylesheet'>
     <link href='https://cdn.jsdelivr.net/npm/bootstrap-icons@1.8.1/font/bootstrap-icons.css' rel='stylesheet'>
     <link rel="stylesheet" type="text/css" href="./assets/css/libs/fontawesome-icons.css">
@@ -29,21 +30,7 @@
         });
     </script>
 
-    <style>
-        .logo-container {
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            height: 100px;
-            /* Sesuaikan tinggi jika diperlukan */
-        }
 
-        .logo-img {
-            max-width: 150px;
-            /* Sesuaikan ukuran maksimal logo */
-            height: auto;
-        }
-    </style>
 
 </head>
 

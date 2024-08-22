@@ -13,7 +13,7 @@
                         <div class="nk-block-head-content">
                             <div class="nk-block-head-sub">
                                 <a class="back-to" href="{{ route('admin.kelolapegawai') }}">
-                                    <em class="icon ni ni-arrow-left"></em><span>Back</span>
+                                    <em class="icon ni ni-chevron-left-circle-fill"></em></em><span>Back</span>
                                 </a>
                             </div>
                             <h2 class="nk-block-title fw-normal">Edit Pegawai</h2>

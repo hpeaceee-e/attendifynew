@@ -34,13 +34,13 @@
                                     <tr>
                                         <th>No</th>
                                         <th>Nama Pegawai</th>
-                                        {{-- <th>Alasan</th> --}}
-                                        <th>Tanggal Pengajuan</th>
-                                        {{-- <th>Mulai</th>
-                                        <th>Berakhir</th> --}}
+                                        <th>Alasan</th>
+                                        <th>Pengajuan</th>
+                                        <th>Mulai</th>
+                                        <th>Berakhir</th>
                                         <th>Verifikasi</th>
                                         <th>Status</th>
-                                        <th>Persetujuan</th>
+                                        <th>Action</th>
                                     </tr>
                                 </thead>
                                 <tbody>
@@ -48,14 +48,14 @@
                                     <tr>
                                         <td>1</td>
                                         <td>Hafizh Alfaris</td>
-                                        {{-- <td>Cuti Menikah</td> --}}
+                                        <td>Cuti Menikah</td>
                                         <td>13 Aug 2024</td>
-                                        {{-- <td>13 Aug 2024</td>
-                                        <td>17 Aug 2024</td> --}}
+                                        <td>13 Aug 2024</td>
+                                        <td>17 Aug 2024</td>
                                         <td>
                                             {{-- Sakinah Mawadah Warahmah ya atas pernikahannya --}}
                                         </td>
-                                        <td><span class="badge bg-success">Izin Cuti Diterima</span></td>
+                                        <td><span class="badge bg-success">Diterima</span></td>
                                         <td>
                                             <ul class="nk-tb-actions gx-2">
                                                 <li>
@@ -67,10 +67,13 @@
                                                         </a>
                                                         <div class="dropdown-menu dropdown-menu-end">
                                                             <ul class="link-list-opt no-bdr">
-                                                                <li><a href="{{ route('admin.terimacuti') }}"><em
-                                                                            class="icon ni ni-check"></em><span>Terima</span></a>
+                                                                <li><a href="{{ route('admin.persetujuancuti') }}"><em
+                                                                            class="icon ni ni-todo-fill"></em></em><span>Persetujuan</span></a>
                                                                 </li>
-                                                                <li><a href="{{ route('admin.tolakcuti') }}"><em
+                                                                <li><a href="{{ route('admin.editcuti') }}"><em
+                                                                            class="icon ni ni-edit"></em><span>Edit</span></a>
+                                                                </li>
+                                                                <li><a href="#"><em
                                                                             class="icon ni ni-na"></em><span>Tolak</span></a>
                                                                 </li>
                                                             </ul>
@@ -83,12 +86,12 @@
                                     <tr>
                                         <td>2</td>
                                         <td>Hilmi Ramdani</td>
-                                        {{-- <td>Izin Liburan</td> --}}
+                                        <td>Izin Liburan</td>
                                         <td>15 Aug 2024</td>
-                                        {{-- <td>15 Aug 2024</td>
-                                        <td>20 Aug 2024</td> --}}
+                                        <td>15 Aug 2024</td>
+                                        <td>20 Aug 2024</td>
                                         <td>Kerja dulu dong</td>
-                                        <td><span class="badge bg-danger">Izin Cuti Ditolak</span></td>
+                                        <td><span class="badge bg-danger">Ditolak</span></td>
                                         <td>
                                             <ul class="nk-tb-actions gx-2">
                                                 <li>
@@ -100,11 +103,14 @@
                                                         </a>
                                                         <div class="dropdown-menu dropdown-menu-end">
                                                             <ul class="link-list-opt no-bdr">
-                                                                <li><a href="{{ route('admin.terimacuti') }}"><em
-                                                                            class="icon ni ni-check"></em><span>Terima</span></a>
+                                                                <li><a href="{{ route('admin.persetujuancuti') }}"><em
+                                                                            class="icon ni ni-todo-fill"></em></em><span>Persetujuan</span></a>
                                                                 </li>
-                                                                <li><a href="{{ route('admin.tolakcuti') }}"><em
-                                                                            class="icon ni ni-na"></em><span>Tolak</span></a>
+                                                                <li><a href="{{ route('admin.editcuti') }}"><em
+                                                                            class="icon ni ni-edit"></em><span>Edit</span></a>
+                                                                </li>
+                                                                <li><a href="#"><em
+                                                                            class="icon ni ni-na"></em><span>Hapus</span></a>
                                                                 </li>
                                                             </ul>
                                                         </div>
@@ -116,12 +122,12 @@
                                     <tr>
                                         <td>3</td>
                                         <td>Rafly</td>
-                                        {{-- <td>Izin Liburan</td> --}}
+                                        <td>Izin Liburan</td>
                                         <td>15 Aug 2024</td>
-                                        {{-- <td>15 Aug 2024</td>
-                                        <td>20 Aug 2024</td> --}}
+                                        <td>15 Aug 2024</td>
+                                        <td>20 Aug 2024</td>
                                         <td>-</td>
-                                        <td><span class="badge bg-secondary">Menunggu Persetujuan</span></td>
+                                        <td><span class="badge bg-secondary">Menunggu</span></td>
                                         <td>
                                             <ul class="nk-tb-actions gx-2">
                                                 <li>
@@ -133,10 +139,13 @@
                                                         </a>
                                                         <div class="dropdown-menu dropdown-menu-end">
                                                             <ul class="link-list-opt no-bdr">
-                                                                <li><a href="{{ route('admin.terimacuti') }}"><em
-                                                                            class="icon ni ni-check"></em><span>Terima</span></a>
+                                                                <li><a href="{{ route('admin.persetujuancuti') }}"><em
+                                                                            class="icon ni ni-todo-fill"></em></em><span>Persetujuan</span></a>
                                                                 </li>
-                                                                <li><a href="{{ route('admin.tolakcuti') }}"><em
+                                                                <li><a href="{{ route('admin.editcuti') }}"><em
+                                                                            class="icon ni ni-edit"></em><span>Edit</span></a>
+                                                                </li>
+                                                                <li><a href="#"><em
                                                                             class="icon ni ni-na"></em><span>Tolak</span></a>
                                                                 </li>
                                                             </ul>
