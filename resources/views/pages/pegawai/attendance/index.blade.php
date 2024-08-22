@@ -10,8 +10,24 @@
             <div class="container" style="padding-top: 30px;">
                 <!-- Tombol Absen Masuk/Pulang -->
                 <div class="mt-5">
-                    <a href="{{ route('pegawai.tambah-attendance') }}" class="btn btn-primary">Absen Masuk/Pulang</a>
+                    <a id="attendance-btn" href="{{ route('pegawai.tambah-attendance') }}" class="btn btn-primary">Absen
+                        Masuk/Pulang</a>
+                    <p id="message" style="display: none;">Sudah tidak memasuki waktu absensi</p>
                 </div>
+
+                <script>
+                    document.addEventListener('DOMContentLoaded', function() {
+                        var now = new Date();
+                        var hour = now.getHours();
+
+                        if (hour >= 8 && hour < 16) {
+                            document.getElementById('attendance-btn').style.display = 'none';
+                            document.getElementById('message').style.display = 'block';
+                        }
+                    });
+                </script>
+
+
             </div>
         </div>
 

@@ -9,6 +9,7 @@ use App\Models\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Hash;
 
+
 class EmployeController extends Controller
 {
     public function index()
@@ -48,38 +49,36 @@ class EmployeController extends Controller
         return view('pages.admin.managepegawai.tambahpegawai', compact('roles', 'schedules', 'nextUserId'));
     }
 
+
+
     public function store(Request $request)
     {
-        // Validasi input dari form
-        $request->validate([
-            'name' => 'required|string|max:80',
-            'role' => 'required|integer|exists:roles,id',
-            'password' => 'required|string|min:8',
-            'status' => 'required|in:0,1',
-            'avatar' => 'required|file|mimes:jpeg,png,jpg|max:2048',
-            'schedule' => 'required|integer|exists:schedules,id',
+        // Validate the request data
+        $validatedData = $request->validate([
+            'username' => 'nullable|string|max:5|unique:users,username',
+            'name' => 'nullable|string|max:80',
+            'role' => 'nullable|integer|exists:roles,id',
+            'email' => 'nullable|string|email|max:80|unique:users,email',
+            'password' => 'nullable|string|min:8',
         ]);
 
-        // Simpan file avatar
-        $avatarPath = $request->file('avatar')->store('avatars', 'public');
+        // Create a new user instance
+        $user = new User($validatedData);
 
-        // Generate username
-        $username = $request->input('role') == 1 ? 'admin' : str_pad(User::where('role', '!=', 1)->max('id'), 5, '0', STR_PAD_LEFT);
+        // Hash the password if provided
+        if ($request->filled('password')) {
+            $user->password = Hash::make($request->password);
+        }
 
-        // Simpan data pegawai baru ke database
-        $user = User::create([
-            'username' => $username,
-            'name' => $request->input('name'),
-            'role' => $request->input('role'),
-            'password' => Hash::make($request->input('password')),
-            'status' => $request->input('status'),
-            'avatar' => $avatarPath,
-            'schedule_id' => $request->input('schedule'),
-        ]);
+        // Save the user
+        $user->save();
 
-        // Redirect kembali ke halaman kelola pegawai dengan pesan sukses
-        return redirect()->route('admin.kelolapegawai')->with('success', 'Pegawai berhasil ditambahkan.', compact('user'));
+        // Redirect with a success message
+        return redirect()->route('admin.kelolapegawai')->with('success', 'Pegawai berhasil ditambahkan.');
     }
+
+
+
 
     public function edit(Request $request, $id)
     {

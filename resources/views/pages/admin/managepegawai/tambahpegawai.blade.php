@@ -1,7 +1,6 @@
 @extends('layout.main')
-@section('title')
-    Tambah Pegawai
-@endsection
+@section('title', 'Tambah Pegawai')
+
 @section('content')
     <div class="nk-content nk-content-fluid">
         <div class="container-xl wide-lg">
@@ -9,14 +8,26 @@
                 <div class="components-preview wide-md mx-auto">
                     <div class="nk-block-head nk-block-head-lg wide-sm">
                         <div class="nk-block-head-content">
-                            <div class="nk-block-head-sub"><a class="back-to" href="{{ route('admin.kelolapegawai') }}"><em
-                                        class="icon ni ni-chevron-left-circle-fill"></em><span>Back</span></a></div>
+                            <div class="nk-block-head-sub">
+                                <a class="back-to" href="{{ route('admin.kelolapegawai') }}">
+                                    <em class="icon ni ni-chevron-left-circle-fill"></em><span>Back</span>
+                                </a>
+                            </div>
                             <h2 class="nk-block-title fw-normal">Tambah Pegawai</h2>
                         </div>
                     </div>
                     <div class="nk-block nk-block-lg">
                         <div class="card card-bordered card-preview">
                             <div class="card-inner">
+                                @if ($errors->any())
+                                    <div class="alert alert-danger">
+                                        <ul>
+                                            @foreach ($errors->all() as $error)
+                                                <li>{{ $error }}</li>
+                                            @endforeach
+                                        </ul>
+                                    </div>
+                                @endif
                                 <form action="{{ route('admin.tambahpegawaistore') }}" method="POST"
                                     enctype="multipart/form-data">
                                     @csrf
@@ -28,9 +39,7 @@
                                                     <label class="form-label" for="username">Username</label>
                                                     <div class="form-control-wrap">
                                                         <input type="text" class="form-control" id="username"
-                                                            name="username"
-                                                            value="{{ str_pad($nextUserId, 5, '0', STR_PAD_LEFT) }}"
-                                                            readonly>
+                                                            name="username" value="{{ old('username') }}">
                                                     </div>
                                                 </div>
                                             </div>
@@ -39,16 +48,16 @@
                                                     <label class="form-label" for="name">Nama</label>
                                                     <div class="form-control-wrap">
                                                         <input type="text" class="form-control" id="name"
-                                                            name="name" required>
+                                                            name="name" value="{{ old('name') }}">
                                                     </div>
                                                 </div>
                                             </div>
                                             <div class="col-sm-6">
                                                 <div class="form-group">
-                                                    <label class="form-label" for="name">Email</label>
+                                                    <label class="form-label" for="email">Email</label>
                                                     <div class="form-control-wrap">
                                                         <input type="email" class="form-control" id="email"
-                                                            name="email" required>
+                                                            name="email" value="{{ old('email') }}">
                                                     </div>
                                                 </div>
                                             </div>
@@ -56,64 +65,30 @@
                                                 <div class="form-group">
                                                     <label class="form-label" for="role">Role</label>
                                                     <div class="form-control-wrap">
-                                                        <select class="form-control" id="role" name="role" required>
+                                                        <select class="form-control" id="role" name="role">
                                                             <option value="">Pilih Role</option>
                                                             @foreach ($roles as $role)
-                                                                <option value="{{ $role->id }}">{{ $role->name }}
+                                                                <option value="{{ $role->id }}"
+                                                                    {{ old('role') == $role->id ? 'selected' : '' }}>
+                                                                    {{ $role->name }}
                                                                 </option>
                                                             @endforeach
                                                         </select>
                                                     </div>
                                                 </div>
                                             </div>
+
+
                                             <div class="col-sm-6">
                                                 <div class="form-group">
                                                     <label class="form-label" for="password">Password</label>
                                                     <div class="form-control-wrap">
                                                         <input type="password" class="form-control" id="password"
-                                                            name="password" required>
+                                                            name="password">
                                                     </div>
                                                 </div>
                                             </div>
-                                            <div class="col-sm-6">
-                                                <div class="form-group">
-                                                    <label class="form-label" for="status">Status</label>
-                                                    <div class="form-control-wrap">
-                                                        <select class="form-control" id="status" name="status" required>
-                                                            <option value="1">Aktif</option>
-                                                            <option value="0">Tidak Aktif</option>
-                                                        </select>
-                                                    </div>
-                                                </div>
-                                            </div>
-                                            <div class="col-sm-6">
-                                                <div class="form-group">
-                                                    <label class="form-label" for="avatar">Avatar</label>
-                                                    <div class="form-control-wrap">
-                                                        <input type="file" class="form-file-input" id="avatar"
-                                                            name="avatar" accept=".jpg,.jpeg,.png" required>
-                                                        <label class="form-file-label" for="avatar">Choose file</label>
-                                                    </div>
-                                                </div>
-                                            </div>
-                                            <div class="col-sm-6">
-                                                <div class="form-group">
-                                                    <label class="form-label" for="schedule">Jadwal</label>
-                                                    <div class="form-control-wrap">
-                                                        <select class="form-control" id="schedule" name="schedule"
-                                                            required>
-                                                            <option value="">Pilih Jadwal</option>
-                                                            @foreach ($schedules as $schedule)
-                                                                <option value=""> {{ $schedule->id }} .
-                                                                    {{ date('H:i', strtotime($schedule->clock_in)) }} -
-                                                                    {{ date('H:i', strtotime($schedule->clock_out)) }}
 
-                                                                </option>
-                                                            @endforeach
-                                                        </select>
-                                                    </div>
-                                                </div>
-                                            </div>
                                         </div>
                                         <hr class="preview-hr">
                                         <div class="form-group">

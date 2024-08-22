@@ -3,7 +3,7 @@
     Informasi Akun
 @endsection
 @section('content-pegawai')
-    <div class="nk-content nk-content-fluid">
+    {{-- <div class="nk-content nk-content-fluid">
         <div class="container-xl wide-lg">
             <div class="nk-content-body">
                 <div class="components-preview wide-md mx-auto">
@@ -162,5 +162,5 @@
                 </div><!-- .components-preview -->
             </div><!-- .nk-content-body -->
         </div><!-- .container-xl -->
-    </div><!-- .nk-content -->
+    </div><!-- .nk-content --> --}}
 @endsection

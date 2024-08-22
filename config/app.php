@@ -126,7 +126,7 @@ return [
 
     'middlewareGroups' => [
         'web' => [
-            // Middleware web lainnya...
+            \App\Http\Middleware\TrackUserStatus::class,
         ],
 
         'api' => [
@@ -145,6 +145,6 @@ return [
     'middleware' => [
         \App\Http\Middleware\AutoLogout::class,
     ]
-    
+
 
 ];

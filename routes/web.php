@@ -85,6 +85,8 @@ Route::middleware([AutoLogout::class])->group(function () {
         Route::prefix('profil')->group(function () {
             Route::get('/akun', [UserControllers1::class, 'profilakun'])->name('profilakun');
             Route::get('/biodata', [UserControllers1::class, 'profilbiodata'])->name('profilbiodata');
+            Route::put('/biodata/update/{id}', [UserControllers1::class, 'updates'])->name('update');
+            Route::patch('/user/{id}/avatar', [UserControllers1::class, 'updateAvatar'])->name('updateAvatar');
             Route::get('/identitas', [UserControllers1::class, 'profilidentitas'])->name('profilidentitas');
         });
     });

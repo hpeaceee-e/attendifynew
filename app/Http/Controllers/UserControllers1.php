@@ -4,8 +4,11 @@ namespace App\Http\Controllers;
 
 use App\Models\Attendance;
 use App\Models\Leave;
+use App\Models\Role;
 use App\Models\User;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Storage;
 
 class UserControllers1 extends Controller
 {
@@ -21,9 +24,24 @@ class UserControllers1 extends Controller
     public function profilakun()
     {
         // Mengambil data pegawai dari database
-        $data = User::with('role', 'schedule')->get();
+        $id_user = Auth::user()->id;
+        $data = User::where('id', $id_user)->get();
+        $same = User::where('id', $id_user)->value('role');
+        $role = Role::where('id', $same)->value('name');
+        $act = User::where('id', $id_user)->value('status');
+        if ($act == 0) {
+            $active = "Aktif";
+        } else {
+            $active = "Tidak Aktif";
+        }
+        $sched = User::where('id', $id_user)->value('schedule');
+        if ($act == 0) {
+            $schedule = "Shift 1";
+        } else {
+            $schedule = "Shift 2";
+        }
 
-        return view('pages.pegawai.profil.profilakun', compact('data'));
+        return view('pages.pegawai.profil.profilakun', compact('data', 'role', 'active', 'schedule'));
     }
 
     public function profilbiodata()
@@ -40,5 +58,47 @@ class UserControllers1 extends Controller
         $data = User::with('role', 'schedule')->get();
 
         return view('pages.pegawai.profil.profilidentitas', compact('data'));
+    }
+
+    public function updates(Request $request, $id)
+    {
+        // dd($request->all());
+        $validatedData = $request->validate([
+            'username' => 'nullable',
+            'telephone' => 'nullable|string|max:20',
+            'status' => 'nullable|in:0,1',
+            'place_of_birth' => 'nullable|string|max:255',
+            'date_of_birth' => 'nullable|date',
+            'gender' => 'nullable',
+            'religion' => 'nullable|string|max:50',
+            'address' => 'nullable|string|max:255',
+        ]);
+
+
+
+        // Find the user or fail
+        $user = User::findOrFail($id);
+
+        // Update the user with validated data
+        $user->update($validatedData);
+        return redirect(url('/pegawai/profil/akun'))->with('success', 'Data identitas berhasil diperbarui.');
+    }
+
+    public function updateAvatar(Request $request, $id)
+    {
+        $request->validate([
+            'avatar' => 'nullable|image|mimes:jpeg,png,jpg,gif,svg|max:2048',
+        ]);
+
+        $user = User::findOrFail($id);
+
+        $imageName = time() . '.' . $request->avatar->extension();
+        $request->avatar->move(public_path('images'), $imageName);
+        $user->avatar = 'images/' . $imageName;
+
+        $user->save();
+
+
+        return redirect()->back()->with('success', 'Avatar updated successfully!');
     }
 }
