@@ -53,6 +53,7 @@ Route::middleware([AutoLogout::class])->group(function () {
             Route::post('/updatejadwal/{id}', [ScheduleController::class, 'update'])->name('updatejadwal');
         });
 
+<<<<<<< HEAD
         // Manage Leave
         Route::prefix('leave.kelolacuti')->group(function () {
             Route::get('/', [AdminController::class, 'cuti'])->name('kelolacuti');
@@ -61,10 +62,15 @@ Route::middleware([AutoLogout::class])->group(function () {
             Route::get('/editcuti', [AdminController::class, 'editcuti'])->name('editcuti');
         });
     });
+=======
+    // Manage Leave
+    Route::get('/kelolacuti', [AdminController::class, 'cuti'])->name('kelolacuti');
+});
+>>>>>>> cb1d634146a4e8e408136bdf6c51d42505ab26bc
 
 
-    Route::get('/import', [ImportexcelController::class, 'index']);
-    Route::post('/import/excel', [ImportexcelController::class, 'post'])->name('post-excel');
+Route::get('/import', [ImportexcelController::class,'index']);
+Route::post('/import/excel', [ImportexcelController::class,'post'])->name('post-excel');
 
     Route::group(['prefix' => 'pegawai', 'middleware' => ['pegawai'], 'as' => 'pegawai.'], function () {
 
