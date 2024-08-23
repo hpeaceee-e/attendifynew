@@ -16,6 +16,9 @@ class Leave extends Model
         'date',
         'status',
         'reason',
+        'reason_verification',
+        'start',
+        'end',
     ];
 
     // Relasi ke model User

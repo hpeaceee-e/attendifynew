@@ -42,12 +42,13 @@ class EmployeController extends Controller
         $roles = Role::all();
         $schedules = Schedule::all();
 
-        // Menghitung ID pegawai berikutnya
-        $nextUserId = User::max('id');
+        // Menghitung jumlah user yang ada untuk menentukan username berikutnya
+        $nextUsername = str_pad(User::count(), 5, '0', STR_PAD_LEFT);
 
-        // Menampilkan view form tambah pegawai
-        return view('pages.admin.managepegawai.tambahpegawai', compact('roles', 'schedules', 'nextUserId'));
+        // Menampilkan view form tambah pegawai dengan username yang sudah di-generate
+        return view('pages.admin.managepegawai.tambahpegawai', compact('roles', 'schedules', 'nextUsername'));
     }
+
 
 
 
@@ -61,7 +62,11 @@ class EmployeController extends Controller
             'email' => 'nullable|string|email|max:80|unique:users,email',
             'password' => 'nullable|string|min:8',
         ]);
+        // Hitung jumlah user yang ada untuk menentukan username
+        $count = User::count();
 
+        // Buat username baru dengan format 00001, 00002, dst.
+        $validatedData['username'] = str_pad($count, 5, '0', STR_PAD_LEFT);
         // Create a new user instance
         $user = new User($validatedData);
 

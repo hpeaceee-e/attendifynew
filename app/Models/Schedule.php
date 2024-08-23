@@ -12,6 +12,7 @@ class Schedule extends Model
     use SoftDeletes;
 
     protected $fillable = [
+        'shift',
         'clock_in',
         'clock_out',
         'break',

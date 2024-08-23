@@ -39,7 +39,7 @@
                                                     <label class="form-label" for="username">Username</label>
                                                     <div class="form-control-wrap">
                                                         <input type="text" class="form-control" id="username"
-                                                            name="username" value="{{ old('username') }}">
+                                                            name="username" value="{{ $nextUsername }}" readonly>
                                                     </div>
                                                 </div>
                                             </div>
