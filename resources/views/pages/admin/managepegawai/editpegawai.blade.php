@@ -13,7 +13,7 @@
                         <div class="nk-block-head-content">
                             <div class="nk-block-head-sub">
                                 <a class="back-to" href="{{ route('admin.kelolapegawai') }}">
-                                    <em class="icon ni ni-chevron-left-circle-fill"></em></em><span>Back</span>
+                                    <em class="icon ni ni-chevron-left-circle-fill"></em><span>Back</span>
                                 </a>
                             </div>
                             <h2 class="nk-block-title fw-normal">Edit Pegawai</h2>
@@ -22,7 +22,7 @@
                     <div class="nk-block nk-block-lg">
                         <div class="card card-bordered card-preview">
                             <div class="card-inner">
-                                <form action="{{ route('admin.editpegawaiupdate', ['id' => $data->id]) }}" method="POST"
+                                <form action="{{ route('admin.editpegawaiupdate', $item->id) }}" method="POST"
                                     enctype="multipart/form-data">
                                     @csrf
                                     <div class="preview-block">
@@ -33,9 +33,7 @@
                                                     <label class="form-label" for="username">Username</label>
                                                     <div class="form-control-wrap">
                                                         <input type="text" class="form-control" id="username"
-                                                            name="username"
-                                                            value="{{ str_pad($nextUserId, 5, '0', STR_PAD_LEFT) }}"
-                                                            readonly>
+                                                            name="username" value="{{ $item->username }}" readonly>
                                                     </div>
                                                 </div>
                                             </div>
@@ -44,7 +42,7 @@
                                                     <label class="form-label" for="name">Nama</label>
                                                     <div class="form-control-wrap">
                                                         <input type="text" class="form-control" id="name"
-                                                            name="name" value="{{ $data->name }}" required>
+                                                            name="name" value="{{ $item->name }}" required>
                                                     </div>
                                                 </div>
                                             </div>
@@ -53,7 +51,7 @@
                                                     <label class="form-label" for="email">Email</label>
                                                     <div class="form-control-wrap">
                                                         <input type="email" class="form-control" id="email"
-                                                            name="email" value="{{ $data->email }}" required>
+                                                            name="email" value="{{ $item->email }}" required>
                                                     </div>
                                                 </div>
                                             </div>
@@ -64,8 +62,9 @@
                                                         <select class="form-control" id="role" name="role" required>
                                                             <option value="">Pilih Role</option>
                                                             @foreach ($roles as $role)
-                                                                <option value="{{ $role->id }}">{{ $role->name }}
-                                                                </option>
+                                                                <option value="{{ $role->id }}"
+                                                                    {{ $role->id == $item->role ? 'selected' : '' }}>
+                                                                    {{ $role->name }}</option>
                                                             @endforeach
                                                         </select>
                                                     </div>
@@ -76,7 +75,8 @@
                                                     <label class="form-label" for="password">Password</label>
                                                     <div class="form-control-wrap">
                                                         <input type="password" class="form-control" id="password"
-                                                            name="password" value="{{ $data->password }}" required>
+                                                            name="password"
+                                                            placeholder="Leave blank to keep current password">
                                                     </div>
                                                 </div>
                                             </div>
@@ -86,9 +86,9 @@
                                                     <div class="form-control-wrap">
                                                         <select class="form-control" id="status" name="status" required>
                                                             <option value="0"
-                                                                {{ $data->status == 0 ? 'selected' : '' }}>Aktif</option>
+                                                                {{ $item->status == 0 ? 'selected' : '' }}>Aktif</option>
                                                             <option value="1"
-                                                                {{ $data->status == 1 ? 'selected' : '' }}>Tidak Aktif
+                                                                {{ $item->status == 1 ? 'selected' : '' }}>Tidak Aktif
                                                             </option>
                                                         </select>
                                                     </div>
@@ -112,7 +112,8 @@
                                                             required>
                                                             <option value="">Pilih Jadwal</option>
                                                             @foreach ($schedules as $schedule)
-                                                                <option value="{{ $schedule->id }}">
+                                                                <option value="{{ $schedule->id }}"
+                                                                    {{ $schedule->id == $item->schedule ? 'selected' : '' }}>
                                                                     {{ date('H:i', strtotime($schedule->clock_in)) }} -
                                                                     {{ date('H:i', strtotime($schedule->clock_out)) }}
                                                                 </option>
@@ -129,10 +130,10 @@
                                     </div>
                                 </form>
                             </div>
-                        </div><!-- .card-preview -->
-                    </div><!-- .nk-block -->
-                </div><!-- .components-preview -->
-            </div><!-- .nk-content-body -->
-        </div><!-- .container-xl -->
-    </div><!-- .nk-content -->
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
 @endsection

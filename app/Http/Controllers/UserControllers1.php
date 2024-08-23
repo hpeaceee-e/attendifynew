@@ -64,7 +64,7 @@ class UserControllers1 extends Controller
     {
         // dd($request->all());
         $validatedData = $request->validate([
-            'username' => 'nullable',
+
             'telephone' => 'nullable|string|max:20',
             'status' => 'nullable|in:0,1',
             'place_of_birth' => 'nullable|string|max:255',

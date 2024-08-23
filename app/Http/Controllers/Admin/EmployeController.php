@@ -82,24 +82,59 @@ class EmployeController extends Controller
         return redirect()->route('admin.kelolapegawai')->with('success', 'Pegawai berhasil ditambahkan.');
     }
 
-
-
-
-    public function edit(Request $request, $id)
+    public function edit($id)
     {
-        $data = User::with('role', 'schedule')->find($id);
-
+        $item = User::findOrFail($id);
         $roles = Role::all();
-
         $schedules = Schedule::all();
+        return view('pages.admin.managepegawai.editpegawai', compact('item', 'roles', 'schedules'));
+    }
 
-        $nextUserId = User::max('id');
-        // Periksa apakah data ditemukan
-        if (!$data) {
-            return redirect()->route('admin.kelolapegawai')->with('error', 'Pegawai tidak ditemukan');
+    public function update(Request $request, $id)
+    {
+        // Validate the request data
+        $validatedData = $request->validate([
+            'name' => 'required|string|max:80',
+            'role' => 'required|integer|exists:roles,id',
+            'email' => 'required|string|email|max:80|unique:users,email,' . $id,
+            'password' => 'nullable|string|min:8',
+            'status' => 'required|boolean',
+            'schedule' => 'required|integer|exists:schedules,id',
+        ]);
+
+        // Find the user with their associated role and schedule
+        $data = User::findOrFail($id);
+
+        // Update user data except for password if it's empty
+        $data->name = $validatedData['name'];
+        $data->role = $validatedData['role'];
+        $data->email = $validatedData['email'];
+        $data->status = $validatedData['status'];
+        $data->schedule = $validatedData['schedule'];
+
+        // Update password only if provided
+        if ($request->filled('password')) {
+            $data->password = bcrypt($request->password);
         }
 
-        return view('pages.admin.managepegawai.editpegawai', compact('data', 'nextUserId', 'roles', 'schedules'));
+        // Handle avatar upload if any
+        if ($request->hasFile('avatar')) {
+            $avatarPath = $request->file('avatar')->store('avatars', 'public');
+            $data->avatar = $avatarPath;
+        }
+
+        // Save the updated user
+        $data->save();
+
+        // Redirect with a success message
+        return redirect()->route('admin.kelolapegawai')->with('success', 'Pegawai berhasil diedit.');
+    }
+
+
+
+    public function destroy()
+    {
+        //
     }
 
     public function cetakpegawai()
@@ -108,15 +143,5 @@ class EmployeController extends Controller
 
         // Menampilkan view dengan data pegawai
         return view('pages.admin.managepegawai.printkelolapegawai', compact('data'));
-    }
-
-    public function update()
-    {
-        //
-    }
-
-    public function destroy()
-    {
-        //
     }
 }
