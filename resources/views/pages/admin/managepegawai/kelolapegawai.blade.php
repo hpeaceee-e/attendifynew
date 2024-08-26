@@ -40,7 +40,7 @@
                                 <table class="datatable-init table">
                                     <thead>
                                         <tr>
-                                            {{-- <th>NIK</th> --}}
+                                            <th>No</th>
                                             <th>Nama Pegawai</th>
                                             {{-- <th>Role</th> --}}
                                             <th>Email</th>
@@ -52,9 +52,9 @@
                                         </tr>
                                     </thead>
                                     <tbody>
-                                        @foreach ($data as $d)
+                                        @foreach ($data as $index => $d)
                                             <tr>
-                                                {{-- <td>{{ $d->username }}</td> --}}
+                                                <td>{{ $index + 1 }}</td>
                                                 <td>{{ $d->name }}</td>
                                                 {{-- <td>{{ $d->role }}</td> --}}
                                                 <td>{{ $d->email }}</td>
