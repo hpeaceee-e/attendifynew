@@ -8,6 +8,8 @@ use App\Models\Schedule;
 use App\Models\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Hash;
+use Illuminate\Support\Str;
+
 
 
 class EmployeController extends Controller
@@ -55,6 +57,7 @@ class EmployeController extends Controller
     public function store(Request $request)
     {
         // Validate the request data
+        // dd($request->all());
         $validatedData = $request->validate([
             'username' => 'nullable|string|max:5|unique:users,username',
             'name' => 'required|string|max:80',
@@ -74,6 +77,7 @@ class EmployeController extends Controller
         if ($request->filled('password')) {
             $user->password = Hash::make($request->password);
         }
+        $user['token'] = Str::random(32);
 
         // Save the user
         $user->save();

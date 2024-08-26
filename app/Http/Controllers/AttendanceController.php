@@ -27,7 +27,9 @@ class AttendanceController extends Controller
     // Tampilkan daftar kehadiran
     public function index()
     {
-        $attendances = Attendance::all();
+        $id = Auth::user()->id ;
+        // dd($id);
+        $attendances = Attendance::where('enhancer',$id)->get();
         return view('pages.pegawai.attendance.index', compact('attendances'));
     }
 
