@@ -114,7 +114,7 @@ class EmployeController extends Controller
 
         // Update password only if provided
         if ($request->filled('password')) {
-            $data->password = bcrypt($request->password);
+            $data->password = Hash::make($request->password);
         }
 
         // Handle avatar upload if any
