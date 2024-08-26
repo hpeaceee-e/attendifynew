@@ -57,10 +57,10 @@ class EmployeController extends Controller
         // Validate the request data
         $validatedData = $request->validate([
             'username' => 'nullable|string|max:5|unique:users,username',
-            'name' => 'nullable|string|max:80',
-            'role' => 'nullable|integer|exists:roles,id',
+            'name' => 'required|string|max:80',
+            'role' => 'required|integer|exists:roles,id',
             'email' => 'nullable|string|email|max:80|unique:users,email',
-            'password' => 'nullable|string|min:8',
+            'password' => 'required|string|min:8',
         ]);
         // Hitung jumlah user yang ada untuk menentukan username
         $count = User::count();
