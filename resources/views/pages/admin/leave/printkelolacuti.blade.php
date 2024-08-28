@@ -30,11 +30,6 @@
                         <span class="overline-title">Report</span>
                         <div class="invoice-contact-info">
                             <h4 class="title">Kelola Cuti & Izin Pegawai</h4>
-                            {{-- <ul class="list-plain">
-                                <li><em class="icon ni ni-map-pin-fill fs-18px"></em><span>House #65, 4328 Marion
-                                        Street<br>Newbury, VT 05051</span></li>
-                                <li><em class="icon ni ni-call-fill fs-14px"></em><span>+012 8764 556</span></li>
-                            </ul> --}}
                         </div>
                     </div>
                 </div><!-- .invoice-head -->
@@ -45,10 +40,10 @@
                                 <tr>
                                     <th>No</th>
                                     <th>Nama Pegawai</th>
-                                    {{-- <th>Alasan</th> --}}
+                                    <th>Alasan</th>
                                     <th>Tanggal Pengajuan</th>
-                                    {{-- <th>Mulai</th>
-                                    <th>Berakhir</th> --}}
+                                    <th>Mulai</th>
+                                    <th>Berakhir</th>
                                     <th>Alasan Verifikasi</th>
                                     <th>Status</th>
                                 </tr>
@@ -57,10 +52,10 @@
                                 <tr>
                                     <td>1</td>
                                     <td>Hafizh Alfaris</td>
-                                    {{-- <td>Cuti Menikah</td> --}}
+                                    <td>Cuti Menikah</td>
                                     <td>13 Aug 2024</td>
-                                    {{-- <td>13 Aug 2024</td>
-                                    <td>17 Aug 2024</td> --}}
+                                    <td>13 Aug 2024</td>
+                                    <td>17 Aug 2024</td>
                                     <td>
                                         {{-- Sakinah Mawadah Warahmah ya atas pernikahannya --}}-
                                     </td>
@@ -69,46 +64,24 @@
                                 <tr>
                                     <td>2</td>
                                     <td>Hilmi Ramdani</td>
-                                    {{-- <td>Izin Liburan</td> --}}
+                                    <td>Izin Liburan</td>
                                     <td>15 Aug 2024</td>
-                                    {{-- <td>15 Aug 2024</td>
-                                    <td>20 Aug 2024</td> --}}
+                                    <td>15 Aug 2024</td>
+                                    <td>20 Aug 2024</td>
                                     <td>Kerja dulu dong</td>
                                     <td><span class="badge bg-danger">Izin Cuti Ditolak</span></td>
                                 </tr>
                                 <tr>
                                     <td>2</td>
                                     <td>Rafly</td>
-                                    {{-- <td>Izin Liburan</td> --}}
+                                    <td>Izin Liburan</td>
                                     <td>21 Aug 2024</td>
-                                    {{-- <td>15 Aug 2024</td>
-                                    <td>20 Aug 2024</td> --}}
+                                    <td>15 Aug 2024</td>
+                                    <td>20 Aug 2024</td>
                                     <td>-</td>
-                                    <td><span class="badge bg-danger">Menunggu Persetujuan</span></td>
+                                    <td><span class="badge bg-secondary">Menunggu Persetujuan</span></td>
                                 </tr>
                             </tbody>
-                            {{-- <tfoot>
-                                <tr>
-                                    <td colspan="2"></td>
-                                    <td colspan="2">Subtotal</td>
-                                    <td>$435.00</td>
-                                </tr>
-                                <tr>
-                                    <td colspan="2"></td>
-                                    <td colspan="2">Processing fee</td>
-                                    <td>$10.00</td>
-                                </tr>
-                                <tr>
-                                    <td colspan="2"></td>
-                                    <td colspan="2">TAX</td>
-                                    <td>$43.50</td>
-                                </tr>
-                                <tr>
-                                    <td colspan="2"></td>
-                                    <td colspan="2">Grand Total</td>
-                                    <td>$478.50</td>
-                                </tr>
-                            </tfoot> --}}
                         </table>
                     </div>
                 </div><!-- .invoice-bills -->

@@ -73,8 +73,9 @@
                                                                 <li><a href="{{ route('admin.editcuti') }}"><em
                                                                             class="icon ni ni-edit"></em><span>Edit</span></a>
                                                                 </li>
-                                                                <li><a href="#"><em
-                                                                            class="icon ni ni-na"></em><span>Tolak</span></a>
+                                                                <li><a href="{{ route('admin.print-satuancuti') }}"
+                                                                        target="_blank"><em
+                                                                            class="icon ni ni-printer"></em><span>Cetak</span></a>
                                                                 </li>
                                                             </ul>
                                                         </div>
@@ -109,8 +110,9 @@
                                                                 <li><a href="{{ route('admin.editcuti') }}"><em
                                                                             class="icon ni ni-edit"></em><span>Edit</span></a>
                                                                 </li>
-                                                                <li><a href="#"><em
-                                                                            class="icon ni ni-na"></em><span>Hapus</span></a>
+                                                                <li><a href="{{ route('admin.print-satuancuti') }}"
+                                                                        target="_blank"><em
+                                                                            class="icon ni ni-printer"></em><span>Cetak</span></a>
                                                                 </li>
                                                             </ul>
                                                         </div>
@@ -145,8 +147,9 @@
                                                                 <li><a href="{{ route('admin.editcuti') }}"><em
                                                                             class="icon ni ni-edit"></em><span>Edit</span></a>
                                                                 </li>
-                                                                <li><a href="#"><em
-                                                                            class="icon ni ni-na"></em><span>Tolak</span></a>
+                                                                <li><a href="{{ route('admin.print-satuancuti') }}"
+                                                                        target="_blank"><em
+                                                                            class="icon ni ni-printer"></em><span>Cetak</span></a>
                                                                 </li>
                                                             </ul>
                                                         </div>

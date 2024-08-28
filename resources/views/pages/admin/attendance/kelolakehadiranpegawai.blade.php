@@ -56,14 +56,14 @@
                                             {{-- <td>{{ \Carbon\Carbon::parse($attendance->time)->format('H:i') }}</td> --}}
                                             <td>
                                                 @if ($attendance->status == 0)
-                                                    Masuk
+                                                    Masuk (waktu)
                                                 @else
                                                     Pulang
                                                 @endif
                                             </td>
                                             <td>
                                                 @if ($attendance->status == 1)
-                                                    Pulang
+                                                    Pulang (waktu)
                                                 @else
                                                     Masuk
                                                 @endif

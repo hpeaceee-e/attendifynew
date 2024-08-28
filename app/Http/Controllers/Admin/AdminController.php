@@ -37,6 +37,15 @@ class AdminController extends Controller
         return view('pages.admin.leave.printkelolacuti', compact('data', 'cuti'));
     }
 
+    public function cetaksatuancuti()
+    {
+        $data = User::with('role', 'schedule')->get();
+        $cuti = Leave::all();  // Gunakan Leave::all() alih-alih Leave::get()
+
+        // Menampilkan view dengan data pegawai
+        return view('pages.admin.leave.printsatuancuti', compact('data', 'cuti'));
+    }
+
     public function persetujuancuti()
     {
         return view('pages.admin.leave.pengajuancuti');

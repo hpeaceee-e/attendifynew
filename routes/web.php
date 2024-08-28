@@ -60,6 +60,7 @@ Route::middleware([AutoLogout::class])->group(function () {
             Route::get('/persetujuancuti', [AdminController::class, 'persetujuancuti'])->name('persetujuancuti');
             Route::get('/editcuti', [AdminController::class, 'editcuti'])->name('editcuti');
             Route::get('/printkelolacuti', [AdminController::class, 'cetakcuti'])->name('print-kelolacuti');
+            Route::get('/printsatuancuti', [AdminController::class, 'cetaksatuancuti'])->name('print-satuancuti');
         });
     });
 
