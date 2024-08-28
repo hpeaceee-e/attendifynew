@@ -76,4 +76,9 @@ class ScheduleController extends Controller
     {
         // Hapus jadwal
     }
+
+    public function print()
+    {
+        return view('pages.admin.schedule.printjadwal');
+    }
 }

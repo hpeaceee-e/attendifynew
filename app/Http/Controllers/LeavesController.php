@@ -11,4 +11,29 @@ class LeavesController extends Controller
     {
         return view('pages.pegawai.leaves.index');
     }
+
+    public function create()
+    {
+        return view('pages.pegawai.leaves.create');
+    }
+
+    public function store()
+    {
+        return view('pages.pegawai.leaves.create');
+    }
+
+    public function edit()
+    {
+        return view('pages.pegawai.leaves.edit');
+    }
+
+    public function update()
+    {
+        return view('pages.pegawai.leaves.edit');
+    }
+
+    public function print()
+    {
+        return view('pages.pegawai.leaves.print');
+    }
 }

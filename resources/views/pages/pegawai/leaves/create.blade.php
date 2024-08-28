@@ -9,22 +9,17 @@
                 <div class="nk-block-head nk-block-head-sm">
                     <div class="nk-block-between">
                         <div class="nk-block-head-content">
-                            <h3 class="nk-block-title page-title">Data Cuti : </h3>
+                            <div class="nk-block-head-sub">
+                                <a class="back-to" href="{{ route('pegawai.leaves') }}">
+                                    <em class="icon ni ni-chevron-left-circle-fill"></em><span>Back</span>
+                                </a>
+                            </div>
+                            <h3 class="nk-block-title page-title">Pengajuan Cuti </h3>
                         </div><!-- .nk-block-head-content -->
                         <div class="nk-block-head-content">
                             <div class="toggle-wrap nk-block-tools-toggle">
                                 <a href="#" class="btn btn-icon btn-trigger toggle-expand me-n1"
                                     data-target="pageMenu"><em class="icon ni ni-menu-alt-r"></em></a>
-                                <div class="toggle-expand-content" data-content="pageMenu">
-                                    <ul class="nk-block-tools g-3">
-                                        <li><a href="{{ route('admin.print-kelolacuti') }}"
-                                                class="btn btn-white btn-outline-light" target="_blank"><em
-                                                    class="icon ni ni-download"></em><span>Cetak</span></a></li>
-                                        <a href="#" class="btn btn-icon btn-primary">
-                                            <em class="icon ni ni-plus"></em>
-                                        </a>
-                                    </ul>
-                                </div>
                             </div><!-- .toggle-wrap -->
                         </div><!-- .nk-block-head-content -->
                     </div><!-- .nk-block-between -->
@@ -32,125 +27,60 @@
                 <div class="nk-block">
                     <div class="card card-bordered card-preview">
                         <div class="card-inner">
-                            <table class="datatable-init table">
-                                <thead>
-                                    <tr>
-                                        <th>No</th>
-                                        <th>Nama Pegawai</th>
-                                        <th>Alasan</th>
-                                        <th>Pengajuan</th>
-                                        <th>Mulai</th>
-                                        <th>Berakhir</th>
-                                        <th>Verifikasi</th>
-                                        <th>Status</th>
-                                        <th>Action</th>
-                                    </tr>
-                                </thead>
-                                <tbody>
-                                    {{-- @foreach ($data as $d) --}}
-                                    <tr>
-                                        <td>1</td>
-                                        <td>Hafizh Alfaris</td>
-                                        <td>Cuti Menikah</td>
-                                        <td>13 Aug 2024</td>
-                                        <td>13 Aug 2024</td>
-                                        <td>17 Aug 2024</td>
-                                        <td>
-                                            Sakinah Mawadah Warahmah
-                                        </td>
-                                        <td><span class="badge bg-success">Diterima</span></td>
-                                        <td>
-                                            <ul class="nk-tb-actions gx-2">
-                                                <li>
-                                                    <div class="drodown">
-                                                        <a href="#"
-                                                            class="btn btn-sm btn-icon btn-trigger dropdown-toggle"
-                                                            data-bs-toggle="dropdown">
-                                                            <em class="icon ni ni-more-h"></em>
-                                                        </a>
-                                                        <div class="dropdown-menu dropdown-menu-end">
-                                                            <ul class="link-list-opt no-bdr">
-                                                                <li><a href="#"><em
-                                                                            class="icon ni ni-na"></em><span>Hapus</span></a>
-                                                                </li>
-                                                            </ul>
-                                                        </div>
+                            <form action="{{ route('pegawai.store-cuti') }}" method="POST" enctype="multipart/form-data">
+                                @csrf
+                                <div class="preview-block">
+                                    <span class="preview-title-lg overline-title">Form Pengajuan Cuti</span>
+                                    <div class="row gy-4">
+                                        <div class="col-sm-6">
+                                            <div class="form-group">
+                                                <label class="form-label" for="username">Alasan Cuti</label>
+                                                <div class="form-control-wrap">
+                                                    <input type="text" class="form-control" id="reason_verification"
+                                                        name="reason_verification" value="">
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="col-sm-6">
+                                            <div class="form-group">
+                                                <label class="form-label" for="name">Perihal Cuti</label>
+                                                <div class="form-control-wrap">
+                                                    <input type="text" class="form-control" id="about" name="about"
+                                                        value="">
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="col-sm-6">
+                                            <div class="form-group">
+                                                <label class="form-label">Mulai Cuti</label>
+                                                <div class="form-control-wrap">
+                                                    <div class="form-icon form-icon-right">
+                                                        <em class="icon ni ni-calendar-alt"></em>
                                                     </div>
-                                                </li>
-                                            </ul>
-                                        </td>
-                                    </tr>
-                                    <tr>
-                                        <td>1</td>
-                                        <td>Hafizh Alfaris</td>
-                                        <td>Cuti Menikah</td>
-                                        <td>13 Aug 2024</td>
-                                        <td>13 Aug 2024</td>
-                                        <td>17 Aug 2024</td>
-                                        <td>
-                                            {{-- Sakinah Mawadah Warahmah ya atas pernikahannya --}}
-                                        </td>
-                                        <td><span class="badge bg-secondary">Menunggu</span></td>
-                                        <td>
-                                            <ul class="nk-tb-actions gx-2">
-                                                <li>
-                                                    <div class="drodown">
-                                                        <a href="#"
-                                                            class="btn btn-sm btn-icon btn-trigger dropdown-toggle"
-                                                            data-bs-toggle="dropdown">
-                                                            <em class="icon ni ni-more-h"></em>
-                                                        </a>
-                                                        <div class="dropdown-menu dropdown-menu-end">
-                                                            <ul class="link-list-opt no-bdr">
-                                                                <li><a href="#"><em
-                                                                            class="icon ni ni-edit"></em><span>Edit</span></a>
-                                                                </li>
-                                                                <li><a href="#"><em
-                                                                            class="icon ni ni-na"></em><span>Hapus</span></a>
-                                                                </li>
-                                                            </ul>
-                                                        </div>
+                                                    <input type="text" class="form-control date-picker" id="date"
+                                                        name="date">
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="col-sm-6">
+                                            <div class="form-group">
+                                                <label class="form-label">Berakhir Cuti</label>
+                                                <div class="form-control-wrap">
+                                                    <div class="form-icon form-icon-right">
+                                                        <em class="icon ni ni-calendar-alt"></em>
                                                     </div>
-                                                </li>
-                                            </ul>
-                                        </td>
-                                    </tr>
-                                    <tr>
-                                        <td>1</td>
-                                        <td>Hafizh Alfaris</td>
-                                        <td>Cuti Menikah</td>
-                                        <td>13 Aug 2024</td>
-                                        <td>13 Aug 2024</td>
-                                        <td>17 Aug 2024</td>
-                                        <td>
-                                            {{-- Sakinah Mawadah Warahmah ya atas pernikahannya --}}
-                                        </td>
-                                        <td><span class="badge bg-danger">Ditolak</span></td>
-                                        <td>
-                                            <ul class="nk-tb-actions gx-2">
-                                                <li>
-                                                    <div class="drodown">
-                                                        <a href="#"
-                                                            class="btn btn-sm btn-icon btn-trigger dropdown-toggle"
-                                                            data-bs-toggle="dropdown">
-                                                            <em class="icon ni ni-more-h"></em>
-                                                        </a>
-                                                        <div class="dropdown-menu dropdown-menu-end">
-                                                            <ul class="link-list-opt no-bdr">
-                                                                <li><a href="#"><em
-                                                                            class="icon ni ni-na"></em><span>Hapus</span></a>
-                                                                </li>
-                                                            </ul>
-                                                        </div>
-                                                    </div>
-                                                </li>
-                                            </ul>
-                                        </td>
-                                    </tr>
-
-                                    {{-- @endforeach --}}
-                                </tbody>
-                            </table>
+                                                    <input type="text" class="form-control date-picker" id="end_date"
+                                                        name="end_date" value="">
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <hr class="preview-hr">
+                                    <div class="form-group">
+                                        <button type="submit" class="btn btn-primary">Ajukan Cuti</button>
+                                    </div>
+                                </div>
+                            </form>
                         </div>
                     </div><!-- .card-preview -->
                 </div> <!-- nk-block -->

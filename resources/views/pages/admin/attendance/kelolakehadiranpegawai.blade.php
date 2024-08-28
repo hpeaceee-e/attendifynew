@@ -24,7 +24,7 @@
                                     <ul class="nk-block-tools g-3">
                                         <li><a href="{{ route('admin.print-kelolakehadiranpegawai') }}"
                                                 class="btn btn-white btn-outline-light" target="_blank"><em
-                                                    class="icon ni ni-download"></em><span>Cetak</span></a></li>
+                                                    class="icon ni ni-printer"></em></em><span>Cetak</span></a></li>
                                     </ul>
                                 </div>
                             </div><!-- .toggle-wrap -->
@@ -91,7 +91,7 @@
                                                                     </li>
                                                                     <li><a
                                                                             href="{{ route('admin.print-kelolakehadiranpegawai-orang', ['id' => $attendance->id]) }}"><em
-                                                                                class="icon ni ni-print"></em><span>Cetak</span></a>
+                                                                                class="icon ni ni-printer"></em></em><span>Cetak</span></a>
                                                                     </li>
                                                                 </ul>
                                                             </div>

@@ -7,7 +7,7 @@
         <div class="container-xl wide-lg">
             <div class="nk-content-body">
                 <div class="nk-block-head nk-block-head-sm">
-                    <div class="nk-block-head nk-block-head-lg wide-sm">
+                    <div class="nk-block-head nk-block-head-sm">
                         <div class="nk-block-between">
                             <div class="nk-block-head-content">
                                 <h3 class="nk-block-title page-title">Pegawai</h3>
@@ -23,11 +23,10 @@
                                         <ul class="nk-block-tools g-3">
                                             <li><a href="{{ route('admin.print-kelolapegawai') }}"
                                                     class="btn btn-white btn-outline-light" target="_blank"><em
-                                                        class="icon ni ni-download"></em><span>Cetak</span></a></li>
+                                                        class="icon ni ni-printer"></em><span>Cetak</span></a></li>
                                             <a href="{{ route('admin.tambahpegawai') }}" class="btn btn-icon btn-primary">
                                                 <em class="icon ni ni-plus"></em>
                                             </a>
-                                            </li>
                                         </ul>
                                     </div>
                                 </div><!-- .toggle-wrap -->

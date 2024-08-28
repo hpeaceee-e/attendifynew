@@ -19,7 +19,7 @@
                                     <ul class="nk-block-tools g-3">
                                         <li><a href="{{ route('admin.print-kelolacuti') }}"
                                                 class="btn btn-white btn-outline-light" target="_blank"><em
-                                                    class="icon ni ni-download"></em><span>Cetak</span></a></li>
+                                                    class="icon ni ni-printer"></em><span>Cetak</span></a></li>
                                     </ul>
                                 </div>
                             </div><!-- .toggle-wrap -->

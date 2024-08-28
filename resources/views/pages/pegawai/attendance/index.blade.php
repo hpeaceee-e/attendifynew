@@ -59,7 +59,7 @@
                                 <tr>
                                     <td>{{ $loop->iteration }}</td>
                                     <td>{{ $attendance->date }}</td>
-                                    <td>{{ $attendance->time }}</td>
+                                    <td>{{ \Carbon\Carbon::parse($attendance->time)->format('H:i') }}</td>
                                     <td>
                                         @if ($attendance->status == 0)
                                             Masuk
@@ -70,7 +70,8 @@
                                     <td>{{ $attendance->coordinate }}</td>
                                     <td>
                                         <a href="{{ route('pegawai.print-attendance', $attendance->id) }}"
-                                            class="btn btn-info btn-sm" target="_blank">Print</a>
+                                            class="btn btn-info btn-sm" target="_blank"><em
+                                                class="icon ni ni-printer"></em>Print</a>
                                     </td>
                                 </tr>
                             @endforeach

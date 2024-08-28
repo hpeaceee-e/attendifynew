@@ -51,14 +51,15 @@ Route::middleware([AutoLogout::class])->group(function () {
             Route::post('/tambahjadwal/store', [ScheduleController::class, 'store'])->name('tambahjadwalstore');
             Route::get('/editjadwal/{id}', [ScheduleController::class, 'edit'])->name('editjadwal');
             Route::post('/updatejadwal/{id}', [ScheduleController::class, 'update'])->name('updatejadwal');
+            Route::get('/printjadwal', [ScheduleController::class, 'print'])->name('print-jadwal');
         });
 
         // Manage Leave
         Route::prefix('leave.kelolacuti')->group(function () {
             Route::get('/', [AdminController::class, 'cuti'])->name('kelolacuti');
-            Route::get('/printkelolacuti', [AdminController::class, 'cetakcuti'])->name('print-kelolacuti');
             Route::get('/persetujuancuti', [AdminController::class, 'persetujuancuti'])->name('persetujuancuti');
             Route::get('/editcuti', [AdminController::class, 'editcuti'])->name('editcuti');
+            Route::get('/printkelolacuti', [AdminController::class, 'cetakcuti'])->name('print-kelolacuti');
         });
     });
 
@@ -72,12 +73,17 @@ Route::middleware([AutoLogout::class])->group(function () {
 
         Route::prefix('attendance')->group(function () {
             Route::get('/', [AttendanceController::class, 'index'])->name('attendance');
-            Route::get('/tambahjadwal', [AttendanceController::class, 'create'])->name('tambah-attendance');
-            Route::post('/tambahjadwal/store', [AttendanceController::class, 'store'])->name('store-attendance');
+            Route::get('/tambahabsensi', [AttendanceController::class, 'create'])->name('tambah-attendance');
+            Route::post('/tambahabsensi/store', [AttendanceController::class, 'store'])->name('store-attendance');
             Route::get('/attendance/{id}/print', [AttendanceController::class, 'print'])->name('print-attendance');
         });
         Route::prefix('leaves')->group(function () {
             Route::get('/', [LeavesController::class, 'index'])->name('leaves');
+            Route::get('/create', [LeavesController::class, 'create'])->name('create-cuti');
+            Route::post('/store', [LeavesController::class, 'store'])->name('store-cuti');
+            Route::get('/edit', [LeavesController::class, 'edit'])->name('edit-cuti');
+            Route::post('/update', [LeavesController::class, 'update'])->name('update-cuti');
+            Route::get('/print', [LeavesController::class, 'print'])->name('print-cuti');
         });
         Route::prefix('izin')->group(function () {
             Route::get('/', [IzinController::class, 'index'])->name('izin');

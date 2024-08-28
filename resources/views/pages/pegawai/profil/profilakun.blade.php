@@ -75,7 +75,8 @@
                                                                 <div class="form-group">
                                                                     <label class="form-label">Username</label>
                                                                     <input type="text" class="form-control"
-                                                                        name="username" value="{{ $item->username }}">
+                                                                        name="username" value="{{ $item->username }}"
+                                                                        readonly>
                                                                 </div>
                                                             </div>
                                                             <div class="col-md-6">

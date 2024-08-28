@@ -9,7 +9,7 @@
                 <div class="nk-block-head nk-block-head-sm">
                     <div class="nk-block-between">
                         <div class="nk-block-head-content">
-                            <h3 class="nk-block-title page-title">Data Cuti : </h3>
+                            <h3 class="nk-block-title page-title">Data Cuti</h3>
                         </div><!-- .nk-block-head-content -->
                         <div class="nk-block-head-content">
                             <div class="toggle-wrap nk-block-tools-toggle">
@@ -17,10 +17,10 @@
                                     data-target="pageMenu"><em class="icon ni ni-menu-alt-r"></em></a>
                                 <div class="toggle-expand-content" data-content="pageMenu">
                                     <ul class="nk-block-tools g-3">
-                                        <li><a href="{{ route('admin.print-kelolacuti') }}"
+                                        <li><a href="{{ route('pegawai.print-cuti') }}"
                                                 class="btn btn-white btn-outline-light" target="_blank"><em
-                                                    class="icon ni ni-download"></em><span>Cetak</span></a></li>
-                                        <a href="#" class="btn btn-icon btn-primary">
+                                                    class="icon ni ni-printer"></em><span>Cetak</span></a></li>
+                                        <a href="{{ route('pegawai.create-cuti') }}" class="btn btn-icon btn-primary">
                                             <em class="icon ni ni-plus"></em>
                                         </a>
                                     </ul>
@@ -70,8 +70,15 @@
                                                         </a>
                                                         <div class="dropdown-menu dropdown-menu-end">
                                                             <ul class="link-list-opt no-bdr">
+                                                                <li><a href="{{ route('pegawai.edit-cuti') }}"><em
+                                                                            class="icon ni ni-edit"></em><span>Edit</span></a>
+                                                                </li>
                                                                 <li><a href="#"><em
                                                                             class="icon ni ni-na"></em><span>Hapus</span></a>
+                                                                </li>
+                                                                <li><a href="{{ route('pegawai.print-cuti') }}"
+                                                                        target="_blank"><em
+                                                                            class="icon ni ni-printer"></em><span>Cetak</span></a>
                                                                 </li>
                                                             </ul>
                                                         </div>
@@ -102,11 +109,15 @@
                                                         </a>
                                                         <div class="dropdown-menu dropdown-menu-end">
                                                             <ul class="link-list-opt no-bdr">
-                                                                <li><a href="#"><em
+                                                                <li><a href="{{ route('pegawai.edit-cuti') }}"><em
                                                                             class="icon ni ni-edit"></em><span>Edit</span></a>
                                                                 </li>
                                                                 <li><a href="#"><em
                                                                             class="icon ni ni-na"></em><span>Hapus</span></a>
+                                                                </li>
+                                                                <li><a href="{{ route('pegawai.print-cuti') }}"
+                                                                        target="_blank"><em
+                                                                            class="icon ni ni-printer"></em><span>Cetak</span></a>
                                                                 </li>
                                                             </ul>
                                                         </div>
@@ -137,8 +148,15 @@
                                                         </a>
                                                         <div class="dropdown-menu dropdown-menu-end">
                                                             <ul class="link-list-opt no-bdr">
+                                                                <li><a href="{{ route('pegawai.edit-cuti') }}"><em
+                                                                            class="icon ni ni-edit"></em><span>Edit</span></a>
+                                                                </li>
                                                                 <li><a href="#"><em
                                                                             class="icon ni ni-na"></em><span>Hapus</span></a>
+                                                                </li>
+                                                                <li><a href="{{ route('pegawai.print-cuti') }}"
+                                                                        target="_blank"><em
+                                                                            class="icon ni ni-printer"></em><span>Cetak</span></a>
                                                                 </li>
                                                             </ul>
                                                         </div>

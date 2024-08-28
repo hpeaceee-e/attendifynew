@@ -25,6 +25,15 @@
                                         <div class="row gy-4">
                                             <div class="col-sm-6">
                                                 <div class="form-group">
+                                                    <label class="form-label" for="break">Shift</label>
+                                                    <div class="form-control-wrap">
+                                                        <input type="text" class="form-control" id="shift"
+                                                            name="shift" required>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div class="col-sm-6">
+                                                <div class="form-group">
                                                     <label class="form-label" for="clock_in">Jam Masuk</label>
                                                     <div class="form-control-wrap">
                                                         <input type="time" class="form-control" id="clock_in"
