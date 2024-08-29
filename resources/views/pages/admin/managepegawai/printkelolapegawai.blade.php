@@ -79,28 +79,7 @@
                                     </tr>
                             </tbody>
                             @endforeach
-                            {{-- <tfoot>
-                                <tr>
-                                    <td colspan="2"></td>
-                                    <td colspan="2">Subtotal</td>
-                                    <td>$435.00</td>
-                                </tr>
-                                <tr>
-                                    <td colspan="2"></td>
-                                    <td colspan="2">Processing fee</td>
-                                    <td>$10.00</td>
-                                </tr>
-                                <tr>
-                                    <td colspan="2"></td>
-                                    <td colspan="2">TAX</td>
-                                    <td>$43.50</td>
-                                </tr>
-                                <tr>
-                                    <td colspan="2"></td>
-                                    <td colspan="2">Grand Total</td>
-                                    <td>$478.50</td>
-                                </tr>
-                            </tfoot> --}}
+
                         </table>
                     </div>
                 </div><!-- .invoice-bills -->
