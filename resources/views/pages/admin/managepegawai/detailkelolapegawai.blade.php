@@ -22,10 +22,10 @@
                                     <!-- Kiri: Informasi Personal -->
                                     <div class="col-md-4">
                                         <div class="text-center mb-4">
-                                            <img src="{{ asset('storage/' . $data->avatar) }}" alt="Avatar"
+                                            <img src="{{ asset('storage/' . $item->avatar) }}" alt="Avatar"
                                                 class="img-fluid rounded-circle shadow-sm" style="max-width: 150px;">
-                                            <h5 class="mt-3">{{ $data->name }}</h5>
-                                            <p class="text-muted">{{ $data->email }}</p>
+                                            <h5 class="mt-3">{{ $item->name }}</h5>
+                                            <p class="text-muted">{{ $item->email }}</p>
                                         </div>
                                     </div>
 
@@ -35,71 +35,90 @@
                                             <div class="col-md-6">
                                                 <div class="form-group">
                                                     <label class="form-label">Username</label>
-                                                    <input type="text" class="form-control" value="{{ $data->username }}"
+                                                    <input type="text" class="form-control" value="{{ $item->username }}"
                                                         readonly>
                                                 </div>
                                             </div>
                                             <div class="col-md-6">
                                                 <div class="form-group">
-                                                    <label class="form-label">Hak Akses</label>
-                                                    <input type="text" class="form-control" value="{{ $data->role }}"
-                                                        readonly>
+                                                    <label class="form-label" for="role">Hak Akses</label>
+                                                    <div class="form-control-wrap">
+                                                        <select class="form-control" id="role" name="role" disabled>
+                                                            <option value="">Pilih Role</option>
+                                                            @foreach ($roles as $role)
+                                                                <option value="{{ $role->id }}"
+                                                                    {{ $role->id == $item->role ? 'selected' : '' }}>
+                                                                    {{ $role->name }}</option>
+                                                            @endforeach
+                                                        </select>
+                                                    </div>
                                                 </div>
                                             </div>
                                             <div class="col-md-6">
                                                 <div class="form-group">
                                                     <label class="form-label">Perangkat Seluler</label>
                                                     <input type="text" class="form-control"
-                                                        value="{{ $data->telephone }}" readonly>
+                                                        value="{{ $item->telephone }}" disabled>
                                                 </div>
                                             </div>
                                             <div class="col-md-6">
                                                 <div class="form-group">
                                                     <label class="form-label">Status Akun</label>
                                                     <input type="text" class="form-control"
-                                                        value="{{ $data->status == 0 ? 'Aktif' : 'Tidak Aktif' }}" readonly>
+                                                        value="{{ $item->status == 0 ? 'Aktif' : 'Tidak Aktif' }}" disabled>
                                                 </div>
                                             </div>
                                             <div class="col-md-6">
                                                 <div class="form-group">
                                                     <label class="form-label">Tanggal Dibuat</label>
                                                     <input type="text" class="form-control"
-                                                        value="{{ $data->created_at->format('d M Y') }}" readonly>
+                                                        value="{{ $item->created_at->format('d M Y') }}" disabled>
                                                 </div>
                                             </div>
                                             <div class="col-md-6">
                                                 <div class="form-group">
                                                     <label class="form-label">Jadwal</label>
-                                                    <input type="text" class="form-control" value="{{ $data->schedule }}"
-                                                        readonly>
+                                                    <input type="text" class="form-control"
+                                                        value="{{ $item->schedule }}" disabled>
                                                 </div>
                                             </div>
                                             <div class="col-md-6">
                                                 <div class="form-group">
                                                     <label class="form-label">Tempat Lahir</label>
-                                                    <input type="text" class="form-control" value="{{ $data->city }}"
-                                                        readonly>
+                                                    <input type="text" class="form-control"
+                                                        value="{{ $item->place_of_birth }}" disabled>
                                                 </div>
                                             </div>
                                             <div class="col-md-6">
-                                                <div class="form-group">
+                                                {{-- <div class="form-group">
                                                     <label class="form-label">Tanggal Lahir</label>
                                                     <input type="text" class="form-control"
-                                                        value="{{ $data->birthday }}" readonly>
+                                                        value="{{ $data->birthday }}">
+                                                </div> --}}
+                                                <div class="form-group">
+                                                    <label class="form-label">Tanggal Lahir</label>
+                                                    <div class="form-control-wrap">
+                                                        <div class="form-icon form-icon-left">
+                                                            <em class="icon ni ni-calendar"></em>
+                                                        </div>
+                                                        <input type="text" class="form-control date-picker"
+                                                            data-date-format="yyyy-mm-dd"
+                                                            value="{{ $item->date_of_birth }}" disabled>
+                                                    </div>
                                                 </div>
                                             </div>
                                             <div class="col-md-6">
                                                 <div class="form-group">
                                                     <label class="form-label">Jenis Kelamin</label>
-                                                    <input type="text" class="form-control" value="{{ $data->gender }}"
-                                                        readonly>
+                                                    <input type="text" class="form-control" value="{{ $item->gender }}"
+                                                        disabled>
                                                 </div>
                                             </div>
                                             <div class="col-md-6">
                                                 <div class="form-group">
                                                     <label class="form-label">Agama</label>
                                                     <input type="text" class="form-control"
-                                                        value="{{ $data->religion }}" readonly>
+                                                        value="{{ $item->religion }}" disabled>
                                                 </div>
                                             </div>
                                             <div class="col-md-12">
@@ -107,8 +126,8 @@
                                                     <label class="form-label">Alamat</label>
                                                     {{-- <input type="text" class="form-control" value="{{ $data->address }}"
                                                         readonly> --}}
-                                                    <textarea name="address" class="form-control" id="address" cols="30" value="{{ $data->address }}" rows="10"
-                                                        placeholder="Aalamat" readonly></textarea>
+                                                    <textarea name="address" class="form-control" id="address" cols="30" rows="10" placeholder="Aalamat"
+                                                        disabled>{{ $item->address }}</textarea>
                                                 </div>
                                             </div>
 

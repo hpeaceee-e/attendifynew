@@ -25,16 +25,10 @@ class EmployeController extends Controller
 
     public function show($id)
     {
-        // Mengambil data pegawai berdasarkan ID dengan relasi role dan schedule
-        $data = User::with('role', 'schedule')->find($id);
-
-        // Periksa apakah data ditemukan
-        if (!$data) {
-            return redirect()->route('admin.kelolapegawai')->with('error', 'Pegawai tidak ditemukan');
-        }
-
-        // Menampilkan view dengan data pegawai
-        return view('pages.admin.managepegawai.detailkelolapegawai', compact('data'));
+        $item = User::findOrFail($id);
+        $roles = Role::all();
+        $schedules = Schedule::all();
+        return view('pages.admin.managepegawai.detailkelolapegawai', compact('item', 'roles', 'schedules'));
     }
 
 
@@ -104,6 +98,15 @@ class EmployeController extends Controller
             'password' => 'nullable|string|min:8',
             'status' => 'required|boolean',
             'schedule' => 'required|integer|exists:schedules,id',
+
+            'telephone' => 'required|string|max:20',
+            // 'status' => 'required|in:0,1',
+            'place_of_birth' => 'required|string|max:255',
+            'date_of_birth' => 'required|date',
+            'gender' => 'required',
+            'religion' => 'required|string|max:50',
+            'address' => 'required|string|max:255',
+
         ]);
 
         // Find the user with their associated role and schedule
@@ -115,6 +118,14 @@ class EmployeController extends Controller
         $data->email = $validatedData['email'];
         $data->status = $validatedData['status'];
         $data->schedule = $validatedData['schedule'];
+
+        $data->telephone = $validatedData['telephone'];
+        $data->place_of_birth = $validatedData['place_of_birth'];
+        $data->date_of_birth = $validatedData['date_of_birth'];
+        $data->gender = $validatedData['gender'];
+        $data->religion = $validatedData['religion'];
+        $data->address = $validatedData['address'];
+
 
         // Update password only if provided
         if ($request->filled('password')) {

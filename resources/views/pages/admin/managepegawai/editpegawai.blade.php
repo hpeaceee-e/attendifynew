@@ -57,7 +57,7 @@
                                             </div>
                                             <div class="col-sm-6">
                                                 <div class="form-group">
-                                                    <label class="form-label" for="role">Role</label>
+                                                    <label class="form-label" for="role">Hak Akses</label>
                                                     <div class="form-control-wrap">
                                                         <select class="form-control" id="role" name="role" required>
                                                             <option value="">Pilih Role</option>
@@ -119,6 +119,70 @@
                                                                 </option>
                                                             @endforeach
                                                         </select>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div class="col-sm-6">
+                                                <div class="form-group">
+                                                    <label class="form-label" for="email">Tempat Lahir</label>
+                                                    <div class="form-control-wrap">
+                                                        <input type="text" class="form-control" id="place_of_birth"
+                                                            name="place_of_birth" value="{{ $item->place_of_birth }}"
+                                                            required>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div class="col-sm-6">
+                                                <div class="form-group">
+                                                    <label class="form-label">Tanggal Lahir</label>
+                                                    <div class="form-control-wrap">
+                                                        <div class="form-icon form-icon-left">
+                                                            <em class="icon ni ni-calendar"></em>
+                                                        </div>
+                                                        <input type="text" class="form-control date-picker"
+                                                            id="date_of_birth" name="date_of_birth"
+                                                            data-date-format="yyyy-mm-dd"
+                                                            value="{{ $item->date_of_birth }}">
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div class="col-sm-6">
+                                                <div class="form-group">
+                                                    <label class="form-label">Jenis Kelamin</label>
+                                                    <input type="text" class="form-control" name="gender"
+                                                        value="{{ $item->gender }}">
+                                                </div>
+                                            </div>
+                                            <div class="col-sm-6">
+                                                <div class="form-group">
+                                                    <label class="form-label" for="email">Perangkat Seluler</label>
+                                                    <div class="form-control-wrap">
+                                                        <input type="text" class="form-control" id="telephone"
+                                                            name="telephone" value="{{ $item->telephone }}" required>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div class="col-sm-6">
+                                                <div class="form-group">
+                                                    <label class="form-label" for="email">Jabatan</label>
+                                                    <div class="form-control-wrap">
+                                                        <input type="text" class="form-control" id="position"
+                                                            name="position" value="" readonly>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div class="col-sm-6">
+                                                <div class="form-group">
+                                                    <label class="form-label">Agama</label>
+                                                    <input type="text" class="form-control" name="religion"
+                                                        value="{{ $item->religion }}">
+                                                </div>
+                                            </div>
+                                            <div class="col-sm-6">
+                                                <div class="form-group">
+                                                    <label class="form-label" for="address">Alamat</label>
+                                                    <div class="form-control-wrap">
+                                                        <textarea type="text" class="form-control" id="address" name="address" required>{{ $item->address }}</textarea>
                                                     </div>
                                                 </div>
                                             </div>
