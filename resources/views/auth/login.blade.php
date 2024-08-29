@@ -127,15 +127,34 @@
         });
     </script>
     <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11/dist/sweetalert2.min.js"></script>
-    @if ($message = Session::get('succes'))
-        <script>
-            Swal.fire('{{ $message }}');
-        </script>
-    @endif
-    @if ($message = Session::get('failed'))
-        <script>
-            Swal.fire('{{ $message }}');
-        </script>
-    @endif
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            const loginButton = document.getElementById('login-btn');
+
+            @if ($message = Session::get('succes'))
+                // Jika berhasil logout
+                Swal.fire({
+                    title: '{{ $message }}',
+                    icon: 'success',
+                    confirmButtonColor: '#28a745'
+                }).then(() => {
+                    loginButton.style.backgroundColor = '#28a745'; // Hijau
+                    loginButton.style.borderColor = '#28a745';
+                });
+            @endif
+
+            @if ($message = Session::get('failed'))
+                // Jika login gagal
+                Swal.fire({
+                    title: '{{ $message }}',
+                    icon: 'error',
+                    confirmButtonColor: '#dc3545'
+                }).then(() => {
+                    loginButton.style.backgroundColor = '#dc3545'; // Merah
+                    loginButton.style.borderColor = '#dc3545';
+                });
+            @endif
+        });
+    </script>
 
 </html>
