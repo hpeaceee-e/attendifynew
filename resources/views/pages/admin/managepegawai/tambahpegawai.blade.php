@@ -77,8 +77,6 @@
                                                     </div>
                                                 </div>
                                             </div>
-
-
                                             <div class="col-sm-6">
                                                 <div class="form-group">
                                                     <label class="form-label" for="password">Password</label>
@@ -88,7 +86,6 @@
                                                     </div>
                                                 </div>
                                             </div>
-
                                         </div>
                                         <hr class="preview-hr">
                                         <div class="form-group">

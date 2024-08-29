@@ -9,7 +9,7 @@
     <meta name="description"
         content="A powerful and conceptual apps base dashboard template that especially build for developers and programmers.">
     <!-- Fav Icon  -->
-    <link rel="shortcut icon" href="./images/favicon.png">
+    <link rel="shortcut icon" href="{{ asset('demo5/src/images/favicon.png') }}">
     <!-- Page Title  -->
     <title>
         Cetak Kehadiran Pegawai
@@ -31,7 +31,7 @@
                     <div class="invoice-contact">
                         <span class="overline-title">Report</span>
                         <div class="invoice-contact-info">
-                            <h4 class="title">Kelola Data Pegawai</h4>
+                            <h4 class="title">Kelola Data Kehadiran Pegawai</h4>
                             {{-- <ul class="list-plain">
                                 <li><em class="icon ni ni-map-pin-fill fs-18px"></em><span>House #65, 4328 Marion
                                         Street<br>Newbury, VT 05051</span></li>
@@ -45,85 +45,42 @@
                         <table class="table table-striped">
                             <thead>
                                 <tr>
-                                    <th>Username</th>
-                                    <th>Nama Pegawai</th>
-                                    <th>Email</th>
-                                    <th>Password</th>
-                                    <th>Role</th>
-                                    <th>Tanggal Verifikasi</th>
-                                    <th>Jadwal</th>
-
+                                    <th>No</th>
+                                    <th>Pegawai</th>
+                                    <th>Tanggal</th>
+                                    <th>Jam Masuk</th>
+                                    <th>Jam Keluar</th>
+                                    <th>Kehadiran</th>
+                                    <th>Lokasi</th>
                                 </tr>
                             </thead>
                             <tbody>
-                                <tr>
-                                    <td>00001</td>
-                                    <td>Faldi Reza</td>
-                                    <td>faldi@polsub</td>
-                                    <td>12345</td>
-                                    <td>Pegawai</td>
-                                    <td>20 Agustus 2024</td>
-                                    <td>08.00 - 15.00</td>
-                                </tr>
-                                <tr>
-                                    <td>00001</td>
-                                    <td>Faldi Reza</td>
-                                    <td>faldi@polsub</td>
-                                    <td>12345</td>
-                                    <td>Pegawai</td>
-                                    <td>20 Agustus 2024</td>
-                                    <td>08.00 - 15.00</td>
-                                </tr>
-                                <tr>
-                                    <td>00001</td>
-                                    <td>Faldi Reza</td>
-                                    <td>faldi@polsub</td>
-                                    <td>12345</td>
-                                    <td>Pegawai</td>
-                                    <td>20 Agustus 2024</td>
-                                    <td>08.00 - 15.00</td>
-                                </tr>
-                                <tr>
-                                    <td>00001</td>
-                                    <td>Faldi Reza</td>
-                                    <td>faldi@polsub</td>
-                                    <td>12345</td>
-                                    <td>Pegawai</td>
-                                    <td>20 Agustus 2024</td>
-                                    <td>08.00 - 15.00</td>
-                                </tr>
-                                <tr>
-                                    <td>00001</td>
-                                    <td>Faldi Reza</td>
-                                    <td>faldi@polsub</td>
-                                    <td>12345</td>
-                                    <td>Pegawai</td>
-                                    <td>20 Agustus 2024</td>
-                                    <td>08.00 - 15.00</td>
-                                </tr>
+                                @foreach ($attendances as $attendance)
+                                    <tr>
+                                        <td>{{ $loop->iteration }}</td>
+                                        <td>{{ $attendance->user->name }}</td>
+                                        <td>{{ \Carbon\Carbon::parse($attendance->date)->format('d M Y') }}</td>
+                                        {{-- <td>{{ \Carbon\Carbon::parse($attendance->time)->format('H:i') }}</td> --}}
+                                        <td>
+                                            @if ($attendance->status == 0)
+                                                Masuk (waktu)
+                                            @else
+                                                Pulang
+                                            @endif
+                                        </td>
+                                        <td>
+                                            @if ($attendance->status == 1)
+                                                Pulang (waktu)
+                                            @else
+                                                Masuk
+                                            @endif
+                                        </td>
+
+                                        <td><span class="badge bg-success">Tepat Waktu</span><span
+                                                class="badge bg-danger">Terlambat</span></td>
+                                        <td>{{ $attendance->coordinate }} (dijadikan link saja nanti)</td>
+                                @endforeach
                             </tbody>
-                            {{-- <tfoot>
-                                <tr>
-                                    <td colspan="2"></td>
-                                    <td colspan="2">Subtotal</td>
-                                    <td>$435.00</td>
-                                </tr>
-                                <tr>
-                                    <td colspan="2"></td>
-                                    <td colspan="2">Processing fee</td>
-                                    <td>$10.00</td>
-                                </tr>
-                                <tr>
-                                    <td colspan="2"></td>
-                                    <td colspan="2">TAX</td>
-                                    <td>$43.50</td>
-                                </tr>
-                                <tr>
-                                    <td colspan="2"></td>
-                                    <td colspan="2">Grand Total</td>
-                                    <td>$478.50</td>
-                                </tr>
-                            </tfoot> --}}
                         </table>
                     </div>
                 </div><!-- .invoice-bills -->

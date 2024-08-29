@@ -12,24 +12,29 @@ class AttendanceController extends Controller
     public function kehadiran()
     {
         // $attendances = Attendance::get();
-
-        $attendances = Attendance::with('user')->get();
+        $attendances = Attendance::whereHas('user', function ($query) {
+            $query->where('role', '2'); // Gantilah 'pegawai' dengan ID role untuk pegawai jika menggunakan angka.
+        })->get();
+        // $attendances = Attendance::with('user')->get();
 
         return view('pages.admin.attendance.kelolakehadiranpegawai', compact('attendances'));
     }
 
     public function cetakkehadiran()
     {
-        $attendance = Attendance::all();
+        $attendances = Attendance::whereHas('user', function ($query) {
+            $query->where('role', '2'); // Gantilah 'pegawai' dengan ID role untuk pegawai jika menggunakan angka.
+        })->get();
 
-        return view('pages.admin.attendance.printkehadiranpegawai', compact('attendance'));
+        return view('pages.admin.attendance.printkehadiranpegawai', compact('attendances'));
     }
+
     // Tampilkan daftar kehadiran
     public function index()
     {
-        $id = Auth::user()->id ;
+        $id = Auth::user()->id;
         // dd($id);
-        $attendances = Attendance::where('enhancer',$id)->get();
+        $attendances = Attendance::where('enhancer', $id)->get();
         return view('pages.pegawai.attendance.index', compact('attendances'));
     }
 

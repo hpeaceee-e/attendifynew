@@ -9,7 +9,7 @@
     <meta name="description"
         content="A powerful and conceptual apps base dashboard template that especially build for developers and programmers.">
     <!-- Fav Icon  -->
-    <link rel="shortcut icon" href="./images/favicon.png">
+    <link rel="shortcut icon" href="{{ asset('demo5/src/images/favicon.png') }}">
     <!-- Page Title  -->
     <title>Jadwal Pegawai</title>
     <!-- StyleSheets  -->
