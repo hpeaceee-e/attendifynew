@@ -56,19 +56,22 @@
                                             {{-- <td>{{ \Carbon\Carbon::parse($attendance->time)->format('H:i') }}</td> --}}
                                             <td>
                                                 @if ($attendance->status == 0)
-                                                    Masuk (waktu)
+                                                    {{-- Status 0 indicates 'Masuk' --}}
+                                                    {{ \Carbon\Carbon::parse($attendance->time)->format('H:i') }}
+                                                    {{-- Waktu Masuk --}}
                                                 @else
-                                                    Pulang
+                                                    - {{-- Empty for 'Pulang' row --}}
                                                 @endif
                                             </td>
                                             <td>
                                                 @if ($attendance->status == 1)
-                                                    Pulang (waktu)
+                                                    {{-- Status 1 indicates 'Pulang' --}}
+                                                    {{ \Carbon\Carbon::parse($attendance->time)->format('H:i') }}
+                                                    {{-- Waktu Pulang --}}
                                                 @else
-                                                    Masuk
+                                                    - {{-- Empty for 'Masuk' row --}}
                                                 @endif
                                             </td>
-
                                             <td><span class="badge bg-success">Tepat Waktu</span><span
                                                     class="badge bg-danger">Terlambat</span></td>
                                             <td>{{ $attendance->coordinate }} (dijadikan link saja nanti)</td>

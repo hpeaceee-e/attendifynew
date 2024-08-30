@@ -32,17 +32,19 @@
     <script src="https://unpkg.com/leaflet@1.7.1/dist/leaflet.js"></script>
     <script>
         document.addEventListener('DOMContentLoaded', function() {
-            var map = L.map('map').setView([-6.200000, 106.816666], 13); // Default posisi Jakarta
+            var map = L.map('map').setView([-6.200000, 106.816666], 13); // Default ke Jakarta
             L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
                 maxZoom: 18,
             }).addTo(map);
 
-            // Mendapatkan lokasi pengguna
+            // Mencoba untuk mendapatkan lokasi pengguna
             map.locate({
                 setView: true,
-                maxZoom: 16
+                maxZoom: 16,
+                watch: false // Menonaktifkan pelacakan berkelanjutan untuk akurasi yang lebih baik di awal
             });
 
+            // Saat lokasi ditemukan
             function onLocationFound(e) {
                 var radius = e.accuracy;
                 L.marker(e.latlng).addTo(map)
@@ -50,10 +52,12 @@
                 document.getElementById('coordinate').value = e.latlng.lat + "," + e.latlng.lng;
             }
 
+            // Tambahkan handler untuk lokasi ditemukan
             map.on('locationfound', onLocationFound);
 
+            // Jika terjadi kesalahan dalam mendapatkan lokasi
             map.on('locationerror', function(e) {
-                alert("Gagal mendapatkan lokasi Anda.");
+                alert("Gagal mendapatkan lokasi Anda. Silakan periksa izin lokasi dan coba lagi.");
             });
         });
     </script>

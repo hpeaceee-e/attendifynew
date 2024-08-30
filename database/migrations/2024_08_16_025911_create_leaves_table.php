@@ -15,8 +15,10 @@ return new class extends Migration
             $table->id();
             $table->unsignedBigInteger('enhancer');
             $table->date('date');
+            $table->date('end_date');
             $table->enum('status', [0, 1]);
             $table->string('reason', 255);
+            $table->string('reason_verification', 255);
             $table->timestamps();
             $table->softDeletes();
         });
