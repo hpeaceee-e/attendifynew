@@ -103,4 +103,13 @@
             </div><!-- .nk-content-body -->
         </div><!-- .container-xl -->
     </div><!-- .nk-content -->
+
+    <script>
+        document.getElementById('name').addEventListener('input', function(event) {
+            const input = event.target;
+            // Hanya izinkan huruf dan spasi
+            input.value = input.value.replace(/[^A-Za-z\s]/g, '');
+        });
+    </script>
+
 @endsection
