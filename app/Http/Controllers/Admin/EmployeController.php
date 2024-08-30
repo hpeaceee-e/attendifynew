@@ -54,7 +54,7 @@ class EmployeController extends Controller
         // dd($request->all());
         $validatedData = $request->validate([
             'username' => 'nullable|string|max:5|unique:users,username',
-            'name' => 'required|string|max:80',
+            'name' => 'required|string|regex:/^[A-Za-z\s]+$/|max:80',
             'role' => 'required|integer|exists:roles,id',
             'email' => 'nullable|string|email|max:80|unique:users,email',
             'password' => 'required|string|min:8',
