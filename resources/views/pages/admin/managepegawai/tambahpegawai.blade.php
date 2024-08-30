@@ -48,9 +48,7 @@
                                                     <label class="form-label" for="name">Nama</label>
                                                     <div class="form-control-wrap">
                                                         <input type="text" class="form-control" id="name"
-                                                            name="name" value="{{ old('name') }}" maxlength="80"
-                                                            pattern="[A-Za-z\s]+"
-                                                            title="Nama hanya boleh diisi dengan huruf.">
+                                                            name="name" value="{{ old('name') }}">
                                                     </div>
                                                 </div>
                                             </div>
