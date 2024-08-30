@@ -4,7 +4,8 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Models\Attendance;
-
+use App\Models\Role;
+use App\Models\User;
 use Illuminate\Support\Facades\Auth;
 
 class AttendanceController extends Controller
@@ -66,26 +67,29 @@ class AttendanceController extends Controller
     public function print($id)
     {
         $attendance = Attendance::findOrFail($id);
-
+        $id_user = Auth::user()->id;
+        $name = User::where('id', $id_user)->value('name');
         // Mengolah string coordinate menjadi array
         $coordinates = explode(',', $attendance->coordinate);
         $latitude = $coordinates[0] ?? null;
         $longitude = $coordinates[1] ?? null;
 
         // Tampilkan tampilan print
-        return view('pages.pegawai.attendance.print', compact('attendance', 'latitude', 'longitude'));
+        return view('pages.pegawai.attendance.print', compact('attendance', 'latitude', 'longitude', 'name'));
     }
 
     public function cetakkehadiranorang($id)
     {
         $attendance = Attendance::findOrFail($id);
-
+        $id_user = Auth::user()->id;
+        $name = User::where('id', $id_user)->value('name');
+        // Mengolah string coordinate menjadi array
         // Mengolah string coordinate menjadi array
         $coordinates = explode(',', $attendance->coordinate);
         $latitude = $coordinates[0] ?? null;
         $longitude = $coordinates[1] ?? null;
 
         // Tampilkan tampilan print
-        return view('pages.admin.attendance.printkehadiran-orang', compact('attendance', 'latitude', 'longitude'));
+        return view('pages.admin.attendance.printkehadiran-orang', compact('attendance', 'latitude', 'longitude', 'name'));
     }
 }

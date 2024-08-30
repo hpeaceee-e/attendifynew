@@ -37,10 +37,10 @@
                                     <thead>
                                         <tr>
                                             <th>No</th>
-                                            <th>Shift</th>
+                                            {{-- <th>Shift</th> --}}
                                             <th>Jam Masuk</th>
-                                            <th>Jam Keluar</th>
                                             <th>Istirahat</th>
+                                            <th>Jam Keluar</th>
                                             <th>Action</th>
                                         </tr>
                                     </thead>
@@ -48,10 +48,10 @@
                                         @foreach ($schedules as $schedule)
                                             <tr>
                                                 <td>{{ $schedule->id }}</td>
-                                                <td>Shift A</td>
+                                                {{-- <td>Shift A</td> --}}
                                                 <td>{{ \Carbon\Carbon::parse($schedule->clock_in)->format('H:i') }}</td>
-                                                <td>{{ \Carbon\Carbon::parse($schedule->clock_out)->format('H:i') }}</td>
                                                 <td>{{ \Carbon\Carbon::parse($schedule->break)->format('H:i') }}</td>
+                                                <td>{{ \Carbon\Carbon::parse($schedule->clock_out)->format('H:i') }}</td>
                                                 <td>
                                                     <ul class="nk-tb-actions gx-2">
                                                         <li>

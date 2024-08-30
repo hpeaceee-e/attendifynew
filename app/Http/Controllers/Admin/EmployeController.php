@@ -96,11 +96,11 @@ class EmployeController extends Controller
             'role' => 'required|integer|exists:roles,id',
             'email' => 'required|string|email|max:80|unique:users,email,' . $id,
             'password' => 'nullable|string|min:8',
-            'status' => 'required|boolean',
+            // 'status' => 'required|boolean',
             'schedule' => 'required|integer|exists:schedules,id',
 
             'telephone' => 'required|string|max:20',
-            // 'status' => 'required|in:0,1',
+            'status' => 'required|in:0,1',
             'place_of_birth' => 'required|string|max:255',
             'date_of_birth' => 'required|date',
             'gender' => 'required',

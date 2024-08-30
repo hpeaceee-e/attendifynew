@@ -23,7 +23,7 @@
                                     <div class="preview-block">
                                         <span class="preview-title-lg overline-title">Tambah Jadwal Pegawai</span>
                                         <div class="row gy-4">
-                                            <div class="col-sm-6">
+                                            {{-- <div class="col-sm-6">
                                                 <div class="form-group">
                                                     <label class="form-label" for="break">Shift</label>
                                                     <div class="form-control-wrap">
@@ -31,7 +31,7 @@
                                                             name="shift" required>
                                                     </div>
                                                 </div>
-                                            </div>
+                                            </div> --}}
                                             <div class="col-sm-6">
                                                 <div class="form-group">
                                                     <label class="form-label" for="clock_in">Jam Masuk</label>
@@ -46,19 +46,19 @@
                                             </div>
                                             <div class="col-sm-6">
                                                 <div class="form-group">
-                                                    <label class="form-label" for="clock_out">Jam Pulang</label>
+                                                    <label class="form-label" for="break">Istirahat</label>
                                                     <div class="form-control-wrap">
-                                                        <input type="time" class="form-control" id="clock_out"
-                                                            name="clock_out" required>
+                                                        <input type="time" class="form-control" id="break"
+                                                            name="break" required>
                                                     </div>
                                                 </div>
                                             </div>
                                             <div class="col-sm-6">
                                                 <div class="form-group">
-                                                    <label class="form-label" for="break">Istirahat</label>
+                                                    <label class="form-label" for="clock_out">Jam Pulang</label>
                                                     <div class="form-control-wrap">
-                                                        <input type="time" class="form-control" id="break"
-                                                            name="break" required>
+                                                        <input type="time" class="form-control" id="clock_out"
+                                                            name="clock_out" required>
                                                     </div>
                                                 </div>
                                             </div>

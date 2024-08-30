@@ -77,7 +77,7 @@
 
 <body class="bg-white" onload="printPromot()">
     <div class="header">
-        <h2>PEMERINTAH PROVINSI KONOHA TIMUR</h2>
+        <h2>PEMERINTAH PROVINSI JAWA BARAT</h2>
         <h3>BADAN PENDAPATAN DAERAH</h3>
         <h3>UPTB PENGELOLAAN PENDAPATAN DAERAH</h3>
         <h3>WILAYAH HOKAGE SELATAN</h3>

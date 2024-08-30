@@ -4,7 +4,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    {{ asset('demo5/src/images/favicon.png') }}
+    <link rel="shortcut icon" href="{{ asset('demo5/src/images/favicon.png') }}">
     <title>Print Kehadiran</title>
     <link rel="stylesheet" href="{{ asset('demo5/src/assets/css/dashlite.css?ver=3.0.3') }}">
     <link id="skin-default" rel="stylesheet" href="{{ asset('demo5/src/assets/css/theme.css?ver=3.0.3') }}">
@@ -24,7 +24,10 @@
             background: #fff;
             border: 1px solid #ddd;
             border-radius: 8px;
+            overflow: hidden;
+            /* Tambahkan ini jika elemen peta melampaui container */
         }
+
 
         .invoice-brand {
             text-align: center;
@@ -101,11 +104,19 @@
             width: 100%;
             margin-top: 20px;
             border: 1px solid #ccc;
+            box-sizing: border-box;
         }
+
 
         @media print {
             .container {
                 page-break-inside: avoid;
+                border: none;
+            }
+
+            #mapPrint {
+                height: 300px;
+                width: 100%;
                 border: none;
             }
 
@@ -126,7 +137,7 @@
             <div class="invoice-contact">
                 <span class="overline-title">Detail Kehadiran</span>
                 <div class="invoice-contact-info">
-                    <h4 class="title">Pegawai: {{ $attendance->enhancer }}</h4>
+                    <h4 class="title">Pegawai: {{ $name }}</h4>
                     <br>
                     <ul class="list-plain">
                         <li><em class="icon ni ni-calendar-fill fs-18px"></em><span>Tanggal:
@@ -144,6 +155,7 @@
         <div id="mapPrint"></div>
     </div><!-- .container -->
 
+    <link rel="stylesheet" href="https://unpkg.com/leaflet@1.7.1/dist/leaflet.css" />
     <script src="https://unpkg.com/leaflet@1.7.1/dist/leaflet.js"></script>
     <script>
         document.addEventListener('DOMContentLoaded', function() {
@@ -156,6 +168,9 @@
                     maxZoom: 15,
                 }).addTo(map);
                 L.marker([latitude, longitude]).addTo(map);
+
+                // Pastikan ukuran peta di-update dengan benar
+                map.invalidateSize();
             } else {
                 document.getElementById('mapPrint').innerText = "Koordinat tidak tersedia.";
             }

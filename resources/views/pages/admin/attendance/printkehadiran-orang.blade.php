@@ -126,7 +126,7 @@
             <div class="invoice-contact">
                 <span class="overline-title">Detail Kehadiran</span>
                 <div class="invoice-contact-info">
-                    <h4 class="title">Pegawai: {{ $attendance->enhancer }}</h4>
+                    <h4 class="title">Pegawai: {{ $name }}</h4>
                     <br>
                     <ul class="list-plain">
                         <li><em class="icon ni ni-calendar-fill fs-18px"></em><span>Tanggal:
@@ -144,6 +144,7 @@
         <div id="mapPrint"></div>
     </div><!-- .container -->
 
+    <link rel="stylesheet" href="https://unpkg.com/leaflet@1.7.1/dist/leaflet.css" />
     <script src="https://unpkg.com/leaflet@1.7.1/dist/leaflet.js"></script>
     <script>
         document.addEventListener('DOMContentLoaded', function() {

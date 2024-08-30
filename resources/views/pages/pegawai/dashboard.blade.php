@@ -1,6 +1,6 @@
 @extends('layout.pegawai.main')
 @section('title')
-    Dashboard User
+    Dashboard {{ auth()->user()->name }}
 @endsection
 @section('content-pegawai')
     <div class="nk-content nk-content-fluid">
