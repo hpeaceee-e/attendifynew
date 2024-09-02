@@ -56,13 +56,16 @@
                             <tbody>
                                 <tr>
                                     <td>1</td>
-                                    <td>Shift A</td>
-                                    <td>08.00</td>
-                                    <td>16.00</td>
-                                    <td>12.00</td>
-                                    <td>Shift A</td>
-                                    <td>08.00</td>
-                                    <td>16.00</td>
+                                    <td>Hafizh Alfaris</td>
+                                    <td>Cuti Menikah</td>
+                                    <td>13 Aug 2024</td>
+                                    <td>13 Aug 2024</td>
+                                    <td>17 Aug 2024</td>
+                                    <td>
+                                        {{-- Sakinah Mawadah Warahmah ya atas pernikahannya --}}
+                                    </td>
+                                    <td><span class="badge bg-danger">Ditolak</span></td>
+                                    </td>
                                 </tr>
 
                             </tbody>

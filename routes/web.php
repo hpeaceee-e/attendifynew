@@ -3,12 +3,12 @@
 use App\Http\Controllers\Admin\AdminController;
 use App\Http\Controllers\UserControllers1;
 use App\Http\Controllers\Admin\EmployeController;
+use App\Http\Controllers\Admin\LeaveController;
 use App\Http\Controllers\LoginController;
 use App\Http\Controllers\AttendanceController;
 use App\Http\Controllers\Admin\ScheduleController;
 use App\Http\Controllers\ImportexcelController;
 use App\Http\Controllers\IzinController;
-use App\Http\Controllers\LeaveController;
 use App\Http\Controllers\LeavesController;
 use App\Http\Middleware\AutoLogout;
 use Illuminate\Support\Facades\Route;
@@ -56,11 +56,10 @@ Route::middleware([AutoLogout::class])->group(function () {
 
         // Manage Leave
         Route::prefix('leave.kelolacuti')->group(function () {
-            Route::get('/', [AdminController::class, 'cuti'])->name('kelolacuti');
-            Route::get('/persetujuancuti', [AdminController::class, 'persetujuancuti'])->name('persetujuancuti');
-            Route::get('/editcuti', [AdminController::class, 'editcuti'])->name('editcuti');
-            Route::get('/printkelolacuti', [AdminController::class, 'cetakcuti'])->name('print-kelolacuti');
-            Route::get('/printsatuancuti', [AdminController::class, 'cetaksatuancuti'])->name('print-satuancuti');
+            Route::get('/', [LeaveController::class, 'index'])->name('kelolacuti');
+            Route::get('/persetujuancuti', [LeaveController::class, 'create'])->name('persetujuancuti');
+            Route::get('/printkelolacuti', [LeaveController::class, 'cetakcuti'])->name('print-kelolacuti');
+            Route::get('/printsatuancuti', [LeaveController::class, 'cetaksatuancuti'])->name('print-satuancuti');
         });
     });
 
