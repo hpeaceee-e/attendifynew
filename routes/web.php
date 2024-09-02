@@ -81,7 +81,7 @@ Route::middleware([AutoLogout::class])->group(function () {
             Route::get('/', [LeavesController::class, 'index'])->name('leaves');
             Route::get('/create', [LeavesController::class, 'create'])->name('create-cuti');
             Route::post('/store', [LeavesController::class, 'store'])->name('store-cuti');
-            Route::get('/edit', [LeavesController::class, 'edit'])->name('edit-cuti');
+            Route::get('/leaves/{id}/edit', [LeavesController::class, 'edit'])->name('edit-cuti');
             Route::post('/update', [LeavesController::class, 'update'])->name('update-cuti');
             Route::get('/print', [LeavesController::class, 'print'])->name('print-cuti');
         });

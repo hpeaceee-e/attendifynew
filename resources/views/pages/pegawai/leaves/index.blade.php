@@ -33,6 +33,7 @@
                     <div class="card card-bordered card-preview">
                         <div class="card-inner">
                             <table class="datatable-init table">
+
                                 <thead>
                                     <tr>
                                         <th>No</th>
@@ -47,124 +48,61 @@
                                     </tr>
                                 </thead>
                                 <tbody>
-                                    {{-- @foreach ($data as $d) --}}
-                                    <tr>
-                                        <td>1</td>
-                                        <td>Hafizh Alfaris</td>
-                                        <td>Cuti Menikah</td>
-                                        <td>13 Aug 2024</td>
-                                        <td>13 Aug 2024</td>
-                                        <td>17 Aug 2024</td>
-                                        <td>
-                                            Sakinah Mawadah Warahmah
-                                        </td>
-                                        <td><span class="badge bg-success">Diterima</span></td>
-                                        <td>
-                                            <ul class="nk-tb-actions gx-2">
-                                                <li>
-                                                    <div class="drodown">
-                                                        <a href="#"
-                                                            class="btn btn-sm btn-icon btn-trigger dropdown-toggle"
-                                                            data-bs-toggle="dropdown">
-                                                            <em class="icon ni ni-more-h"></em>
-                                                        </a>
-                                                        <div class="dropdown-menu dropdown-menu-end">
-                                                            <ul class="link-list-opt no-bdr">
-                                                                <li><a href="{{ route('pegawai.edit-cuti') }}"><em
-                                                                            class="icon ni ni-edit"></em><span>Edit</span></a>
-                                                                </li>
-                                                                <li><a href="#"><em
-                                                                            class="icon ni ni-na"></em><span>Hapus</span></a>
-                                                                </li>
-                                                                <li><a href="{{ route('pegawai.print-cuti') }}"
-                                                                        target="_blank"><em
-                                                                            class="icon ni ni-printer"></em><span>Cetak</span></a>
-                                                                </li>
-                                                            </ul>
+                                    @foreach ($leaves as $item)
+                                        {{-- @foreach ($data as $d) --}}
+                                        <tr>
+                                            <td>{{ $loop->iteration }}</td>
+                                            <td>{{ $item->user->name }}</td>
+                                            <td>{{ $item->reason_verification }}</td>
+                                            <td>{{ $item->created_at }}</td>
+                                            <td>{{ $item->date }}</td>
+                                            <td>{{ $item->end_date }}</td>
+                                            <td>
+                                                @if ($item->status == '1')
+                                                    {{ $item->reason }}
+                                                @else
+                                                    Silahkan Cuti
+                                                @endif
+                                            </td>
+                                            <td>
+                                                @if ($item->status == null)
+                                                    <span class="badge bg-warning">Menunggu</span>
+                                                @elseif($item->status == '0')
+                                                    <span class="badge bg-success">Disetujui</span>
+                                                @elseif($item->status == '1')
+                                                    <span class="badge bg-danger">Ditolak</span>
+                                                @endif
+                                            </td>
+                                            <td>
+                                                <ul class="nk-tb-actions gx-2">
+                                                    <li>
+                                                        <div class="drodown">
+                                                            <a href="#"
+                                                                class="btn btn-sm btn-icon btn-trigger dropdown-toggle"
+                                                                data-bs-toggle="dropdown">
+                                                                <em class="icon ni ni-more-h"></em>
+                                                            </a>
+                                                            <div class="dropdown-menu dropdown-menu-end">
+                                                                <ul class="link-list-opt no-bdr">
+                                                                    <li><a
+                                                                            href="{{ route('pegawai.edit-cuti', ['id' => $item->id]) }}"><em
+                                                                                class="icon ni ni-edit"></em><span>Edit</span></a>
+                                                                    </li>
+                                                                    <li><a href="#"><em
+                                                                                class="icon ni ni-na"></em><span>Hapus</span></a>
+                                                                    </li>
+                                                                    <li><a href="{{ route('pegawai.print-cuti') }}"
+                                                                            target="_blank"><em
+                                                                                class="icon ni ni-printer"></em><span>Cetak</span></a>
+                                                                    </li>
+                                                                </ul>
+                                                            </div>
                                                         </div>
-                                                    </div>
-                                                </li>
-                                            </ul>
-                                        </td>
-                                    </tr>
-                                    <tr>
-                                        <td>1</td>
-                                        <td>Hafizh Alfaris</td>
-                                        <td>Cuti Menikah</td>
-                                        <td>13 Aug 2024</td>
-                                        <td>13 Aug 2024</td>
-                                        <td>17 Aug 2024</td>
-                                        <td>
-                                            {{-- Sakinah Mawadah Warahmah ya atas pernikahannya --}}
-                                        </td>
-                                        <td><span class="badge bg-secondary">Menunggu</span></td>
-                                        <td>
-                                            <ul class="nk-tb-actions gx-2">
-                                                <li>
-                                                    <div class="drodown">
-                                                        <a href="#"
-                                                            class="btn btn-sm btn-icon btn-trigger dropdown-toggle"
-                                                            data-bs-toggle="dropdown">
-                                                            <em class="icon ni ni-more-h"></em>
-                                                        </a>
-                                                        <div class="dropdown-menu dropdown-menu-end">
-                                                            <ul class="link-list-opt no-bdr">
-                                                                <li><a href="{{ route('pegawai.edit-cuti') }}"><em
-                                                                            class="icon ni ni-edit"></em><span>Edit</span></a>
-                                                                </li>
-                                                                <li><a href="#"><em
-                                                                            class="icon ni ni-na"></em><span>Hapus</span></a>
-                                                                </li>
-                                                                <li><a href="{{ route('pegawai.print-cuti') }}"
-                                                                        target="_blank"><em
-                                                                            class="icon ni ni-printer"></em><span>Cetak</span></a>
-                                                                </li>
-                                                            </ul>
-                                                        </div>
-                                                    </div>
-                                                </li>
-                                            </ul>
-                                        </td>
-                                    </tr>
-                                    <tr>
-                                        <td>1</td>
-                                        <td>Hafizh Alfaris</td>
-                                        <td>Cuti Menikah</td>
-                                        <td>13 Aug 2024</td>
-                                        <td>13 Aug 2024</td>
-                                        <td>17 Aug 2024</td>
-                                        <td>
-                                            {{-- Sakinah Mawadah Warahmah ya atas pernikahannya --}}
-                                        </td>
-                                        <td><span class="badge bg-danger">Ditolak</span></td>
-                                        <td>
-                                            <ul class="nk-tb-actions gx-2">
-                                                <li>
-                                                    <div class="drodown">
-                                                        <a href="#"
-                                                            class="btn btn-sm btn-icon btn-trigger dropdown-toggle"
-                                                            data-bs-toggle="dropdown">
-                                                            <em class="icon ni ni-more-h"></em>
-                                                        </a>
-                                                        <div class="dropdown-menu dropdown-menu-end">
-                                                            <ul class="link-list-opt no-bdr">
-                                                                <li><a href="{{ route('pegawai.edit-cuti') }}"><em
-                                                                            class="icon ni ni-edit"></em><span>Edit</span></a>
-                                                                </li>
-                                                                <li><a href="#"><em
-                                                                            class="icon ni ni-na"></em><span>Hapus</span></a>
-                                                                </li>
-                                                                <li><a href="{{ route('pegawai.print-cuti') }}"
-                                                                        target="_blank"><em
-                                                                            class="icon ni ni-printer"></em><span>Cetak</span></a>
-                                                                </li>
-                                                            </ul>
-                                                        </div>
-                                                    </div>
-                                                </li>
-                                            </ul>
-                                        </td>
-                                    </tr>
+                                                    </li>
+                                                </ul>
+                                            </td>
+                                        </tr>
+                                    @endforeach
 
                                     {{-- @endforeach --}}
                                 </tbody>

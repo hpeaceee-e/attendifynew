@@ -57,7 +57,7 @@
                                                     <div class="form-icon form-icon-right">
                                                         <em class="icon ni ni-calendar-alt"></em>
                                                     </div>
-                                                    <input type="text" class="form-control date-picker" id="date"
+                                                    <input type="text" class="form-control date-picker" id="sdate"
                                                         name="date">
                                                 </div>
                                             </div>

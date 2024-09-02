@@ -16,9 +16,19 @@
     <link href="https://cdn.jsdelivr.net/npm/@sweetalert2/theme-dark@4/dark.css" rel="stylesheet">
     <link rel="stylesheet" href="{{ asset('demo5/src/assets/css/dashlite.css?ver=3.0.3') }}">
     <link id="skin-default" rel="stylesheet" href="{{ asset('demo5/src/assets/css/theme.css?ver=3.0.3') }}">
+
+    <style>
+        body {
+            background-image: url('demo5/src/images/background/attendance.jpg');
+            background-size: cover;
+            background-position: center;
+            background-repeat: no-repeat;
+            background-attachment: fixed;
+        }
+    </style>
 </head>
 
-<body class="nk-body bg-white npc-general pg-auth">
+<body class="nk-body npc-general pg-auth">
     <div class="nk-app-root">
         <!-- main @s -->
         <div class="nk-main ">
@@ -29,20 +39,19 @@
                     <div class="nk-block nk-block-middle nk-auth-body  wide-xs">
                         <div class="brand-logo pb-4 text-center">
                             <a href="{{ route('auth.login') }}" class="logo-link">
-                                <img class="logo-light logo-img logo-img-lg"
+                                {{-- <img class="logo-light logo-img logo-img-lg"
                                     src="{{ asset('demo5/src/images/logo.png') }}" srcset="./images/logo2x.png 2x"
-                                    alt="logo">
+                                    alt="logo">SISTE
                                 <img class="logo-dark logo-img logo-img-lg" src="./images/logo-dark.png"
-                                    srcset="{{ asset('demo5/src/images/logo-dark2x.png 2x') }}" alt="logo-dark">
+                                    srcset="{{ asset('demo5/src/images/logo-dark2x.png 2x') }}" alt="logo-dark"> --}}
                             </a>
                         </div>
                         <div class="card card-bordered">
                             <div class="card-inner card-inner-lg">
                                 <div class="nk-block-head">
                                     <div class="nk-block-head-content ">
-                                        <h4 class="nk-block-title center">SILAHKAN LOGIN</h4>
+                                        <h4 class="nk-block-title center">Login</h4>
                                         <div class="nk-block-des">
-                                            <p class="center">SISTEM KEHADIRAN PEGAWAI</p>
                                         </div>
                                     </div>
                                 </div>
@@ -50,11 +59,11 @@
                                     @csrf
                                     <div class="form-group">
                                         <div class="form-label-group">
-                                            <label class="form-label" for="username">Username or Email</label>
+                                            <label class="form-label" for="username">Username </label>
                                         </div>
                                         <div class="form-control-wrap">
                                             <input type="text" name="username" class="form-control form-control-lg"
-                                                id="username" placeholder="Masukkan username atau email anda">
+                                                id="username" placeholder="Masukkan username anda">
                                         </div>
                                     </div>
                                     @error('username')
@@ -84,13 +93,13 @@
                                         <button class="btn btn-lg btn-primary btn-block">Login</button>
                                     </div>
                                 </form>
-                                <div class="text-center pt-4 pb-3">
+                                {{-- <div class="text-center pt-4 pb-3">
                                     <h6 class="overline-title overline-title-sap"><span>OR</span></h6>
-                                </div>
-                                <ul class="nav justify-center gx-4">
+                                </div> --}}
+                                {{-- <ul class="nav justify-center gx-4">
                                     <li class="nav-item"><a class="nav-link" href="#">Facebook</a></li>
                                     <li class="nav-item"><a class="nav-link" href="#">Google</a></li>
-                                </ul>
+                                </ul> --}}
                             </div>
                         </div>
                     </div>
