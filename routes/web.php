@@ -58,6 +58,7 @@ Route::middleware([AutoLogout::class])->group(function () {
         Route::prefix('leave.kelolacuti')->group(function () {
             Route::get('/', [LeaveController::class, 'index'])->name('kelolacuti');
             Route::get('/persetujuancuti', [LeaveController::class, 'create'])->name('persetujuancuti');
+            Route::post('/store', [LeaveController::class, 'store'])->name('store-cuti');
             Route::get('/printkelolacuti', [LeaveController::class, 'cetakcuti'])->name('print-kelolacuti');
             Route::get('/printsatuancuti', [LeaveController::class, 'cetaksatuancuti'])->name('print-satuancuti');
         });

@@ -6,10 +6,15 @@
     <div class="nk-content nk-content-fluid">
         <div class="container-xl wide-lg">
             <div class="nk-content-body">
+                <!-- Your existing content -->
+
                 <div class="nk-block-head nk-block-head-sm">
                     <div class="nk-block-between">
                         <div class="nk-block-head-content">
                             <h3 class="nk-block-title page-title">Kelola Cuti & Izin Pegawai</h3>
+                            <div class="nk-block-des text-soft">
+                                <p>Kamu mempunyai {{ count($leaves) }} Pengajuan Cuti dan Izin.</p>
+                            </div>
                         </div><!-- .nk-block-head-content -->
                         <div class="nk-block-head-content">
                             <div class="toggle-wrap nk-block-tools-toggle">
@@ -18,7 +23,8 @@
                                 <div class="toggle-expand-content" data-content="pageMenu">
                                     <ul class="nk-block-tools g-3">
                                         <li><a href="{{ route('admin.print-kelolacuti') }}"
-                                                class="btn btn-white btn-outline-light" target="_blank"><em
+                                                class="btn btn-white btn-outline-light" data-bs-toggle="modal"
+                                                data-bs-target="#printModal" target="_blank"><em
                                                     class="icon ni ni-printer"></em><span>Cetak</span></a></li>
                                     </ul>
                                 </div>
@@ -26,7 +32,8 @@
                         </div><!-- .nk-block-head-content -->
                     </div><!-- .nk-block-between -->
                 </div><!-- .nk-block-head -->
-                <div class="nk-block">
+
+                <div class="nk-block nk-block-lg">
                     <div class="card card-bordered card-preview">
                         <div class="card-inner">
                             <table class="datatable-init table">
@@ -44,156 +51,185 @@
                                     </tr>
                                 </thead>
                                 <tbody>
-                                    {{-- @foreach ($data as $d) --}}
-                                    <tr>
-                                        <td>1</td>
-                                        <td>Hafizh Alfaris</td>
-                                        <td>Cuti Menikah</td>
-                                        <td>13 Aug 2024</td>
-                                        <td>13 Aug 2024</td>
-                                        <td>17 Aug 2024</td>
-                                        <td>
-                                            {{-- Sakinah Mawadah Warahmah ya atas pernikahannya --}}
-                                        </td>
-                                        <td><span class="badge bg-success">Diterima</span></td>
-                                        <td>
-                                            <ul class="nk-tb-actions gx-2">
-                                                <li>
-                                                    <div class="drodown">
-                                                        <a href="#"
-                                                            class="btn btn-sm btn-icon btn-trigger dropdown-toggle"
-                                                            data-bs-toggle="dropdown">
+                                    @foreach ($leaves as $item)
+                                        <tr>
+                                            <td>{{ $loop->iteration }}</td>
+                                            <td>{{ $item->user->name }}</td>
+                                            <td>{{ $item->reason_verification }}</td>
+                                            <td>{{ \Carbon\Carbon::parse($item->created_at)->format('d M Y H:i') }}</td>
+                                            <td>{{ \Carbon\Carbon::parse($item->date)->format('d M Y') }}</td>
+                                            <td>{{ \Carbon\Carbon::parse($item->end_date)->format('d M Y') }}</td>
+                                            <td>
+                                                @if ($item->status === null)
+                                                    <span class="badge bg-warning">Menunggu</span>
+                                                @elseif ($item->status == '1')
+                                                    {{ $item->reason }}
+                                                @else
+                                                    Silahkan Cuti
+                                                @endif
+                                            </td>
+                                            <td>
+                                                @if ($item->status == null)
+                                                    <span class="badge bg-warning">Menunggu</span>
+                                                @elseif($item->status == '0')
+                                                    <span class="badge bg-success">Disetujui</span>
+                                                @elseif($item->status == '1')
+                                                    <span class="badge bg-danger">Ditolak</span>
+                                                @endif
+                                            </td>
+                                            <td>
+                                                <ul class="nk-tb-actions gx-2">
+                                                    <li>
+                                                        <a href="#" class="btn btn-sm btn-icon btn-trigger"
+                                                            data-bs-toggle="modal" data-bs-target="#confirmationModal"
+                                                            data-id="{{ $item->id }}" data-status="{{ $item->status }}"
+                                                            data-reason="{{ $item->reason }}">
                                                             <em class="icon ni ni-more-h"></em>
                                                         </a>
-                                                        <div class="dropdown-menu dropdown-menu-end">
-                                                            <ul class="link-list-opt no-bdr">
-                                                                <li><a href="{{ route('admin.persetujuancuti') }}"><em
-                                                                            class="icon ni ni-todo-fill"></em></em><span>Persetujuan</span></a>
-                                                                </li>
-                                                                {{-- <li><a href="{{ route('admin.editcuti') }}"><em
-                                                                            class="icon ni ni-edit"></em><span>Edit</span></a>
-                                                                </li> --}}
-                                                                <li><a href="{{ route('admin.print-satuancuti') }}"
-                                                                        target="_blank"><em
-                                                                            class="icon ni ni-printer"></em><span>Cetak</span></a>
-                                                                </li>
-                                                            </ul>
-                                                        </div>
-                                                    </div>
-                                                </li>
-                                            </ul>
-                                        </td>
-                                    </tr>
-                                    <tr>
-                                        <td>2</td>
-                                        <td>Hilmi Ramdani</td>
-                                        <td>Izin Liburan</td>
-                                        <td>15 Aug 2024</td>
-                                        <td>15 Aug 2024</td>
-                                        <td>20 Aug 2024</td>
-                                        <td>Kerja dulu dong</td>
-                                        <td><span class="badge bg-danger">Ditolak</span></td>
-                                        <td>
-                                            <ul class="nk-tb-actions gx-2">
-                                                <li>
-                                                    <div class="drodown">
-                                                        <a href="#"
-                                                            class="btn btn-sm btn-icon btn-trigger dropdown-toggle"
-                                                            data-bs-toggle="dropdown">
-                                                            <em class="icon ni ni-more-h"></em>
-                                                        </a>
-                                                        <div class="dropdown-menu dropdown-menu-end">
-                                                            <ul class="link-list-opt no-bdr">
-                                                                <li><a href="{{ route('admin.persetujuancuti') }}"><em
-                                                                            class="icon ni ni-todo-fill"></em></em><span>Persetujuan</span></a>
-                                                                </li>
-                                                                {{-- <li><a href="{{ route('admin.editcuti') }}"><em
-                                                                            class="icon ni ni-edit"></em><span>Edit</span></a>
-                                                                </li> --}}
-                                                                <li><a href="{{ route('admin.print-satuancuti') }}"
-                                                                        target="_blank"><em
-                                                                            class="icon ni ni-printer"></em><span>Cetak</span></a>
-                                                                </li>
-                                                            </ul>
-                                                        </div>
-                                                    </div>
-                                                </li>
-                                            </ul>
-                                        </td>
-                                    </tr>
-                                    <tr>
-                                        <td>3</td>
-                                        <td>Rafly</td>
-                                        <td>Izin Liburan</td>
-                                        <td>15 Aug 2024</td>
-                                        <td>15 Aug 2024</td>
-                                        <td>20 Aug 2024</td>
-                                        <td>-</td>
-                                        <td><span class="badge bg-secondary">Menunggu</span></td>
-                                        <td>
-                                            <ul class="nk-tb-actions gx-2">
-                                                <li>
-                                                    <div class="drodown">
-                                                        <a href="#"
-                                                            class="btn btn-sm btn-icon btn-trigger dropdown-toggle"
-                                                            data-bs-toggle="dropdown">
-                                                            <em class="icon ni ni-more-h"></em>
-                                                        </a>
-                                                        <div class="dropdown-menu dropdown-menu-end">
-                                                            <ul class="link-list-opt no-bdr">
-                                                                <li><a href="{{ route('admin.persetujuancuti') }}"><em
-                                                                            class="icon ni ni-todo-fill"></em></em><span>Persetujuan</span></a>
-                                                                </li>
-                                                                {{-- <li><a href="{{ route('admin.editcuti') }}"><em
-                                                                            class="icon ni ni-edit"></em><span>Edit</span></a>
-                                                                </li> --}}
-                                                                <li><a href="{{ route('admin.print-satuancuti') }}"
-                                                                        target="_blank"><em
-                                                                            class="icon ni ni-printer"></em><span>Cetak</span></a>
-                                                                </li>
-                                                            </ul>
-                                                        </div>
-                                                    </div>
-                                                </li>
-                                            </ul>
-                                        </td>
-                                    </tr>
-                                    {{-- @endforeach --}}
+                                                    </li>
+                                                </ul>
+                                            </td>
+                                        </tr>
+                                    @endforeach
                                 </tbody>
                             </table>
                         </div>
                     </div><!-- .card-preview -->
                 </div> <!-- nk-block -->
-                <div class="nk-content p-0">
-                    <div class="nk-content-inner">
-                        <div class="nk-content-body p-0">
-                            <div class="nk-block">
-                                <div class="card bg-transparent">
-                                    <div class="card-inner py-3 border-bottom border-light rounded-0">
-                                        <div class="nk-block-head nk-block-head-sm">
-                                            <div class="nk-block-between">
-                                                <div class="nk-block-head-content">
-                                                    <h3 class="nk-block-title page-title">Calendar</h3>
-                                                </div><!-- .nk-block-head-content -->
-                                                {{-- <div class="nk-block-head-content d-flex">
-                                                    <a class="link link-primary" data-bs-toggle="modal"
-                                                        href="#addEventPopup"><em class="icon ni ni-plus"></em> <span>Add
-                                                            Event</span></a>
-                                                </div><!-- .nk-block-head-content --> --}}
-                                            </div><!-- .nk-block-between -->
-                                        </div><!-- .nk-block-head -->
-                                    </div>
-                                </div>
-                                <div class="card mt-0">
-                                    <div class="card-inner">
-                                        <div id="calendar" class="nk-calendar"></div>
-                                    </div>
-                                </div>
+
+                <!-- Modal -->
+                <div class="modal fade" id="confirmationModal" tabindex="-1" aria-labelledby="confirmationModalLabel"
+                    aria-hidden="true">
+                    <div class="modal-dialog">
+                        <div class="modal-content">
+                            <div class="modal-header">
+                                <h5 class="modal-title" id="confirmationModalLabel">Konfirmasi Cuti</h5>
+                                <button type="button" class="btn-close" data-bs-dismiss="modal"
+                                    aria-label="Close"></button>
                             </div>
+                            <form id="confirmationForm" action="{{ route('admin.store-cuti') }}" method="POST">
+                                @csrf
+                                <input type="hidden" name="leave_id" id="leave_id">
+
+                                <div class="modal-body">
+                                    <div class="form-group">
+                                        <label for="status">Status Pengajuan Cuti</label>
+                                        <select name="status" id="status" class="form-control"
+                                            onchange="toggleReasonField()" required>
+                                            <option value="" disabled selected>Pilih Status</option>
+                                            <option value="0">Diterima</option>
+                                            <option value="1">Ditolak</option>
+                                        </select>
+                                    </div>
+
+                                    <div class="form-group" id="reason-group" style="display: none;">
+                                        <label for="reason">Alasan Penolakan</label>
+                                        <textarea type="text" name="reason" id="reason" class="form-control form-control-lg"
+                                            placeholder="Alasan penolakan"></textarea>
+                                    </div>
+                                </div>
+
+                                <div class="modal-footer">
+                                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Tutup</button>
+                                    <button type="submit" class="btn btn-primary">Simpan Persetujuan</button>
+                                </div>
+                            </form>
                         </div>
                     </div>
                 </div>
+
+                <!-- Modal for printing single leave request -->
+                <div class="modal fade" id="printModal" tabindex="-1" aria-labelledby="printModalLabel" aria-hidden="true">
+                    <div class="modal-dialog">
+                        <div class="modal-content">
+                            <div class="modal-header">
+                                <h5 class="modal-title" id="printModalLabel">Cetak Pengajuan Cuti</h5>
+                                <button type="button" class="btn-close" data-bs-dismiss="modal"
+                                    aria-label="Close"></button>
+                            </div>
+                            <form id="printForm" action="" method="GET" target="_blank">
+                                <div class="modal-body">
+                                    <div class="form-group">
+                                        <label for="print_option">Pilih Jenis Cetak</label>
+                                        <select name="print_option" id="print_option" class="form-control"
+                                            onchange="togglePrintOptions()" required>
+                                            <option value="" disabled selected>Pilih Jenis Cetak</option>
+                                            <option value="all">Cetak Semua</option>
+                                            <option value="individual">Cetak Individu</option>
+                                        </select>
+                                    </div>
+
+                                    <div class="form-group" id="individual-option" style="display: none;">
+                                        <label for="leave_id_print">Pilih Pengajuan Cuti</label>
+                                        <select name="leave_id" id="leave_id_print" class="form-control">
+                                            <option value="" disabled selected>Pilih Cuti</option>
+                                            @foreach ($leaves as $item)
+                                                <option value="{{ $item->id }}">{{ $item->user->name }} -
+                                                    {{ \Carbon\Carbon::parse($item->date)->format('d M Y') }}</option>
+                                            @endforeach
+                                        </select>
+                                    </div>
+                                </div>
+                                <div class="modal-footer">
+                                    <button type="button" class="btn btn-secondary"
+                                        data-bs-dismiss="modal">Tutup</button>
+                                    <button type="submit" class="btn btn-primary">Cetak</button>
+                                </div>
+                            </form>
+                        </div>
+                    </div>
+                </div>
+
             </div>
         </div>
     </div>
+
+    <script>
+        function togglePrintOptions() {
+            var printOption = document.getElementById('print_option').value;
+            var individualOption = document.getElementById('individual-option');
+            var printForm = document.getElementById('printForm');
+
+            if (printOption === 'individual') {
+                individualOption.style.display = 'block';
+                printForm.action = "#";
+            } else {
+                individualOption.style.display = 'none';
+                printForm.action = "#";
+            }
+        }
+
+        // Event Listener untuk modal konfirmasi
+        document.addEventListener('DOMContentLoaded', function() {
+            var confirmationModal = document.getElementById('confirmationModal');
+            confirmationModal.addEventListener('show.bs.modal', function(event) {
+                var button = event.relatedTarget;
+                var leaveId = button.getAttribute('data-id');
+                var status = button.getAttribute('data-status');
+                var reason = button.getAttribute('data-reason');
+
+                var modal = confirmationModal.querySelector('.modal-body');
+                modal.querySelector('#leave_id').value = leaveId;
+                var statusSelect = modal.querySelector('#status');
+                statusSelect.value = status;
+
+                if (status === '1') {
+                    modal.querySelector('#reason-group').style.display = 'block';
+                    modal.querySelector('#reason').value = reason;
+                } else {
+                    modal.querySelector('#reason-group').style.display = 'none';
+                }
+            });
+        });
+
+        function toggleReasonField() {
+            var status = document.getElementById('status').value;
+            var reasonGroup = document.getElementById('reason-group');
+            if (status === '1') {
+                reasonGroup.style.display = 'block';
+            } else {
+                reasonGroup.style.display = 'none';
+            }
+        }
+    </script>
 @endsection
