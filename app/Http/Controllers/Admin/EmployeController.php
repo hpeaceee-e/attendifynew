@@ -99,13 +99,14 @@ class EmployeController extends Controller
             // 'status' => 'required|boolean',
             'schedule' => 'required|integer|exists:schedules,id',
 
-            'telephone' => 'required|string|max:20',
+            'telephone' => 'required|string|max:13',
             'status' => 'required|in:0,1',
             'place_of_birth' => 'required|string|max:255',
             'date_of_birth' => 'required|date',
             'gender' => 'required',
             'religion' => 'required|string|max:50',
             'address' => 'required|string|max:255',
+            'id_card' => 'required|string|max:16',
 
         ]);
 
@@ -125,6 +126,7 @@ class EmployeController extends Controller
         $data->gender = $validatedData['gender'];
         $data->religion = $validatedData['religion'];
         $data->address = $validatedData['address'];
+        $data->id_card = $validatedData['id_card'];
 
 
         // Update password only if provided

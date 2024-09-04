@@ -33,7 +33,7 @@
                                                     <label class="form-label" for="username">Username</label>
                                                     <div class="form-control-wrap">
                                                         <input type="text" class="form-control" id="username"
-                                                            name="username" value="{{ $item->username }}" readonly>
+                                                            name="username" value="{{ $item->username }}" disabled>
                                                     </div>
                                                 </div>
                                             </div>
@@ -57,9 +57,21 @@
                                             </div>
                                             <div class="col-sm-6">
                                                 <div class="form-group">
+                                                    <label class="form-label" for="created_at">Tanggal Bergabung</label>
+                                                    <div class="form-control-wrap">
+                                                        <input type="text" class="form-control" id="created_at"
+                                                            name="created_at"
+                                                            value="{{ \Carbon\Carbon::parse($item->created_at)->format('d M Y') }}"
+                                                            disabled>
+                                                    </div>
+                                                </div>
+                                            </div>
+
+                                            <div class="col-sm-6">
+                                                <div class="form-group">
                                                     <label class="form-label" for="role">Hak Akses</label>
                                                     <div class="form-control-wrap">
-                                                        <select class="form-control" id="role" name="role" required>
+                                                        <select class="form-control" id="role" name="role" disabled>
                                                             <option value="">Pilih Role</option>
                                                             @foreach ($roles as $role)
                                                                 <option value="{{ $role->id }}"
@@ -84,7 +96,7 @@
                                                 <div class="form-group">
                                                     <label class="form-label" for="status">Status</label>
                                                     <div class="form-control-wrap">
-                                                        <select class="form-control" id="status" name="status" required>
+                                                        <select class="form-control" id="status" name="status" disabled>
                                                             <option value="0"
                                                                 {{ $item->status == 0 ? 'selected' : '' }}>Aktif</option>
                                                             <option value="1"
@@ -158,7 +170,9 @@
                                                     <label class="form-label" for="email">Perangkat Seluler</label>
                                                     <div class="form-control-wrap">
                                                         <input type="text" class="form-control" id="telephone"
-                                                            name="telephone" value="{{ $item->telephone }}" required>
+                                                            name="telephone" value="{{ $item->telephone }}"
+                                                            maxlength="13"
+                                                            oninput="this.value = this.value.slice(0, 13)"required>
                                                     </div>
                                                 </div>
                                             </div>
@@ -167,7 +181,7 @@
                                                     <label class="form-label" for="email">Jabatan</label>
                                                     <div class="form-control-wrap">
                                                         <input type="text" class="form-control" id="position"
-                                                            name="position" value="" readonly>
+                                                            name="position" value="" disabled>
                                                     </div>
                                                 </div>
                                             </div>
@@ -178,6 +192,15 @@
                                                         value="{{ $item->religion }}">
                                                 </div>
                                             </div>
+                                            <div class="col-sm-6">
+                                                <div class="form-group">
+                                                    <label class="form-label">KTP</label>
+                                                    <input type="number" class="form-control" name="id_card"
+                                                        value="{{ $item->id_card }}" maxlength="16"
+                                                        oninput="this.value = this.value.slice(0, 16)">
+                                                </div>
+                                            </div>
+
                                             <div class="col-sm-6">
                                                 <div class="form-group">
                                                     <label class="form-label" for="address">Alamat</label>

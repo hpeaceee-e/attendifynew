@@ -54,9 +54,9 @@
                                             <td>{{ $loop->iteration }}</td>
                                             <td>{{ $item->user->name }}</td>
                                             <td>{{ $item->reason_verification }}</td>
-                                            <td>{{ $item->created_at }}</td>
-                                            <td>{{ $item->date }}</td>
-                                            <td>{{ $item->end_date }}</td>
+                                            <td>{{ \Carbon\Carbon::parse($item->created_at)->format('d M Y') }}</td>
+                                            <td>{{ \Carbon\Carbon::parse($item->date)->format('d M Y') }}</td>
+                                            <td>{{ \Carbon\Carbon::parse($item->end_date)->format('d M Y') }}</td>
                                             <td>
                                                 @if ($item->status === null)
                                                     <span class="badge bg-warning">Menunggu</span>

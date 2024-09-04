@@ -36,7 +36,7 @@
                                                 <div class="form-group">
                                                     <label class="form-label">Username</label>
                                                     <input type="text" class="form-control" value="{{ $item->username }}"
-                                                        readonly>
+                                                        disabled>
                                                 </div>
                                             </div>
                                             <div class="col-md-6">
@@ -119,6 +119,13 @@
                                                     <label class="form-label">Agama</label>
                                                     <input type="text" class="form-control"
                                                         value="{{ $item->religion }}" disabled>
+                                                </div>
+                                            </div>
+                                            <div class="col-md-6">
+                                                <div class="form-group">
+                                                    <label class="form-label">KTP</label>
+                                                    <input type="text" class="form-control" value="{{ $item->id_card }}"
+                                                        disabled>
                                                 </div>
                                             </div>
                                             <div class="col-md-12">

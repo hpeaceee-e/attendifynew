@@ -44,7 +44,6 @@
                                             </form>
                                         </div>
 
-
                                         <!-- Kanan: Detail Informasi dengan 3 Kolom -->
                                         <div class="col-md-8">
                                             <!-- Tab Navigation -->
@@ -76,28 +75,28 @@
                                                                     <label class="form-label">Username</label>
                                                                     <input type="text" class="form-control"
                                                                         name="username" value="{{ $item->username }}"
-                                                                        readonly>
+                                                                        disabled>
+                                                                </div>
+                                                            </div>
+                                                            <div class="col-md-6">
+                                                                <div class="form-group">
+                                                                    <label class="form-label">email</label>
+                                                                    <input type="text" class="form-control"
+                                                                        name="email" value="{{ $item->email }}">
                                                                 </div>
                                                             </div>
                                                             <div class="col-md-6">
                                                                 <div class="form-group">
                                                                     <label class="form-label">Hak Akses</label>
                                                                     <input type="text" class="form-control"
-                                                                        value="{{ $role }}" readonly>
-                                                                </div>
-                                                            </div>
-                                                            <div class="col-md-6">
-                                                                <div class="form-group">
-                                                                    <label class="form-label">Perangkat Seluler</label>
-                                                                    <input type="text" class="form-control"
-                                                                        name="telephone" value="{{ $item->telephone }}">
+                                                                        value="{{ $role }}" disabled>
                                                                 </div>
                                                             </div>
                                                             <div class="col-md-6">
                                                                 <div class="form-group">
                                                                     <label class="form-label">Status Akun</label>
                                                                     <input type="text" class="form-control"
-                                                                        value="{{ $active }}" readonly>
+                                                                        value="{{ $active }}" disabled>
                                                                 </div>
                                                             </div>
                                                             <div class="col-md-12">
@@ -114,6 +113,20 @@
                                                         @csrf
                                                         @method('PUT')
                                                         <div class="row gy-4">
+                                                            <div class="col-md-6">
+                                                                <div class="form-group">
+                                                                    <label class="form-label">Nama Lengkap</label>
+                                                                    <input type="text" class="form-control"
+                                                                        name="name" value="{{ $item->name }}">
+                                                                </div>
+                                                            </div>
+                                                            <div class="col-md-6">
+                                                                <div class="form-group">
+                                                                    <label class="form-label">Nomor Telepon</label>
+                                                                    <input type="text" class="form-control"
+                                                                        name="telephone" value="{{ $item->telephone }}">
+                                                                </div>
+                                                            </div>
                                                             <div class="col-md-6">
                                                                 <div class="form-group">
                                                                     <label class="form-label">Tempat Lahir</label>
@@ -145,6 +158,12 @@
                                                                 </div>
                                                             </div>
                                                             <div class="col-md-12">
+                                                                <div class="form-group">
+                                                                    <label class="form-label">Alamat</label>
+                                                                    <textarea type="text" class="form-control" name="address">{{ $item->address }}</textarea>
+                                                                </div>
+                                                            </div>
+                                                            <div class="col-md-12">
                                                                 <button type="submit" class="btn btn-primary">Simpan
                                                                     Perubahan</button>
                                                             </div>
@@ -159,18 +178,29 @@
                                                         @csrf
                                                         @method('PUT')
                                                         <div class="row gy-4">
-                                                            <div class="col-md-12">
-                                                                <div class="form-group">
-                                                                    <label class="form-label">Alamat</label>
-                                                                    <input type="text" class="form-control"
-                                                                        name="address" value="{{ $item->address }}">
-                                                                </div>
-                                                            </div>
-                                                            <div class="col-md-12">
+                                                            <div class="col-md-6">
                                                                 <div class="form-group">
                                                                     <label class="form-label">Jabatan</label>
                                                                     <input type="text" class="form-control"
-                                                                        value="{{ $item->position }}" readonly>
+                                                                        name="" value="{{ $item->position }}"
+                                                                        disabled>
+                                                                </div>
+                                                            </div>
+                                                            <div class="col-md-6">
+                                                                <div class="form-group">
+                                                                    <label class="form-label">KTP</label>
+                                                                    <input type="number" class="form-control"
+                                                                        name="id_card" value="{{ $item->id_card }}"
+                                                                        maxlength="16"
+                                                                        oninput="this.value = this.value.slice(0, 16)">
+                                                                </div>
+                                                            </div>
+                                                            <div class="col-md-6">
+                                                                <div class="form-group">
+                                                                    <label class="form-label">Tanggal Bergabung</label>
+                                                                    <input type="text" class="form-control"
+                                                                        value="{{ \Carbon\Carbon::parse($item->created_at)->format('d M Y') }}"
+                                                                        disabled>
                                                                 </div>
                                                             </div>
                                                             <div class="col-md-12">
@@ -196,24 +226,31 @@
     <!-- Script untuk Tab Navigation -->
     <script>
         document.addEventListener('DOMContentLoaded', function() {
-            let hash = window.location.hash;
-            if (hash) {
-                let activeTab = document.querySelector('a[href="' + hash + '"]');
-                if (activeTab) {
-                    activeTab.click();
-                }
-            }
-
             let tabLinks = document.querySelectorAll('.nav-tabs a');
+
             tabLinks.forEach(function(link) {
                 link.addEventListener('click', function(e) {
-                    e.preventDefault();
-                    let target = this.getAttribute('href');
-                    window.history.pushState(null, null, target);
-                    let tab = new bootstrap.Tab(this);
+                    e.preventDefault(); // Mencegah perilaku default
+                    let targetTab = this.getAttribute('href'); // Mendapatkan target tab
+                    let tab = new bootstrap.Tab(this); // Inisialisasi tab Bootstrap
+
+                    // Menampilkan tab yang dipilih
                     tab.show();
+
+                    // Mengupdate hash di URL tanpa reload halaman
+                    window.location.hash = targetTab;
                 });
             });
+
+            // Saat halaman dimuat, cek hash di URL dan aktifkan tab yang sesuai
+            let activeTab = window.location.hash;
+            if (activeTab) {
+                let activeTabLink = document.querySelector('a[href="' + activeTab + '"]');
+                if (activeTabLink) {
+                    let tab = new bootstrap.Tab(activeTabLink);
+                    tab.show();
+                }
+            }
         });
     </script>
 @endsection

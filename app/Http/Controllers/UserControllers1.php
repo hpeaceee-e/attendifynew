@@ -64,7 +64,7 @@ class UserControllers1 extends Controller
     {
         // dd($request->all());
         $validatedData = $request->validate([
-
+            'email' => 'nullable|string|max:255',
             'telephone' => 'nullable|string|max:20',
             'status' => 'nullable|in:0,1',
             'place_of_birth' => 'nullable|string|max:255',
@@ -72,6 +72,7 @@ class UserControllers1 extends Controller
             'gender' => 'nullable',
             'religion' => 'nullable|string|max:50',
             'address' => 'nullable|string|max:255',
+            'id_card' => 'nullable|string|max:16',
         ]);
 
 

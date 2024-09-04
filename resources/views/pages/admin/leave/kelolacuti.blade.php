@@ -32,7 +32,14 @@
                         </div><!-- .nk-block-head-content -->
                     </div><!-- .nk-block-between -->
                 </div><!-- .nk-block-head -->
-
+                @if (session('success'))
+                    <div class="alert alert-success">
+                        {{ session('success') }}</div>
+                @endif
+                @if (session('error'))
+                    <div class="alert alert-danger">
+                        {{ session('error') }}</div>
+                @endif
                 <div class="nk-block nk-block-lg">
                     <div class="card card-bordered card-preview">
                         <div class="card-inner">
@@ -82,7 +89,8 @@
                                                     <li>
                                                         <a href="#" class="btn btn-sm btn-icon btn-trigger"
                                                             data-bs-toggle="modal" data-bs-target="#confirmationModal"
-                                                            data-id="{{ $item->id }}" data-status="{{ $item->status }}"
+                                                            data-id="{{ $item->id }}"
+                                                            data-status="{{ $item->status }}"
                                                             data-reason="{{ $item->reason }}">
                                                             <em class="icon ni ni-more-h"></em>
                                                         </a>
