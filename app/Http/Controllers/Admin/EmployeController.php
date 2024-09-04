@@ -147,10 +147,35 @@ class EmployeController extends Controller
 
 
 
-    public function destroy()
+    public function destroy($id)
     {
-        //
+        $user = User::findOrFail($id);
+
+        if (!$user) {
+            return redirect()->route('admin.kelolapegawai')->with('error', 'Pegawai tidak ditemukan');
+        }
+
+        $user->delete();
+
+        return redirect()->route('admin.kelolapegawai')->with('success', 'Pegawai berhasil dihapus.');
     }
+
+    public function trashed()
+    {
+        $data = User::onlyTrashed()->get();
+
+        return view('pages.admin.managepegawai.trashed', compact('data'));
+    }
+
+    public function restore($id)
+    {
+        $user = User::onlyTrashed()->findOrFail($id);
+        $user->restore();
+
+        return redirect()->route('admin.kelolapegawai')->with('success', 'Pegawai berhasil dikembalikan.');
+    }
+
+
 
     public function cetakpegawai()
     {

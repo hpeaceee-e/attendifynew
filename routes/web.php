@@ -34,6 +34,7 @@ Route::middleware([AutoLogout::class])->group(function () {
             Route::get('/pegawai{id}', [EmployeController::class, 'show'])->name('pegawaidetail');
             Route::get('/editpegawai/{id}', [EmployeController::class, 'edit'])->name('editpegawai');
             Route::post('/updatepegawai/{id}', [EmployeController::class, 'update'])->name('editpegawaiupdate');
+            Route::delete('/hapus/{id}', [EmployeController::class, 'destroy'])->name('deletepegawai');
             Route::get('/cetakpegawai', [EmployeController::class, 'cetakpegawai'])->name('print-kelolapegawai');
         });
 
@@ -54,11 +55,10 @@ Route::middleware([AutoLogout::class])->group(function () {
             Route::get('/printjadwal', [ScheduleController::class, 'print'])->name('print-jadwal');
         });
 
-        // Manage Leave
         Route::prefix('leave.kelolacuti')->group(function () {
             Route::get('/', [LeaveController::class, 'index'])->name('kelolacuti');
             Route::get('/persetujuancuti', [LeaveController::class, 'create'])->name('persetujuancuti');
-            Route::post('/store', [LeaveController::class, 'store'])->name('store-cuti');
+            Route::post('/update/{id}', [LeaveController::class, 'update'])->name('update-cuti');
             Route::get('/printkelolacuti', [LeaveController::class, 'cetakcuti'])->name('print-kelolacuti');
             Route::get('/printsatuancuti', [LeaveController::class, 'cetaksatuancuti'])->name('print-satuancuti');
         });

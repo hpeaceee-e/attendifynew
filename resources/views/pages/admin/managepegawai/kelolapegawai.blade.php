@@ -33,6 +33,14 @@
                             </div><!-- .nk-block-head-content -->
                         </div><!-- .nk-block-between -->
                     </div><!-- .nk-block-head -->
+                    @if (session('success'))
+                        <div class="alert alert-success">
+                            {{ session('success') }}</div>
+                    @endif
+                    @if (session('error'))
+                        <div class="alert alert-danger">
+                            {{ session('error') }}</div>
+                    @endif
                     <div class="nk-block nk-block-lg">
                         <div class="card card-bordered card-preview">
                             <div class="card-inner">
@@ -99,9 +107,36 @@
                                                                                 href="{{ route('admin.editpegawai', ['id' => $d->id]) }}"><em
                                                                                     class="icon ni ni-edit"></em><span>Edit</span></a>
                                                                         </li>
-                                                                        <li><a href="#"><em
+                                                                        {{-- <li><a
+                                                                                href="{{ route('admin.deletepegawai', ['id' => $d->id]) }}"><em
                                                                                     class="icon ni ni-na"></em><span>Hapus</span></a>
+                                                                        </li> --}}
+                                                                        <li>
+                                                                            <a href="#"
+                                                                                onclick="event.preventDefault(); document.getElementById('delete-form-{{ $d->id }}').submit();">
+                                                                                <em
+                                                                                    class="icon ni ni-na"></em><span>Hapus</span>
+                                                                            </a>
+                                                                            <form id="delete-form-{{ $d->id }}"
+                                                                                action="{{ route('admin.deletepegawai', ['id' => $d->id]) }}"
+                                                                                method="POST" style="display: none;">
+                                                                                @csrf
+                                                                                @method('DELETE')
+                                                                            </form>
+
                                                                         </li>
+
+                                                                        {{-- <li>
+                                                                            <a
+                                                                                href="{{ route('admin.deletepegawai', ['id' => $d->id]) }}">
+                                                                                @csrf
+                                                                                @method('DELETE')
+                                                                                <em
+                                                                                    class="icon ni ni-na"></em><span>Hapus</span>
+                                                                            </a>
+                                                                        </li> --}}
+
+
                                                                     </ul>
                                                                 </div>
                                                             </div>

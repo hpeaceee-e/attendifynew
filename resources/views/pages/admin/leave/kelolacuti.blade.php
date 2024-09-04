@@ -103,40 +103,45 @@
                     <div class="modal-dialog">
                         <div class="modal-content">
                             <div class="modal-header">
-                                <h5 class="modal-title" id="confirmationModalLabel">Konfirmasi Cuti</h5>
+                                <h5 class="modal-title">Konfirmasi Cuti</h5>
                                 <button type="button" class="btn-close" data-bs-dismiss="modal"
                                     aria-label="Close"></button>
                             </div>
-                            <form id="confirmationForm" action="{{ route('admin.store-cuti') }}" method="POST">
-                                @csrf
-                                <input type="hidden" name="leave_id" id="leave_id">
+                            @foreach ($leaves as $item)
+                                <form id="confirmationForm" action="{{ route('admin.update-cuti', ['id' => $item->id]) }}"
+                                    method="POST">
+                            @endforeach
+                            @csrf
+                            <input type="hidden" name="id" id="leave_id">
+                            {{-- <input type="hidden" name="enhancer" id="enhancer_id"> --}}
+                            <!-- Menambahkan hidden field untuk enhancer -->
 
-                                <div class="modal-body">
-                                    <div class="form-group">
-                                        <label for="status">Status Pengajuan Cuti</label>
-                                        <select name="status" id="status" class="form-control"
-                                            onchange="toggleReasonField()" required>
-                                            <option value="" disabled selected>Pilih Status</option>
-                                            <option value="0">Diterima</option>
-                                            <option value="1">Ditolak</option>
-                                        </select>
-                                    </div>
-
-                                    <div class="form-group" id="reason-group" style="display: none;">
-                                        <label for="reason">Alasan Penolakan</label>
-                                        <textarea type="text" name="reason" id="reason" class="form-control form-control-lg"
-                                            placeholder="Alasan penolakan"></textarea>
-                                    </div>
+                            <div class="modal-body">
+                                <div class="form-group">
+                                    <label for="status">Status Pengajuan Cuti</label>
+                                    <select name="status" id="status" class="form-control"
+                                        onchange="toggleReasonField()" required>
+                                        <option value="" disabled selected>Pilih Status</option>
+                                        <option value="0">Diterima</option>
+                                        <option value="1">Ditolak</option>
+                                    </select>
                                 </div>
 
-                                <div class="modal-footer">
-                                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Tutup</button>
-                                    <button type="submit" class="btn btn-primary">Simpan Persetujuan</button>
+                                <div class="form-group" id="reason-group" style="display: none;">
+                                    <label for="reason">Alasan Penolakan</label>
+                                    <textarea name="reason" id="reason" class="form-control form-control-lg" placeholder="Alasan penolakan"></textarea>
                                 </div>
+                            </div>
+
+                            <div class="modal-footer">
+                                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Tutup</button>
+                                <button type="submit" class="btn btn-primary">Simpan Persetujuan</button>
+                            </div>
                             </form>
                         </div>
                     </div>
                 </div>
+
 
                 <!-- Modal for printing single leave request -->
                 <div class="modal fade" id="printModal" tabindex="-1" aria-labelledby="printModalLabel" aria-hidden="true">
@@ -199,7 +204,6 @@
             }
         }
 
-        // Event Listener untuk modal konfirmasi
         document.addEventListener('DOMContentLoaded', function() {
             var confirmationModal = document.getElementById('confirmationModal');
             confirmationModal.addEventListener('show.bs.modal', function(event) {
@@ -207,25 +211,33 @@
                 var leaveId = button.getAttribute('data-id');
                 var status = button.getAttribute('data-status');
                 var reason = button.getAttribute('data-reason');
+                // var enhancerId = button.getAttribute('data-enhancer'); // Ambil ID pengguna
 
-                var modal = confirmationModal.querySelector('.modal-body');
-                modal.querySelector('#leave_id').value = leaveId;
-                var statusSelect = modal.querySelector('#status');
+                var form = confirmationModal.querySelector('form');
+                form.action = form.action.replace(/\/\d+$/, '/' +
+                    leaveId); // Update URL action dengan leaveId
+                form.querySelector('#leave_id').value = leaveId;
+                // form.querySelector('#enhancer_id').value = enhancerId; // Set enhancer ID
+
+                var statusSelect = form.querySelector('#status');
                 statusSelect.value = status;
 
                 if (status === '1') {
-                    modal.querySelector('#reason-group').style.display = 'block';
-                    modal.querySelector('#reason').value = reason;
+                    form.querySelector('#reason-group').style.display = 'block';
+                    form.querySelector('#reason').value = reason;
                 } else {
-                    modal.querySelector('#reason-group').style.display = 'none';
+                    form.querySelector('#reason-group').style.display = 'none';
+                    form.querySelector('#reason').value = '';
                 }
             });
         });
 
+
+
         function toggleReasonField() {
             var status = document.getElementById('status').value;
             var reasonGroup = document.getElementById('reason-group');
-            if (status === '1') {
+            if (status === '1') { // 1 untuk 'Ditolak'
                 reasonGroup.style.display = 'block';
             } else {
                 reasonGroup.style.display = 'none';

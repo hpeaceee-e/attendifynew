@@ -58,7 +58,9 @@
                                             <td>{{ $item->date }}</td>
                                             <td>{{ $item->end_date }}</td>
                                             <td>
-                                                @if ($item->status == '1')
+                                                @if ($item->status === null)
+                                                    <span class="badge bg-warning">Menunggu</span>
+                                                @elseif ($item->status == '1')
                                                     {{ $item->reason }}
                                                 @else
                                                     Silahkan Cuti

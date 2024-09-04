@@ -6,7 +6,7 @@
     <div class="container">
         <h1>Konfirmasi Cuti</h1>
 
-        <form action="{{ route('admin.store-cuti') }}" method="POST">
+        <form action="{{ route('admin.update-cuti') }}" method="POST">
             @csrf
 
             {{-- <!-- Menyimpan ID pengajuan cuti -->
