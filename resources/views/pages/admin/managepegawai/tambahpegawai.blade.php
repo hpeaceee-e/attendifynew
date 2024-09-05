@@ -90,7 +90,7 @@
                                         </div>
                                         <hr class="preview-hr">
                                         <div class="form-group">
-                                            <button type="submit" class="btn btn-primary">Tambah Pegawai</button>
+                                            <button type="submit" class="btn btn-secondary">Tambah Pegawai</button>
                                         </div>
                                     </div>
                                 </form>

@@ -22,9 +22,8 @@
                                     data-target="pageMenu"><em class="icon ni ni-menu-alt-r"></em></a>
                                 <div class="toggle-expand-content" data-content="pageMenu">
                                     <ul class="nk-block-tools g-3">
-                                        <li><a href="{{ route('admin.print-kelolacuti') }}"
-                                                class="btn btn-white btn-outline-light" data-bs-toggle="modal"
-                                                data-bs-target="#printModal" target="_blank"><em
+                                        <li><a href="{{ route('admin.print-kelolacuti') }}" class="btn btn-secondary"
+                                                data-bs-toggle="modal" data-bs-target="#printModal" target="_blank"><em
                                                     class="icon ni ni-printer"></em><span>Cetak</span></a></li>
                                     </ul>
                                 </div>
@@ -142,8 +141,8 @@
                             </div>
 
                             <div class="modal-footer">
-                                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Tutup</button>
-                                <button type="submit" class="btn btn-primary">Simpan Persetujuan</button>
+                                <button type="button" class="btn btn-danger" data-bs-dismiss="modal">Tutup</button>
+                                <button type="submit" class="btn btn-secondary">Simpan Persetujuan</button>
                             </div>
                             </form>
                         </div>

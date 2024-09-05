@@ -77,7 +77,7 @@
                                     </div>
                                     <hr class="preview-hr">
                                     <div class="form-group">
-                                        <button type="submit" class="btn btn-primary">Ajukan Cuti</button>
+                                        <button type="submit" class="btn btn-secondary">Ajukan Cuti</button>
                                     </div>
                                 </div>
                             </form>

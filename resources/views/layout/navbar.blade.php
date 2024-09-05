@@ -20,17 +20,18 @@
                 <div class="nk-sidebar-menu">
                     <ul class="nk-menu">
                         <li class="nk-menu-heading">
-                            <h6 class="overline-title text-primary-alt">Hallo {{ auth()->user()->name }}</h6>
+                            <h6 class="overline-title text-secondary-alt">Hallo {{ auth()->user()->name }}</h6>
                         </li><!-- .nk-menu-item -->
                         <li class="nk-menu-item">
-                            <a href="{{ route('admin.pages.admin.dashboard') }}" class="nk-menu-link">
+                            <a href="{{ route('admin.pages.admin.dashboard') }}" class="nk-menu-link"
+                                data-bs-original-title title="">
                                 <span class="nk-menu-icon"><em class="icon ni ni-home"></em></span>
                                 <span class="nk-menu-text">Dashboard </span>
                             </a>
                         </li><!-- .nk-menu-item -->
 
                         <li class="nk-menu-heading">
-                            <h6 class="overline-title text-primary-alt">Applications</h6>
+                            <h6 class="overline-title text-secondary-alt">Applications</h6>
                         </li><!-- .nk-menu-heading -->
                         <li class="nk-menu-item">
                             <a href="{{ route('admin.kelolapegawai') }}" class="nk-menu-link">

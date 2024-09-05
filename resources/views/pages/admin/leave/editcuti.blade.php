@@ -29,7 +29,7 @@
             <input type="hidden" name="coordinate" id="coordinate"> --}}
 
             <div class="mt-3">
-                <button type="submit" class="btn btn-primary">Simpan Kehadiran</button>
+                <button type="submit" class="btn btn-secondary">Simpan Kehadiran</button>
             </div>
         </form>
     </div>

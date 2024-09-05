@@ -212,7 +212,7 @@
                                         </div>
                                         <hr class="preview-hr">
                                         <div class="form-group">
-                                            <button type="submit" class="btn btn-primary">Update Pegawai</button>
+                                            <button type="submit" class="btn btn-secondary">Update Pegawai</button>
                                         </div>
                                     </div>
                                 </form>

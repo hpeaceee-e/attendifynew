@@ -47,7 +47,7 @@
                                                     <input type="file" id="avatar" accept=".jpg,.jpeg,.png"
                                                         name="avatar" class="form-control-file">
                                                 </div>
-                                                <button type="submit" class="btn btn-primary mt-2">Update Avatar</button>
+                                                <button type="submit" class="btn btn-secondary mt-2">Update Avatar</button>
                                             </form>
                                         </div>
 
@@ -108,7 +108,7 @@
                                                                 </div>
                                                             </div>
                                                             <div class="col-md-12">
-                                                                <button type="submit" class="btn btn-primary">Simpan
+                                                                <button type="submit" class="btn btn-secondary">Simpan
                                                                     Perubahan</button>
                                                             </div>
                                                         </div>
@@ -178,7 +178,7 @@
                                                                 </div>
                                                             </div>
                                                             <div class="col-md-12">
-                                                                <button type="submit" class="btn btn-primary">Simpan
+                                                                <button type="submit" class="btn btn-secondary">Simpan
                                                                     Perubahan</button>
                                                             </div>
                                                         </div>
@@ -220,7 +220,7 @@
                                                                 </div>
                                                             </div>
                                                             <div class="col-md-12">
-                                                                <button type="submit" class="btn btn-primary">Simpan
+                                                                <button type="submit" class="btn btn-secondary">Simpan
                                                                     Perubahan</button>
                                                             </div>
                                                         </div>

@@ -31,7 +31,7 @@
             </div>
 
             <div class="mt-3">
-                <button type="submit" class="btn btn-primary">Simpan Persetujuan</button>
+                <button type="submit" class="btn btn-secondary">Simpan Persetujuan</button>
             </div>
         </form>
     </div>

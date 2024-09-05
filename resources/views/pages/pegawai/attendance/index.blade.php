@@ -10,7 +10,7 @@
             <div class="container" style="padding-top: 30px;">
                 <!-- Tombol Absen Masuk/Pulang -->
                 <div class="mt-5">
-                    <a id="attendance-btn" href="{{ route('pegawai.tambah-attendance') }}" class="btn btn-primary">Absen
+                    <a id="attendance-btn" href="{{ route('pegawai.tambah-attendance') }}" class="btn btn-secondary">Absen
                         Masuk/Pulang</a>
                     <div id="message" style="display: none;">
                         <div class="alert alert-warning d-flex align-items-center" role="alert">

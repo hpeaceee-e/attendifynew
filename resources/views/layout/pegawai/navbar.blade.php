@@ -19,7 +19,7 @@
                 <div class="nk-sidebar-menu">
                     <ul class="nk-menu">
                         <li class="nk-menu-heading">
-                            <h6 class="overline-title text-primary-alt">Hallo {{ auth()->user()->name }}</h6>
+                            <h6 class="overline-title text-secondary-alt">Hallo {{ auth()->user()->name }}</h6>
                         </li><!-- .nk-menu-item -->
                         <li class="nk-menu-item">
                             <a href="{{ route('pegawai.pages.pegawai.dashboard') }}" class="nk-menu-link">
@@ -29,7 +29,7 @@
                         </li><!-- .nk-menu-item -->
 
                         <li class="nk-menu-heading">
-                            <h6 class="overline-title text-primary-alt">Applications</h6>
+                            <h6 class="overline-title text-secondary-alt">Applications</h6>
                         </li><!-- .nk-menu-heading -->
                         <li class="nk-menu-item">
                             <a href="{{ route('pegawai.attendance') }}" class="nk-menu-link">

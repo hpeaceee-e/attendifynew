@@ -81,7 +81,7 @@
                                     </div>
                                     <hr class="preview-hr">
                                     <div class="form-group">
-                                        <button type="submit" class="btn btn-primary">Update Cuti</button>
+                                        <button type="submit" class="btn btn-secondary">Update Cuti</button>
                                     </div>
                                 </div>
                             </form>

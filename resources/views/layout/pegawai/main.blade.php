@@ -28,7 +28,6 @@
             calendar.render();
         });
     </script>
-
 </head>
 
 <body class="nk-body bg-grey has-sidebar ">

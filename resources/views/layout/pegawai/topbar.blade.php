@@ -19,7 +19,7 @@
                             <em class="icon ni ni-search" style="margin-right: 10px;"></em>
                             <input type="text" id="search" value=""
                                 class="form-control border-transparent form-focus-none" placeholder="Cari pekerjaan"
-                                style="width: 300px; max-width: 100%;">
+                                style="width: 300px; max-wlightprimaidth: 100%;">
                         </div>
                     </div>
                 </div><!-- .nk-header-news -->

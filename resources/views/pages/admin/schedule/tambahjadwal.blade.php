@@ -65,7 +65,7 @@
                                         </div>
                                         <hr class="preview-hr">
                                         <div class="form-group">
-                                            <button type="submit" class="btn btn-primary">Tambah Jadwal</button>
+                                            <button type="submit" class="btn btn-secondary">Tambah Jadwal</button>
                                         </div>
                                     </div>
                                 </form>

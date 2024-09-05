@@ -19,58 +19,118 @@
 
     <style>
         body {
-            background-image: url('{{ asset('demo5/src/images/background/attendance.jpg') }}');
+            margin: 0;
+            font-family: 'Inter', sans-serif;
+            color: #fff;
+        }
+
+        .container {
+            display: flex;
+            height: 100vh;
+        }
+
+        .left-side {
+            width: 50%;
+            background-color: #fff;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            padding: 2rem;
+            box-shadow: 5px 0 15px rgba(0, 0, 0, 0.1);
+        }
+
+        .right-side {
+            width: 50%;
+            background-image: url('{{ asset('demo5/src/images/background/attendance2.jpg') }}');
             background-size: cover;
             background-position: center;
             background-repeat: no-repeat;
-            background-attachment: fixed;
+        }
+
+        /* Kotak tambahan */
+        .form-container {
+            background: #f7f9fc;
+            padding: 2rem;
+            box-shadow: 0px 10px 20px rgba(0, 0, 0, 0.1);
+            border-radius: 10px;
+        }
+
+        .form-wrapper {
+            width: 100%;
+            max-width: 400px;
+        }
+
+        .brand-logo {
+            text-align: center;
+            margin-bottom: 2rem;
+        }
+
+        .brand-logo img {
+            max-width: 50px;
+        }
+
+        .nk-block-title {
+            text-align: center;
+            margin-bottom: 1rem;
+        }
+
+        .nk-block-des {
+            text-align: center;
+            margin-bottom: 2rem;
+        }
+
+        @media screen and (max-width: 768px) {
+            .container {
+                flex-direction: column;
+            }
+
+            .left-side,
+            .right-side {
+                width: 100%;
+                height: 50vh;
+            }
+
+            .form-container {
+                margin-top: 2rem;
+            }
         }
     </style>
 </head>
 
-<body class="nk-body npc-general pg-auth">
-    <div class="nk-app-root">
-        <div class="nk-split nk-split-page nk-split-md">
-            <!-- Login Form -->
-            <div class="nk-split-content nk-block-area nk-block-area-column nk-auth-container bg-white">
-                <div class="nk-block nk-block-middle nk-auth-body">
-                    <div class="brand-logo pb-5">
+<body>
+    <div class="container">
+        <!-- Left Side: Login Form -->
+        <div class="left-side">
+            <div class="form-wrapper">
+                <div class="form-container">
+                    <div class="brand-logo">
                         <a href="{{ route('auth.login') }}" class="logo-link">
                             <img class="logo-light logo-img logo-img-lg" src="{{ asset('demo5/src/images/logo.png') }}"
                                 srcset="{{ asset('demo5/src/images/logo2x.png') }} 2x" alt="logo">
-                            <img class="logo-dark logo-img logo-img-lg"
-                                src="{{ asset('demo5/src/images/logo-dark.png') }}"
-                                srcset="{{ asset('demo5/src/images/logo-dark2x.png') }} 2x" alt="logo-dark">
                         </a>
                     </div>
                     <div class="nk-block-head">
                         <div class="nk-block-head-content">
                             <h5 class="nk-block-title">Login</h5>
                             <div class="nk-block-des">
-                                <p>Akses sistem kehadiran menggunakan username dan password Anda.</p>
+                                <p>Access the attendance system using your username and password.</p>
                             </div>
                         </div>
                     </div><!-- .nk-block-head -->
                     <form action="{{ route('login-proses') }}" method="POST">
                         @csrf
                         <div class="form-group">
-                            <div class="form-label-group">
-                                <label class="form-label" for="username">Username</label>
-                            </div>
+                            <label class="form-label" for="username">Username</label>
                             <div class="form-control-wrap">
                                 <input type="text" name="username" class="form-control form-control-lg"
                                     id="username" placeholder="Enter your username">
                             </div>
+                            @error('username')
+                                <small>{{ $message }}</small>
+                            @enderror
                         </div>
-                        @error('username')
-                            <small>{{ $message }}</small>
-                        @enderror
                         <div class="form-group">
-                            <div class="form-label-group">
-                                <label class="form-label" for="password">Password</label>
-                                <a class="link link-secondary link-sm" href="html/pages/auths/auth-reset-v2.html">Forgot
-                                    Password?</a>
-                            </div>
+                            <label class="form-label" for="password">Password</label>
                             <div class="form-control-wrap">
                                 <a href="#" class="form-icon form-icon-right passcode-switch lg"
                                     data-target="password">
@@ -80,39 +140,32 @@
                                 <input type="password" name="password" class="form-control form-control-lg"
                                     id="password" placeholder="Enter your password">
                             </div>
+                            @error('password')
+                                <small>{{ $message }}</small>
+                            @enderror
                         </div>
-                        @error('password')
-                            <small>{{ $message }}</small>
-                        @enderror
                         <div class="form-group">
-                            <button class="btn btn-lg btn-secondary btn-block">Login</button>
+                            <button class="btn btn-lg btn-primary btn-block">Login</button>
                         </div>
                     </form><!-- form -->
-                </div><!-- .nk-block -->
-                <div class="nk-block nk-auth-footer">
-                    <div class="mt-3">
-                        <p>&copy; 2024 Sistem Kehadiran Pegawai. All Rights Reserved.</p>
-                    </div>
-                </div><!-- .nk-block -->
-            </div><!-- .nk-split-content -->
-            <!-- Attendance Section -->
-            <div class="nk-split-content nk-split-stretch bg-abstract">
-                {{-- <div class="nk-block nk-auth-body">
-                    <div class="brand-logo pb-4 text-center">
-                        <a href="#" class="logo-link">
-                            <img src="{{ asset('demo5/src/images/background/attendance.jpg') }}" alt="Attendance">
-                        </a>
-                    </div>
-                    <div class="nk-block">
-                        <!-- Add your attendance content here -->
+                    <div class="nk-block nk-auth-footer">
+                        <div class="mt-3">
+                            <p>&copy; 2022 DashLite. All Rights Reserved.</p>
+                        </div>
                     </div><!-- .nk-block -->
-                </div><!-- .nk-block --> --}}
-            </div><!-- .nk-split-content -->
-        </div><!-- .nk-split -->
-    </div><!-- app-root @e -->
+                </div><!-- .form-container -->
+            </div><!-- .form-wrapper -->
+        </div><!-- .left-side -->
+
+        <!-- Right Side: Attendance Image -->
+        <div class="right-side">
+            <!-- The background image is set via CSS -->
+        </div><!-- .right-side -->
+    </div><!-- .container -->
+
     <!-- JavaScript -->
-    <script src="./assets/js/bundle.js?ver=3.0.3"></script>
-    <script src="./assets/js/scripts.js?ver=3.0.3"></script>
+    <script src="{{ asset('demo5/src/assets/js/bundle.js?ver=3.0.3') }}"></script>
+    <script src="{{ asset('demo5/src/assets/js/scripts.js?ver=3.0.3') }}"></script>
     <script>
         document.addEventListener('DOMContentLoaded', function() {
             const togglePassword = document.querySelector('.passcode-switch');
@@ -139,14 +192,14 @@
         document.addEventListener('DOMContentLoaded', function() {
             const loginButton = document.querySelector('button[type="submit"]');
 
-            @if ($message = Session::get('succes'))
+            @if ($message = Session::get('success'))
                 Swal.fire({
                     title: '{{ $message }}',
                     icon: 'success',
-                    confirmButtonColor: '#364a63'
+                    confirmButtonColor: '#28a745'
                 }).then(() => {
-                    loginButton.style.backgroundColor = '#364a63'; // DarkBlue
-                    loginButton.style.borderColor = '#364a63';
+                    loginButton.style.backgroundColor = '#28a745'; // Green
+                    loginButton.style.borderColor = '#28a745';
                 });
             @endif
 
