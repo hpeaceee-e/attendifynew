@@ -42,7 +42,7 @@
             <div class="nk-wrap ">
                 <!-- main header @s -->
                 @include('layout.pegawai.topbar')
-                
+
                 <!-- main header @e -->
                 <!-- content @s -->
                 @yield('content-pegawai')

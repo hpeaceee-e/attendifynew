@@ -123,8 +123,11 @@
                                                             <div class="col-md-6">
                                                                 <div class="form-group">
                                                                     <label class="form-label">Nomor Telepon</label>
-                                                                    <input type="text" class="form-control"
-                                                                        name="telephone" value="{{ $item->telephone }}">
+                                                                    <input type="number" class="form-control"
+                                                                        name="telephone" value="{{ $item->telephone }}"
+                                                                        inputmode="numeric"
+                                                                        oninput="this.value = this.value.slice(0, 13)"
+                                                                        placeholder="Nomor Telepon">
                                                                 </div>
                                                             </div>
                                                             <div class="col-md-6">
@@ -132,7 +135,8 @@
                                                                     <label class="form-label">Tempat Lahir</label>
                                                                     <input type="text" class="form-control"
                                                                         name="place_of_birth"
-                                                                        value="{{ $item->place_of_birth }}">
+                                                                        value="{{ $item->place_of_birth }}"
+                                                                        placeholder="Tempat Lahir">
                                                                 </div>
                                                             </div>
                                                             <div class="col-md-6">
@@ -147,20 +151,22 @@
                                                                 <div class="form-group">
                                                                     <label class="form-label">Jenis Kelamin</label>
                                                                     <input type="text" class="form-control"
-                                                                        name="gender" value="{{ $item->gender }}">
+                                                                        name="gender" value="{{ $item->gender }}"
+                                                                        placeholder="Jenis Kelamin">
                                                                 </div>
                                                             </div>
                                                             <div class="col-md-6">
                                                                 <div class="form-group">
                                                                     <label class="form-label">Agama</label>
                                                                     <input type="text" class="form-control"
-                                                                        name="religion" value="{{ $item->religion }}">
+                                                                        name="religion" value="{{ $item->religion }}"
+                                                                        placeholder="Agama">
                                                                 </div>
                                                             </div>
                                                             <div class="col-md-12">
                                                                 <div class="form-group">
                                                                     <label class="form-label">Alamat</label>
-                                                                    <textarea type="text" class="form-control" name="address">{{ $item->address }}</textarea>
+                                                                    <textarea type="text" class="form-control" name="address" placeholder="Alamat">{{ $item->address }}</textarea>
                                                                 </div>
                                                             </div>
                                                             <div class="col-md-12">
@@ -188,13 +194,15 @@
                                                             </div>
                                                             <div class="col-md-6">
                                                                 <div class="form-group">
-                                                                    <label class="form-label">KTP</label>
-                                                                    <input type="number" class="form-control"
+                                                                    <label class="form-label" for="id_card">KTP</label>
+                                                                    <input type="text" class="form-control"
                                                                         name="id_card" value="{{ $item->id_card }}"
-                                                                        maxlength="16"
-                                                                        oninput="this.value = this.value.slice(0, 16)">
+                                                                        maxlength="16" inputmode="numeric" pattern="\d*"
+                                                                        oninput="this.value = this.value.replace(/[^0-9]/g, '').slice(0, 16)"
+                                                                        placeholder="KTP">
                                                                 </div>
                                                             </div>
+
                                                             <div class="col-md-6">
                                                                 <div class="form-group">
                                                                     <label class="form-label">Tanggal Bergabung</label>

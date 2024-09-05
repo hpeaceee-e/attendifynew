@@ -10,7 +10,9 @@ use App\Http\Controllers\Admin\ScheduleController;
 use App\Http\Controllers\ImportexcelController;
 use App\Http\Controllers\IzinController;
 use App\Http\Controllers\LeavesController;
+use App\Http\Controllers\ScheduleController as ControllersScheduleController;
 use App\Http\Middleware\AutoLogout;
+use Illuminate\Console\Scheduling\Schedule;
 use Illuminate\Support\Facades\Route;
 
 // Routes for authentication
@@ -78,6 +80,11 @@ Route::middleware([AutoLogout::class])->group(function () {
             Route::post('/tambahabsensi/store', [AttendanceController::class, 'store'])->name('store-attendance');
             Route::get('/attendance/{id}/print', [AttendanceController::class, 'print'])->name('print-attendance');
         });
+
+        Route::prefix('schedule')->group(function () {
+            Route::get('/', [ControllersScheduleController::class, 'index'])->name('schedule');
+        });
+
         Route::prefix('leaves')->group(function () {
             Route::get('/', [LeavesController::class, 'index'])->name('leaves');
             Route::get('/create', [LeavesController::class, 'create'])->name('create-cuti');

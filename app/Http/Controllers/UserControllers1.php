@@ -62,20 +62,17 @@ class UserControllers1 extends Controller
 
     public function updates(Request $request, $id)
     {
-        // dd($request->all());
         $validatedData = $request->validate([
             'email' => 'nullable|string|max:255',
-            'telephone' => 'nullable|string|max:20',
+            'telephone' => 'nullable|string|max:15',
             'status' => 'nullable|in:0,1',
             'place_of_birth' => 'nullable|string|max:255',
             'date_of_birth' => 'nullable|date',
             'gender' => 'nullable',
             'religion' => 'nullable|string|max:50',
             'address' => 'nullable|string|max:255',
-            'id_card' => 'nullable|string|max:16',
+            'id_card' => 'nullable|string|regex:/^\d{1,16}$/',
         ]);
-
-
 
         // Find the user or fail
         $user = User::findOrFail($id);
@@ -84,6 +81,7 @@ class UserControllers1 extends Controller
         $user->update($validatedData);
         return redirect(url('/pegawai/profil/akun'))->with('success', 'Data identitas berhasil diperbarui.');
     }
+
 
     public function updateAvatar(Request $request, $id)
     {

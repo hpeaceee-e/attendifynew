@@ -63,7 +63,7 @@
                                             <td>{{ $loop->iteration }}</td>
                                             <td>{{ $item->user->name }}</td>
                                             <td>{{ $item->reason_verification }}</td>
-                                            <td>{{ \Carbon\Carbon::parse($item->created_at)->format('d M Y H:i') }}</td>
+                                            <td>{{ \Carbon\Carbon::parse($item->created_at)->format('d M Y') }}</td>
                                             <td>{{ \Carbon\Carbon::parse($item->date)->format('d M Y') }}</td>
                                             <td>{{ \Carbon\Carbon::parse($item->end_date)->format('d M Y') }}</td>
                                             <td>

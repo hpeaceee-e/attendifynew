@@ -39,11 +39,7 @@
                     <div class="nk-block nk-block-middle nk-auth-body  wide-xs">
                         <div class="brand-logo pb-4 text-center">
                             <a href="{{ route('auth.login') }}" class="logo-link">
-                                {{-- <img class="logo-light logo-img logo-img-lg"
-                                    src="{{ asset('demo5/src/images/logo.png') }}" srcset="./images/logo2x.png 2x"
-                                    alt="logo">SISTE
-                                <img class="logo-dark logo-img logo-img-lg" src="./images/logo-dark.png"
-                                    srcset="{{ asset('demo5/src/images/logo-dark2x.png 2x') }}" alt="logo-dark"> --}}
+
                             </a>
                         </div>
                         <div class="card card-bordered">

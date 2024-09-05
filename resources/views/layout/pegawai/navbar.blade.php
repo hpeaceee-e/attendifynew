@@ -38,6 +38,12 @@
                             </a>
                         </li><!-- .nk-menu-item -->
                         <li class="nk-menu-item">
+                            <a href="{{ route('pegawai.schedule') }}" class="nk-menu-link">
+                                <span class="nk-menu-icon"><em class="icon ni ni-clock"></em></span>
+                                <span class="nk-menu-text">Jadwal</span>
+                            </a>
+                        </li><!-- .nk-menu-item -->
+                        <li class="nk-menu-item">
                             <a href="{{ route('pegawai.leaves') }}" class="nk-menu-link">
                                 <span class="nk-menu-icon"><em class="icon ni ni-calendar-alt"></em></span>
                                 <span class="nk-menu-text">Pengajuan Cuti</span>
