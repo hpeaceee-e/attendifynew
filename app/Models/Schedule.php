@@ -12,7 +12,6 @@ class Schedule extends Model
     use SoftDeletes;
 
     protected $fillable = [
-        'shift',
         'clock_in',
         'clock_out',
         'break',
@@ -21,5 +20,10 @@ class Schedule extends Model
     public function users()
     {
         return $this->hasMany(User::class, 'schedule');
+    }
+
+    public function attendances()
+    {
+        return $this->hasMany(Attendance::class);
     }
 }

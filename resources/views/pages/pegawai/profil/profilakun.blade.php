@@ -21,11 +21,18 @@
                                 <div class="row">
                                     @foreach ($data as $item)
                                         <!-- Kiri: Informasi Personal -->
-                                        <div class="col-md-4 text-center mb-4">
+                                        <div class="col-md-4 d-flex flex-column align-items-center text-center mb-4">
                                             <!-- Display the current avatar -->
-
-                                            <img src="{{ asset($item->avatar) }}" alt="{{ $item->avatar }}'s avatar"
-                                                class="img-fluid rounded-circle shadow-sm" style="max-width: 150px;">
+                                            <div class="img-fluid rounded-circle shadow-sm"
+                                                style="width: 150px; height: 150px; background-color: #f0f0f0; display: flex; align-items: center; justify-content: center; overflow: hidden;">
+                                                @if ($item->avatar)
+                                                    <img src="{{ asset($item->avatar) }}" alt="{{ $item->name }}'s avatar"
+                                                        class="img-fluid"
+                                                        style="width: 100%; height: 100%; object-fit: cover;">
+                                                @else
+                                                    <span>No Image</span>
+                                                @endif
+                                            </div>
 
                                             <h5 class="mt-3">{{ $item->name }}</h5>
                                             <p class="text-muted">{{ $item->email }}</p>
@@ -43,6 +50,7 @@
                                                 <button type="submit" class="btn btn-primary mt-2">Update Avatar</button>
                                             </form>
                                         </div>
+
 
                                         <!-- Kanan: Detail Informasi dengan 3 Kolom -->
                                         <div class="col-md-8">
@@ -142,9 +150,9 @@
                                                             <div class="col-md-6">
                                                                 <div class="form-group">
                                                                     <label class="form-label">Tanggal Lahir</label>
-                                                                    <input type="date" class="form-control"
-                                                                        name="date_of_birth"
-                                                                        value="{{ $item->date_of_birth }}">
+                                                                    <input type="text" class="form-control date-picker"
+                                                                        name="date_of_birth" data-date-format="dd M yyyy"
+                                                                        value="{{ \Carbon\Carbon::parse($item->date_of_birth)->format('d M Y') }}">
                                                                 </div>
                                                             </div>
                                                             <div class="col-md-6">

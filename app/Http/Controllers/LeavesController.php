@@ -12,14 +12,19 @@ class LeavesController extends Controller
 {
     public function index()
     {
-        // Mengambil semua data leaves beserta nama pengguna terkait
-        $leaves = Leave::with('user')->get();
+        // Get the currently authenticated user's ID
         $id_user = Auth::user()->id;
-        $data = User::where('id', $id_user)->get();
+
+        // Fetch leaves associated with the currently authenticated user
+        $leaves = Leave::where('enhancer', $id_user)->with('user')->get();
+
+        // Fetch the name of the currently authenticated user
         $name = User::where('id', $id_user)->value('name');
 
+        // Pass the data to the view
         return view('pages.pegawai.leaves.index', compact('leaves', 'name'));
     }
+
 
 
     public function create()
@@ -66,12 +71,32 @@ class LeavesController extends Controller
         return view('pages.pegawai.leaves.edit', compact('leave'));
     }
 
-
-
-    public function update()
+    public function update(Request $request, $id)
     {
-        return view('pages.pegawai.leaves.edit');
+        // Validasi data input
+        $request->validate([
+            'reason_verification' => 'required|string|max:255',
+            'about' => 'required|string|max:255',
+            'date' => 'required|date_format:d-M-Y',
+            'end_date' => 'required|date_format:d-M-Y|after_or_equal:date',
+        ]);
+
+        // Temukan record cuti berdasarkan ID
+        $leave = Leave::findOrFail($id);
+
+        // Konversi tanggal dari d-m-Y ke Y-m-d sebelum disimpan
+        $leave->date = \Carbon\Carbon::createFromFormat('d M Y', $request->input('date'))->format('Y M d');
+        $leave->end_date = \Carbon\Carbon::createFromFormat('d M Y', $request->input('end_date'))->format('Y M d');
+
+        // Update data lainnya
+        $leave->reason_verification = $request->input('reason_verification');
+        $leave->about = $request->input('about');
+        $leave->save();
+
+        // Redirect dengan pesan sukses
+        return redirect()->route('pegawai.leaves')->with('success', 'Cuti berhasil diperbarui');
     }
+
 
     public function print()
     {

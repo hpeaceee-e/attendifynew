@@ -77,6 +77,11 @@ class UserControllers1 extends Controller
         // Find the user or fail
         $user = User::findOrFail($id);
 
+        // Jika tanggal lahir diinputkan, konversi ke format yang bisa disimpan di database (Y-m-d)
+        if ($request->filled('date_of_birth')) {
+            $validatedData['date_of_birth'] = \Carbon\Carbon::createFromFormat('d M Y', $request->date_of_birth)->format('Y-m-d');
+        }
+
         // Update the user with validated data
         $user->update($validatedData);
         return redirect(url('/pegawai/profil/akun'))->with('success', 'Data identitas berhasil diperbarui.');

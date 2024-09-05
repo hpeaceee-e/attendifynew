@@ -45,6 +45,8 @@ Route::middleware([AutoLogout::class])->group(function () {
             Route::get('/', [AttendanceController::class, 'kehadiran'])->name('kelolakehadiranpegawai');
             Route::get('/cetakkehadiranpegawai', [AttendanceController::class, 'cetakkehadiran'])->name('print-kelolakehadiranpegawai');
             Route::get('/cetakkehadiranpegawai{id}', [AttendanceController::class, 'cetakkehadiranorang'])->name('print-kelolakehadiranpegawai-orang');
+            Route::get('/print-selection', [AttendanceController::class, 'printSelection'])->name('print-selection');
+            Route::post('/print-selected', [AttendanceController::class, 'printSelected'])->name('print-selected');
         });
 
         // Manage Schedules
@@ -90,7 +92,7 @@ Route::middleware([AutoLogout::class])->group(function () {
             Route::get('/create', [LeavesController::class, 'create'])->name('create-cuti');
             Route::post('/store', [LeavesController::class, 'store'])->name('store-cuti');
             Route::get('/leaves/{id}/edit', [LeavesController::class, 'edit'])->name('edit-cuti');
-            Route::post('/update', [LeavesController::class, 'update'])->name('update-cuti');
+            Route::post('/update/{id}', [LeavesController::class, 'update'])->name('update-cuti');
             Route::get('/print', [LeavesController::class, 'print'])->name('print-cuti');
         });
         Route::prefix('izin')->group(function () {

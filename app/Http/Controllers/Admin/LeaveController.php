@@ -76,6 +76,16 @@ class LeaveController extends Controller
     }
 
 
+    public function cetakcuti()
+    {
+        return view('pages.admin.leave.printkelolacuti');
+    }
+
+    public function cetaksatuancuti()
+    {
+        return view('pages.admin.leave.printsatuancuti');
+    }
+
 
 
 

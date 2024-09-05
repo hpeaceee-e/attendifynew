@@ -26,4 +26,9 @@ class Attendance extends Model
     {
         return $this->belongsTo(User::class, 'enhancer');
     }
+
+    public function schedule()
+    {
+        return $this->belongsTo(Schedule::class);
+    }
 }

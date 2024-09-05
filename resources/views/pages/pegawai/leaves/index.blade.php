@@ -1,6 +1,6 @@
 @extends('layout.pegawai.main')
 @section('title')
-    Pengajuan Cuti
+    Pengajuan Cuti {{ auth()->user()->name }}
 @endsection
 @section('content-pegawai')
     <div class="nk-content nk-content-fluid">

@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use App\Models\Attendance;
 use App\Models\Role;
+use App\Models\Schedule;
 use App\Models\User;
 use Illuminate\Support\Facades\Auth;
 
@@ -12,14 +13,16 @@ class AttendanceController extends Controller
 {
     public function kehadiran()
     {
-        // $attendances = Attendance::get();
-        $attendances = Attendance::whereHas('user', function ($query) {
-            $query->where('role', '2'); // Gantilah 'pegawai' dengan ID role untuk pegawai jika menggunakan angka.
-        })->get();
-        // $attendances = Attendance::with('user')->get();
+        // Retrieve all attendances with their schedules
+        $attendances = Attendance::with('schedule', 'user')
+            ->whereHas('user', function ($query) {
+                $query->where('role', '2'); // Assuming '2' is the role ID for 'pegawai'
+            })
+            ->get();
 
         return view('pages.admin.attendance.kelolakehadiranpegawai', compact('attendances'));
     }
+
 
     public function cetakkehadiran()
     {

@@ -72,8 +72,32 @@
                                                     - {{-- Empty for 'Masuk' row --}}
                                                 @endif
                                             </td>
-                                            <td><span class="badge bg-success">Tepat Waktu</span><span
-                                                    class="badge bg-danger">Terlambat</span></td>
+                                            <td>
+                                                @php
+                                                    // Fetch the schedule related to this attendance
+                                                    $schedule = $attendance->schedule;
+
+                                                    // Ensure schedule exists before parsing times
+                                                    if ($schedule) {
+                                                        $actualTime = \Carbon\Carbon::parse($attendance->time);
+                                                        $scheduledTime = \Carbon\Carbon::parse($schedule->clock_in); // Adjust if using different field names
+
+                                                        // Check if the attendance time is on time
+                                                        $isOnTime = $actualTime <= $scheduledTime;
+                                                    } else {
+                                                        // If no schedule is found, consider it late or handle as needed
+                                                        $isOnTime = false;
+                                                    }
+                                                @endphp
+
+                                                @if ($isOnTime)
+                                                    <span class="badge bg-success">Tepat Waktu</span>
+                                                @else
+                                                    <span class="badge bg-danger">Terlambat</span>
+                                                @endif
+                                            </td>
+
+
                                             <td>{{ $attendance->coordinate }} (dijadikan link saja nanti)</td>
                                             <td>
                                                 <ul class="nk-tb-actions gx-2">

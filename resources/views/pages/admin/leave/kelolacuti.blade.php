@@ -205,10 +205,10 @@
 
             if (printOption === 'individual') {
                 individualOption.style.display = 'block';
-                printForm.action = "#";
+                printForm.action = "{{ route('admin.print-satuancuti') }}";
             } else {
                 individualOption.style.display = 'none';
-                printForm.action = "#";
+                printForm.action = "{{ route('admin.print-kelolacuti') }}";
             }
         }
 

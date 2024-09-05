@@ -32,7 +32,7 @@
                 </div>
             </div>
         </div>
-    @endsection
+    </div>
     <script>
         document.addEventListener('DOMContentLoaded', function() {
             var calendarEl = document.getElementById('calendar');
@@ -54,15 +54,15 @@
             var data = attendance[id];
 
             var printContent = `
-                <h2>Detail Kehadiran</h2>
-                <p><strong>Tanggal:</strong> ${data.date}</p>
-                <p><strong>Waktu:</strong> ${data.time}</p>
-                <p><strong>Status:</strong> ${data.status == 0 ? 'Masuk' : 'Pulang'}</p>
-                <p><strong>Latitude:</strong> ${data.latitude}</p>
-                <p><strong>Longitude:</strong> ${data.longitude}</p>
-                <p><strong>Koordinat:</strong> ${data.coordinate}</p>
-                <div id="mapPrint" style="height: 300px;"></div>
-            `;
+                    <h2>Detail Kehadiran</h2>
+                    <p><strong>Tanggal:</strong> ${data.date}</p>
+                    <p><strong>Waktu:</strong> ${data.time}</p>
+                    <p><strong>Status:</strong> ${data.status == 0 ? 'Masuk' : 'Pulang'}</p>
+                    <p><strong>Latitude:</strong> ${data.latitude}</p>
+                    <p><strong>Longitude:</strong> ${data.longitude}</p>
+                    <p><strong>Koordinat:</strong> ${data.coordinate}</p>
+                    <div id="mapPrint" style="height: 300px;"></div>
+                `;
 
             document.getElementById('printContent').innerHTML = printContent;
             document.getElementById('printModal').style.display = 'block';
@@ -77,3 +77,4 @@
             document.getElementById('printModal').style.display = 'none';
         }
     </script>
+@endsection
