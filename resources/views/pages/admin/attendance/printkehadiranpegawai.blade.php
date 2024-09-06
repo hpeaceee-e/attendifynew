@@ -9,7 +9,7 @@
     <meta name="description"
         content="A powerful and conceptual apps base dashboard template that especially build for developers and programmers.">
     <!-- Fav Icon  -->
-    <link rel="shortcut icon" href="{{ asset('demo5/src/images/favicon.png') }}">
+    <link rel="shortcut icon" href="{{ asset('demo5/src/images/kehadirangacor.png') }}">
     <!-- Page Title  -->
     <title>
         Cetak Kehadiran Pegawai
@@ -48,37 +48,82 @@
                                     <th>No</th>
                                     <th>Pegawai</th>
                                     <th>Tanggal</th>
-                                    <th>Jam Masuk</th>
-                                    <th>Jam Keluar</th>
+                                    <th>Masuk</th>
+                                    <th>Keluar</th>
                                     <th>Kehadiran</th>
                                     <th>Lokasi</th>
+                                    <th>Action</th>
                                 </tr>
                             </thead>
                             <tbody>
-                                @foreach ($attendances as $attendance)
+                                @php
+                                    $attendancesGrouped = $attendances->groupBy('date');
+                                @endphp
+
+                                @foreach ($attendancesGrouped as $date => $group)
+                                    @php
+                                        // Initialize variables
+                                        $clockIn = null;
+                                        $clockOut = null;
+                                        $coordinate = null;
+                                        $status = '-'; // Default status
+
+                                        foreach ($group as $attendance) {
+                                            if ($attendance->status == 0) {
+                                                $clockIn = \Carbon\Carbon::parse($attendance->time)->format('H:i');
+                                                $coordinate = $attendance->coordinate;
+                                            } elseif ($attendance->status == 1) {
+                                                $clockOut = \Carbon\Carbon::parse($attendance->time)->format('H:i');
+                                            }
+                                        }
+
+                                        if ($clockIn && $group->first()->schedule) {
+                                            $actualTime = \Carbon\Carbon::parse($clockIn);
+                                            $scheduledTime = \Carbon\Carbon::parse($group->first()->schedule->clock_in);
+                                            $status = $actualTime <= $scheduledTime ? 'Tepat Waktu' : 'Terlambat';
+                                        }
+                                    @endphp
                                     <tr>
                                         <td>{{ $loop->iteration }}</td>
-                                        <td>{{ $attendance->user->name }}</td>
-                                        <td>{{ \Carbon\Carbon::parse($attendance->date)->format('d M Y') }}</td>
-                                        {{-- <td>{{ \Carbon\Carbon::parse($attendance->time)->format('H:i') }}</td> --}}
+                                        <td>{{ $group->first()->user->name }}</td>
+                                        <td>{{ \Carbon\Carbon::parse($date)->format('d M Y') }}</td>
+                                        <td>{{ $clockIn ?: '-' }}</td>
+                                        <td>{{ $clockOut ?: '-' }}</td>
                                         <td>
-                                            @if ($attendance->status == 0)
-                                                Masuk (waktu)
-                                            @else
-                                                Pulang
-                                            @endif
+                                            <span
+                                                class="badge {{ $status == 'Tepat Waktu' ? 'bg-success' : 'bg-danger' }}">
+                                                {{ $status }}
+                                            </span>
                                         </td>
+                                        <td>{{ $coordinate ?: '-' }}</td>
                                         <td>
-                                            @if ($attendance->status == 1)
-                                                Pulang (waktu)
-                                            @else
-                                                Masuk
-                                            @endif
+                                            <ul class="nk-tb-actions gx-2">
+                                                <li>
+                                                    <div class="dropdown">
+                                                        <a href="#"
+                                                            class="btn btn-sm btn-icon btn-trigger dropdown-toggle"
+                                                            data-bs-toggle="dropdown">
+                                                            <em class="icon ni ni-more-h"></em>
+                                                        </a>
+                                                        <div class="dropdown-menu dropdown-menu-end">
+                                                            <ul class="link-list-opt no-bdr">
+                                                                <li><a href="#"><em
+                                                                            class="icon ni ni-edit"></em><span>Edit</span></a>
+                                                                </li>
+                                                                <li><a href="#"><em
+                                                                            class="icon ni ni-na"></em><span>Hapus</span></a>
+                                                                </li>
+                                                                <li><a href="{{ route('admin.print-kelolakehadiranpegawai-orang', ['id' => $group->first()->id]) }}"
+                                                                        target="_blank"><em
+                                                                            class="icon ni ni-printer"></em><span>Cetak</span></a>
+                                                                </li>
+                                                            </ul>
+                                                        </div>
+                                                    </div>
+                                                </li>
+                                            </ul>
                                         </td>
-
-                                        <td><span class="badge bg-success">Tepat Waktu</span><span
-                                                class="badge bg-danger">Terlambat</span></td>
-                                        <td>{{ $attendance->coordinate }} (dijadikan link saja nanti)</td>
+                                    </tr>
                                 @endforeach
                             </tbody>
                         </table>

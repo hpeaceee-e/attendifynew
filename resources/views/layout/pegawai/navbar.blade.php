@@ -2,10 +2,10 @@
     <div class="nk-sidebar-element nk-sidebar-head">
         <div class="nk-sidebar-brand">
             <a href="{{ route('pegawai.pages.pegawai.dashboard') }}" class="logo-link nk-sidebar-logo">
-                <img class="logo-light logo-img" src="{{ asset('demo5/src/images/logo.png') }}"
-                    srcset="{{ asset('demo5/src/images/logo2x.png') }} 2x" alt="logo">
-                <img class="logo-dark logo-img" src="{{ asset('demo5/src/images/logo-dark.png') }}"
-                    srcset="{{ asset('demo5/src/images/logo-dark2x.png') }} 2x" alt="logo-dark">
+                <img class="logo-light logo-img" src="{{ asset('demo5/src/images/kehadiranmantap.png') }}"
+                    srcset="{{ asset('demo5/src/images/kehadiranmantap.png') }} 1x" alt="logo">
+                <img class="logo-dark logo-img" src="{{ asset('demo5/src/images/kehadiranmantap.png') }}"
+                    srcset="{{ asset('demo5/src/images/kehadiranmantap.png') }} 1x" alt="logo-dark">
             </a>
         </div>
         <div class="nk-menu-trigger me-n2">
@@ -46,7 +46,7 @@
                         <li class="nk-menu-item">
                             <a href="{{ route('pegawai.leaves') }}" class="nk-menu-link">
                                 <span class="nk-menu-icon"><em class="icon ni ni-calendar-alt"></em></span>
-                                <span class="nk-menu-text">Pengajuan Cuti</span>
+                                <span class="nk-menu-text">Cuti</span>
                             </a>
                             {{-- <li class="nk-menu-item">
                             <a href="{{ route('pegawai.izin') }}" class="nk-menu-link">

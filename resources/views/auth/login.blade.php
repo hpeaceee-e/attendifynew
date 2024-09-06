@@ -9,7 +9,7 @@
     <meta name="description"
         content="A powerful and conceptual apps base dashboard template that especially build for developers and programmers.">
     <!-- Fav Icon -->
-    <link rel="shortcut icon" href="{{ asset('demo5/src/images/favicon.png') }}">
+    <link rel="shortcut icon" href="{{ asset('demo5/src/images/kehadirangacor.png') }}">
     <!-- Page Title -->
     <title>Login Kehadiran</title>
     <!-- StyleSheets -->
@@ -36,18 +36,19 @@
                 <div class="nk-block nk-block-middle nk-auth-body">
                     <div class="brand-logo pb-5">
                         <a href="{{ route('auth.login') }}" class="logo-link">
-                            <img class="logo-light logo-img logo-img-lg" src="{{ asset('demo5/src/images/logo.png') }}"
-                                srcset="{{ asset('demo5/src/images/logo2x.png') }} 2x" alt="logo">
+                            <img class="logo-light logo-img logo-img-lg"
+                                src="{{ asset('demo5/src/images/kehadiranmantap.png') }}"
+                                srcset="{{ asset('demo5/src/images/kehadiranmantap.png') }} 2x" alt="logo">
                             <img class="logo-dark logo-img logo-img-lg"
-                                src="{{ asset('demo5/src/images/logo-dark.png') }}"
-                                srcset="{{ asset('demo5/src/images/logo-dark2x.png') }} 2x" alt="logo-dark">
+                                src="{{ asset('demo5/src/images/kehadiranmantap.png') }}"
+                                srcset="{{ asset('demo5/src/images/kehadiranmantap.png') }} 2x" alt="logo-dark">
                         </a>
                     </div>
                     <div class="nk-block-head">
                         <div class="nk-block-head-content">
                             <h5 class="nk-block-title">Login</h5>
                             <div class="nk-block-des">
-                                <p>Akses sistem kehadiran menggunakan username dan password Anda.</p>
+                                <p>Akses sistem kehadiran menggunakan username atau email dan password Anda.</p>
                             </div>
                         </div>
                     </div><!-- .nk-block-head -->
@@ -55,11 +56,11 @@
                         @csrf
                         <div class="form-group">
                             <div class="form-label-group">
-                                <label class="form-label" for="username">Username</label>
+                                <label class="form-label" for="username">Username atau Email</label>
                             </div>
                             <div class="form-control-wrap">
                                 <input type="text" name="username" class="form-control form-control-lg"
-                                    id="username" placeholder="Enter your username">
+                                    id="username" placeholder="Masukkan username atau email anda">
                             </div>
                         </div>
                         @error('username')
@@ -78,7 +79,7 @@
                                     <em class="passcode-icon icon-hide icon ni ni-eye" style="display:none;"></em>
                                 </a>
                                 <input type="password" name="password" class="form-control form-control-lg"
-                                    id="password" placeholder="Enter your password">
+                                    id="password" placeholder="Masukkan Password anda">
                             </div>
                         </div>
                         @error('password')
@@ -145,7 +146,7 @@
                     icon: 'success',
                     confirmButtonColor: '#364a63'
                 }).then(() => {
-                    loginButton.style.backgroundColor = '#364a63'; // DarkBlue
+                    loginButton.style.backgroundColor = '#364a63'; // Secondary
                     loginButton.style.borderColor = '#364a63';
                 });
             @endif
@@ -154,10 +155,10 @@
                 Swal.fire({
                     title: '{{ $message }}',
                     icon: 'error',
-                    confirmButtonColor: '#dc3545'
+                    confirmButtonColor: '#364a63'
                 }).then(() => {
-                    loginButton.style.backgroundColor = '#dc3545'; // Red
-                    loginButton.style.borderColor = '#dc3545';
+                    loginButton.style.backgroundColor = '#364a63'; // Secondary
+                    loginButton.style.borderColor = '#364a63';
                 });
             @endif
         });

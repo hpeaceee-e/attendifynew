@@ -37,7 +37,7 @@
                                                 <label class="form-label" for="username">Alasan Cuti</label>
                                                 <div class="form-control-wrap">
                                                     <input type="text" class="form-control" id="reason_verification"
-                                                        name="reason_verification" value="">
+                                                        name="reason_verification" value="" required>
                                                 </div>
                                             </div>
                                         </div>
@@ -46,7 +46,7 @@
                                                 <label class="form-label" for="name">Perihal Cuti</label>
                                                 <div class="form-control-wrap">
                                                     <input type="text" class="form-control" id="about" name="about"
-                                                        value="">
+                                                        value="" required>
                                                 </div>
                                             </div>
                                         </div>
@@ -57,8 +57,8 @@
                                                     <div class="form-icon form-icon-right">
                                                         <em class="icon ni ni-calendar-alt"></em>
                                                     </div>
-                                                    <input type="text" class="form-control date-picker" id="sdate"
-                                                        name="date">
+                                                    <input type="text" class="form-control date-picker" id="date"
+                                                        name="date" data-date-format="dd M yyyy" required>
                                                 </div>
                                             </div>
                                         </div>
@@ -70,7 +70,7 @@
                                                         <em class="icon ni ni-calendar-alt"></em>
                                                     </div>
                                                     <input type="text" class="form-control date-picker" id="end_date"
-                                                        name="end_date" value="">
+                                                        name="end_date" data-date-format="dd M yyyy" required>
                                                 </div>
                                             </div>
                                         </div>

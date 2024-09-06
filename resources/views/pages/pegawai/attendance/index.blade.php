@@ -12,9 +12,15 @@
                 <div class="mt-5">
                     <a id="attendance-btn" href="{{ route('pegawai.tambah-attendance') }}" class="btn btn-secondary">Absen
                         Masuk/Pulang</a>
+                    @if (session('success'))
+                        <div class="alert alert-success mt-3">
+                            {{ session('success') }}
+                        </div>
+                    @endif
                     <div id="message" style="display: none;">
                         <div class="alert alert-warning d-flex align-items-center" role="alert">
                             <i class="fas fa-exclamation-triangle me-2"></i>
+
                             <div>
                                 <strong>Perhatian!</strong> Sudah tidak memasuki waktu absensi.
                             </div>

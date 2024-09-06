@@ -2,10 +2,10 @@
     <div class="nk-sidebar-element nk-sidebar-head">
         <div class="nk-sidebar-brand">
             <a href="{{ route('admin.pages.admin.dashboard') }}" class="logo-link nk-sidebar-logo">
-                <img class="logo-light logo-img" src="{{ asset('demo5/src/images/logo.png') }}"
-                    srcset="{{ asset('demo5/src/images/logo2x.png') }} 2x" alt="logo">
-                <img class="logo-dark logo-img" src="{{ asset('demo5/src/images/logo-dark.png') }}"
-                    srcset="{{ asset('demo5/src/images/logo-dark2x.png') }} 2x" alt="logo-dark">
+                <img class="logo-light logo-img" src="{{ asset('demo5/src/images/kehadiranmantap.png') }}"
+                    srcset="{{ asset('demo5/src/images/kehadiranmantap.png') }} 2x" alt="logo">
+                <img class="logo-dark logo-img" src="{{ asset('demo5/src/images/kehadiranmantap.png') }}"
+                    srcset="{{ asset('demo5/src/images/kehadiranmantap.png') }} 2x" alt="logo-dark">
             </a>
         </div>
         <div class="nk-menu-trigger me-n2">

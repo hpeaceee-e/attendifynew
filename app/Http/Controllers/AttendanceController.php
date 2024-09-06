@@ -20,8 +20,45 @@ class AttendanceController extends Controller
             })
             ->get();
 
-        return view('pages.admin.attendance.kelolakehadiranpegawai', compact('attendances'));
+        // Process the attendances to group by date and format the data
+        $attendancesGrouped = $attendances->groupBy('date')->map(function ($group) {
+            $clockIn = null;
+            $clockOut = null;
+            $coordinate = null;
+            $status = ''; // Default status as empty string
+
+            foreach ($group as $attendance) {
+                if ($attendance->status == 0) {
+                    // Status 0 indicates 'Masuk'
+                    $clockIn = \Carbon\Carbon::parse($attendance->time);
+                    $coordinate = $attendance->coordinate;
+                } elseif ($attendance->status == 1) {
+                    // Status 1 indicates 'Pulang'
+                    $clockOut = \Carbon\Carbon::parse($attendance->time);
+                }
+            }
+
+            if ($clockIn && $group->first()->schedule) {
+                $scheduledTime = \Carbon\Carbon::parse($group->first()->schedule->clock_in);
+
+                // Compare actual clock-in time with scheduled time
+                $status = $clockIn <= $scheduledTime ? 'Tepat Waktu' : 'Terlambat';
+            }
+
+            return [
+                'clockIn' => $clockIn ? $clockIn->format('H:i') : '-',
+                'clockOut' => $clockOut ? $clockOut->format('H:i') : '-',
+                'coordinate' => $coordinate,
+                'status' => $status,
+                'userName' => $group->first()->user->name,
+                'date' => \Carbon\Carbon::parse($group->first()->date)->format('d M Y'),
+            ];
+        });
+
+        return view('pages.admin.attendance.kelolakehadiranpegawai', compact('attendancesGrouped', 'attendances'));
     }
+
+
 
 
     public function cetakkehadiran()
@@ -36,6 +73,7 @@ class AttendanceController extends Controller
     // Tampilkan daftar kehadiran
     public function index()
     {
+
         $id = Auth::user()->id;
         // dd($id);
         $attendances = Attendance::where('enhancer', $id)->get();
@@ -63,7 +101,7 @@ class AttendanceController extends Controller
             'status' => $request->input('status'),
             'coordinate' => $request->input('coordinate'),
         ]);
-        return redirect()->route('pegawai.attendance')->with('success', 'Kehadiran berhasil dicatat.');
+        return redirect()->route('pegawai.attendance')->with('success', 'Kehadiran berhasil.');
     }
 
     // Cetak data kehadiran per pegawai

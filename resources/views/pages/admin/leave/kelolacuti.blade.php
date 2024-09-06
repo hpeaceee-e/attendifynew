@@ -103,6 +103,16 @@
                         </div>
                     </div><!-- .card-preview -->
                 </div> <!-- nk-block -->
+                <div class="card mt-4 card-bordered card-preview">
+                    <div class="card-inner py-3 border-bottom border-light ">
+                        <h4 class="card-title text-center">Calendar</h4>
+                    </div>
+                    <div class="card-body">
+                        <div id="calendar"></div>
+                    </div>
+                </div>
+
+
 
                 <!-- Modal -->
                 <div class="modal fade" id="confirmationModal" tabindex="-1" aria-labelledby="confirmationModalLabel"
@@ -197,6 +207,46 @@
     </div>
 
     <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            var calendarEl = document.getElementById('calendar');
+
+            var calendar = new FullCalendar.Calendar(calendarEl, {
+                initialView: 'dayGridMonth',
+                events: [
+                    @foreach ($leaves as $item)
+                        {
+                            title: '{{ $item->user->name }}',
+                            start: '{{ $item->date }}',
+                            end: '{{ \Carbon\Carbon::parse($item->end_date)->addDay()->format('Y-m-d') }}',
+                            backgroundColor: @if ($item->status === null)
+                                '#FFC107'
+                            @elseif ($item->status == '0')
+                                '#28A745'
+                            @elseif ($item->status == '1')
+                                '#DC3545'
+                            @endif ,
+                            borderColor: @if ($item->status === null)
+                                '#FFC107'
+                            @elseif ($item->status == '0')
+                                '#28A745'
+                            @elseif ($item->status == '1')
+                                '#DC3545'
+                            @endif ,
+                            textColor: '#ffffff'
+                        },
+                    @endforeach
+                ],
+                eventContent: function(info) {
+                    // Menambahkan gaya inline untuk memusatkan teks
+                    return {
+                        html: `<div style="display: flex; justify-content: center; align-items: center; height: 100%; padding: 0;">${info.event.title}</div>`
+                    };
+                }
+            });
+
+            calendar.render();
+        });
+
         function togglePrintOptions() {
             var printOption = document.getElementById('print_option').value;
             var individualOption = document.getElementById('individual-option');

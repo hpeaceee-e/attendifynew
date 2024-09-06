@@ -38,13 +38,14 @@ class LeavesController extends Controller
         $validatedData = $request->validate([
             'reason_verification' => 'nullable|string|max:255',
             'about' => 'required|string',
-            'date' => 'required|date_format:m/d/Y',
-            'end_date' => 'required|date_format:m/d/Y|after_or_equal:date',
+            'date' => 'required|date_format:d M Y',
+            'end_date' => 'required|date_format:d M Y|after_or_equal:date',
         ]);
 
-        // Convert date formats from m/d/Y to Y-m-d
-        $date = \DateTime::createFromFormat('m/d/Y', $validatedData['date'])->format('Y-m-d');
-        $end_date = \DateTime::createFromFormat('m/d/Y', $validatedData['end_date'])->format('Y-m-d');
+        // Convert date formats from 'dd M yyyy' to 'Y-m-d'
+        $date = \DateTime::createFromFormat('d M Y', $validatedData['date'])->format('Y-m-d');
+        $end_date = \DateTime::createFromFormat('d M Y', $validatedData['end_date'])->format('Y-m-d');
+
 
         // Mengambil ID pengguna yang sedang login
         $id_user = Auth::user()->id;

@@ -3,11 +3,6 @@
     Kelola Kehadiran Pegawai
 @endsection
 @section('content')
-    {{-- <div class="card card-bordered w-100">
-        <iframe
-            src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3151.835434509374!2d144.95373631531625!3d-37.81720997975195!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x6ad642af0f11fd81%3A0x5045675218ce6e0!2sMelbourne%20VIC%2C%20Australia!5e0!3m2!1sen!2sid!4v1623117382748!5m2!1sen!2sid"
-            class="google-map border-0" allowfullscreen="" loading="lazy"></iframe>
-    </div> --}}
     <div class="nk-content nk-content-fluid">
         <div class="container-xl wide-lg">
             <div class="nk-content-body">
@@ -22,9 +17,12 @@
                                     data-target="pageMenu"><em class="icon ni ni-menu-alt-r"></em></a>
                                 <div class="toggle-expand-content" data-content="pageMenu">
                                     <ul class="nk-block-tools g-3">
+                                        <li><a href="#filter" class="btn btn-secondary" target="_blank"><em
+                                                    class="icon ni ni-filter"></em><span>Filter</span></a>
+                                        </li>
                                         <li><a href="{{ route('admin.print-kelolakehadiranpegawai') }}"
                                                 class="btn btn-secondary" target="_blank"><em
-                                                    class="icon ni ni-printer"></em></em><span>Cetak</span></a></li>
+                                                    class="icon ni ni-printer"></em><span>Cetak</span></a></li>
                                     </ul>
                                 </div>
                             </div><!-- .toggle-wrap -->
@@ -40,69 +38,60 @@
                                         <th>No</th>
                                         <th>Pegawai</th>
                                         <th>Tanggal</th>
-                                        <th>Waktu Masuk</th>
-                                        <th>Waktu Keluar</th>
+                                        <th>Masuk</th>
+                                        <th>Keluar</th>
                                         <th>Kehadiran</th>
                                         <th>Lokasi</th>
                                         <th>Action</th>
                                     </tr>
                                 </thead>
                                 <tbody>
-                                    @foreach ($attendances as $attendance)
+                                    @php
+                                        $attendancesGrouped = $attendances->groupBy('date');
+                                    @endphp
+
+                                    @foreach ($attendancesGrouped as $date => $group)
+                                        @php
+                                            // Initialize variables
+                                            $clockIn = null;
+                                            $clockOut = null;
+                                            $coordinate = null;
+                                            $status = '-'; // Default status
+
+                                            foreach ($group as $attendance) {
+                                                if ($attendance->status == 0) {
+                                                    $clockIn = \Carbon\Carbon::parse($attendance->time)->format('H:i');
+                                                    $coordinate = $attendance->coordinate;
+                                                } elseif ($attendance->status == 1) {
+                                                    $clockOut = \Carbon\Carbon::parse($attendance->time)->format('H:i');
+                                                }
+                                            }
+
+                                            if ($clockIn && $group->first()->schedule) {
+                                                $actualTime = \Carbon\Carbon::parse($clockIn);
+                                                $scheduledTime = \Carbon\Carbon::parse(
+                                                    $group->first()->schedule->clock_in,
+                                                );
+                                                $status = $actualTime <= $scheduledTime ? 'Tepat Waktu' : 'Terlambat';
+                                            }
+                                        @endphp
                                         <tr>
                                             <td>{{ $loop->iteration }}</td>
-                                            <td>{{ $attendance->user->name }}</td>
-                                            <td>{{ \Carbon\Carbon::parse($attendance->date)->format('d M Y') }}</td>
-                                            {{-- <td>{{ \Carbon\Carbon::parse($attendance->time)->format('H:i') }}</td> --}}
+                                            <td>{{ $group->first()->user->name }}</td>
+                                            <td>{{ \Carbon\Carbon::parse($date)->format('d M Y') }}</td>
+                                            <td>{{ $clockIn ?: '-' }}</td>
+                                            <td>{{ $clockOut ?: '-' }}</td>
                                             <td>
-                                                @if ($attendance->status == 0)
-                                                    {{-- Status 0 indicates 'Masuk' --}}
-                                                    {{ \Carbon\Carbon::parse($attendance->time)->format('H:i') }}
-                                                    {{-- Waktu Masuk --}}
-                                                @else
-                                                    - {{-- Empty for 'Pulang' row --}}
-                                                @endif
+                                                <span
+                                                    class="badge {{ $status == 'Tepat Waktu' ? 'bg-success' : 'bg-danger' }}">
+                                                    {{ $status }}
+                                                </span>
                                             </td>
-                                            <td>
-                                                @if ($attendance->status == 1)
-                                                    {{-- Status 1 indicates 'Pulang' --}}
-                                                    {{ \Carbon\Carbon::parse($attendance->time)->format('H:i') }}
-                                                    {{-- Waktu Pulang --}}
-                                                @else
-                                                    - {{-- Empty for 'Masuk' row --}}
-                                                @endif
-                                            </td>
-                                            <td>
-                                                @php
-                                                    // Fetch the schedule related to this attendance
-                                                    $schedule = $attendance->schedule;
-
-                                                    // Ensure schedule exists before parsing times
-                                                    if ($schedule) {
-                                                        $actualTime = \Carbon\Carbon::parse($attendance->time);
-                                                        $scheduledTime = \Carbon\Carbon::parse($schedule->clock_in); // Adjust if using different field names
-
-                                                        // Check if the attendance time is on time
-                                                        $isOnTime = $actualTime <= $scheduledTime;
-                                                    } else {
-                                                        // If no schedule is found, consider it late or handle as needed
-                                                        $isOnTime = false;
-                                                    }
-                                                @endphp
-
-                                                @if ($isOnTime)
-                                                    <span class="badge bg-success">Tepat Waktu</span>
-                                                @else
-                                                    <span class="badge bg-danger">Terlambat</span>
-                                                @endif
-                                            </td>
-
-
-                                            <td>{{ $attendance->coordinate }} (dijadikan link saja nanti)</td>
+                                            <td>{{ $coordinate ?: '-' }}</td>
                                             <td>
                                                 <ul class="nk-tb-actions gx-2">
                                                     <li>
-                                                        <div class="drodown">
+                                                        <div class="dropdown">
                                                             <a href="#"
                                                                 class="btn btn-sm btn-icon btn-trigger dropdown-toggle"
                                                                 data-bs-toggle="dropdown">
@@ -116,9 +105,9 @@
                                                                     <li><a href="#"><em
                                                                                 class="icon ni ni-na"></em><span>Hapus</span></a>
                                                                     </li>
-                                                                    <li><a href="{{ route('admin.print-kelolakehadiranpegawai-orang', ['id' => $attendance->id]) }}"
+                                                                    <li><a href="{{ route('admin.print-kelolakehadiranpegawai-orang', ['id' => $group->first()->id]) }}"
                                                                             target="_blank"><em
-                                                                                class="icon ni ni-printer"></em></em><span>Cetak</span></a>
+                                                                                class="icon ni ni-printer"></em><span>Cetak</span></a>
                                                                     </li>
                                                                 </ul>
                                                             </div>
@@ -128,35 +117,12 @@
                                             </td>
                                         </tr>
                                     @endforeach
+
                                 </tbody>
                             </table>
                         </div>
                     </div><!-- .card-preview -->
                 </div> <!-- nk-block -->
-                <div class="nk-content p-0">
-                    <div class="nk-content-inner">
-                        <div class="nk-content-body p-0">
-                            <div class="nk-block">
-                                <div class="card bg-transparent">
-                                    <div class="card-inner py-3 border-bottom border-light rounded-0">
-                                        <div class="nk-block-head nk-block-head-sm">
-                                            <div class="nk-block-between">
-                                                <div class="nk-block-head-content">
-                                                    <h3 class="nk-block-title page-title">Calendar</h3>
-                                                </div><!-- .nk-block-head-content -->
-                                            </div><!-- .nk-block-between -->
-                                        </div><!-- .nk-block-head -->
-                                    </div>
-                                </div>
-                                <div class="card mt-0">
-                                    <div class="card-inner">
-                                        <div id="calendar" class="nk-calendar"></div>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
             </div>
         </div>
     </div>

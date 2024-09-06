@@ -22,7 +22,7 @@
                                     <!-- Kiri: Informasi Personal -->
                                     <div class="col-md-4">
                                         <div class="text-center mb-4">
-                                            <img src="{{ asset('storage/' . $item->avatar) }}" alt="Avatar"
+                                            <img src="{{ asset($item->avatar) }}" alt="avatar"
                                                 class="img-fluid rounded-circle shadow-sm" style="max-width: 150px;">
                                             <h5 class="mt-3">{{ $item->name }}</h5>
                                             <p class="text-muted">{{ $item->email }}</p>
@@ -70,7 +70,7 @@
                                             </div>
                                             <div class="col-md-6">
                                                 <div class="form-group">
-                                                    <label class="form-label">Tanggal Dibuat</label>
+                                                    <label class="form-label">Tanggal Bergabung</label>
                                                     <input type="text" class="form-control"
                                                         value="{{ $item->created_at->format('d M Y') }}" disabled>
                                                 </div>
@@ -90,11 +90,6 @@
                                                 </div>
                                             </div>
                                             <div class="col-md-6">
-                                                {{-- <div class="form-group">
-                                                    <label class="form-label">Tanggal Lahir</label>
-                                                    <input type="text" class="form-control"
-                                                        value="{{ $data->birthday }}">
-                                                </div> --}}
                                                 <div class="form-group">
                                                     <label class="form-label">Tanggal Lahir</label>
                                                     <div class="form-control-wrap">

@@ -1,6 +1,6 @@
 @extends('layout.pegawai.main')
 @section('title')
-    Pengajuan Cuti {{ auth()->user()->name }}
+    Cuti {{ auth()->user()->name }}
 @endsection
 @section('content-pegawai')
     <div class="nk-content nk-content-fluid">
@@ -17,6 +17,9 @@
                                     data-target="pageMenu"><em class="icon ni ni-menu-alt-r"></em></a>
                                 <div class="toggle-expand-content" data-content="pageMenu">
                                     <ul class="nk-block-tools g-3">
+                                        <li><a href="#filter" class="btn btn-secondary" target="_blank"><em
+                                                    class="icon ni ni-filter"></em><span>Filter</span></a>
+                                        </li>
                                         <li><a href="{{ route('pegawai.print-cuti') }}" class="btn btn-secondary"
                                                 target="_blank"><em class="icon ni ni-printer"></em><span>Cetak</span></a>
                                         </li>
@@ -39,7 +42,7 @@
                                         <th>No</th>
                                         <th>Nama Pegawai</th>
                                         <th>Alasan</th>
-                                        <th>Pengajuan</th>
+                                        {{-- <th>Pengajuan</th> --}}
                                         <th>Mulai</th>
                                         <th>Berakhir</th>
                                         <th>Verifikasi</th>
@@ -54,7 +57,7 @@
                                             <td>{{ $loop->iteration }}</td>
                                             <td>{{ $item->user->name }}</td>
                                             <td>{{ $item->reason_verification }}</td>
-                                            <td>{{ \Carbon\Carbon::parse($item->created_at)->format('d M Y') }}</td>
+                                            {{-- <td>{{ \Carbon\Carbon::parse($item->created_at)->format('d M Y') }}</td> --}}
                                             <td>{{ \Carbon\Carbon::parse($item->date)->format('d M Y') }}</td>
                                             <td>{{ \Carbon\Carbon::parse($item->end_date)->format('d M Y') }}</td>
                                             <td>
@@ -112,36 +115,57 @@
                         </div>
                     </div><!-- .card-preview -->
                 </div> <!-- nk-block -->
-                <div class="nk-content p-0">
-                    <div class="nk-content-inner">
-                        <div class="nk-content-body p-0">
-                            <div class="nk-block">
-                                <div class="card bg-transparent">
-                                    <div class="card-inner py-3 border-bottom border-light rounded-0">
-                                        <div class="nk-block-head nk-block-head-sm">
-                                            <div class="nk-block-between">
-                                                <div class="nk-block-head-content">
-                                                    <h3 class="nk-block-title page-title">Calendar</h3>
-                                                </div><!-- .nk-block-head-content -->
-                                                {{-- <div class="nk-block-head-content d-flex">
-                                                    <a class="link link-primary" data-bs-toggle="modal"
-                                                        href="#addEventPopup"><em class="icon ni ni-plus"></em> <span>Add
-                                                            Event</span></a>
-                                                </div><!-- .nk-block-head-content --> --}}
-                                            </div><!-- .nk-block-between -->
-                                        </div><!-- .nk-block-head -->
-                                    </div>
-                                </div>
-                                <div class="card mt-0">
-                                    <div class="card-inner">
-                                        <div id="calendar" class="nk-calendar"></div>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
+                <div class="card mt-4 card-bordered card-preview">
+                    <div class="card-inner py-3 border-bottom border-light ">
+                        <h4 class="card-title text-center">Calendar</h4>
+                    </div>
+                    <div class="card-body">
+                        <div id="calendar"></div>
                     </div>
                 </div>
             </div>
         </div>
     </div>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            var calendarEl = document.getElementById('calendar');
+
+            var calendar = new FullCalendar.Calendar(calendarEl, {
+                initialView: 'dayGridMonth',
+                events: [
+                    @foreach ($leaves as $item)
+                        {
+                            title: '{{ $item->reason_verification }}',
+                            start: '{{ $item->date }}',
+                            end: '{{ \Carbon\Carbon::parse($item->end_date)->addDay()->format('Y-m-d') }}', // Tambahkan satu hari
+                            backgroundColor: @if ($item->status === null)
+                                '#f4bd0e'
+                            @elseif ($item->status == '0')
+                                '#1ee0ac'
+                            @elseif ($item->status == '1')
+                                '#e85347'
+                            @endif ,
+                            borderColor: @if ($item->status === null)
+                                '#f4bd0e'
+                            @elseif ($item->status == '0')
+                                '#1ee0ac'
+                            @elseif ($item->status == '1')
+                                '#e85347'
+                            @endif ,
+                            textColor: '#ffffff'
+                        },
+                    @endforeach
+                ],
+                eventContent: function(info) {
+                    // Menambahkan gaya inline untuk memusatkan teks
+                    return {
+                        html: `<div style="display: flex; justify-content: center; align-items: center; height: 100%; padding: 0;">${info.event.title}</div>`
+                    };
+                }
+            });
+
+            calendar.render();
+        });
+    </script>
 @endsection
