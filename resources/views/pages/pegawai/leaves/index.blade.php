@@ -93,9 +93,9 @@
                                                                             href="{{ route('pegawai.edit-cuti', ['id' => $item->id]) }}"><em
                                                                                 class="icon ni ni-edit"></em><span>Edit</span></a>
                                                                     </li>
-                                                                    <li><a href="#"><em
+                                                                    {{-- <li><a href="#"><em
                                                                                 class="icon ni ni-na"></em><span>Hapus</span></a>
-                                                                    </li>
+                                                                    </li> --}}
                                                                     <li><a href="{{ route('pegawai.print-cuti') }}"
                                                                             target="_blank"><em
                                                                                 class="icon ni ni-printer"></em><span>Cetak</span></a>

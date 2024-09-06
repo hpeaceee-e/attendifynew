@@ -210,6 +210,33 @@
         document.addEventListener('DOMContentLoaded', function() {
             var calendarEl = document.getElementById('calendar');
 
+            // Function to generate random colors
+            function getRandomColor() {
+                var letters = '0123456789ABCDEF';
+                var color = '#';
+                for (var i = 0; i < 6; i++) {
+                    color += letters[Math.floor(Math.random() * 16)];
+                }
+                return color;
+            }
+
+            // Function to calculate the brightness of a color and determine the appropriate text color
+            function getTextColor(bgColor) {
+                // Remove the "#" and convert the hex to RGB values
+                var r = parseInt(bgColor.substring(1, 3), 16);
+                var g = parseInt(bgColor.substring(3, 5), 16);
+                var b = parseInt(bgColor.substring(5, 7), 16);
+
+                // Calculate brightness using the luminance formula
+                var brightness = (r * 299 + g * 587 + b * 114) / 1000;
+
+                // If brightness is higher than 128, it's a light color, return black text, otherwise white
+                return brightness > 128 ? '#000000' : '#ffffff';
+            }
+
+            // Store random colors for each user
+            var userColors = {};
+
             var calendar = new FullCalendar.Calendar(calendarEl, {
                 initialView: 'dayGridMonth',
                 events: [
@@ -218,21 +245,21 @@
                             title: '{{ $item->user->name }}',
                             start: '{{ $item->date }}',
                             end: '{{ \Carbon\Carbon::parse($item->end_date)->addDay()->format('Y-m-d') }}',
-                            backgroundColor: @if ($item->status === null)
-                                '#FFC107'
-                            @elseif ($item->status == '0')
-                                '#28A745'
-                            @elseif ($item->status == '1')
-                                '#DC3545'
-                            @endif ,
-                            borderColor: @if ($item->status === null)
-                                '#FFC107'
-                            @elseif ($item->status == '0')
-                                '#28A745'
-                            @elseif ($item->status == '1')
-                                '#DC3545'
-                            @endif ,
-                            textColor: '#ffffff'
+
+                            // Assign random colors based on user name
+                            backgroundColor: (function() {
+                                if (!userColors['{{ $item->user->name }}']) {
+                                    userColors['{{ $item->user->name }}'] = getRandomColor();
+                                }
+                                return userColors['{{ $item->user->name }}'];
+                            })(),
+                            borderColor: (function() {
+                                return userColors['{{ $item->user->name }}'];
+                            })(),
+                            // Set text color dynamically based on the background color brightness
+                            textColor: (function() {
+                                return getTextColor(userColors['{{ $item->user->name }}']);
+                            })()
                         },
                     @endforeach
                 ],
@@ -246,6 +273,8 @@
 
             calendar.render();
         });
+
+
 
         function togglePrintOptions() {
             var printOption = document.getElementById('print_option').value;
