@@ -27,6 +27,19 @@
                                             <a href="{{ route('admin.tambahpegawai') }}" class="btn btn-icon btn-secondary">
                                                 <em class="icon ni ni-plus"></em>
                                             </a>
+                                            <li>
+                                                <form class="mt-3" id="uploadForm" action="{{ route('admin.input-excel') }}" method="POST" enctype="multipart/form-data">
+                                                    @csrf
+                                                    @method('POST')
+                                                    <div class="mb-3">
+                                                        <input type="file" accept=".xlsx, .csv, .xls" name="pegawaiexcel" id="excel" class="form-control">
+                                                    </div>
+                                                </li>
+                                                <li>
+                                                    <button type="submit" class="btn btn-icon btn-secondary">Save</button>
+                                                </li>
+                                                </form>
+                                           
                                         </ul>
                                     </div>
                                 </div><!-- .toggle-wrap -->

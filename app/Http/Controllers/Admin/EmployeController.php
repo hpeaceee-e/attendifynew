@@ -3,12 +3,14 @@
 namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
+use App\Imports\PegawaiImport;
 use App\Models\Role;
 use App\Models\Schedule;
 use App\Models\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Str;
+use Excel;
 
 
 
@@ -185,5 +187,12 @@ class EmployeController extends Controller
 
         // Menampilkan view dengan data pegawai
         return view('pages.admin.managepegawai.printkelolapegawai', compact('data'));
+    }
+
+    public function input(Request $request){
+        // dd($request->all());
+        Excel::import(new PegawaiImport, $request->file('pegawaiexcel'));
+        return redirect()->route('admin.kelolapegawai')->with('success', 'pegawai telah berhasil ditambahkan');
+
     }
 }

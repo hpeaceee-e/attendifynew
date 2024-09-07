@@ -38,6 +38,7 @@ Route::middleware([AutoLogout::class])->group(function () {
             Route::post('/updatepegawai/{id}', [EmployeController::class, 'update'])->name('editpegawaiupdate');
             Route::delete('/hapus/{id}', [EmployeController::class, 'destroy'])->name('deletepegawai');
             Route::get('/cetakpegawai', [EmployeController::class, 'cetakpegawai'])->name('print-kelolapegawai');
+            Route::post('/input-pegawai',[EmployeController::class, 'input'])->name('input-excel');
         });
 
         // Manage Attendance
