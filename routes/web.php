@@ -38,7 +38,9 @@ Route::middleware([AutoLogout::class])->group(function () {
             Route::post('/updatepegawai/{id}', [EmployeController::class, 'update'])->name('editpegawaiupdate');
             Route::delete('/hapus/{id}', [EmployeController::class, 'destroy'])->name('deletepegawai');
             Route::get('/cetakpegawai', [EmployeController::class, 'cetakpegawai'])->name('print-kelolapegawai');
-            Route::post('/input-pegawai',[EmployeController::class, 'input'])->name('input-excel');
+            Route::get('restorepegawai/{id}', [AdminController::class, 'restore'])->name('restorepegawai');
+            Route::get('trashedpegawai', [AdminController::class, 'trashed'])->name('trashedpegawai');
+            Route::post('/input-pegawai', [EmployeController::class, 'input'])->name('input-excel');
         });
 
         // Manage Attendance

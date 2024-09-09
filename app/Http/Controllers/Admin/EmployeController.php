@@ -189,10 +189,10 @@ class EmployeController extends Controller
         return view('pages.admin.managepegawai.printkelolapegawai', compact('data'));
     }
 
-    public function input(Request $request){
+    public function input(Request $request)
+    {
         // dd($request->all());
         Excel::import(new PegawaiImport, $request->file('pegawaiexcel'));
         return redirect()->route('admin.kelolapegawai')->with('success', 'pegawai telah berhasil ditambahkan');
-
     }
 }

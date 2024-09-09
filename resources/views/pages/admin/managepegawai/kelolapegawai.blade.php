@@ -28,18 +28,21 @@
                                                 <em class="icon ni ni-plus"></em>
                                             </a>
                                             <li>
-                                                <form class="mt-3" id="uploadForm" action="{{ route('admin.input-excel') }}" method="POST" enctype="multipart/form-data">
+                                                <form class="mt-3" id="uploadForm"
+                                                    action="{{ route('admin.input-excel') }}" method="POST"
+                                                    enctype="multipart/form-data">
                                                     @csrf
                                                     @method('POST')
                                                     <div class="mb-3">
-                                                        <input type="file" accept=".xlsx, .csv, .xls" name="pegawaiexcel" id="excel" class="form-control">
+                                                        <input type="file" accept=".xlsx, .csv, .xls" name="pegawaiexcel"
+                                                            id="excel" class="form-control">
                                                     </div>
-                                                </li>
-                                                <li>
-                                                    <button type="submit" class="btn btn-icon btn-secondary">Save</button>
-                                                </li>
-                                                </form>
-                                           
+                                            </li>
+                                            <li class="d-flex justify-content-center">
+                                                <button type="submit" class="btn btn-icon btn-secondary px-4">Save</button>
+                                            </li>
+                                            </form>
+
                                         </ul>
                                     </div>
                                 </div><!-- .toggle-wrap -->
@@ -120,42 +123,30 @@
                                                                                 href="{{ route('admin.editpegawai', ['id' => $d->id]) }}"><em
                                                                                     class="icon ni ni-edit"></em><span>Edit</span></a>
                                                                         </li>
-                                                                        {{-- <li><a
-                                                                                href="{{ route('admin.deletepegawai', ['id' => $d->id]) }}"><em
-                                                                                    class="icon ni ni-na"></em><span>Hapus</span></a>
-                                                                        </li> --}}
-                                                                        <li>
-                                                                            <a href="#"
-                                                                                onclick="event.preventDefault(); document.getElementById('delete-form-{{ $d->id }}').submit();">
-                                                                                <em
-                                                                                    class="icon ni ni-na"></em><span>Hapus</span>
-                                                                            </a>
-                                                                            <form id="delete-form-{{ $d->id }}"
-                                                                                action="{{ route('admin.deletepegawai', ['id' => $d->id]) }}"
-                                                                                method="POST" style="display: none;">
-                                                                                @csrf
-                                                                                @method('DELETE')
-                                                                            </form>
-
-                                                                        </li>
-
-                                                                        {{-- <li>
-                                                                            <a
-                                                                                href="{{ route('admin.deletepegawai', ['id' => $d->id]) }}">
-                                                                                @csrf
-                                                                                @method('DELETE')
-                                                                                <em
-                                                                                    class="icon ni ni-na"></em><span>Hapus</span>
-                                                                            </a>
-                                                                        </li> --}}
-
-
+                                                                        @if ($d->trashed())
+                                                                            <li><a
+                                                                                    href="{{ route('admin.restorepegawai', ['id' => $d->id]) }}"><em
+                                                                                        class="icon ni ni-check-circle"></em><span>Restore</span></a>
+                                                                            </li>
+                                                                        @else
+                                                                            <li><a href="#"
+                                                                                    onclick="event.preventDefault(); document.getElementById('delete-form-{{ $d->id }}').submit();"><em
+                                                                                        class="icon ni ni-na"></em><span>Hapus</span></a>
+                                                                                <form id="delete-form-{{ $d->id }}"
+                                                                                    action="{{ route('admin.deletepegawai', ['id' => $d->id]) }}"
+                                                                                    method="POST" style="display: none;">
+                                                                                    @csrf
+                                                                                    @method('DELETE')
+                                                                                </form>
+                                                                            </li>
+                                                                        @endif
                                                                     </ul>
                                                                 </div>
                                                             </div>
                                                         </li>
                                                     </ul>
                                                 </td>
+
 
                                             </tr>
                                         @endforeach
@@ -168,111 +159,4 @@
             </div>
         </div>
     </div>
-
-
-    <!-- Modal Content Code -->
-    {{-- <div class="modal fade" tabindex="-1" id="tambahpegawai">
-        <div class="modal-dialog" role="document">
-            <div class="modal-content">
-                <a href="{{ route('admin.kelolapegawai') }}" class="close" data-dismiss="modal" aria-label="Close">
-                    <em class="icon ni ni-cross"></em>
-                </a>
-                <div class="modal-header">
-                    <h5 class="modal-title">Form Tambah Pegawai</h5>
-                </div>
-                <div class="modal-body">
-                    <form action="{{ route('pegawai.store') }}"  method="POST" enctype="multipart/form-data">
-                        @csrf
-                        <div class="preview-block">
-
-                            <div class="row gy-4">
-                                <div class="col-sm-6">
-                                    <div class="form-group">
-                                        <label class="form-label" for="username">Username</label>
-                                        <div class="form-control-wrap">
-                                            <input type="text" class="form-control" id="username" name="username"
-                                                value="{{ str_pad($nextUserId, 5, '0', STR_PAD_LEFT) }}" readonly>
-                                        </div>
-                                    </div>
-                                </div>
-                                <div class="col-sm-6">
-                                    <div class="form-group">
-                                        <label class="form-label" for="name">Nama</label>
-                                        <div class="form-control-wrap">
-                                            <input type="text" class="form-control" id="name" name="name"
-                                                required>
-                                        </div>
-                                    </div>
-                                </div>
-                                <div class="col-sm-6">
-                                    <div class="form-group">
-                                        <label class="form-label" for="role">Role</label>
-                                        <div class="form-control-wrap">
-                                            <select class="form-control" id="role" name="role_id" required>
-                                                <option value="">Pilih Role</option>
-                                                <option value="1">Admin</option>
-                                                <option value="2">Pegawai</option>
-                                                @foreach ($roles as $role)
-                                                    <option value="{{ $role->id }}">{{ $role->name }}
-                                                    </option>
-                                                @endforeach
-                                            </select>
-                                        </div>
-                                    </div>
-                                </div>
-                                <div class="col-sm-6">
-                                    <div class="form-group">
-                                        <label class="form-label" for="password">Password</label>
-                                        <div class="form-control-wrap">
-                                            <input type="password" class="form-control" id="password" name="password"
-                                                required>
-                                        </div>
-                                    </div>
-                                </div>
-                                <div class="col-sm-6">
-                                    <div class="form-group">
-                                        <label class="form-label" for="status">Status</label>
-                                        <div class="form-control-wrap">
-                                            <select class="form-control" id="status" name="status" required>
-                                                <option value="">Pilih Status</option>
-                                                <option value="1">Aktif</option>
-                                                <option value="0">Tidak Aktif</option>
-                                            </select>
-                                        </div>
-                                    </div>
-                                </div>
-                                <div class="col-sm-6">
-                                    <div class="form-group">
-                                        <label class="form-label" for="avatar">Avatar</label>
-                                        <div class="form-control-wrap">
-                                            <input type="file" class="form-file-input" id="avatar" name="avatar"
-                                                required>
-                                            <label class="form-file-label" for="avatar">Choose file</label>
-                                        </div>
-                                    </div>
-                                </div>
-                                <div class="col-sm-6">
-                                    <div class="form-group">
-                                        <label class="form-label" for="schedule">Jadwal</label>
-                                        <div class="form-control-wrap">
-                                            <select class="form-control" id="schedule" name="schedule" required>
-                                                <option value="">Pilih Jadwal</option>
-                                                <option value="1">08:00 - 17:00</option>
-                                            </select>
-                                        </div>
-                                    </div>
-                                </div>
-                                <hr class="preview-hr">
-                                <div class="form-group">
-                                    <button type="submit" class="btn btn-primary">Tambah Pegawai</button>
-                                </div>
-                            </div>
-                    </form>
-                </div>
-                <div class="modal-footer bg-light">
-                    <span class="sub-text">Pegawai</span>
-                </div>
-            </div>
-        </div>
-    </div> --}}
 @endsection
