@@ -1,6 +1,6 @@
 @extends('layout.pegawai.main')
 @section('title')
-    Kelola Jadwal Pegawai
+    Jadwal Kerja
 @endsection
 @section('content-pegawai')
     <div class="nk-content nk-content-fluid">
@@ -29,45 +29,20 @@
                                     <thead>
                                         <tr>
                                             <th>No</th>
-                                            {{-- <th>Shift</th> --}}
+                                            <th>Hari</th>
                                             <th>Jam Masuk</th>
                                             <th>Jam Istirahat</th>
                                             <th>Jam Pulang</th>
-                                            <th>Action</th>
                                         </tr>
                                     </thead>
                                     <tbody>
                                         @foreach ($schedules as $schedule)
                                             <tr>
-                                                <td>{{ $schedule->id }}</td>
-                                                {{-- <td>Shift A</td> --}}
+                                                <td>{{ $loop->iteration }}</td>
+                                                <td></td>
                                                 <td>{{ \Carbon\Carbon::parse($schedule->clock_in)->format('H:i') }}</td>
                                                 <td>{{ \Carbon\Carbon::parse($schedule->break)->format('H:i') }}</td>
                                                 <td>{{ \Carbon\Carbon::parse($schedule->clock_out)->format('H:i') }}</td>
-                                                <td>
-                                                    <ul class="nk-tb-actions gx-2">
-                                                        <li>
-                                                            <div class="drodown">
-                                                                <a href="#"
-                                                                    class="btn btn-sm btn-icon btn-trigger dropdown-toggle"
-                                                                    data-bs-toggle="dropdown">
-                                                                    <em class="icon ni ni-more-h"></em>
-                                                                </a>
-                                                                <div class="dropdown-menu dropdown-menu-end">
-                                                                    <ul class="link-list-opt no-bdr">
-                                                                        <li><a
-                                                                                href="{{ route('admin.editjadwal', ['id' => $schedule->id]) }}"><em
-                                                                                    class="icon ni ni-edit"></em><span>Edit</span></a>
-                                                                        </li>
-                                                                        <li><a href="#"><em
-                                                                                    class="icon ni ni-na"></em><span>Hapus</span></a>
-                                                                        </li>
-                                                                    </ul>
-                                                                </div>
-                                                            </div>
-                                                        </li>
-                                                    </ul>
-                                                </td>
                                             </tr>
                                         @endforeach
                                     </tbody>

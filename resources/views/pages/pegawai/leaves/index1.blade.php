@@ -34,9 +34,9 @@
                 </div><!-- .nk-block-head -->
                 <div class="nk-block">
                     <div class="card card-bordered card-preview">
-                        <div class="card-inner py-3 border-bottom border-light ">
+                        <div class="card-inner">
                             <table class="datatable-init table">
-                                <h4 class="card-title text-center">Riwayat Cuti</h4>
+
                                 <thead>
                                     <tr>
                                         <th>No</th>
