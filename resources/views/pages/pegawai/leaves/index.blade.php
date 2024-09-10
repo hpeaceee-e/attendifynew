@@ -36,12 +36,14 @@
                     <div class="card card-bordered card-preview">
                         <div class="card-inner py-3 border-bottom border-light ">
                             <table class="datatable-init table">
-                                <h4 class="card-title text-center">Riwayat Cuti</h4>
+                                <h4 class="card-title text-center">Riwayat Cuti Izin</h4>
                                 <thead>
                                     <tr>
                                         <th>No</th>
-                                        <th>Nama Pegawai</th>
+                                        <th>Kategori</th>
+                                        {{-- <th>Nama Pegawai</th> --}}
                                         <th>Alasan</th>
+                                        <th>SubKategori</th>
                                         {{-- <th>Pengajuan</th> --}}
                                         <th>Mulai</th>
                                         <th>Berakhir</th>
@@ -55,8 +57,10 @@
                                         {{-- @foreach ($data as $d) --}}
                                         <tr>
                                             <td>{{ $loop->iteration }}</td>
-                                            <td>{{ $item->user->name }}</td>
+                                            <td>Cuti Lain-lain</td>
+                                            {{-- <td>{{ $item->user->name }}</td> --}}
                                             <td>{{ $item->reason_verification }}</td>
+                                            <td>Contoh : Menikah, Sakit, Dll</td>
                                             {{-- <td>{{ \Carbon\Carbon::parse($item->created_at)->format('d M Y') }}</td> --}}
                                             <td>{{ \Carbon\Carbon::parse($item->date)->format('d M Y') }}</td>
                                             <td>{{ \Carbon\Carbon::parse($item->end_date)->format('d M Y') }}</td>

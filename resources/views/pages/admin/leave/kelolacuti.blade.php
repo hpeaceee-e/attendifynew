@@ -43,6 +43,7 @@
                     <div class="card card-bordered card-preview">
                         <div class="card-inner">
                             <table class="datatable-init table">
+                                <h4 class="card-title text-center">Cuti Izin Tahunan</h4>
                                 <thead>
                                     <tr>
                                         <th>No</th>
@@ -74,6 +75,75 @@
                                                     Silahkan Cuti
                                                 @endif
                                             </td>
+                                            <td>
+                                                @if ($item->status == null)
+                                                    <span class="badge bg-warning">Menunggu</span>
+                                                @elseif($item->status == '0')
+                                                    <span class="badge bg-success">Disetujui</span>
+                                                @elseif($item->status == '1')
+                                                    <span class="badge bg-danger">Ditolak</span>
+                                                @endif
+                                            </td>
+                                            <td>
+                                                <ul class="nk-tb-actions gx-2">
+                                                    <li>
+                                                        <a href="#" class="btn btn-sm btn-icon btn-trigger"
+                                                            data-bs-toggle="modal" data-bs-target="#confirmationModal"
+                                                            data-id="{{ $item->id }}"
+                                                            data-status="{{ $item->status }}"
+                                                            data-reason="{{ $item->reason }}">
+                                                            <em class="icon ni ni-more-h"></em>
+                                                        </a>
+                                                    </li>
+                                                </ul>
+                                            </td>
+                                        </tr>
+                                    @endforeach
+                                </tbody>
+                            </table>
+                        </div>
+                    </div><!-- .card-preview -->
+                </div> <!-- nk-block -->
+                <div class="nk-block nk-block-lg">
+                    <div class="card card-bordered card-preview">
+                        <div class="card-inner">
+                            <table class="datatable-init table">
+                                <h4 class="card-title text-center">Cuti Izin Lain lain</h4>
+                                <thead>
+                                    <tr>
+                                        <th>No</th>
+                                        <th>Nama Pegawai</th>
+                                        {{-- <th>Alasan</th> --}}
+                                        <th>Pengajuan</th>
+                                        <th>Mulai</th>
+                                        <th>Berakhir</th>
+                                        <th>Jumlah Cuti</th>
+                                        <th>Verifikasi</th>
+                                        <th>Surat Cuti</th>
+                                        <th>Status</th>
+                                        <th>Action</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    @foreach ($leaves as $item)
+                                        <tr>
+                                            <td>{{ $loop->iteration }}</td>
+                                            <td>{{ $item->user->name }}</td>
+                                            {{-- <td>{{ $item->reason_verification }}</td> --}}
+                                            <td>{{ \Carbon\Carbon::parse($item->created_at)->format('d M Y') }}</td>
+                                            <td>{{ \Carbon\Carbon::parse($item->date)->format('d M Y') }}</td>
+                                            <td>{{ \Carbon\Carbon::parse($item->end_date)->format('d M Y') }}</td>
+                                            <td></td>
+                                            <td>
+                                                @if ($item->status === null)
+                                                    <span class="badge bg-warning">Menunggu</span>
+                                                @elseif ($item->status == '1')
+                                                    {{ $item->reason }}
+                                                @else
+                                                    Silahkan Cuti
+                                                @endif
+                                            </td>
+                                            <td>Surat Cuti File nya</td>
                                             <td>
                                                 @if ($item->status == null)
                                                     <span class="badge bg-warning">Menunggu</span>
@@ -161,7 +231,8 @@
 
 
                 <!-- Modal for printing single leave request -->
-                <div class="modal fade" id="printModal" tabindex="-1" aria-labelledby="printModalLabel" aria-hidden="true">
+                <div class="modal fade" id="printModal" tabindex="-1" aria-labelledby="printModalLabel"
+                    aria-hidden="true">
                     <div class="modal-dialog">
                         <div class="modal-content">
                             <div class="modal-header">
