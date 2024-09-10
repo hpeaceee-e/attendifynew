@@ -52,6 +52,7 @@
                                         <th>Pengajuan</th>
                                         <th>Mulai</th>
                                         <th>Berakhir</th>
+                                        <th>Jumlah Cuti</th>
                                         <th>Verifikasi</th>
                                         <th>Status</th>
                                         <th>Action</th>
@@ -66,6 +67,7 @@
                                             <td>{{ \Carbon\Carbon::parse($item->created_at)->format('d M Y') }}</td>
                                             <td>{{ \Carbon\Carbon::parse($item->date)->format('d M Y') }}</td>
                                             <td>{{ \Carbon\Carbon::parse($item->end_date)->format('d M Y') }}</td>
+                                            <td></td>
                                             <td>
                                                 @if ($item->status === null)
                                                     <span class="badge bg-warning">Menunggu</span>
