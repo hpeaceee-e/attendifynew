@@ -101,7 +101,7 @@ class AttendanceController extends Controller
             'status' => $request->input('status'),
             'coordinate' => $request->input('coordinate'),
         ]);
-        return redirect()->route('pegawai.attendance')->with('success', 'Kehadiran berhasil.');
+        return redirect()->route('pegawai.attendance')->with('success', 'Kehadiran berhasil disimpan.');
     }
 
     // Cetak data kehadiran per pegawai

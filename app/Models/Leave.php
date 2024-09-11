@@ -14,11 +14,11 @@ class Leave extends Model
     protected $fillable = [
         'enhancer',
         'date',
+        'end_date',
         'status',
         'reason',
         'reason_verification',
-        'end_date',
-        'about'
+        'about',
     ];
 
     // Relasi ke model User
@@ -26,4 +26,16 @@ class Leave extends Model
     {
         return $this->belongsTo(User::class, 'enhancer');
     }
+
+    // // Relasi ke tabel categories
+    // public function category()
+    // {
+    //     return $this->belongsTo(Category::class, 'category_id');
+    // }
+
+    // // Relasi ke tabel subcategories
+    // public function subcategory()
+    // {
+    //     return $this->belongsTo(Subcategory::class, 'subcategory_id');
+    // }
 }

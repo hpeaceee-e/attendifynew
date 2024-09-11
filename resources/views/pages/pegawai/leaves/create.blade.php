@@ -30,10 +30,10 @@
                                             <div class="form-group">
                                                 <label class="form-label" for="kategori">Kategori Cuti</label>
                                                 <div class="form-control-wrap">
-                                                    <select class="form-control" id="kategori" name="kategori" required>
+                                                    <select class="form-control" id="kategori" name="category" required>
                                                         <option value="">Pilih Kategori</option>
-                                                        <option value="tahunan">Cuti Tahunan</option>
-                                                        <option value="lain-lain">Cuti Lain-lain</option>
+                                                        <option value="annual">Cuti Tahunan</option>
+                                                        <option value="other">Cuti Lain-lain</option>
                                                     </select>
                                                 </div>
                                             </div>
@@ -44,12 +44,12 @@
                                                 <div class="form-group">
                                                     <label class="form-label" for="subkategori">Subkategori</label>
                                                     <div class="form-control-wrap">
-                                                        <select class="form-control" id="subkategori" name="subkategori">
+                                                        <select class="form-control" id="subkategori" name="subcategory">
                                                             <option value="">Pilih Subkategori</option>
-                                                            <option value="izin_sakit">Sakit</option>
-                                                            <option value="menikah">Menikah</option>
-                                                            <option value="penting">Beralasan Penting</option>
-                                                            <option value="ibadah_haji">Ibadah Haji</option>
+                                                            <option value="sick">Sakit</option>
+                                                            <option value="married">Menikah</option>
+                                                            <option value="important_reason">Beralasan Penting</option>
+                                                            <option value="pilgrimage">Ibadah Haji</option>
                                                         </select>
                                                     </div>
                                                 </div>
@@ -59,8 +59,8 @@
                                                 <div class="form-group">
                                                     <label class="form-label" for="surat_cuti">Surat Cuti</label>
                                                     <div class="form-control-wrap">
-                                                        <input type="file" class="form-control" id="surat_cuti"
-                                                            name="surat_cuti">
+                                                        <input type="file" class="form-control" id="leave_letter"
+                                                            name="leave_letter">
                                                     </div>
                                                 </div>
                                             </div>
@@ -71,15 +71,12 @@
                                                 <div class="form-group">
                                                     <label class="form-label" for="alasan">Alasan Cuti</label>
                                                     <div class="form-control-wrap">
-                                                        <input type="text" class="form-control" id="alasan"
-                                                            name="alasan">
+                                                        <input type="text" class="form-control" id="reason_verification"
+                                                            name="reason_verification">
                                                     </div>
                                                 </div>
                                             </div>
                                         </div>
-
-
-
                                         <!-- Form untuk Mulai dan Berakhir -->
                                         <div id="form-tanggal" style="display: none;">
                                             <div class="row">
@@ -136,11 +133,11 @@
             kategoriSelect.addEventListener('change', function() {
                 var kategori = this.value;
 
-                if (kategori === 'tahunan') {
+                if (kategori === 'annual') {
                     formAlasan.style.display = 'block';
                     formLain.style.display = 'none';
                     formTanggal.style.display = 'block';
-                } else if (kategori === 'lain-lain') {
+                } else if (kategori === 'other') {
                     formAlasan.style.display = 'block';
                     formLain.style.display = 'block';
                     formTanggal.style.display = 'block';
