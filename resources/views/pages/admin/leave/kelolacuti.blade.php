@@ -236,6 +236,7 @@
 
 
                 <!-- Modal for printing single leave request -->
+                <!-- Modal for printing single leave request -->
                 <div class="modal fade" id="printModal" tabindex="-1" aria-labelledby="printModalLabel"
                     aria-hidden="true">
                     <div class="modal-dialog">
@@ -247,24 +248,45 @@
                             </div>
                             <form id="printForm" action="" method="GET" target="_blank">
                                 <div class="modal-body">
+                                    <!-- Pilih Jenis Cetak -->
                                     <div class="form-group">
                                         <label for="print_option">Pilih Jenis Cetak</label>
-                                        <select name="print_option" id="print_option" class="form-control"
-                                            onchange="togglePrintOptions()" required>
+                                        <select name="print_option" id="print_option" class="form-control" required>
                                             <option value="" disabled selected>Pilih Jenis Cetak</option>
                                             <option value="all">Cetak Semua</option>
                                             <option value="individual">Cetak Individu</option>
                                         </select>
                                     </div>
 
+                                    <!-- Pilih Pegawai (untuk Cetak Individu) -->
                                     <div class="form-group" id="individual-option" style="display: none;">
-                                        <label for="leave_id_print">Pilih Pengajuan Cuti</label>
+                                        <label for="leave_id_print">Pilih Pegawai</label>
                                         <select name="leave_id" id="leave_id_print" class="form-control">
-                                            <option value="" disabled selected>Pilih Cuti</option>
+                                            <option value="" disabled selected>Pilih Pegawai</option>
                                             @foreach ($leaves as $item)
-                                                <option value="{{ $item->id }}">{{ $item->user->name }} -
-                                                    {{ \Carbon\Carbon::parse($item->date)->format('d M Y') }}</option>
+                                                <option value="{{ $item->id }}">{{ $item->user->name }}</option>
                                             @endforeach
+                                        </select>
+                                    </div>
+
+                                    <!-- Pilih Kategori -->
+                                    <div class="form-group" id="category-option" style="display: none;">
+                                        <label for="category">Pilih Kategori</label>
+                                        <select name="category" id="category" class="form-control">
+                                            <option value="" disabled selected>Pilih Kategori</option>
+                                            <option value="tahunan">Tahunan</option>
+                                            <option value="lain-lain">Lain-lain</option>
+                                        </select>
+                                    </div>
+
+                                    <!-- Pilih Status -->
+                                    <div class="form-group" id="status-option" style="display: none;">
+                                        <label for="status">Pilih Status</label>
+                                        <select name="status" id="status" class="form-control">
+                                            <option value="" disabled selected>Pilih Status</option>
+                                            <option value="approved">Disetujui</option>
+                                            <option value="rejected">Ditolak</option>
+                                            <option value="pending">Menunggu</option>
                                         </select>
                                     </div>
                                 </div>
@@ -277,6 +299,7 @@
                         </div>
                     </div>
                 </div>
+
 
             </div>
         </div>
@@ -325,7 +348,8 @@
                             // Assign random colors based on user name
                             backgroundColor: (function() {
                                 if (!userColors['{{ $item->user->name }}']) {
-                                    userColors['{{ $item->user->name }}'] = getRandomColor();
+                                    userColors['{{ $item->user->name }}'] =
+                                        getRandomColor();
                                 }
                                 return userColors['{{ $item->user->name }}'];
                             })(),
@@ -334,7 +358,8 @@
                             })(),
                             // Set text color dynamically based on the background color brightness
                             textColor: (function() {
-                                return getTextColor(userColors['{{ $item->user->name }}']);
+                                return getTextColor(userColors[
+                                    '{{ $item->user->name }}']);
                             })()
                         },
                     @endforeach
@@ -351,20 +376,47 @@
         });
 
 
+        $(document).ready(function() {
+            // Toggle print options based on dropdown selection
+            $('#print_option').on('change', function() {
+                const printOption = $(this).val();
+                const individualOption = $('#individual-option');
+                const categoryOption = $('#category-option');
+                const statusOption = $('#status-option');
 
-        function togglePrintOptions() {
-            var printOption = document.getElementById('print_option').value;
-            var individualOption = document.getElementById('individual-option');
-            var printForm = document.getElementById('printForm');
+                // Reset visibility
+                individualOption.hide();
+                categoryOption.hide();
+                statusOption.hide();
 
-            if (printOption === 'individual') {
-                individualOption.style.display = 'block';
-                printForm.action = "{{ route('admin.print-satuancuti') }}";
-            } else {
-                individualOption.style.display = 'none';
-                printForm.action = "{{ route('admin.print-kelolacuti') }}";
-            }
-        }
+                // If 'Cetak Individu' is selected
+                if (printOption === 'individual') {
+                    individualOption.show(); // Show employee selection
+                    categoryOption.show(); // Show category selection
+                }
+            });
+
+            // Toggle status based on category selection
+            $('#category').on('change', function() {
+                const statusOption = $('#status-option');
+
+                // Show status after category selection
+                statusOption.show();
+            });
+
+            // Reset the modal content when it is closed, without refreshing the page
+            $('#printModal').on('hidden.bs.modal', function() {
+                // Reset the form inside the modal
+                $('#printForm')[0].reset();
+
+                // Hide any options that were previously shown
+                $('#individual-option').hide();
+                $('#category-option').hide();
+                $('#status-option').hide();
+            });
+        });
+
+
 
         document.addEventListener('DOMContentLoaded', function() {
             var confirmationModal = document.getElementById('confirmationModal');
@@ -393,8 +445,6 @@
                 }
             });
         });
-
-
 
         function toggleReasonField() {
             var status = document.getElementById('status').value;

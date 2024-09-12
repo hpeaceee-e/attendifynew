@@ -95,6 +95,9 @@ class LeavesController extends Controller
 
     public function print()
     {
-        return view('pages.pegawai.leaves.print');
+        $id_user = Auth::user()->id;
+        $leaves = Leave::where('enhancer', $id_user)->with('user')->get();
+        $name = User::where('id', $id_user)->value('name');
+        return view('pages.pegawai.leaves.print', compact('leaves'));
     }
 }

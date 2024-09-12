@@ -77,10 +77,10 @@
                             <a href="#" class="dropdown-toggle nk-quick-nav-icon" data-bs-toggle="dropdown">
                                 <div class="icon-status icon-status-info"><em class="icon ni ni-bell"></em></div>
                             </a>
-                            <div class="dropdown-menu dropdown-menu-xl dropdown-menu-end dropdown-menu-s1">
+                            <div class="dropdown-menu dropdown-menu-xl dropdown-menu-end ">
                                 <div class="dropdown-head">
                                     <span class="sub-title nk-dropdown-title">Notifications</span>
-                                    <a href="#">Mark All as Read</a>
+                                    <a class="text-secondary" href="#">Mark All as Read</a>
                                 </div>
                                 <div class="dropdown-body">
                                     <div class="nk-notification">
@@ -107,7 +107,7 @@
                                         </div>
                                     </div><!-- .nk-dropdown-body -->
                                     <div class="dropdown-foot center">
-                                        <a href="#">View All</a>
+                                        <a href="#" class="text-secondary">View All</a>
                                     </div>
                                 </div>
                         </li><!-- .dropdown -->
