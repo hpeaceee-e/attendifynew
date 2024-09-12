@@ -40,8 +40,21 @@ class EmployeController extends Controller
         $roles = Role::all();
         $schedules = Schedule::all();
 
-        // Menghitung jumlah user yang ada untuk menentukan username berikutnya
-        $nextUsername = str_pad(User::count(), 5, '0', STR_PAD_LEFT);
+        // Hitung jumlah user yang ada untuk menentukan username
+        $lastUsername = User::where('username', '!=', 'admin')->orderBy('username', 'desc')->value('username');
+        // dd($lastUsername);
+        // Cek apakah ada username, jika tidak set default
+        if ($lastUsername) {
+            // Ambil angka dari username terakhir dan tambahkan satu
+            $number = (int) filter_var($lastUsername, FILTER_SANITIZE_NUMBER_INT);
+            $newUsernameNumber = $number + 1;
+        } else {
+            // Jika belum ada username, mulai dari 1
+            $newUsernameNumber = 1;
+        }
+        
+        // Format username dengan 5 digit angka, menggunakan padding nol di sebelah kiri
+        $nextUsername= str_pad($newUsernameNumber, 5, '0', STR_PAD_LEFT);
 
         // Menampilkan view form tambah pegawai dengan username yang sudah di-generate
         return view('pages.admin.managepegawai.tambahpegawai', compact('roles', 'schedules', 'nextUsername'));
@@ -55,17 +68,27 @@ class EmployeController extends Controller
         // Validate the request data
         // dd($request->all());
         $validatedData = $request->validate([
-            'username' => 'nullable|string|max:5|unique:users,username',
+            // 'username' => 'nullable|string|max:5|unique:users,username',
             'name' => 'required|string|regex:/^[A-Za-z\s]+$/|max:80',
             'role' => 'required|integer|exists:roles,id',
             'email' => 'nullable|string|email|max:80|unique:users,email',
             'password' => 'required|string|min:8',
         ]);
         // Hitung jumlah user yang ada untuk menentukan username
-        $count = User::count();
-
-        // Buat username baru dengan format 00001, 00002, dst.
-        $validatedData['username'] = str_pad($count, 5, '0', STR_PAD_LEFT);
+        $lastUsername = User::where('username', '!=', 'admin')->orderBy('username', 'desc')->value('username');
+        // dd($lastUsername);
+        // Cek apakah ada username, jika tidak set default
+        if ($lastUsername) {
+            // Ambil angka dari username terakhir dan tambahkan satu
+            $number = (int) filter_var($lastUsername, FILTER_SANITIZE_NUMBER_INT);
+            $newUsernameNumber = $number + 1;
+        } else {
+            // Jika belum ada username, mulai dari 1
+            $newUsernameNumber = 1;
+        }
+        
+        // Format username dengan 5 digit angka, menggunakan padding nol di sebelah kiri
+        $validatedData['username'] = str_pad($newUsernameNumber, 5, '0', STR_PAD_LEFT);
         // Create a new user instance
         $user = new User($validatedData);
 

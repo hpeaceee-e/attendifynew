@@ -63,16 +63,17 @@
                                         <tr>
                                             <td>{{ $loop->iteration }}</td>
                                             <td>{{ $item->user->name }}</td>
-                                            <td>{{ $item->reason_verification }}</td>
+                                            <td>{{ $item->reason }}</td>
                                             <td>{{ \Carbon\Carbon::parse($item->created_at)->format('d M Y') }}</td>
                                             <td>{{ \Carbon\Carbon::parse($item->date)->format('d M Y') }}</td>
                                             <td>{{ \Carbon\Carbon::parse($item->end_date)->format('d M Y') }}</td>
-                                            <td></td>
+                                            <td>{{ \Carbon\Carbon::parse($item->date)->diffInDays($item->end_date) }} hari</td>
+
                                             <td>
                                                 @if ($item->status === null)
                                                     <span class="badge bg-warning">Menunggu</span>
                                                 @elseif ($item->status == '1')
-                                                    {{ $item->reason }}
+                                                    {{ $item->reason_verification }}
                                                 @else
                                                     Silahkan Cuti
                                                 @endif
@@ -92,8 +93,9 @@
                                                         <a href="#" class="btn btn-sm btn-icon btn-trigger"
                                                             data-bs-toggle="modal" data-bs-target="#confirmationModal"
                                                             data-id="{{ $item->id }}"
+                                                            data-enhancer="{{ $item->enhancer }}"
                                                             data-status="{{ $item->status }}"
-                                                            data-reason="{{ $item->reason }}">
+                                                            data-reason="{{ $item->reason_verification }}">
                                                             <em class="icon ni ni-more-h"></em>
                                                         </a>
                                                     </li>
@@ -208,6 +210,7 @@
                             <div class="modal-body">
                                 <div class="form-group">
                                     <label for="status">Status Pengajuan Cuti</label>
+                                    <input type="text" name="enhancer" value="{{$item->enhancer}} " hidden>
                                     <select name="status" id="status" class="form-control"
                                         onchange="toggleReasonField()" required>
                                         <option value="" disabled selected>Pilih Status</option>

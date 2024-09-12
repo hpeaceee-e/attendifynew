@@ -34,32 +34,26 @@ class LeavesController extends Controller
 
     public function store(Request $request)
     {
+        // dd($request->all());
         // Validasi data input dari form pengajuan cuti
         $validatedData = $request->validate([
-            'reason_verification' => 'nullable|string|max:255',
-            'about' => 'required|string',
-            'date' => 'required|date_format:d M Y',
-            'end_date' => 'required|date_format:d M Y|after_or_equal:date',
+            'enhancer' => 'required',
+            'reason' => 'nullable|string|max:255',
+            'category' => 'required|string|max:255',
+            'subcategory' => 'nullable|string|max:255',
+            'about' => 'nullable|string',
+            'leave_letter' => 'nullable',
+            'date' => 'required',
+            'end_date' => 'required|after_or_equal:date',
         ]);
 
-        // Convert date formats from 'dd M yyyy' to 'Y-m-d'
-        $date = \DateTime::createFromFormat('d M Y', $validatedData['date'])->format('Y-m-d');
-        $end_date = \DateTime::createFromFormat('d M Y', $validatedData['end_date'])->format('Y-m-d');
 
 
         // Mengambil ID pengguna yang sedang login
-        $id_user = Auth::user()->id;
+        // $validatedData['enchancer'] = Auth::user()->id; 
 
         // Membuat instance baru untuk pengajuan cuti
-        $leave = new Leave();
-        $leave->enhancer = $id_user; // Menghubungkan pengajuan cuti dengan pengguna
-        $leave->reason_verification = $validatedData['reason_verification'];
-        $leave->about = $validatedData['about'];
-        $leave->date = $date; // Menggunakan field 'date'
-        $leave->end_date = $end_date;
-        $leave->status = null; // Status awal sebagai "Menunggu" (belum ada konfirmasi)
-
-        // Menyimpan pengajuan cuti ke database
+        $leave = new Leave($validatedData);
         $leave->save();
 
         // Redirect dengan pesan sukses

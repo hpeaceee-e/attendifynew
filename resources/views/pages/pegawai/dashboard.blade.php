@@ -45,7 +45,7 @@
                                             <div class="user-activity">
                                                 <em class="icon ni ni-growth"></em>
                                                 <div class="info">
-                                                    <span class="amount">{{ count($data) }}</span>
+                                                    <span class="amount">{{ Auth::user()->available }}</span>
                                                     <span class="title">Gunakan Sebaik - baiknya</span>
                                                 </div>
                                             </div>

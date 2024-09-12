@@ -13,12 +13,14 @@ class LeaveController extends Controller
     public function index()
     {
         $leaves = Leave::with('user')->get();
+        $leaves_annual = Leave::with('user')->get();
+        $leaves_etc = Leave::with('user')->get();
         $id_user = Auth::user()->id;
         $data = User::where('id', $id_user)->get();
         $name = User::where('id', $id_user)->value('name');
 
         // Menampilkan view dengan data pegawai
-        return view('pages.admin.leave.kelolacuti', compact('leaves', 'name'));
+        return view('pages.admin.leave.kelolacuti', compact('leaves_annual','leaves', 'leaves_etc', 'name'));
     }
 
     public function show() {}
@@ -56,6 +58,7 @@ class LeaveController extends Controller
         // dd($request->all());
         // Validasi data
         $request->validate([
+            'enhancer' => 'nullable',
             'id' => 'required|exists:leaves,id',
             // 'enhancer' => 'required|exists:users,id', // Pastikan enhancer ada di tabel users
             'status' => 'required|in:0,1',
@@ -67,10 +70,21 @@ class LeaveController extends Controller
 
         // Perbarui status cuti
         $leave->status = $request->status;
-        $leave->reason = $request->status == '1' ? $request->reason : null; // Simpan alasan jika status 'Ditolak'
+        $leave->reason_verification = $request->status == '1' ? $request->reason : null; // Simpan alasan jika status 'Ditolak'
         // $leave->enhancer = $request->enhancer; // Update enhancer
         $leave->save();
-
+        if ($request->status == 0){
+            $avail = User::where('id',$request->enhancer)->value('available');
+ 
+            $daysleave = \Carbon\Carbon::parse($leave->date)->diffInDays($leave->end_date);
+            $totalday = $avail - $daysleave;
+            // dd($totalday);
+            // Update the authenticated user’s available days
+            $enhancer = User::where('id',$request->enhancer)->value('id');
+            $user = User::findOrFail($enhancer);
+            $user->available = $totalday;
+            $user->save();
+        }
         // Redirect kembali dengan pesan sukses
         return redirect()->route('admin.kelolacuti')->with('success', 'Status pengajuan cuti berhasil diperbarui.');
     }

@@ -57,10 +57,17 @@
                                         {{-- @foreach ($data as $d) --}}
                                         <tr>
                                             <td>{{ $loop->iteration }}</td>
-                                            <td>Cuti Lain-lain</td>
+                                            <td>{{$item->category}}</td>
+                                            <td>{{ $item->reason }}</td>
                                             {{-- <td>{{ $item->user->name }}</td> --}}
-                                            <td>{{ $item->reason_verification }}</td>
-                                            <td>Contoh : Menikah, Sakit, Dll</td>
+                                            <td>
+                                                @if(empty($item->subcategory))
+                                                none
+                                                @else
+                                                {{$item->subcategory}}
+                                                @endif
+                                            </td>
+                                               
                                             {{-- <td>{{ \Carbon\Carbon::parse($item->created_at)->format('d M Y') }}</td> --}}
                                             <td>{{ \Carbon\Carbon::parse($item->date)->format('d M Y') }}</td>
                                             <td>{{ \Carbon\Carbon::parse($item->end_date)->format('d M Y') }}</td>
@@ -68,7 +75,7 @@
                                                 @if ($item->status === null)
                                                     <span class="badge bg-warning">Menunggu</span>
                                                 @elseif ($item->status == '1')
-                                                    {{ $item->reason }}
+                                                    {{ $item->reason_verification }}
                                                 @else
                                                     Silahkan Cuti
                                                 @endif

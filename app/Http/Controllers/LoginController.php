@@ -20,9 +20,11 @@ class LoginController extends Controller
             'password' => 'required',
         ]);
 
+        $loginType = filter_var($request->username, FILTER_VALIDATE_EMAIL) ? 'email' : 'username';
+
         $data = [
-            'username' => $request->username,
-            'password' => $request->password
+            $loginType => $request->username,
+            'password' => $request->password,
         ];
 
         if (Auth::attempt($data)) {

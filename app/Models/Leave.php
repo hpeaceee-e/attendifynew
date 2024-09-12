@@ -18,7 +18,10 @@ class Leave extends Model
         'status',
         'reason',
         'reason_verification',
+        'category',
+        'subcategory',
         'about',
+        'leave_letter',
     ];
 
     // Relasi ke model User

@@ -15,6 +15,15 @@
                                 </a>
                             </div>
                             <h3 class="nk-block-title page-title">Pengajuan Cuti</h3>
+                            @if ($errors->any())
+                    <div class="alert alert-danger">
+                        <ul>
+                            @foreach ($errors->all() as $error)
+                                <li>{{ $error }}</li>
+                            @endforeach
+                        </ul>
+                    </div>
+                @endif
                         </div><!-- .nk-block-head-content -->
                     </div><!-- .nk-block-between -->
                 </div><!-- .nk-block-head -->
@@ -28,6 +37,7 @@
                                     <div class="row gy-4">
                                         <div class="col-sm-12">
                                             <div class="form-group">
+                                                <input type="text" name="enhancer" value="{{Auth::user()->id}}" hidden>
                                                 <label class="form-label" for="kategori">Kategori Cuti</label>
                                                 <div class="form-control-wrap">
                                                     <select class="form-control" id="kategori" name="category" required>
@@ -71,8 +81,8 @@
                                                 <div class="form-group">
                                                     <label class="form-label" for="alasan">Alasan Cuti</label>
                                                     <div class="form-control-wrap">
-                                                        <input type="text" class="form-control" id="reason_verification"
-                                                            name="reason_verification">
+                                                        <input type="text" class="form-control" id="reason"
+                                                            name="reason">
                                                     </div>
                                                 </div>
                                             </div>
@@ -85,9 +95,9 @@
                                                         <label class="form-label">Mulai Cuti</label>
                                                         <div class="form-control-wrap">
                                                             <div class="form-icon form-icon-right">
-                                                                <em class="icon ni ni-calendar-alt"></em>
+                                                                {{-- <em class="icon ni ni-calendar-alt"></em> --}}
                                                             </div>
-                                                            <input type="text" class="form-control date-picker"
+                                                            <input type="date" class="form-control"
                                                                 id="date" name="date" required>
                                                         </div>
                                                     </div>
@@ -97,9 +107,9 @@
                                                         <label class="form-label">Berakhir Cuti</label>
                                                         <div class="form-control-wrap">
                                                             <div class="form-icon form-icon-right">
-                                                                <em class="icon ni ni-calendar-alt"></em>
+                                                                {{-- <em class="icon ni ni-calendar-alt"></em> --}}
                                                             </div>
-                                                            <input type="text" class="form-control date-picker"
+                                                            <input type="date" class="form-control"
                                                                 id="end_date" name="end_date" required>
                                                         </div>
                                                     </div>
