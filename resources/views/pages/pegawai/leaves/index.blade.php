@@ -17,11 +17,13 @@
                                     data-target="pageMenu"><em class="icon ni ni-menu-alt-r"></em></a>
                                 <div class="toggle-expand-content" data-content="pageMenu">
                                     <ul class="nk-block-tools g-3">
-                                        <li><a href="#filter" class="btn btn-secondary" target="_blank"><em
+                                        <li><a href="#filter" class="btn btn-secondary" target="_blank"
+                                                data-bs-toggle="modal" data-bs-target="#filterModal"><em
                                                     class="icon ni ni-filter"></em><span>Filter</span></a>
                                         </li>
                                         <li><a href="{{ route('pegawai.print-cuti') }}" class="btn btn-secondary"
-                                                target="_blank"><em class="icon ni ni-printer"></em><span>Cetak</span></a>
+                                                data-bs-toggle="modal" data-bs-target="#printModal" target="_blank"><em
+                                                    class="icon ni ni-printer"></em><span>Cetak</span></a>
                                         </li>
                                         <a href="{{ route('pegawai.create-cuti') }}" class="btn btn-icon btn-secondary">
                                             <em class="icon ni ni-plus"></em>
@@ -54,7 +56,6 @@
                                 </thead>
                                 <tbody>
                                     @foreach ($leaves as $item)
-                                        {{-- @foreach ($data as $d) --}}
                                         <tr>
                                             <td>{{ $loop->iteration }}</td>
                                             <td>Cuti Lain-lain</td>
@@ -93,13 +94,12 @@
                                                             </a>
                                                             <div class="dropdown-menu dropdown-menu-end">
                                                                 <ul class="link-list-opt no-bdr">
-                                                                    <li><a
-                                                                            href="{{ route('pegawai.edit-cuti', ['id' => $item->id]) }}"><em
-                                                                                class="icon ni ni-edit"></em><span>Edit</span></a>
-                                                                    </li>
-                                                                    {{-- <li><a href="#"><em
-                                                                                class="icon ni ni-na"></em><span>Hapus</span></a>
-                                                                    </li> --}}
+                                                                    @if ($item->status === null)
+                                                                        <li><a
+                                                                                href="{{ route('pegawai.edit-cuti', ['id' => $item->id]) }}"><em
+                                                                                    class="icon ni ni-edit"></em><span>Edit</span></a>
+                                                                        </li>
+                                                                    @endif
                                                                     <li><a href="{{ route('pegawai.print-cuti') }}"
                                                                             target="_blank"><em
                                                                                 class="icon ni ni-printer"></em><span>Cetak</span></a>
@@ -112,8 +112,6 @@
                                             </td>
                                         </tr>
                                     @endforeach
-
-                                    {{-- @endforeach --}}
                                 </tbody>
                             </table>
                         </div>
@@ -130,6 +128,83 @@
             </div>
         </div>
     </div>
+
+    <!-- Modal Filter -->
+    <div class="modal fade" id="filterModal" tabindex="-1" aria-labelledby="filterModalLabel" aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="filterModalLabel">Filter Data Cuti</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body">
+                    <form action="#" method="GET">
+                        <div class="mb-3">
+                            <label for="category" class="form-label">Kategori</label>
+                            <select name="category" id="category" class="form-select">
+                                <option value="">Pilih Kategori</option>
+                                <option value="annual">Cuti Tahunan</option>
+                                <option value="other">Cuti Lain-lain</option>
+                                <!-- Tambahkan kategori lain jika diperlukan -->
+                            </select>
+                        </div>
+                        <div class="mb-3">
+                            <label for="status" class="form-label">Status</label>
+                            <select name="status" id="status" class="form-select">
+                                <option value="">Pilih Status</option>
+                                <option value="0">Disetujui</option>
+                                <option value="1">Ditolak</option>
+                                <option value="">Menunggu</option>
+                            </select>
+                        </div>
+                        <div class="modal-footer">
+                            <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Tutup</button>
+                            <button type="submit" class="btn btn-primary">Filter</button>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Modal Cetak -->
+    <div class="modal fade" id="printModal" tabindex="-1" aria-labelledby="printModalLabel" aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="printModalLabel">Cetak Data Cuti</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body">
+                    <form action="{{ route('pegawai.print-cuti') }}" method="GET">
+                        <div class="mb-3">
+                            <label for="printCategory" class="form-label">Kategori</label>
+                            <select name="category" id="printCategory" class="form-select">
+                                <option value="">Pilih Kategori</option>
+                                <option value="annual">Cuti Tahunan</option>
+                                <option value="other">Cuti Lain-lain</option>
+                                <!-- Tambahkan kategori lain jika diperlukan -->
+                            </select>
+                        </div>
+                        <div class="mb-3">
+                            <label for="printStatus" class="form-label">Status</label>
+                            <select name="status" id="printStatus" class="form-select">
+                                <option value="">Pilih Status</option>
+                                <option value="0">Disetujui</option>
+                                <option value="1">Ditolak</option>
+                                {{-- <option value="">Menunggu</option> --}}
+                            </select>
+                        </div>
+                        <div class="modal-footer">
+                            <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Tutup</button>
+                            <button type="submit" class="btn btn-primary">Cetak</button>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+
 
     <script>
         document.addEventListener('DOMContentLoaded', function() {

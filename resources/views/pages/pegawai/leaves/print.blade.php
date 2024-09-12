@@ -9,9 +9,9 @@
     <meta name="description"
         content="A powerful and conceptual apps base dashboard template that especially build for developers and programmers.">
     <!-- Fav Icon  -->
-    <link rel="shortcut icon" href="{{ asset('demo5/src/images/favicon.png') }}">
+    <link rel="shortcut icon" href="{{ asset('demo5/src/images/kehadirangacor.png') }}">
     <!-- Page Title  -->
-    <title>Jadwal Pegawai</title>
+    <title>Cuti & Izin </title>
     <!-- StyleSheets  -->
     <link rel="stylesheet" href="{{ asset('demo5/src/assets/css/dashlite.css?ver=3.0.3') }}">
     <link id="skin-default" rel="stylesheet" href="{{ asset('demo5/src/assets/css/theme.css?ver=3.0.3') }}">
@@ -22,14 +22,14 @@
         <div class="invoice invoice-print">
             <div class="invoice-wrap">
                 <div class="invoice-brand text-center">
-                    <img src="{{ asset('demo5/src/images/logo-dark.png') }}"
-                        srcset="{{ asset('demo5/src/images/logo-dark2x.png 2x') }}" alt="">
+                    <img src="{{ asset('demo5/src/images/kehadiranmantap.png') }}"
+                        srcset="{{ asset('demo5/src/images/kehadiranmantap.png') }}" alt="">
                 </div>
                 <div class="invoice-head">
                     <div class="invoice-contact">
                         <span class="overline-title">Report</span>
                         <div class="invoice-contact-info">
-                            <h4 class="title">Data Cuti</h4>
+                            <h4 class="title">Data Riwayat Cuti : {{ auth()->user()->name }}</h4>
                             {{-- <ul class="list-plain">
                                 <li><em class="icon ni ni-map-pin-fill fs-18px"></em><span>House #65, 4328 Marion
                                         Street<br>Newbury, VT 05051</span></li>
@@ -44,9 +44,11 @@
                             <thead>
                                 <tr>
                                     <th>No</th>
-                                    <th>Nama Pegawai</th>
+                                    <th>Kategori</th>
+                                    {{-- <th>Nama Pegawai</th> --}}
                                     <th>Alasan</th>
-                                    <th>Pengajuan</th>
+                                    <th>Subkategori</th>
+                                    {{-- <th>Pengajuan</th> --}}
                                     <th>Mulai</th>
                                     <th>Berakhir</th>
                                     <th>Verifikasi</th>
@@ -54,20 +56,36 @@
                                 </tr>
                             </thead>
                             <tbody>
-                                <tr>
-                                    <td>1</td>
-                                    <td>Hafizh Alfaris</td>
-                                    <td>Cuti Menikah</td>
-                                    <td>13 Aug 2024</td>
-                                    <td>13 Aug 2024</td>
-                                    <td>17 Aug 2024</td>
-                                    <td>
-                                        {{-- Sakinah Mawadah Warahmah ya atas pernikahannya --}}
-                                    </td>
-                                    <td><span class="badge bg-danger">Ditolak</span></td>
-                                    </td>
-                                </tr>
-
+                                @foreach ($leaves as $item)
+                                    <tr>
+                                        <td>{{ $loop->iteration }}</td>
+                                        <td>Cuti Lain-lain</td>
+                                        {{-- <td>{{ $item->user->name }}</td> --}}
+                                        <td>{{ $item->reason_verification }}</td>
+                                        <td>Contoh : Menikah, Sakit, Dll</td>
+                                        {{-- <td>{{ \Carbon\Carbon::parse($item->created_at)->format('d M Y') }}</td> --}}
+                                        <td>{{ \Carbon\Carbon::parse($item->date)->format('d M Y') }}</td>
+                                        <td>{{ \Carbon\Carbon::parse($item->end_date)->format('d M Y') }}</td>
+                                        <td>
+                                            @if ($item->status === null)
+                                                <span class="badge bg-warning">Menunggu</span>
+                                            @elseif ($item->status == '1')
+                                                {{ $item->reason }}
+                                            @else
+                                                Silahkan Cuti
+                                            @endif
+                                        </td>
+                                        <td>
+                                            @if ($item->status == null)
+                                                <span class="badge bg-warning">Menunggu</span>
+                                            @elseif($item->status == '0')
+                                                <span class="badge bg-success">Disetujui</span>
+                                            @elseif($item->status == '1')
+                                                <span class="badge bg-danger">Ditolak</span>
+                                            @endif
+                                        </td>
+                                    </tr>
+                                @endforeach
                             </tbody>
 
                         </table>

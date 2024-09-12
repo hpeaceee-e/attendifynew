@@ -1,1 +1,21 @@
 
+    /* Menghilangkan warna biru pada dropdown ketika dipilih */
+    .form-select:focus {
+        border-color: #ced4da; /* Warna border default */
+        box-shadow: none; /* Menghapus bayangan fokus */
+    }
+
+    /* Mengubah warna background dan border dropdown untuk tampilan yang lebih sesuai */
+    .form-select {
+        background-color: #f8f9fa; /* Warna latar belakang dropdown */
+        border: 1px solid #ced4da; /* Warna border dropdown */
+    }
+
+    .form-select option {
+        background-color: #ffffff; /* Warna latar belakang opsi */
+    }
+
+    .form-select option:checked {
+        background-color: #e9ecef; /* Warna latar belakang opsi yang dipilih */
+    }
+
