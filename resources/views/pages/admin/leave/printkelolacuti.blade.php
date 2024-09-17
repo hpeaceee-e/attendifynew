@@ -33,54 +33,127 @@
                         </div>
                     </div>
                 </div><!-- .invoice-head -->
-                <div class="invoice-bills">
-                    <div class="table-responsive">
-                        <table class="table table-striped">
-                            <thead>
-                                <tr>
-                                    <th>No</th>
-                                    <th>Nama Pegawai</th>
-                                    <th>Alasan</th>
-                                    <th>Pengajuan</th>
-                                    <th>Mulai</th>
-                                    <th>Berakhir</th>
-                                    <th>Verifikasi</th>
-                                    <th>Status</th>
-                                </tr>
-                            </thead>
-                            <tbody>
-                                @foreach ($leaves as $item)
+                <div class="nk-block nk-block-lg">
+                    <div class="card card-bordered card-preview">
+                        <div class="card-inner">
+                            <table class="datatable-init table">
+                                <h4 class="card-title text-center">Cuti Izin Tahunan</h4>
+                                <thead>
                                     <tr>
-                                        <td>{{ $loop->iteration }}</td>
-                                        <td>{{ $item->user->name }}</td>
-                                        <td>{{ $item->reason_verification }}</td>
-                                        <td>{{ \Carbon\Carbon::parse($item->created_at)->format('d M Y') }}</td>
-                                        <td>{{ \Carbon\Carbon::parse($item->date)->format('d M Y') }}</td>
-                                        <td>{{ \Carbon\Carbon::parse($item->end_date)->format('d M Y') }}</td>
-                                        <td>
-                                            @if ($item->status === null)
-                                                <span class="badge bg-warning">Menunggu</span>
-                                            @elseif ($item->status == '1')
-                                                {{ $item->reason }}
-                                            @else
-                                                Silahkan Cuti
-                                            @endif
-                                        </td>
-                                        <td>
-                                            @if ($item->status == null)
-                                                <span class="badge bg-warning">Menunggu</span>
-                                            @elseif($item->status == '0')
-                                                <span class="badge bg-success">Disetujui</span>
-                                            @elseif($item->status == '1')
-                                                <span class="badge bg-danger">Ditolak</span>
-                                            @endif
-                                        </td>
+                                        <th>No</th>
+                                        <th>Nama Pegawai</th>
+                                        <th>Alasan</th>
+                                        <th>Pengajuan</th>
+                                        <th>Mulai</th>
+                                        <th>Berakhir</th>
+                                        <th>Jumlah Cuti</th>
+                                        <th>Verifikasi</th>
+                                        <th>Status</th>
                                     </tr>
-                                @endforeach
-                            </tbody>
-                        </table>
-                    </div>
-                </div><!-- .invoice-bills -->
+                                </thead>
+                                <tbody>
+                                    @php $no = 1; @endphp <!-- Initialize counter for annual leaves -->
+                                    @foreach ($leaves as $item)
+                                        @if ($item->category == 'annual')
+                                            <!-- Filter for annual leaves -->
+                                            <tr>
+                                                <td>{{ $no++ }}</td> <!-- Increment the counter for each row -->
+                                                <td>{{ $item->user->name }}</td>
+                                                <td>{{ $item->reason }}</td>
+                                                <td>{{ \Carbon\Carbon::parse($item->created_at)->format('d M Y') }}</td>
+                                                <td>{{ \Carbon\Carbon::parse($item->date)->format('d M Y') }}</td>
+                                                <td>{{ \Carbon\Carbon::parse($item->end_date)->format('d M Y') }}</td>
+                                                <td>{{ \Carbon\Carbon::parse($item->date)->diffInDays($item->end_date) }}
+                                                    hari</td>
+                                                <td>
+                                                    @if ($item->status === null)
+                                                        <span class="badge bg-warning">Menunggu</span>
+                                                    @elseif ($item->status == '1')
+                                                        {{ $item->reason_verification }}
+                                                    @else
+                                                        Silahkan Cuti
+                                                    @endif
+                                                </td>
+                                                <td>
+                                                    @if ($item->status == null)
+                                                        <span class="badge bg-warning">Menunggu</span>
+                                                    @elseif($item->status == '0')
+                                                        <span class="badge bg-success">Disetujui</span>
+                                                    @elseif($item->status == '1')
+                                                        <span class="badge bg-danger">Ditolak</span>
+                                                    @endif
+                                                </td>
+                                            </tr>
+                                        @endif
+                                    @endforeach
+                                </tbody>
+                            </table>
+                        </div>
+                    </div><!-- .card-preview -->
+                </div> <!-- nk-block -->
+                <div class="nk-block nk-block-lg">
+                    <div class="card card-bordered card-preview">
+                        <div class="card-inner">
+                            <table class="datatable-init table">
+                                <h4 class="card-title text-center">Cuti Izin Lain lain</h4>
+                                <thead>
+                                    <tr>
+                                        <th>No</th>
+                                        <th>Nama Pegawai</th>
+                                        <th>Alasan</th>
+                                        <th>Pengajuan</th>
+                                        <th>Mulai</th>
+                                        <th>Berakhir</th>
+                                        <th>Jumlah Cuti</th>
+                                        <th>Verifikasi</th>
+                                        <th>Surat Cuti</th>
+                                        <th>Status</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    @php $no = 1; @endphp <!-- Initialize counter for other leaves -->
+                                    @foreach ($leaves as $item)
+                                        @if ($item->category == 'other')
+                                            <!-- Filter for other leaves -->
+                                            <tr>
+                                                <td>{{ $no++ }}</td>
+                                                <!-- Increment the counter for each row -->
+                                                <td>{{ $item->user->name }}</td>
+                                                <td>{{ $item->reason }}</td>
+                                                <td>{{ \Carbon\Carbon::parse($item->created_at)->format('d M Y') }}
+                                                </td>
+                                                <td>{{ \Carbon\Carbon::parse($item->date)->format('d M Y') }}</td>
+                                                <td>{{ \Carbon\Carbon::parse($item->end_date)->format('d M Y') }}</td>
+                                                <td>{{ \Carbon\Carbon::parse($item->date)->diffInDays($item->end_date) }}
+                                                    hari</td>
+                                                <td>
+                                                    @if ($item->status === null)
+                                                        <span class="badge bg-warning">Menunggu</span>
+                                                    @elseif ($item->status == '1')
+                                                        {{ $item->reason_verification }}
+                                                    @else
+                                                        Silahkan Cuti
+                                                    @endif
+                                                </td>
+                                                <td>{{ basename($item->leave_letter) }}</td>
+
+                                                <td>
+                                                    @if ($item->status == null)
+                                                        <span class="badge bg-warning">Menunggu</span>
+                                                    @elseif($item->status == '0')
+                                                        <span class="badge bg-success">Disetujui</span>
+                                                    @elseif($item->status == '1')
+                                                        <span class="badge bg-danger">Ditolak</span>
+                                                    @endif
+                                                </td>
+                                            </tr>
+                                        @endif
+                                    @endforeach
+                                </tbody>
+                            </table>
+                        </div>
+                    </div><!-- .card-preview -->
+                </div> <!-- nk-block -->
             </div><!-- .invoice-wrap -->
         </div><!-- .invoice -->
     </div><!-- .nk-block -->

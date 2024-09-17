@@ -17,7 +17,8 @@
                                     data-target="pageMenu"><em class="icon ni ni-menu-alt-r"></em></a>
                                 <div class="toggle-expand-content" data-content="pageMenu">
                                     <ul class="nk-block-tools g-3">
-                                        <li><a href="#filter" class="btn btn-secondary" target="_blank"><em
+                                        <li><a href="#" class="btn btn-secondary" target="_blank"
+                                                data-bs-toggle="modal" data-bs-target="#filterModal"><em
                                                     class="icon ni ni-filter"></em><span>Filter</span></a>
                                         </li>
                                         <li><a href="{{ route('admin.print-kelolakehadiranpegawai') }}"
@@ -123,6 +124,43 @@
                         </div>
                     </div><!-- .card-preview -->
                 </div> <!-- nk-block -->
+                <!-- Modal Filter -->
+                <div class="modal fade" id="filterModal" tabindex="-1" aria-labelledby="filterModalLabel"
+                    aria-hidden="true">
+                    <div class="modal-dialog">
+                        <div class="modal-content">
+                            <div class="modal-header">
+                                <h5 class="modal-title" id="filterModalLabel">Filter Kehadiran Pegawai</h5>
+                                <button type="button" class="btn-close" data-bs-dismiss="modal"
+                                    aria-label="Close"></button>
+                            </div>
+                            <form id="filterForm" action="#" method="GET">
+                                <div class="modal-body">
+                                    <!-- Filter Tanggal -->
+                                    <div class="form-group">
+                                        <label for="date">Tanggal</label>
+                                        <input type="date" name="date" id="date" class="form-control">
+                                    </div>
+
+                                    <!-- Filter Status Kehadiran -->
+                                    <div class="form-group">
+                                        <label for="status">Status Kehadiran</label>
+                                        <select name="status" id="status" class="form-control">
+                                            <option value="" selected>Semua</option>
+                                            <option value="Tepat Waktu">Tepat Waktu</option>
+                                            <option value="Terlambat">Terlambat</option>
+                                        </select>
+                                    </div>
+                                </div>
+                                <div class="modal-footer">
+                                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Tutup</button>
+                                    <button type="submit" class="btn btn-primary">Terapkan Filter</button>
+                                </div>
+                            </form>
+                        </div>
+                    </div>
+                </div>
+
             </div>
         </div>
     </div>

@@ -20,7 +20,7 @@ class LeaveController extends Controller
         $name = User::where('id', $id_user)->value('name');
 
         // Menampilkan view dengan data pegawai
-        return view('pages.admin.leave.kelolacuti', compact('leaves_annual','leaves', 'leaves_etc', 'name'));
+        return view('pages.admin.leave.kelolacuti', compact('leaves_annual', 'leaves', 'leaves_etc', 'name'));
     }
 
     public function show() {}
@@ -73,14 +73,14 @@ class LeaveController extends Controller
         $leave->reason_verification = $request->status == '1' ? $request->reason : null; // Simpan alasan jika status 'Ditolak'
         // $leave->enhancer = $request->enhancer; // Update enhancer
         $leave->save();
-        if ($request->status == 0){
-            $avail = User::where('id',$request->enhancer)->value('available');
- 
+        if ($request->status == 0) {
+            $avail = User::where('id', $request->enhancer)->value('available');
+
             $daysleave = \Carbon\Carbon::parse($leave->date)->diffInDays($leave->end_date);
             $totalday = $avail - $daysleave;
             // dd($totalday);
             // Update the authenticated user’s available days
-            $enhancer = User::where('id',$request->enhancer)->value('id');
+            $enhancer = User::where('id', $request->enhancer)->value('id');
             $user = User::findOrFail($enhancer);
             $user->available = $totalday;
             $user->save();
@@ -92,7 +92,8 @@ class LeaveController extends Controller
 
     public function cetakcuti()
     {
-        return view('pages.admin.leave.printkelolacuti');
+        $leaves = Leave::with('user')->get();
+        return view('pages.admin.leave.printkelolacuti', compact('leaves'));
     }
 
     public function cetaksatuancuti()

@@ -52,7 +52,6 @@
                                     <th>Keluar</th>
                                     <th>Kehadiran</th>
                                     <th>Lokasi</th>
-                                    <th>Action</th>
                                 </tr>
                             </thead>
                             <tbody>
@@ -96,33 +95,6 @@
                                             </span>
                                         </td>
                                         <td>{{ $coordinate ?: '-' }}</td>
-                                        <td>
-                                            <ul class="nk-tb-actions gx-2">
-                                                <li>
-                                                    <div class="dropdown">
-                                                        <a href="#"
-                                                            class="btn btn-sm btn-icon btn-trigger dropdown-toggle"
-                                                            data-bs-toggle="dropdown">
-                                                            <em class="icon ni ni-more-h"></em>
-                                                        </a>
-                                                        <div class="dropdown-menu dropdown-menu-end">
-                                                            <ul class="link-list-opt no-bdr">
-                                                                <li><a href="#"><em
-                                                                            class="icon ni ni-edit"></em><span>Edit</span></a>
-                                                                </li>
-                                                                <li><a href="#"><em
-                                                                            class="icon ni ni-na"></em><span>Hapus</span></a>
-                                                                </li>
-                                                                <li><a href="{{ route('admin.print-kelolakehadiranpegawai-orang', ['id' => $group->first()->id]) }}"
-                                                                        target="_blank"><em
-                                                                            class="icon ni ni-printer"></em><span>Cetak</span></a>
-                                                                </li>
-                                                            </ul>
-                                                        </div>
-                                                    </div>
-                                                </li>
-                                            </ul>
-                                        </td>
                                     </tr>
                                 @endforeach
                             </tbody>

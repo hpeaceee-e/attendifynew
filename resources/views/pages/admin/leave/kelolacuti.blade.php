@@ -54,7 +54,6 @@
                         });
                     </script>
                 @endif
-
                 <div class="nk-block nk-block-lg">
                     <div class="card card-bordered card-preview">
                         <div class="card-inner">
@@ -267,7 +266,7 @@
                     <div class="modal-dialog">
                         <div class="modal-content">
                             <div class="modal-header">
-                                <h5 class="modal-title" id="printModalLabel">Cetak Pengajuan Cuti</h5>
+                                <h5 class="modal-title" id="printModalLabel">Cetak Cuti</h5>
                                 <button type="button" class="btn-close" data-bs-dismiss="modal"
                                     aria-label="Close"></button>
                             </div>
@@ -413,6 +412,14 @@
                 individualOption.hide();
                 categoryOption.hide();
                 statusOption.hide();
+
+                // Set form action URL based on selection
+                const form = $('#printForm');
+                if (printOption === 'all') {
+                    form.attr('action', '{{ route('admin.print-kelolacuti') }}');
+                } else if (printOption === 'individual') {
+                    form.attr('action', '/printindividual');
+                }
 
                 // If 'Cetak Individu' is selected
                 if (printOption === 'individual') {
