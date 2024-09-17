@@ -75,7 +75,7 @@
                                     </div>
                                 </div>
                             </div><!-- .col -->
-                            <div class="col-md-4">
+                            <div class="col-md-6">
                                 <div class="card card-bordered card-full bg-secondary">
                                     <div class="card-inner">
                                         <div class="row">
@@ -106,9 +106,42 @@
                                     </div><!-- .card-inner -->
                                 </div><!-- .card -->
                             </div><!-- .col -->
+                            <div class=" col-md-6">
+                                <div class="card card-bordered card-full bg-secondary">
+                                    <div class="card-inner">
+                                        <div class="row">
+                                            <!-- Right section: Display image -->
+                                            <div class="col-6 d-flex align-items-center justify-content-center">
+                                                <img src="{{ asset('demo5/src/images/background/attendance5.png') }}"
+                                                    alt="Attendance Image" class="img-fluid"
+                                                    style="max-width: 100%; transform: scaleX(-1);">
+                                            </div><!-- .col -->
+                                            <!-- Left section: Welcome message and attendance button -->
+                                            <div class="col-6 d-flex flex-column justify-content-center">
+                                                <div class="card-title-group align-start mb-3">
+                                                    <div class="card-title">
+                                                        <h6 class="title text-white">Selamat Datang di Sistem Kehadiran
+                                                            Pegawai</h6>
+                                                    </div>
+                                                </div>
+                                                <div class="user-activity-group g-4">
+                                                    <div class="user-activity">
+                                                        <div class="info">
+                                                            <a href="{{ route('pegawai.leaves') }}"
+                                                                class="btn btn-light">Cuti</a>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div><!-- .col -->
 
 
-                            <div class="col-md-8">
+                                        </div><!-- .row -->
+                                    </div><!-- .card-inner -->
+                                </div><!-- .card -->
+                            </div><!-- .col -->
+
+
+                            <div class="col-md-12">
                                 <div class="card card-bordered card-full">
                                     <div class="card-inner">
                                         <div class="card-title-group align-start mb-3">

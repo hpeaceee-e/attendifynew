@@ -58,17 +58,29 @@
                                     @foreach ($leaves as $item)
                                         <tr>
                                             <td>{{ $loop->iteration }}</td>
-                                            <td>{{$item->category}}</td>
+                                            <td>
+                                                @if ($item->category == 'annual')
+                                                    Tahunan
+                                                @elseif ($item->category == 'other')
+                                                    Lain-lain
+                                                @endif
+                                            </td>
                                             <td>{{ $item->reason }}</td>
                                             {{-- <td>{{ $item->user->name }}</td> --}}
                                             <td>
-                                                @if(empty($item->subcategory))
-                                                none
-                                                @else
-                                                {{$item->subcategory}}
+                                                @if (empty($item->subcategory))
+                                                    Tahunan
+                                                @elseif ($item->subcategory == 'sick')
+                                                    Sakit
+                                                @elseif ($item->subcategory == 'married')
+                                                    Menikah
+                                                @elseif ($item->subcategory == 'important_reason')
+                                                    Beralasan Penting
+                                                @elseif ($item->subcategory == 'pilgrimage')
+                                                    Beribadah Haji
                                                 @endif
                                             </td>
-                                               
+
                                             {{-- <td>{{ \Carbon\Carbon::parse($item->created_at)->format('d M Y') }}</td> --}}
                                             <td>{{ \Carbon\Carbon::parse($item->date)->format('d M Y') }}</td>
                                             <td>{{ \Carbon\Carbon::parse($item->end_date)->format('d M Y') }}</td>

@@ -210,12 +210,19 @@
                                                                         placeholder="KTP">
                                                                 </div>
                                                             </div>
-
                                                             <div class="col-md-6">
                                                                 <div class="form-group">
                                                                     <label class="form-label">Tanggal Bergabung</label>
                                                                     <input type="text" class="form-control"
                                                                         value="{{ \Carbon\Carbon::parse($item->created_at)->format('d M Y') }}"
+                                                                        disabled>
+                                                                </div>
+                                                            </div>
+                                                            <div class="col-md-6">
+                                                                <div class="form-group">
+                                                                    <label class="form-label">Jam Kerja</label>
+                                                                    <input type="text" class="form-control"
+                                                                        name="schedule" value="{{ $item->schedule }}"
                                                                         disabled>
                                                                 </div>
                                                             </div>

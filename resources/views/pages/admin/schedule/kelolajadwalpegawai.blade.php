@@ -38,6 +38,7 @@
                                         <tr>
                                             <th>No</th>
                                             {{-- <th>Shift</th> --}}
+                                            <th>Jam Kerja</th>
                                             <th>Jam Masuk</th>
                                             <th>Jam Istirahat</th>
                                             <th>Jam Pulang</th>
@@ -48,6 +49,7 @@
                                         @foreach ($schedules as $schedule)
                                             <tr>
                                                 <td>{{ $schedule->id }}</td>
+                                                <td>Pegawai</td>
                                                 {{-- <td>Shift A</td> --}}
                                                 <td>{{ \Carbon\Carbon::parse($schedule->clock_in)->format('H:i') }}</td>
                                                 <td>{{ \Carbon\Carbon::parse($schedule->break)->format('H:i') }}</td>

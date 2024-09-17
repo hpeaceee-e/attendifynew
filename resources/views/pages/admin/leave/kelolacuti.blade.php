@@ -32,13 +32,29 @@
                     </div><!-- .nk-block-between -->
                 </div><!-- .nk-block-head -->
                 @if (session('success'))
-                    <div class="alert alert-success">
-                        {{ session('success') }}</div>
+                    <script>
+                        Swal.fire({
+                            icon: 'success',
+                            title: 'Success',
+                            text: '{{ session('success') }}',
+                            timer: 3000,
+                            showConfirmButton: false
+                        });
+                    </script>
                 @endif
+
                 @if (session('error'))
-                    <div class="alert alert-danger">
-                        {{ session('error') }}</div>
+                    <script>
+                        Swal.fire({
+                            icon: 'error',
+                            title: 'Error',
+                            text: '{{ session('error') }}',
+                            timer: 3000,
+                            showConfirmButton: false
+                        });
+                    </script>
                 @endif
+
                 <div class="nk-block nk-block-lg">
                     <div class="card card-bordered card-preview">
                         <div class="card-inner">
@@ -59,49 +75,53 @@
                                     </tr>
                                 </thead>
                                 <tbody>
+                                    @php $no = 1; @endphp <!-- Initialize counter for annual leaves -->
                                     @foreach ($leaves as $item)
-                                        <tr>
-                                            <td>{{ $loop->iteration }}</td>
-                                            <td>{{ $item->user->name }}</td>
-                                            <td>{{ $item->reason }}</td>
-                                            <td>{{ \Carbon\Carbon::parse($item->created_at)->format('d M Y') }}</td>
-                                            <td>{{ \Carbon\Carbon::parse($item->date)->format('d M Y') }}</td>
-                                            <td>{{ \Carbon\Carbon::parse($item->end_date)->format('d M Y') }}</td>
-                                            <td>{{ \Carbon\Carbon::parse($item->date)->diffInDays($item->end_date) }} hari</td>
-
-                                            <td>
-                                                @if ($item->status === null)
-                                                    <span class="badge bg-warning">Menunggu</span>
-                                                @elseif ($item->status == '1')
-                                                    {{ $item->reason_verification }}
-                                                @else
-                                                    Silahkan Cuti
-                                                @endif
-                                            </td>
-                                            <td>
-                                                @if ($item->status == null)
-                                                    <span class="badge bg-warning">Menunggu</span>
-                                                @elseif($item->status == '0')
-                                                    <span class="badge bg-success">Disetujui</span>
-                                                @elseif($item->status == '1')
-                                                    <span class="badge bg-danger">Ditolak</span>
-                                                @endif
-                                            </td>
-                                            <td>
-                                                <ul class="nk-tb-actions gx-2">
-                                                    <li>
-                                                        <a href="#" class="btn btn-sm btn-icon btn-trigger"
-                                                            data-bs-toggle="modal" data-bs-target="#confirmationModal"
-                                                            data-id="{{ $item->id }}"
-                                                            data-enhancer="{{ $item->enhancer }}"
-                                                            data-status="{{ $item->status }}"
-                                                            data-reason="{{ $item->reason_verification }}">
-                                                            <em class="icon ni ni-more-h"></em>
-                                                        </a>
-                                                    </li>
-                                                </ul>
-                                            </td>
-                                        </tr>
+                                        @if ($item->category == 'annual')
+                                            <!-- Filter for annual leaves -->
+                                            <tr>
+                                                <td>{{ $no++ }}</td> <!-- Increment the counter for each row -->
+                                                <td>{{ $item->user->name }}</td>
+                                                <td>{{ $item->reason }}</td>
+                                                <td>{{ \Carbon\Carbon::parse($item->created_at)->format('d M Y') }}</td>
+                                                <td>{{ \Carbon\Carbon::parse($item->date)->format('d M Y') }}</td>
+                                                <td>{{ \Carbon\Carbon::parse($item->end_date)->format('d M Y') }}</td>
+                                                <td>{{ \Carbon\Carbon::parse($item->date)->diffInDays($item->end_date) }}
+                                                    hari</td>
+                                                <td>
+                                                    @if ($item->status === null)
+                                                        <span class="badge bg-warning">Menunggu</span>
+                                                    @elseif ($item->status == '1')
+                                                        {{ $item->reason_verification }}
+                                                    @else
+                                                        Silahkan Cuti
+                                                    @endif
+                                                </td>
+                                                <td>
+                                                    @if ($item->status == null)
+                                                        <span class="badge bg-warning">Menunggu</span>
+                                                    @elseif($item->status == '0')
+                                                        <span class="badge bg-success">Disetujui</span>
+                                                    @elseif($item->status == '1')
+                                                        <span class="badge bg-danger">Ditolak</span>
+                                                    @endif
+                                                </td>
+                                                <td>
+                                                    <ul class="nk-tb-actions gx-2">
+                                                        <li>
+                                                            <a href="#" class="btn btn-sm btn-icon btn-trigger"
+                                                                data-bs-toggle="modal" data-bs-target="#confirmationModal"
+                                                                data-id="{{ $item->id }}"
+                                                                data-enhancer="{{ $item->enhancer }}"
+                                                                data-status="{{ $item->status }}"
+                                                                data-reason="{{ $item->reason_verification }}">
+                                                                <em class="icon ni ni-more-h"></em>
+                                                            </a>
+                                                        </li>
+                                                    </ul>
+                                                </td>
+                                            </tr>
+                                        @endif
                                     @endforeach
                                 </tbody>
                             </table>
@@ -117,7 +137,7 @@
                                     <tr>
                                         <th>No</th>
                                         <th>Nama Pegawai</th>
-                                        {{-- <th>Alasan</th> --}}
+                                        <th>Alasan</th>
                                         <th>Pengajuan</th>
                                         <th>Mulai</th>
                                         <th>Berakhir</th>
@@ -129,48 +149,53 @@
                                     </tr>
                                 </thead>
                                 <tbody>
+                                    @php $no = 1; @endphp <!-- Initialize counter for other leaves -->
                                     @foreach ($leaves as $item)
-                                        <tr>
-                                            <td>{{ $loop->iteration }}</td>
-                                            <td>{{ $item->user->name }}</td>
-                                            {{-- <td>{{ $item->reason_verification }}</td> --}}
-                                            <td>{{ \Carbon\Carbon::parse($item->created_at)->format('d M Y') }}</td>
-                                            <td>{{ \Carbon\Carbon::parse($item->date)->format('d M Y') }}</td>
-                                            <td>{{ \Carbon\Carbon::parse($item->end_date)->format('d M Y') }}</td>
-                                            <td></td>
-                                            <td>
-                                                @if ($item->status === null)
-                                                    <span class="badge bg-warning">Menunggu</span>
-                                                @elseif ($item->status == '1')
-                                                    {{ $item->reason }}
-                                                @else
-                                                    Silahkan Cuti
-                                                @endif
-                                            </td>
-                                            <td>Surat Cuti File nya</td>
-                                            <td>
-                                                @if ($item->status == null)
-                                                    <span class="badge bg-warning">Menunggu</span>
-                                                @elseif($item->status == '0')
-                                                    <span class="badge bg-success">Disetujui</span>
-                                                @elseif($item->status == '1')
-                                                    <span class="badge bg-danger">Ditolak</span>
-                                                @endif
-                                            </td>
-                                            <td>
-                                                <ul class="nk-tb-actions gx-2">
-                                                    <li>
-                                                        <a href="#" class="btn btn-sm btn-icon btn-trigger"
-                                                            data-bs-toggle="modal" data-bs-target="#confirmationModal"
-                                                            data-id="{{ $item->id }}"
-                                                            data-status="{{ $item->status }}"
-                                                            data-reason="{{ $item->reason }}">
-                                                            <em class="icon ni ni-more-h"></em>
-                                                        </a>
-                                                    </li>
-                                                </ul>
-                                            </td>
-                                        </tr>
+                                        @if ($item->category == 'other')
+                                            <!-- Filter for other leaves -->
+                                            <tr>
+                                                <td>{{ $no++ }}</td> <!-- Increment the counter for each row -->
+                                                <td>{{ $item->user->name }}</td>
+                                                <td>{{ $item->reason }}</td>
+                                                <td>{{ \Carbon\Carbon::parse($item->created_at)->format('d M Y') }}</td>
+                                                <td>{{ \Carbon\Carbon::parse($item->date)->format('d M Y') }}</td>
+                                                <td>{{ \Carbon\Carbon::parse($item->end_date)->format('d M Y') }}</td>
+                                                <td>{{ \Carbon\Carbon::parse($item->date)->diffInDays($item->end_date) }}
+                                                    hari</td>
+                                                <td>
+                                                    @if ($item->status === null)
+                                                        <span class="badge bg-warning">Menunggu</span>
+                                                    @elseif ($item->status == '1')
+                                                        {{ $item->reason_verification }}
+                                                    @else
+                                                        Silahkan Cuti
+                                                    @endif
+                                                </td>
+                                                <td>{{ $item->leave_letter }}</td>
+                                                <td>
+                                                    @if ($item->status == null)
+                                                        <span class="badge bg-warning">Menunggu</span>
+                                                    @elseif($item->status == '0')
+                                                        <span class="badge bg-success">Disetujui</span>
+                                                    @elseif($item->status == '1')
+                                                        <span class="badge bg-danger">Ditolak</span>
+                                                    @endif
+                                                </td>
+                                                <td>
+                                                    <ul class="nk-tb-actions gx-2">
+                                                        <li>
+                                                            <a href="#" class="btn btn-sm btn-icon btn-trigger"
+                                                                data-bs-toggle="modal" data-bs-target="#confirmationModal"
+                                                                data-id="{{ $item->id }}"
+                                                                data-status="{{ $item->status }}"
+                                                                data-reason="{{ $item->reason }}">
+                                                                <em class="icon ni ni-more-h"></em>
+                                                            </a>
+                                                        </li>
+                                                    </ul>
+                                                </td>
+                                            </tr>
+                                        @endif
                                     @endforeach
                                 </tbody>
                             </table>
@@ -210,7 +235,7 @@
                             <div class="modal-body">
                                 <div class="form-group">
                                     <label for="status">Status Pengajuan Cuti</label>
-                                    <input type="text" name="enhancer" value="{{$item->enhancer}} " hidden>
+                                    <input type="text" name="enhancer" value="{{ $item->enhancer }} " hidden>
                                     <select name="status" id="status" class="form-control"
                                         onchange="toggleReasonField()" required>
                                         <option value="" disabled selected>Pilih Status</option>

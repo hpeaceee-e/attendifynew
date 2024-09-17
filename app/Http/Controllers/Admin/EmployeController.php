@@ -52,9 +52,9 @@ class EmployeController extends Controller
             // Jika belum ada username, mulai dari 1
             $newUsernameNumber = 1;
         }
-        
+
         // Format username dengan 5 digit angka, menggunakan padding nol di sebelah kiri
-        $nextUsername= str_pad($newUsernameNumber, 5, '0', STR_PAD_LEFT);
+        $nextUsername = str_pad($newUsernameNumber, 5, '0', STR_PAD_LEFT);
 
         // Menampilkan view form tambah pegawai dengan username yang sudah di-generate
         return view('pages.admin.managepegawai.tambahpegawai', compact('roles', 'schedules', 'nextUsername'));
@@ -86,7 +86,7 @@ class EmployeController extends Controller
             // Jika belum ada username, mulai dari 1
             $newUsernameNumber = 1;
         }
-        
+
         // Format username dengan 5 digit angka, menggunakan padding nol di sebelah kiri
         $validatedData['username'] = str_pad($newUsernameNumber, 5, '0', STR_PAD_LEFT);
         // Create a new user instance

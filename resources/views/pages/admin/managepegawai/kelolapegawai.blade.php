@@ -50,12 +50,26 @@
                         </div><!-- .nk-block-between -->
                     </div><!-- .nk-block-head -->
                     @if (session('success'))
-                        <div class="alert alert-success">
-                            {{ session('success') }}</div>
+                        <script>
+                            Swal.fire({
+                                icon: 'success',
+                                title: 'Success',
+                                text: '{{ session('success') }}',
+                                timer: 3000,
+                                showConfirmButton: false
+                            });
+                        </script>
                     @endif
                     @if (session('error'))
-                        <div class="alert alert-danger">
-                            {{ session('error') }}</div>
+                        <script>
+                            Swal.fire({
+                                icon: 'error',
+                                title: 'Error',
+                                text: '{{ session('error') }}',
+                                timer: 3000,
+                                showConfirmButton: false
+                            });
+                        </script>
                     @endif
                     <div class="nk-block nk-block-lg">
                         <div class="card card-bordered card-preview">

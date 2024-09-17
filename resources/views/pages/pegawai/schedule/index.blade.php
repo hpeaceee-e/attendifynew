@@ -1,6 +1,6 @@
 @extends('layout.pegawai.main')
 @section('title')
-    Jadwal Kerja
+    Jadwal
 @endsection
 @section('content-pegawai')
     <div class="nk-content nk-content-fluid">
@@ -10,7 +10,7 @@
                     <div class="nk-block-head nk-block-head-sm">
                         <div class="nk-block-between">
                             <div class="nk-block-head-content">
-                                <h3 class="nk-block-title page-title">Jadwal Kerja</h3>
+                                <h3 class="nk-block-title page-title">Jadwal Jam Kerja</h3>
                             </div><!-- .nk-block-head-content -->
                             <div class="nk-block-head-content">
                                 <div class="toggle-wrap nk-block-tools-toggle">
@@ -39,7 +39,7 @@
                                         @foreach ($schedules as $schedule)
                                             <tr>
                                                 <td>{{ $loop->iteration }}</td>
-                                                <td></td>
+                                                <td>Senin, Selasa, Rabu, Kamis, Jum'at</td>
                                                 <td>{{ \Carbon\Carbon::parse($schedule->clock_in)->format('H:i') }}</td>
                                                 <td>{{ \Carbon\Carbon::parse($schedule->break)->format('H:i') }}</td>
                                                 <td>{{ \Carbon\Carbon::parse($schedule->clock_out)->format('H:i') }}</td>
