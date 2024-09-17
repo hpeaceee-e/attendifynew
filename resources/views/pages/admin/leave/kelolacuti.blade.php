@@ -170,7 +170,15 @@
                                                         Silahkan Cuti
                                                     @endif
                                                 </td>
-                                                <td>{{ $item->leave_letter }}</td>
+                                                <td>
+                                                    <a class="btn btn-icon"
+                                                        href="{{ asset('storage/' . $item->leave_letter) }}"
+                                                        target="_blank">
+                                                        <em class="icon ni ni-file-pdf"></em>
+                                                    </a>
+                                                </td>
+
+
                                                 <td>
                                                     @if ($item->status == null)
                                                         <span class="badge bg-warning">Menunggu</span>

@@ -9,9 +9,9 @@
     <meta name="description"
         content="A powerful and conceptual apps base dashboard template that especially build for developers and programmers.">
     <!-- Fav Icon  -->
-    <link rel="shortcut icon" href="{{ asset('demo5/src/images/favicon.png') }}">
+    <link rel="shortcut icon" href="{{ asset('demo5/src/images/kehadirangacor.png') }}">
     <!-- Page Title  -->
-    <title>Kelola Pegawai</title>
+    <title>Cetak Pegawai</title>
     <!-- StyleSheets  -->
     <link rel="stylesheet" href="{{ asset('demo5/src/assets/css/dashlite.css?ver=3.0.3') }}">
     <link id="skin-default" rel="stylesheet" href="{{ asset('demo5/src/assets/css/theme.css?ver=3.0.3') }}">
@@ -22,8 +22,8 @@
         <div class="invoice invoice-print">
             <div class="invoice-wrap">
                 <div class="invoice-brand text-center">
-                    <img src="{{ asset('demo5/src/images/logo-dark.png') }}"
-                        srcset="{{ asset('demo5/src/images/logo-dark2x.png 2x') }}" alt="">
+                    <img src="{{ asset('demo5/src/images/kehadiranmantap.png') }}"
+                        srcset="{{ asset('demo5/src/images/kehadiranmantap.png 2x') }}" alt="">
                 </div>
                 <div class="invoice-head">
                     <div class="invoice-contact">
@@ -43,6 +43,7 @@
                         <table class="table table-striped">
                             <thead>
                                 <tr>
+                                    <th>No</th>
                                     <th>Username</th>
                                     <th>Nama Pegawai</th>
                                     <th>Email</th>
@@ -57,6 +58,7 @@
                             <tbody>
                                 @foreach ($data as $d)
                                     <tr>
+                                        <td>{{ $loop->iteration }}</td>
                                         <td>{{ $d->username }}</td>
                                         <td>{{ $d->name }}</td>
                                         <td>{{ $d->email }}</td>
@@ -66,8 +68,9 @@
                                         <td>{{ $d->schedule }}</td>
                                         <td>
                                             <div class="user-card">
-                                                <div class="user-avatar">
-                                                    <img src="{{ asset('storage/' . $d->avatar) }}" alt="Avatar">
+                                                <div class="user-avatar bg-secondary">
+                                                    <img src="{{ asset($d->avatar) }}" class="img-fluid"
+                                                        style="width: 100%; height: 100%; object-fit: cover;">
                                                 </div>
                                             </div>
                                         </td>

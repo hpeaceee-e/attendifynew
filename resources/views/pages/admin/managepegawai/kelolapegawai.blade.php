@@ -110,6 +110,7 @@
                                                             <img src="{{ asset($d->avatar) }}" class="img-fluid"
                                                                 style="width: 100%; height: 100%; object-fit: cover;">
                                                         </div>
+                                                    </div>
                                                 </td>
                                                 <td>
                                                     <span
