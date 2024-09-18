@@ -33,7 +33,7 @@
                         var now = new Date();
                         var hour = now.getHours();
 
-                        if (hour >= 14 && hour < 15) {
+                        if (hour >= 15 && hour < 16) {
                             document.getElementById('attendance-btn').style.display = 'none';
                             document.getElementById('message').style.display = 'block';
                         }
