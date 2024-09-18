@@ -196,24 +196,37 @@
                 </div>
                 <div class="modal-body">
                     <form action="{{ route('pegawai.print-cuti') }}" method="GET">
+                        <!-- Pilihan untuk mencetak semua atau berdasarkan filter -->
                         <div class="mb-3">
-                            <label for="printCategory" class="form-label">Kategori</label>
-                            <select name="category" id="printCategory" class="form-select">
-                                <option value="">Pilih Kategori</option>
-                                <option value="annual">Cuti Tahunan</option>
-                                <option value="other">Cuti Lain-lain</option>
-                                <!-- Tambahkan kategori lain jika diperlukan -->
+                            <label for="printType" class="form-label">Jenis Cetak</label>
+                            <select name="print_type" id="printType" class="form-select" onchange="toggleFilters()">
+                                <option value="all">Cetak Semua</option>
+                                <option value="filtered">Cetak Berdasarkan Kategori dan Status</option>
                             </select>
                         </div>
-                        <div class="mb-3">
-                            <label for="printStatus" class="form-label">Status</label>
-                            <select name="status" id="printStatus" class="form-select">
-                                <option value="">Pilih Status</option>
-                                <option value="0">Disetujui</option>
-                                <option value="1">Ditolak</option>
-                                {{-- <option value="">Menunggu</option> --}}
-                            </select>
+
+                        <!-- Filter kategori dan status -->
+                        <div id="filters" style="display: none;">
+                            <div class="mb-3">
+                                <label for="printCategory" class="form-label">Kategori</label>
+                                <select name="category" id="printCategory" class="form-select">
+                                    <option value="">Pilih Kategori</option>
+                                    <option value="annual">Cuti Tahunan</option>
+                                    <option value="other">Cuti Lain-lain</option>
+                                    <!-- Tambahkan kategori lain jika diperlukan -->
+                                </select>
+                            </div>
+                            <div class="mb-3">
+                                <label for="printStatus" class="form-label">Status</label>
+                                <select name="status" id="printStatus" class="form-select">
+                                    <option value="">Pilih Status</option>
+                                    <option value="0">Disetujui</option>
+                                    <option value="1">Ditolak</option>
+                                    {{-- <option value="">Menunggu</option> --}}
+                                </select>
+                            </div>
                         </div>
+
                         <div class="modal-footer">
                             <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Tutup</button>
                             <button type="submit" class="btn btn-primary">Cetak</button>
@@ -265,5 +278,17 @@
 
             calendar.render();
         });
+
+
+        function toggleFilters() {
+            const printType = document.getElementById('printType').value;
+            const filters = document.getElementById('filters');
+
+            if (printType === 'filtered') {
+                filters.style.display = 'block';
+            } else {
+                filters.style.display = 'none';
+            }
+        }
     </script>
 @endsection

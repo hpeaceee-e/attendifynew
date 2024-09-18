@@ -82,7 +82,7 @@
                                                     <label class="form-label" for="alasan">Alasan Cuti</label>
                                                     <div class="form-control-wrap">
                                                         <input type="text" class="form-control" id="reason"
-                                                            name="reason">
+                                                            name="reason" required>
                                                     </div>
                                                 </div>
                                             </div>
@@ -95,9 +95,10 @@
                                                         <label class="form-label">Mulai Cuti</label>
                                                         <div class="form-control-wrap">
                                                             <div class="form-icon form-icon-right">
-                                                                {{-- <em class="icon ni ni-calendar-alt"></em> --}}
+                                                                <em class="icon ni ni-calendar-alt"></em>
                                                             </div>
-                                                            <input type="date" class="form-control" id="date"
+                                                            <input type="text" data-date-format="dd M yyyy"
+                                                                class="form-control date-picker" id="date"
                                                                 name="date" required>
                                                         </div>
                                                     </div>
@@ -107,9 +108,10 @@
                                                         <label class="form-label">Berakhir Cuti</label>
                                                         <div class="form-control-wrap">
                                                             <div class="form-icon form-icon-right">
-                                                                {{-- <em class="icon ni ni-calendar-alt"></em> --}}
+                                                                <em class="icon ni ni-calendar-alt"></em>
                                                             </div>
-                                                            <input type="date" class="form-control" id="end_date"
+                                                            <input type="text" data-date-format="dd M yyyy"
+                                                                class="form-control date-picker" id="end_date"
                                                                 name="end_date" required>
                                                         </div>
                                                     </div>
@@ -159,4 +161,23 @@
             });
         });
     </script>
+    {{-- 
+    @if ($errors->any())
+        <script>
+            document.addEventListener("DOMContentLoaded", function() {
+                Swal.fire({
+                    icon: 'error',
+                    title: 'Oops...',
+                    html: `
+                <ul>
+                    @foreach ($errors->all() as $error)
+                        <li>{{ $error }}</li>
+                    @endforeach
+                </ul>
+            `,
+                    showConfirmButton: true,
+                });
+            });
+        </script>
+    @endif --}}
 @endsection

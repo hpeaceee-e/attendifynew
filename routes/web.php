@@ -95,7 +95,8 @@ Route::middleware([AutoLogout::class])->group(function () {
             Route::get('/create', [LeavesController::class, 'create'])->name('create-cuti');
             Route::post('/store', [LeavesController::class, 'store'])->name('store-cuti');
             Route::get('/leaves/{id}/edit', [LeavesController::class, 'edit'])->name('edit-cuti');
-            Route::post('/update/{id}', [LeavesController::class, 'update'])->name('update-cuti');
+            Route::put('/update/{id}', [LeavesController::class, 'update'])->name('update-cuti');
+
             Route::get('/print', [LeavesController::class, 'print'])->name('print-cuti');
         });
         Route::prefix('izin')->group(function () {
