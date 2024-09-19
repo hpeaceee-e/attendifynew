@@ -8,6 +8,7 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Carbon;
 use PhpParser\Node\Stmt\Return_;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Storage;
 
 class LeavesController extends Controller
 {
@@ -43,7 +44,7 @@ class LeavesController extends Controller
             'category' => 'required|string|max:255',
             'subcategory' => 'nullable|string|max:255',
             'about' => 'nullable|string',
-            'leave_letter' => 'nullable',
+            'leave_letter' => 'nullable|file|mimes:pdf,doc,docx|max:2048', // Validasi file
             'date' => 'required|date',
             'end_date' => 'required|date|after_or_equal:date',
         ]);
@@ -55,16 +56,29 @@ class LeavesController extends Controller
         $leave->date = Carbon::createFromFormat('d M Y', $request->input('date'))->format('Y-m-d');
         $leave->end_date = Carbon::createFromFormat('d M Y', $request->input('end_date'))->format('Y-m-d');
 
+        // Simpan file leave_letter jika ada
+        if ($request->hasFile('leave_letter')) {
+            // Ambil file asli
+            $file = $request->file('leave_letter');
+            // Ganti spasi dengan underscore
+            $fileName = str_replace(' ', '-', $file->getClientOriginalName());
+            // Simpan file ke direktori public/lampiran_cuti dengan nama baru
+            $leaveLetterPath = $file->move(public_path('storage/lampiran_cuti'), $fileName);
+            // Simpan nama file ke database
+            $leave->leave_letter = $fileName;
+        }
+
         // Set data lain yang sudah tervalidasi
         $leave->enhancer = $validatedData['enhancer'];
         $leave->reason = $validatedData['reason'];
         $leave->category = $validatedData['category'];
-        $leave->leave_letter = $validatedData['leave_letter'];
         $leave->subcategory = $validatedData['subcategory'];
         $leave->save();
 
         return redirect()->route('pegawai.leaves')->with('success', 'Pengajuan cuti berhasil ditambahkan dan sedang menunggu konfirmasi.');
     }
+
+
 
     public function edit($id)
     {
