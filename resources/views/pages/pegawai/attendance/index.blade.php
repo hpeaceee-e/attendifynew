@@ -55,7 +55,7 @@
                                 <th>Waktu</th>
                                 <th>Status</th>
                                 <th>Koordinat</th>
-                                <th>Aksi</th>
+                                <th>Action</th>
                             </tr>
                         </thead>
                         <tbody>
@@ -75,7 +75,7 @@
                                     <td>
                                         <a href="{{ route('pegawai.print-attendance', $attendance->id) }}"
                                             class="btn btn-secondary btn-sm" target="_blank"><em
-                                                class="icon ni ni-printer"></em>Print</a>
+                                                class="icon ni ni-printer"></em>Cetak</a>
                                     </td>
                                 </tr>
                             @endforeach

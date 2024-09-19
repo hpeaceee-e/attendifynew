@@ -47,7 +47,8 @@ Route::middleware([AutoLogout::class])->group(function () {
         Route::prefix('attendance.kelolakehadiranpegawai')->group(function () {
             Route::get('/', [AttendanceController::class, 'kehadiran'])->name('kelolakehadiranpegawai');
             Route::get('/cetakkehadiranpegawai', [AttendanceController::class, 'cetakkehadiran'])->name('print-kelolakehadiranpegawai');
-            Route::get('/cetakkehadiranpegawai{id}', [AttendanceController::class, 'cetakkehadiranorang'])->name('print-kelolakehadiranpegawai-orang');
+            Route::get('/cetakkehadiranpegawaimasuk/{id}', [AttendanceController::class, 'cetakkehadiranmasuk'])->name('print-kelolakehadiranpegawai-masuk');
+            Route::get('/cetakkehadiranpegawaikeluar/{id}', [AttendanceController::class, 'cetakkehadirankeluar'])->name('print-kelolakehadiranpegawai-keluar');
             Route::get('/print-selection', [AttendanceController::class, 'printSelection'])->name('print-selection');
             Route::post('/print-selected', [AttendanceController::class, 'printSelected'])->name('print-selected');
         });

@@ -119,18 +119,36 @@ class AttendanceController extends Controller
         return view('pages.pegawai.attendance.print', compact('attendance', 'latitude', 'longitude', 'name'));
     }
 
-    public function cetakkehadiranorang($id)
+    public function cetakkehadiranmasuk($id)
     {
-        $attendance = Attendance::findOrFail($id);
-        $id_user = Auth::user()->id;
-        $name = User::where('id', $id_user)->value('name');
-        // Mengolah string coordinate menjadi array
+        $attendance = Attendance::where('id', $id)
+            ->where('status', 0)
+            ->firstOrFail(); // Mengambil data yang ada, atau gagal jika tidak ditemukan
+
+        // dd($attendance); // Cek apakah data ditemukan
+
+        $coordinates = explode(',', $attendance->coordinate);
+        $latitude = $coordinates[0] ?? null;
+        $longitude = $coordinates[1] ?? null;
+
+        return view('pages.admin.attendance.printkehadiran-masuk', compact('attendance', 'latitude', 'longitude'));
+    }
+
+
+    public function cetakkehadirankeluar($id)
+    {
+        $attendance = Attendance::where('id', $id)
+            ->where('status', 1)
+            ->firstOrFail(); // Mengambil data yang ada, atau gagal jika tidak ditemukan
+
+        // dd($attendance); // Cek apakah data ditemukan
+
         // Mengolah string coordinate menjadi array
         $coordinates = explode(',', $attendance->coordinate);
         $latitude = $coordinates[0] ?? null;
         $longitude = $coordinates[1] ?? null;
 
         // Tampilkan tampilan print
-        return view('pages.admin.attendance.printkehadiran-orang', compact('attendance', 'latitude', 'longitude', 'name'));
+        return view('pages.admin.attendance.printkehadiran-keluar', compact('attendance', 'latitude', 'longitude'));
     }
 }

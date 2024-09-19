@@ -28,18 +28,10 @@
                                                 <em class="icon ni ni-plus"></em>
                                             </a>
                                             <li>
-                                                <form class="mt-3" id="uploadForm"
-                                                    action="{{ route('admin.input-excel') }}" method="POST"
-                                                    enctype="multipart/form-data">
-                                                    @csrf
-                                                    @method('POST')
-                                                    <div class="mb-3">
-                                                        <input type="file" accept=".xlsx, .csv, .xls" name="pegawaiexcel"
-                                                            id="excel" class="form-control">
-                                                    </div>
-                                            </li>
-                                            <li class="d-flex justify-content-center">
-                                                <button type="submit" class="btn btn-icon btn-secondary px-4">Save</button>
+                                                <button type="button" class="btn btn-secondary" data-bs-toggle="modal"
+                                                    data-bs-target="#uploadModal">
+                                                    <em class="icon ni ni-plus"></em><span>Excel</span>
+                                                </button>
                                             </li>
                                             </form>
 
@@ -170,6 +162,33 @@
                             </div>
                         </div><!-- .card-preview -->
                     </div> <!-- nk-block -->
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- Modal -->
+    <div class="modal fade" id="uploadModal" tabindex="-1" aria-labelledby="uploadModalLabel" aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="uploadModalLabel">Upload File Excel</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body">
+                    <li>
+                        <form class="mt-3" id="uploadForm" action="{{ route('admin.input-excel') }}" method="POST"
+                            enctype="multipart/form-data">
+                            @csrf
+                            @method('POST')
+                            <div class="mb-3">
+                                <input type="file" accept=".xlsx, .csv, .xls" name="pegawaiexcel" id="excel"
+                                    class="form-control">
+                            </div>
+                    </li>
+                    <li class="d-flex justify-content-center">
+                        <button type="submit" class="btn btn-icon btn-secondary px-4">Save</button>
+                    </li>
+                    </form>
                 </div>
             </div>
         </div>

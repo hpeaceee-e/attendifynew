@@ -42,7 +42,7 @@
                                         <th>Masuk</th>
                                         <th>Keluar</th>
                                         <th>Kehadiran</th>
-                                        <th>Lokasi</th>
+                                        {{-- <th>Lokasi</th> --}}
                                         <th>Action</th>
                                     </tr>
                                 </thead>
@@ -88,32 +88,37 @@
                                                     {{ $status }}
                                                 </span>
                                             </td>
-                                            <td>{{ $coordinate ?: '-' }}</td>
+                                            {{-- <td>{{ $coordinate ?: '-' }}</td> --}}
                                             <td>
                                                 <ul class="nk-tb-actions gx-2">
-                                                    <li>
-                                                        <div class="dropdown">
+                                                    {{-- <li> --}}
+                                                    {{-- <div class="dropdown">
                                                             <a href="#"
                                                                 class="btn btn-sm btn-icon btn-trigger dropdown-toggle"
                                                                 data-bs-toggle="dropdown">
                                                                 <em class="icon ni ni-more-h"></em>
                                                             </a>
                                                             <div class="dropdown-menu dropdown-menu-end">
-                                                                <ul class="link-list-opt no-bdr">
-                                                                    <li><a href="#"><em
+                                                                <ul class="link-list-opt no-bdr"> --}}
+                                                    {{-- <li><a href="#"><em
                                                                                 class="icon ni ni-edit"></em><span>Edit</span></a>
                                                                     </li>
                                                                     <li><a href="#"><em
                                                                                 class="icon ni ni-na"></em><span>Hapus</span></a>
-                                                                    </li>
-                                                                    <li><a href="{{ route('admin.print-kelolakehadiranpegawai-orang', ['id' => $group->first()->id]) }}"
-                                                                            target="_blank"><em
-                                                                                class="icon ni ni-printer"></em><span>Cetak</span></a>
-                                                                    </li>
-                                                                </ul>
-                                                            </div>
-                                                        </div>
+                                                                    </li> --}}
+                                                    <li><a href="{{ route('admin.print-kelolakehadiranpegawai-masuk', ['id' => $group->first()->id]) }}"
+                                                            target="_blank" class="btn btn-secondary btn-sm"><em
+                                                                class="icon ni ni-printer"></em><span>Masuk</span></a>
                                                     </li>
+                                                    <li><a href="{{ route('admin.print-kelolakehadiranpegawai-keluar', ['id' => $group->first()->id]) }}"
+                                                            target="_blank" class="btn btn-secondary btn-sm"><em
+                                                                class="icon ni ni-printer"></em><span>
+                                                                Keluar</span></a>
+                                                    </li>
+                                                    {{-- </ul>
+                                                            </div>
+                                                        </div> --}}
+                                                    {{-- </li> --}}
                                                 </ul>
                                             </td>
                                         </tr>
@@ -137,9 +142,20 @@
                             <form id="filterForm" action="#" method="GET">
                                 <div class="modal-body">
                                     <!-- Filter Tanggal -->
-                                    <div class="form-group">
+                                    {{-- <div class="form-group">
                                         <label for="date">Tanggal</label>
-                                        <input type="date" name="date" id="date" class="form-control">
+                                        <input type="text" name="date" id="date" class="form-control date-picker"
+                                            data-date-format="dd M yyyy">
+                                    </div> --}}
+                                    <div class="form-group">
+                                        <label class="form-label">Tanggal</label>
+                                        <div class="form-control-wrap">
+                                            <div class="form-icon form-icon-right">
+                                                <em class="icon ni ni-calendar-alt"></em>
+                                            </div>
+                                            <input type="text" data-date-format="dd M yyyy"
+                                                class="form-control date-picker" id="date" name="date" required>
+                                        </div>
                                     </div>
 
                                     <!-- Filter Status Kehadiran -->

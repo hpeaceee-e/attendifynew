@@ -126,7 +126,7 @@
             <div class="invoice-contact">
                 <span class="overline-title">Detail Kehadiran</span>
                 <div class="invoice-contact-info">
-                    <h4 class="title">Pegawai: {{ $name }}</h4>
+                    <h4 class="title">Pegawai</h4>
                     <br>
                     <ul class="list-plain">
                         <li><em class="icon ni ni-calendar-fill fs-18px"></em><span>Tanggal:
