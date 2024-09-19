@@ -36,7 +36,7 @@ class ScheduleController extends Controller
         ]);
 
         // Redirect kembali dengan pesan sukses
-        return redirect()->route('admin.kelolajadwalpegawai')->with('success', 'Jadwal pegawai berhasil ditambahkan.');
+        return redirect()->route('admin.kelolajadwal')->with('success', 'Jadwal pegawai berhasil ditambahkan.');
     }
 
     public function show(Schedule $schedule)

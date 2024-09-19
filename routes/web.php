@@ -15,13 +15,36 @@ use App\Http\Middleware\AutoLogout;
 use Illuminate\Console\Scheduling\Schedule;
 use Illuminate\Support\Facades\Route;
 
+    
+use Illuminate\Support\Facades\Storage;
+use Symfony\Component\HttpFoundation\Response;
+
+
 // Routes for authentication
 Route::get('/', [LoginController::class, 'index'])->name('auth.login');
 Route::post('/login-proses', [LoginController::class, 'login_proses'])->name('login-proses');
 Route::get('/logout', [LoginController::class, 'logout'])->name('logout');
 
+
+
 //auto Logout
 Route::middleware([AutoLogout::class])->group(function () {
+
+    Route::get('/download/{filename}', function ($filename) {
+        // Decode filename if necessary
+        $filename = urldecode($filename);
+    
+        // Path to the file in the storage/app/public folder
+        $filePath = 'lampiran_cuti/' . $filename;
+    
+        // Check if the file exists
+        if (!Storage::disk('public')->exists($filePath)) {
+            abort(Response::HTTP_NOT_FOUND, 'File not found');
+        }
+    
+        // Return the file for download
+        return Storage::disk('public')->download($filePath);
+    })->name('download');
 
     // Admin routes group with middleware and prefix
     Route::group(['prefix' => 'admin', 'middleware' => ['admin'], 'as' => 'admin.'], function () {
@@ -76,6 +99,7 @@ Route::middleware([AutoLogout::class])->group(function () {
     Route::get('/import', [ImportexcelController::class, 'index']);
     Route::post('/import/excel', [ImportexcelController::class, 'post'])->name('post-excel');
 
+    //pegawai
     Route::group(['prefix' => 'pegawai', 'middleware' => ['pegawai'], 'as' => 'pegawai.'], function () {
 
         Route::get('/dashboard', [UserControllers1::class, 'index'])->name('pages.pegawai.dashboard');

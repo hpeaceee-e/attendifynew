@@ -171,11 +171,11 @@
                                                     @endif
                                                 </td>
                                                 <td>
-                                                    <a class="btn btn-icon"
-                                                        href="{{ asset('storage/' . $item->leave_letter) }}"
-                                                        target="_blank">
+                                                    <a class="btn btn-icon" href="{{ route('download', $item->leave_letter) }}">
                                                         <em class="icon ni ni-file-pdf"></em>
                                                     </a>
+                                                    
+                                                    
                                                 </td>
 
 
