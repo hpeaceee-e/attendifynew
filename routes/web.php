@@ -15,7 +15,7 @@ use App\Http\Middleware\AutoLogout;
 use Illuminate\Console\Scheduling\Schedule;
 use Illuminate\Support\Facades\Route;
 
-    
+
 use Illuminate\Support\Facades\Storage;
 use Symfony\Component\HttpFoundation\Response;
 
@@ -33,15 +33,15 @@ Route::middleware([AutoLogout::class])->group(function () {
     Route::get('/download/{filename}', function ($filename) {
         // Decode filename if necessary
         $filename = urldecode($filename);
-    
+
         // Path to the file in the storage/app/public folder
         $filePath = 'lampiran_cuti/' . $filename;
-    
+
         // Check if the file exists
         if (!Storage::disk('public')->exists($filePath)) {
             abort(Response::HTTP_NOT_FOUND, 'File not found');
         }
-    
+
         // Return the file for download
         return Storage::disk('public')->download($filePath);
     })->name('download');

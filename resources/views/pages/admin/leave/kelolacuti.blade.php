@@ -171,14 +171,11 @@
                                                     @endif
                                                 </td>
                                                 <td>
-                                                    <a class="btn btn-icon" href="{{ route('download', $item->leave_letter) }}">
+                                                    <a class="btn btn-icon"
+                                                        href="{{ route('download', $item->leave_letter) }}">
                                                         <em class="icon ni ni-file-pdf"></em>
                                                     </a>
-                                                    
-                                                    
                                                 </td>
-
-
                                                 <td>
                                                     @if ($item->status == null)
                                                         <span class="badge bg-warning">Menunggu</span>
