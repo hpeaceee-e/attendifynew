@@ -110,11 +110,12 @@
                                                             target="_blank" class="btn btn-secondary btn-sm"><em
                                                                 class="icon ni ni-printer"></em><span>Masuk</span></a>
                                                     </li>
-                                                    <li><a href="{{ route('admin.print-kelolakehadiranpegawai-keluar', ['id' => $group->first()->id]) }}"
-                                                            target="_blank" class="btn btn-secondary btn-sm"><em
-                                                                class="icon ni ni-printer"></em><span>
-                                                                Keluar</span></a>
-                                                    </li>
+                                                    @if ($clockOut)
+                                                        <li><a href="{{ route('admin.print-kelolakehadiranpegawai-keluar', ['id' => $group->first()->id]) }}"
+                                                                target="_blank" class="btn btn-secondary btn-sm"><em
+                                                                    class="icon ni ni-printer"></em><span>Keluar</span></a>
+                                                        </li>
+                                                    @endif
                                                     {{-- </ul>
                                                             </div>
                                                         </div> --}}
