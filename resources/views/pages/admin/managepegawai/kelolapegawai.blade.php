@@ -136,7 +136,10 @@
                                                                                         class="icon ni ni-check-circle"></em><span>Restore</span></a>
                                                                             </li>
                                                                         @else
-                                                                            <li><a href="#"
+                                                                        <li>
+                                                                            <a class="icon ni ni-na" href="{{route('admin.userdeleted', $d->id)}}"></em><span>Hapus</span></a>
+                                                                        </li>
+                                                                            {{-- <li><a href="#"
                                                                                     onclick="event.preventDefault(); document.getElementById('delete-form-{{ $d->id }}').submit();"><em
                                                                                         class="icon ni ni-na"></em><span>Hapus</span></a>
                                                                                 <form id="delete-form-{{ $d->id }}"
@@ -144,8 +147,8 @@
                                                                                     method="POST" style="display: none;">
                                                                                     @csrf
                                                                                     @method('DELETE')
-                                                                                </form>
-                                                                            </li>
+                                                                                </form> --}}
+                                                                            {{-- </li> --}}
                                                                         @endif
                                                                     </ul>
                                                                 </div>
@@ -162,6 +165,58 @@
                             </div>
                         </div><!-- .card-preview -->
                     </div> <!-- nk-block -->
+
+
+                    <h4>Pegawai yang dihapus</h4>
+                    <table>
+                        <thead>
+                            <tr>
+                                <td>NO</td>
+                                <td>Name</td>
+                                <td>Deleted by</td>
+                                <td>Action</td>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            @foreach ($deletedUsers as $userd)
+                                
+                            <tr>
+                                <td>{{$loop->iteration}}</td>
+                                <td>{{$userd->name}}</td>
+                                <td>
+                                    @php
+                                    $nama = \App\Models\User::where('id', $userd->deleted_by)->value('name');
+
+                                    @endphp
+                                    {{$nama}}
+                                </td>
+                                <td>
+                                    <a href="">Restore</a>
+                                    <form action="{{ route('admin.userdestroyed', $userd->id) }}" method="POST">
+                                        @csrf
+                                        @method('DELETE')
+                                        <button type="submit">Delete User</button>
+                                    </form>
+                                    
+                                </td>
+                                
+                            </tr>
+                            @endforeach
+                            {{-- <script>
+                                $.ajax({
+                                    url: '/admin/managepegawai.kelolapegawai/destroyuser/{{ $userd->id }}',
+                                    type: 'DELETE',
+                                    headers: {
+                                        'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+                                    },
+                                    success: function(result) {
+                                        // Handle success
+                                    }
+                                });
+
+                            </script> --}}
+                        </tbody>
+                    </table>
                 </div>
             </div>
         </div>

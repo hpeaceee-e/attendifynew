@@ -21,8 +21,15 @@ class EmployeController extends Controller
         // Mengambil data pegawai dari database
         $data = User::with('role', 'schedule')->get();
 
+        // $deleteduser = User::where('delete_at' != null)->get();
+        $deletedUsers = User::onlyTrashed()->get();
+        $deleteby = User::onlyTrashed()->value('deleted_by');
+        $nama = User::where('id', $deleteby)->value('name');
+
+        // dd($nama);
+
         // Menampilkan view dengan data pegawai
-        return view('pages.admin.managepegawai.kelolapegawai', compact('data'));
+        return view('pages.admin.managepegawai.kelolapegawai', compact('data','deletedUsers','nama'));
     }
 
     public function show($id)

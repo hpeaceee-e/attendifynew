@@ -7,6 +7,7 @@ use App\Http\Controllers\Admin\LeaveController;
 use App\Http\Controllers\LoginController;
 use App\Http\Controllers\AttendanceController;
 use App\Http\Controllers\Admin\ScheduleController;
+use App\Http\Controllers\DeletedController;
 use App\Http\Controllers\ImportexcelController;
 use App\Http\Controllers\IzinController;
 use App\Http\Controllers\LeavesController;
@@ -64,6 +65,10 @@ Route::middleware([AutoLogout::class])->group(function () {
             Route::get('restorepegawai/{id}', [AdminController::class, 'restore'])->name('restorepegawai');
             Route::get('trashedpegawai', [AdminController::class, 'trashed'])->name('trashedpegawai');
             Route::post('/input-pegawai', [EmployeController::class, 'input'])->name('input-excel');
+            //trashed user
+            Route::get('/temporarydelete/{id}',[DeletedController::class,'deleteuser'])->name('userdeleted');
+            //destroy user
+            Route::delete('/destroyuser/{id}',[DeletedController::class,'destroyuser'])->name('userdestroyed');
         });
 
         // Manage Attendance
