@@ -3,9 +3,12 @@
 namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
+use App\Models\Attendance;
 use App\Models\Leave;
 use App\Models\User;
 use Illuminate\Http\Request;
+use Carbon\Carbon;
+
 
 class AdminController extends Controller
 {
@@ -13,10 +16,25 @@ class AdminController extends Controller
     {
         // Mengambil data pegawai dari database
         $data = User::with('role', 'schedule')->get();
-        $cuti = Leave::all();  // Gunakan Leave::all() alih-alih Leave::get()
+        $cuti = Leave::all();
+          // Gunakan Leave::all() alih-alih Leave::get()
+
+          $user = User::where('role', '!=', 1)->pluck('id')->toArray();
+
+
+          $tepat = Attendance::whereRaw("TIME(time) < '08:00:00'")
+                              ->whereIn('enhancer', $user)
+                              ->whereDate('time', Carbon::today())
+                              ->get();
+          
+          $telat = Attendance::whereRaw("TIME(time) > '08:00:00'")
+                              ->whereIn('enhancer', $user)
+                              ->whereDate('time', Carbon::today())
+                              ->get();
+          
 
         // Menampilkan view dengan data pegawai
-        return view('pages.admin.dashboard', compact('data', 'cuti'));
+        return view('pages.admin.dashboard', compact('data', 'cuti','tepat','telat'));
     }
 
     public function cuti()

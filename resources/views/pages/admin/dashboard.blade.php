@@ -103,12 +103,21 @@
                                             </thead>
                                             <tbody>
                                                 {{-- @foreach ($terlambat as $index => $pegawai) --}}
+                                                @foreach ($telat as $tel)
+                                                    
                                                 <tr>
-                                                    <td>1</td>
-                                                    <td>08:03</td>
-                                                    <td>Rafly</td>
+                                                    <td>{{$loop->iteration
+                                                    }}</td>
+                                                    <td>{{$tel->time}}</td>
+                                                    <td>
+                                                        @php
+                                                            $name = \App\Models\User::where('id', $tel->enhancer)->value('name');
+                                                        @endphp
+                                                        {{$name}}</td>
                                                     <td><span class="badge bg-danger">Absen Terlambat</span></td>
                                                 </tr>
+                                                @endforeach
+
                                                 {{-- @endforeach --}}
                                             </tbody>
                                         </table>
@@ -137,12 +146,20 @@
                                             </thead>
                                             <tbody>
                                                 {{-- @foreach ($hadir as $index => $pegawai) --}}
+                                                    @foreach ($tepat as $tel)
+                                                    
                                                 <tr>
-                                                    <td>1</td>
-                                                    <td>07:43</td>
-                                                    <td>Hilmi Ramdani</td>
+                                                    <td>{{$loop->iteration
+                                                    }}</td>
+                                                    <td>{{$tel->time}}</td>
+                                                    <td>
+                                                        @php
+                                                            $name = \App\Models\User::where('id', $tel->enhancer)->value('name');
+                                                        @endphp
+                                                        {{$name}}</td>
                                                     <td><span class="badge bg-success">Sudah Absen</span></td>
                                                 </tr>
+                                                @endforeach
                                                 {{-- @endforeach --}}
                                             </tbody>
                                         </table>

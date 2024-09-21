@@ -13,6 +13,19 @@ class AttendanceController extends Controller
 {
     public function kehadiran()
     {
+        $user = User::where('role', '!=', 1)->pluck('id')->toArray();
+
+        $tepat = Attendance::whereRaw("TIME(`time`) < '08:00:00'")
+                    ->whereIn('enhancer', $user)
+                    ->get();
+
+        $telat = Attendance::whereRaw("TIME(`time`) > '08:00:00'")
+                    ->whereIn('enhancer', $user)
+                    ->get();
+
+
+        // dd($tepat);
+
         // Retrieve all attendances with their schedules
         $attendances = Attendance::with('schedule', 'user')
             ->whereHas('user', function ($query) {
@@ -55,7 +68,7 @@ class AttendanceController extends Controller
             ];
         });
 
-        return view('pages.admin.attendance.kelolakehadiranpegawai', compact('attendancesGrouped', 'attendances'));
+        return view('pages.admin.attendance.kelolakehadiranpegawai', compact('attendancesGrouped', 'attendances','telat','tepat'));
     }
 
 

@@ -12,6 +12,7 @@
                             <h3 class="nk-block-title page-title">Kelola Kehadiran Pegawai</h3>
                         </div><!-- .nk-block-head-content -->
                         <div class="nk-block-head-content">
+                            
                             <div class="toggle-wrap nk-block-tools-toggle">
                                 <a href="#" class="btn btn-icon btn-trigger toggle-expand me-n1"
                                     data-target="pageMenu"><em class="icon ni ni-menu-alt-r"></em></a>
@@ -30,6 +31,91 @@
                         </div><!-- .nk-block-head-content -->
                     </div><!-- .nk-block-between -->
                 </div><!-- .nk-block-head -->
+                <div class="nk-block">
+                    <div class="card card-bordered card-preview">
+                        <div class="card-inner">
+                            <div class="row">
+                                <div class="col-md-6">
+                                    <p>Pegawai Yang Terlambat</p>
+                                    <table class="datatable-init table">
+                                        <thead>
+                                            <tr>
+                                                <td>No</td>
+                                                <td>Nama</td>
+                                                <td>Waktu terlambat</td>
+                                                <td>Waktu Absensi</td>
+                                            </tr>
+                                        </thead>
+                                        <tbody>
+                                            @foreach ($telat as $tel)
+                                                
+                                            <tr>
+                                                <td>{{$loop->iteration}}</td>
+                                                <td>
+                                                    @php
+                                                        // Pastikan $tep sudah diinisialisasi sebelumnya
+                                                        $name = \App\Models\User::where('id', $tel->enhancer)->value('name');
+                                                    @endphp
+                                                    {{$name}}</td>
+                                                    <td>
+                                                        @php
+                                                            // Jam 08:00 pada tanggal yang sama
+                                                            $jamDelapan = \Carbon\Carbon::createFromFormat('Y-m-d H:i:s', $tel->time)->setTime(8, 0, 0);
+                                                    
+                                                            // Waktu yang diambil dari database
+                                                            $time = \Carbon\Carbon::parse($tel->time);
+                                                    
+                                                            // Hitung keterlambatan jika lebih dari jam 08:00
+                                                            $keterlambatan = $time->greaterThan($jamDelapan) ? round($time->diffInMinutes($jamDelapan)) : 0;
+                                                    
+                                                        @endphp
+                                                        {{ abs($keterlambatan) }} Menit
+                                                    </td>
+
+                                                    <td>{{$tel->time}}</td>
+                                                    
+                                                    
+                                            </tr>
+                                            @endforeach
+
+                                        </tbody>
+                                    </table>
+                                </div>
+                                <div class="col-md-6">
+                                    <p>Pegawai Yang Tepat Waktu</p>
+                                    <table class="datatable-init table">
+                                        <thead>
+                                            <tr>
+                                                
+                                                <td>No</td>
+                                                <td>Nama</td>
+                                                <td>Waktu terlambat</td>
+                                            </tr>
+                                        </thead>
+                                        <tbody>
+                                            @foreach ($tepat as $tep)
+                                                    
+                                            <tr>
+                                                <td>{{$loop->iteration}}</td>
+                                                <td>
+                                                    @php
+                                                        // Pastikan $tep sudah diinisialisasi sebelumnya
+                                                        $name = \App\Models\User::where('id', $tep->enhancer)->value('name');
+                                                    @endphp
+                                                    {{$name}}</td>
+                                                <td>
+                                                        
+                                                    {{$tep->time}} </td>
+                                            </tr>
+                                            @endforeach
+
+                                        </tbody>
+                                    </table>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
                 <div class="nk-block">
                     <div class="card card-bordered card-preview">
                         <div class="card-inner">
@@ -83,11 +169,25 @@
                                             <td>{{ $clockIn ?: '-' }}</td>
                                             <td>{{ $clockOut ?: '-' }}</td>
                                             <td>
-                                                <span
-                                                    class="badge {{ $status == 'Tepat Waktu' ? 'bg-success' : 'bg-danger' }}">
-                                                    {{ $status }}
-                                                </span>
+                                            
+                                                @php
+                                                $clockInTime = strtotime($clockIn);
+                                                $clockInTime = strtotime($clockIn); // Assuming $clockIn is a time string like '08:30'
+                                                $comparisonTime = strtotime('08:00');
+                                                $differenceInMinutes = ($clockInTime > $comparisonTime) ? round(($clockInTime - $comparisonTime) / 60) : 0;
+                                                $difference = round(abs($clockInTime - $comparisonTime) / 60);
+                                                @endphp
+                                                
+                                                @if ($clockInTime > $comparisonTime)
+                                                    <span class="badge bg-danger">Terlambat</span><br>
+                                                    {{$differenceInMinutes}} Menit <br> after 08.00
+                                                @else
+                                                    <span class="badge bg-success">Tepat waktu</span> <br>
+                                                {{$difference}} Menit <br> before 08.00
+
+                                                @endif
                                             </td>
+                                            
                                             {{-- <td>{{ $coordinate ?: '-' }}</td> --}}
                                             <td>
                                                 <ul class="nk-tb-actions gx-2">
