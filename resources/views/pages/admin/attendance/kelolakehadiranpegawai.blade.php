@@ -206,16 +206,33 @@
                                                                     <li><a href="#"><em
                                                                                 class="icon ni ni-na"></em><span>Hapus</span></a>
                                                                     </li> --}}
-                                                    <li><a href="{{ route('admin.print-kelolakehadiranpegawai-masuk', ['id' => $group->first()->id]) }}"
+                                                    @if ($clockIn== null && $clockOut == null)
+                                                        
+                                                    
+                                                    @elseif($clockIn == null)
+                                                    <li><a href="{{ route('admin.print-kelolakehadiranpegawai-keluar', ['id' => $group->first()->id]) }}"
+                                                        target="_blank" class="btn btn-secondary btn-sm"><em
+                                                            class="icon ni ni-printer"></em><span>Keluar</span></a>
+                                                    </li>        
+                                                    @elseif ($clockOut == null)
+                                                        <li><a href="{{ route('admin.print-kelolakehadiranpegawai-masuk', ['id' => $group->first()->id]) }}"
                                                             target="_blank" class="btn btn-secondary btn-sm"><em
-                                                                class="icon ni ni-printer"></em><span>Masuk</span></a>
-                                                    </li>
-                                                    @if ($clockOut)
+                                                            class="icon ni ni-printer"></em><span>Masuk</span></a>
+                                                        </li>
+                                                    @else
+                                                        <li><a href="{{ route('admin.print-kelolakehadiranpegawai-masuk', ['id' => $group->first()->id]) }}"
+                                                        target="_blank" class="btn btn-secondary btn-sm"><em
+                                                        class="icon ni ni-printer"></em><span>Masuk</span></a>
+                                                        </li>
                                                         <li><a href="{{ route('admin.print-kelolakehadiranpegawai-keluar', ['id' => $group->first()->id]) }}"
-                                                                target="_blank" class="btn btn-secondary btn-sm"><em
-                                                                    class="icon ni ni-printer"></em><span>Keluar</span></a>
+                                                            target="_blank" class="btn btn-secondary btn-sm"><em
+                                                                class="icon ni ni-printer"></em><span>Keluar</span></a>
                                                         </li>
                                                     @endif
+                                                    
+                                                    {{-- @if ($clockOut) --}}
+                                                        
+                                                    {{-- @endif --}}
                                                     {{-- </ul>
                                                             </div>
                                                         </div> --}}
