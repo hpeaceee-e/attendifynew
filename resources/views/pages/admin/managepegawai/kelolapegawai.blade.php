@@ -191,7 +191,7 @@
                                     {{$nama}}
                                 </td>
                                 <td>
-                                    <a href="">Restore</a>
+                                    <a href="{{route('admin.userrestore', $userd->id)}}">Restore</a>
                                     <form action="{{ route('admin.userdestroyed', $userd->id) }}" method="POST">
                                         @csrf
                                         @method('DELETE')

@@ -67,6 +67,7 @@ Route::middleware([AutoLogout::class])->group(function () {
             Route::post('/input-pegawai', [EmployeController::class, 'input'])->name('input-excel');
             //trashed user
             Route::get('/temporarydelete/{id}',[DeletedController::class,'deleteuser'])->name('userdeleted');
+            Route::get('/restoreuser/{id}',[DeletedController::class,'restoreuser'])->name('userrestore');
             //destroy user
             Route::delete('/destroyuser/{id}',[DeletedController::class,'destroyuser'])->name('userdestroyed');
         });
