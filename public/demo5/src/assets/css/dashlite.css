@@ -4717,8 +4717,8 @@ div.dataTables_wrapper div.dataTables_filter .form-floating > input:not(:placeho
 .page-item.active .page-link {
   z-index: 3;
   color: #fff;
-  background-color: #0971fe;
-  border-color: #0971fe;
+  background-color: #2c3e50;
+  border-color: #2c3e50;
 }
 .page-item.disabled .page-link {
   color: #dbdfea;
@@ -25830,6 +25830,7 @@ A HORIZONTAL event
   position: relative;
   z-index: 4;
   padding: 4px;
+  color: #2c3e50;
 }
 
 .fc {
@@ -27379,6 +27380,10 @@ span.fc-event-teal-dim .dot {
 }
 
 .fc-day {
+  color: #7a7a7a;
+}
+
+td.fc-daygrid-day.fc-day.fc-day-sun.fc-day-past {
   color: #7a7a7a;
 }
 
@@ -41179,7 +41184,7 @@ body.dark-mode.nk-body.ui-softy, body.dark-mode.nk-body.ui-shady {
   color: #b6c6e3;
 }
 .dark-mode .fc-day-other {
-  color: #8094ae;
+  color: #7a7a7a;
 }
 .dark-mode .fc-list-day, .dark-mode .fc-col-header-cell {
   color: #fff;
