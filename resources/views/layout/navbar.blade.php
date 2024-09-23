@@ -1,4 +1,4 @@
-<div id="sidebar" class="nk-sidebar nk-sidebar-fixed" data-content="sidebarMenu" style="background-color: #ffffff; ">
+<div id="sidebar" class="nk-sidebar nk-sidebar-fixed" data-content="sidebarMenu" style="background-color: #ffffff;">
     <div class="nk-sidebar-element nk-sidebar-head">
         <div class="nk-sidebar-brand">
             <a href="{{ route('admin.pages.admin.dashboard') }}" class="logo-link nk-sidebar-logo">
@@ -26,7 +26,7 @@
                             <a href="{{ route('admin.pages.admin.dashboard') }}" class="nk-menu-link"
                                 data-bs-original-title title="">
                                 <span class="nk-menu-icon"><em class="icon ni ni-home"></em></span>
-                                <span class="nk-menu-text">Dashboard </span>
+                                <span class="nk-menu-text">Dashboard</span>
                             </a>
                         </li><!-- .nk-menu-item -->
 

@@ -25488,6 +25488,7 @@ When it's NOT activated, the fc-button classes won't even be in the DOM.
 
 .fc .fc-col-header-cell-cushion {
   display: inline-block; /* x-browser for when sticky (when multi-tier header) */
+  color: #7a7a7a;
   padding: 2px 4px;
 }
 
@@ -27378,11 +27379,11 @@ span.fc-event-teal-dim .dot {
 }
 
 .fc-day {
-  color: #364a63;
+  color: #7a7a7a;
 }
 
 .fc-day-other {
-  color: #526484;
+  color: #7a7a7a;
 }
 
 .fc-col-header-cell {
@@ -28876,7 +28877,7 @@ body.nav-shown {
   line-height: 1.25rem;
 }
 .nk-menu-link:hover, .active > .nk-menu-link {
-  color: #2280fe;
+  color: #2c3e50;
 }
 .nk-menu-link:hover .count, .active > .nk-menu-link .count {
   color: #2280fe;
@@ -28938,7 +28939,7 @@ body.nav-shown {
   transition: color 0.4s, background-color 0.4s;
 }
 .nk-menu-link:hover .nk-menu-icon, .nk-menu-item.active > .nk-menu-link .nk-menu-icon, .nk-menu-item.current-menu > .nk-menu-link .nk-menu-icon {
-  color: #2280fe;
+  color: #2c3e50;
 }
 .is-theme .nk-menu-link:hover .nk-menu-icon, .is-theme .nk-menu-item.active > .nk-menu-link .nk-menu-icon, .is-theme .nk-menu-item.current-menu > .nk-menu-link .nk-menu-icon {
   color: #fff;
@@ -29145,10 +29146,10 @@ body.nav-shown {
     border-radius: 40px;
   }
   .nk-sidebar .nk-menu > li > a:hover {
-    background: #fff;
+    background: #f5f6fa;
   }
   .nk-sidebar .nk-menu > li:hover > a, .nk-sidebar .nk-menu > li.active > a, .nk-sidebar .nk-menu > li.current-menu > a {
-    background: #fff;
+    background: #f5f6fa;
   }
   .nk-sidebar .nk-menu-sm > li:hover a, .nk-sidebar .nk-menu-sm > li.active a, .nk-sidebar .nk-menu-sm > li.current-menu a, .nk-sidebar .nk-menu-sm > li > a:hover, .nk-sidebar .nk-menu-footer > li:hover a, .nk-sidebar .nk-menu-footer > li.active a, .nk-sidebar .nk-menu-footer > li.current-menu a, .nk-sidebar .nk-menu-footer > li > a:hover {
     background: transparent !important;
