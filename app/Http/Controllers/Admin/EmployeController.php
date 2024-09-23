@@ -29,7 +29,7 @@ class EmployeController extends Controller
         // dd($nama);
 
         // Menampilkan view dengan data pegawai
-        return view('pages.admin.managepegawai.kelolapegawai', compact('data','deletedUsers','nama'));
+        return view('pages.admin.managepegawai.kelolapegawai', compact('data', 'deletedUsers', 'nama'));
     }
 
     public function show($id)

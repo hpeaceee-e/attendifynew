@@ -130,16 +130,18 @@
                                                                                 href="{{ route('admin.editpegawai', ['id' => $d->id]) }}"><em
                                                                                     class="icon ni ni-edit"></em><span>Edit</span></a>
                                                                         </li>
-                                                                        @if ($d->trashed())
+                                                                        {{-- @if ($d->trashed())
                                                                             <li><a
                                                                                     href="{{ route('admin.restorepegawai', ['id' => $d->id]) }}"><em
                                                                                         class="icon ni ni-check-circle"></em><span>Restore</span></a>
                                                                             </li>
-                                                                        @else
+                                                                        @else --}}
                                                                         <li>
-                                                                            <a class="icon ni ni-na" href="{{route('admin.userdeleted', $d->id)}}"></em><span>Hapus</span></a>
+                                                                            <a
+                                                                                href="{{ route('admin.userdeleted', $d->id) }}"><em
+                                                                                    class="icon ni ni-na"></em><span>Hapus</span></a>
                                                                         </li>
-                                                                            {{-- <li><a href="#"
+                                                                        {{-- <li><a href="#"
                                                                                     onclick="event.preventDefault(); document.getElementById('delete-form-{{ $d->id }}').submit();"><em
                                                                                         class="icon ni ni-na"></em><span>Hapus</span></a>
                                                                                 <form id="delete-form-{{ $d->id }}"
@@ -148,8 +150,8 @@
                                                                                     @csrf
                                                                                     @method('DELETE')
                                                                                 </form> --}}
-                                                                            {{-- </li> --}}
-                                                                        @endif
+                                                                        {{-- </li> --}}
+                                                                        {{-- @endif --}}
                                                                     </ul>
                                                                 </div>
                                                             </div>
@@ -166,62 +168,72 @@
                         </div><!-- .card-preview -->
                     </div> <!-- nk-block -->
 
+                    <!-- Button to trigger modal -->
+                    <button type="button" class="btn btn-secondary mt-3" data-bs-toggle="modal"
+                        data-bs-target="#deletedEmployeesModal">
+                        Show Deleted Employees
+                    </button>
 
-                    <h4>Pegawai yang dihapus</h4>
-                    <table>
-                        <thead>
-                            <tr>
-                                <td>NO</td>
-                                <td>Name</td>
-                                <td>Deleted by</td>
-                                <td>Action</td>
-                            </tr>
-                        </thead>
-                        <tbody>
-                            @foreach ($deletedUsers as $userd)
-                                
-                            <tr>
-                                <td>{{$loop->iteration}}</td>
-                                <td>{{$userd->name}}</td>
-                                <td>
-                                    @php
-                                    $nama = \App\Models\User::where('id', $userd->deleted_by)->value('name');
-
-                                    @endphp
-                                    {{$nama}}
-                                </td>
-                                <td>
-                                    <a href="{{route('admin.userrestore', $userd->id)}}">Restore</a>
-                                    <form action="{{ route('admin.userdestroyed', $userd->id) }}" method="POST">
-                                        @csrf
-                                        @method('DELETE')
-                                        <button type="submit">Delete User</button>
-                                    </form>
-                                    
-                                </td>
-                                
-                            </tr>
-                            @endforeach
-                            {{-- <script>
-                                $.ajax({
-                                    url: '/admin/managepegawai.kelolapegawai/destroyuser/{{ $userd->id }}',
-                                    type: 'DELETE',
-                                    headers: {
-                                        'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
-                                    },
-                                    success: function(result) {
-                                        // Handle success
-                                    }
-                                });
-
-                            </script> --}}
-                        </tbody>
-                    </table>
+                    <!-- Deleted Employees Modal -->
+                    <div class="modal fade" id="deletedEmployeesModal" tabindex="-1"
+                        aria-labelledby="deletedEmployeesModalLabel" aria-hidden="true">
+                        <div class="modal-dialog modal-lg">
+                            <div class="modal-content">
+                                <div class="modal-header">
+                                    <h5 class="modal-title" id="deletedEmployeesModalLabel">Pegawai yang Dihapus</h5>
+                                    <button type="button" class="btn-close" data-bs-dismiss="modal"
+                                        aria-label="Close"></button>
+                                </div>
+                                <div class="modal-body">
+                                    <table class="datatable-init table table-hover table-bordered align-middle">
+                                        <thead class="thead-dark">
+                                            <tr>
+                                                <th class="text-center">No</th>
+                                                <th>Name</th>
+                                                <th>Deleted By</th>
+                                                <th class="text-center">Action</th>
+                                            </tr>
+                                        </thead>
+                                        <tbody>
+                                            @foreach ($deletedUsers as $userd)
+                                                <tr>
+                                                    <td class="text-center">{{ $loop->iteration }}</td>
+                                                    <td>{{ $userd->name }}</td>
+                                                    <td>
+                                                        @php
+                                                            $nama = \App\Models\User::where(
+                                                                'id',
+                                                                $userd->deleted_by,
+                                                            )->value('name');
+                                                        @endphp
+                                                        {{ $nama }}
+                                                    </td>
+                                                    <td class="text-center">
+                                                        <div class="d-flex justify-content-center">
+                                                            <a href="{{ route('admin.userrestore', $userd->id) }}"
+                                                                class="btn btn-sm btn-success me-2">Restore</a>
+                                                            <form action="{{ route('admin.userdestroyed', $userd->id) }}"
+                                                                method="POST" class="d-inline">
+                                                                @csrf
+                                                                @method('DELETE')
+                                                                <button type="submit" class="btn btn-sm btn-danger">Delete
+                                                                    Permanently</button>
+                                                            </form>
+                                                        </div>
+                                                    </td>
+                                                </tr>
+                                            @endforeach
+                                        </tbody>
+                                    </table>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
                 </div>
             </div>
         </div>
     </div>
-    <!-- Modal -->
+    <!-- Modal Filter Excel Add -->
     <div class="modal fade" id="uploadModal" tabindex="-1" aria-labelledby="uploadModalLabel" aria-hidden="true">
         <div class="modal-dialog">
             <div class="modal-content">
@@ -243,6 +255,31 @@
                     <li class="d-flex justify-content-center">
                         <button type="submit" class="btn btn-icon btn-secondary px-4">Save</button>
                     </li>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Modal for Excel upload -->
+    <div class="modal fade" id="uploadModal" tabindex="-1" aria-labelledby="uploadModalLabel" aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="uploadModalLabel">Upload File Excel</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body">
+                    <form id="uploadForm" action="{{ route('admin.input-excel') }}" method="POST"
+                        enctype="multipart/form-data">
+                        @csrf
+                        <div class="mb-3">
+                            <input type="file" accept=".xlsx, .csv, .xls" name="pegawaiexcel" id="excel"
+                                class="form-control">
+                        </div>
+                        <div class="d-flex justify-content-center">
+                            <button type="submit" class="btn btn-icon btn-secondary px-4">Save</button>
+                        </div>
                     </form>
                 </div>
             </div>

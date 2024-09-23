@@ -16,26 +16,37 @@ class AdminController extends Controller
     {
         // Mengambil data pegawai dari database
         $data = User::with('role', 'schedule')->get();
-        $cuti = Leave::all();
-          // Gunakan Leave::all() alih-alih Leave::get()
+        $cuti = Leave::all(); // Mengambil semua data cuti
 
-          $user = User::where('role', '!=', 1)->pluck('id')->toArray();
+        // Mengambil semua user kecuali admin (role != 1)
+        $user = User::where('role', '!=', 1)->pluck('id')->toArray();
 
+        // Menghitung pegawai hadir tepat waktu HARI INI
+        $tepatHariIni = Attendance::whereRaw("TIME(time) < '08:00:00'")
+            ->whereIn('enhancer', $user)
+            // ->whereDate('time', Carbon::today()) // untuk menampilkan data sesuai tanggal dan hari ini
+            ->get();
 
-          $tepat = Attendance::whereRaw("TIME(time) < '08:00:00'")
-                              ->whereIn('enhancer', $user)
-                              ->whereDate('time', Carbon::today())
-                              ->get();
-          
-          $telat = Attendance::whereRaw("TIME(time) > '08:00:00'")
-                              ->whereIn('enhancer', $user)
-                              ->whereDate('time', Carbon::today())
-                              ->get();
-          
+        // Menghitung pegawai terlambat HARI INI
+        $telatHariIni = Attendance::whereRaw("TIME(time) > '08:00:00'")
+            ->whereIn('enhancer', $user)
+            // ->whereDate('time', Carbon::today()) // untuk menampilkan data sesuai tanggal dan hari ini
+            ->get();
 
-        // Menampilkan view dengan data pegawai
-        return view('pages.admin.dashboard', compact('data', 'cuti','tepat','telat'));
+        // Menghitung total seluruh pegawai yang hadir tepat waktu (tidak dibatasi hari ini)
+        $totalTepat = Attendance::whereRaw("TIME(time) < '08:00:00'")
+            ->whereIn('enhancer', $user)
+            ->count(); // Menghitung semua yang hadir tepat waktu
+
+        // Menghitung total seluruh pegawai yang terlambat (tidak dibatasi hari ini)
+        $totalTelat = Attendance::whereRaw("TIME(time) > '08:00:00'")
+            ->whereIn('enhancer', $user)
+            ->count(); // Menghitung semua yang terlambat
+
+        // Menampilkan view dengan data pegawai, cuti, tepat, telat, dan total data
+        return view('pages.admin.dashboard', compact('data', 'cuti', 'tepatHariIni', 'telatHariIni', 'totalTepat', 'totalTelat'));
     }
+
 
     public function cuti()
     {

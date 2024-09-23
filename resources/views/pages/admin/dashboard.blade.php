@@ -64,7 +64,7 @@
                                             <em class="icon ni ni-check-circle"></em>
                                             <div class="info">
                                                 <span class="amount">
-                                                    {{-- {{ $hadir }} --}}1
+                                                    {{ $totalTepat }}
                                                 </span>
                                                 <span class="title">Total Hadir</span>
                                             </div>
@@ -73,7 +73,7 @@
                                             <em class="icon ni ni-alert-circle"></em>
                                             <div class="info">
                                                 <span class="amount">
-                                                    {{-- {{ $terlambat }} --}}2
+                                                    {{ $totalTelat }}
                                                 </span>
                                                 <span class="title">Total Terlambat</span>
                                             </div>
@@ -88,7 +88,9 @@
                                 <div class="card-inner">
                                     <div class="card-title-group align-start mb-3">
                                         <div class="card-title">
-                                            <h6 class="title">Daftar Pegawai Terlambat [Hari Ini]</h6>
+                                            <h6 class="title">Daftar Pegawai Terlambat :
+                                                {{ \Carbon\Carbon::now()->translatedFormat('l, d F Y', 'id') }}</h6>
+
                                         </div>
                                     </div>
                                     <div class="table-responsive">
@@ -96,26 +98,27 @@
                                             <thead>
                                                 <tr>
                                                     <th>No</th>
-                                                    <th>Jam Masuk</th>
                                                     <th>Nama Pegawai</th>
+                                                    <th>Waktu Masuk</th>
                                                     <th>Status</th>
                                                 </tr>
                                             </thead>
                                             <tbody>
                                                 {{-- @foreach ($terlambat as $index => $pegawai) --}}
-                                                @foreach ($telat as $tel)
-                                                    
-                                                <tr>
-                                                    <td>{{$loop->iteration
-                                                    }}</td>
-                                                    <td>{{$tel->time}}</td>
-                                                    <td>
-                                                        @php
-                                                            $name = \App\Models\User::where('id', $tel->enhancer)->value('name');
-                                                        @endphp
-                                                        {{$name}}</td>
-                                                    <td><span class="badge bg-danger">Absen Terlambat</span></td>
-                                                </tr>
+                                                @foreach ($telatHariIni as $tel)
+                                                    <tr>
+                                                        <td>{{ $loop->iteration }}</td>
+                                                        <td>
+                                                            @php
+                                                                $name = \App\Models\User::where(
+                                                                    'id',
+                                                                    $tel->enhancer,
+                                                                )->value('name');
+                                                            @endphp
+                                                            {{ $name }}</td>
+                                                        <td>{{ \Carbon\Carbon::parse($tel->time)->format('H:i') }}</td>
+                                                        <td><span class="badge bg-danger">Absen Terlambat</span></td>
+                                                    </tr>
                                                 @endforeach
 
                                                 {{-- @endforeach --}}
@@ -131,7 +134,9 @@
                                 <div class="card-inner">
                                     <div class="card-title-group align-start mb-3">
                                         <div class="card-title">
-                                            <h6 class="title">Daftar Pegawai Hadir [Hari Ini]</h6>
+                                            <h6 class="title">Daftar Pegawai Hadir :
+                                                {{ \Carbon\Carbon::now()->translatedFormat('l, d F Y', 'id') }}</h6>
+
                                         </div>
                                     </div>
                                     <div class="table-responsive">
@@ -139,26 +144,27 @@
                                             <thead>
                                                 <tr>
                                                     <th>No</th>
-                                                    <th>Waktu Datang</th>
                                                     <th>Nama Pegawai</th>
+                                                    <th>Waktu Datang</th>
                                                     <th>Status</th>
                                                 </tr>
                                             </thead>
                                             <tbody>
                                                 {{-- @foreach ($hadir as $index => $pegawai) --}}
-                                                    @foreach ($tepat as $tel)
-                                                    
-                                                <tr>
-                                                    <td>{{$loop->iteration
-                                                    }}</td>
-                                                    <td>{{$tel->time}}</td>
-                                                    <td>
-                                                        @php
-                                                            $name = \App\Models\User::where('id', $tel->enhancer)->value('name');
-                                                        @endphp
-                                                        {{$name}}</td>
-                                                    <td><span class="badge bg-success">Sudah Absen</span></td>
-                                                </tr>
+                                                @foreach ($tepatHariIni as $tep)
+                                                    <tr>
+                                                        <td>{{ $loop->iteration }}</td>
+                                                        <td>
+                                                            @php
+                                                                $name = \App\Models\User::where(
+                                                                    'id',
+                                                                    $tep->enhancer,
+                                                                )->value('name');
+                                                            @endphp
+                                                            {{ $name }}</td>
+                                                        <td>{{ \Carbon\Carbon::parse($tep->time)->format('H:i') }}</td>
+                                                        <td><span class="badge bg-success">Sudah Absen</span></td>
+                                                    </tr>
                                                 @endforeach
                                                 {{-- @endforeach --}}
                                             </tbody>

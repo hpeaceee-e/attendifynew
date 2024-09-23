@@ -45,7 +45,8 @@
                                 <div class="dropdown-inner user-card-wrap bg-lighter d-none d-md-block">
                                     <div class="user-card">
                                         <div class="user-avatar bg-secondary ">
-                                            <span class="text-white">AB</span>
+                                            <img src="{{ asset('images/avatar.jpg') }}" alt="{{ auth()->user()->name }}"
+                                                class="img-fluid rounded-circle">
                                         </div>
                                         <div class="user-info">
                                             <span class="lead-text">{{ auth()->user()->name }}</span>

@@ -54,7 +54,7 @@
                                         </div>
                                     </div>
                                 </div>
-                                <div class="dropdown-inner">
+                                {{-- <div class="dropdown-inner">
                                     <ul class="link-list">
                                         <li><a href="html/user-profile-regular.html"><em
                                                     class="icon ni ni-user-alt"></em><span>View
@@ -63,7 +63,7 @@
                                                     class="icon ni ni-activity-alt"></em><span>Login
                                                     Activity</span></a></li>
                                     </ul>
-                                </div>
+                                </div> --}}
                                 <div class="dropdown-inner">
                                     <ul class="link-list">
                                         <li><a href="{{ route('logout') }}"><em

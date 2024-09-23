@@ -16,12 +16,12 @@ class AttendanceController extends Controller
         $user = User::where('role', '!=', 1)->pluck('id')->toArray();
 
         $tepat = Attendance::whereRaw("TIME(`time`) < '08:00:00'")
-                    ->whereIn('enhancer', $user)
-                    ->get();
+            ->whereIn('enhancer', $user)
+            ->get();
 
         $telat = Attendance::whereRaw("TIME(`time`) > '08:00:00'")
-                    ->whereIn('enhancer', $user)
-                    ->get();
+            ->whereIn('enhancer', $user)
+            ->get();
 
 
         // dd($tepat);
@@ -68,10 +68,8 @@ class AttendanceController extends Controller
             ];
         });
 
-        return view('pages.admin.attendance.kelolakehadiranpegawai', compact('attendancesGrouped', 'attendances','telat','tepat'));
+        return view('pages.admin.attendance.kelolakehadiranpegawai', compact('attendancesGrouped', 'attendances', 'telat', 'tepat'));
     }
-
-
 
 
     public function cetakkehadiran()

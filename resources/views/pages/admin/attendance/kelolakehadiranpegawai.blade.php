@@ -12,7 +12,7 @@
                             <h3 class="nk-block-title page-title">Kelola Kehadiran Pegawai</h3>
                         </div><!-- .nk-block-head-content -->
                         <div class="nk-block-head-content">
-                            
+
                             <div class="toggle-wrap nk-block-tools-toggle">
                                 <a href="#" class="btn btn-icon btn-trigger toggle-expand me-n1"
                                     data-target="pageMenu"><em class="icon ni ni-menu-alt-r"></em></a>
@@ -31,7 +31,7 @@
                         </div><!-- .nk-block-head-content -->
                     </div><!-- .nk-block-between -->
                 </div><!-- .nk-block-head -->
-                <div class="nk-block">
+                {{-- <div class="nk-block">
                     <div class="card card-bordered card-preview">
                         <div class="card-inner">
                             <div class="row">
@@ -48,34 +48,41 @@
                                         </thead>
                                         <tbody>
                                             @foreach ($telat as $tel)
-                                                
-                                            <tr>
-                                                <td>{{$loop->iteration}}</td>
-                                                <td>
-                                                    @php
-                                                        // Pastikan $tep sudah diinisialisasi sebelumnya
-                                                        $name = \App\Models\User::where('id', $tel->enhancer)->value('name');
-                                                    @endphp
-                                                    {{$name}}</td>
+                                                <tr>
+                                                    <td>{{ $loop->iteration }}</td>
+                                                    <td>
+                                                        @php
+                                                            // Pastikan $tep sudah diinisialisasi sebelumnya
+                                                            $name = \App\Models\User::where(
+                                                                'id',
+                                                                $tel->enhancer,
+                                                            )->value('name');
+                                                        @endphp
+                                                        {{ $name }}</td>
                                                     <td>
                                                         @php
                                                             // Jam 08:00 pada tanggal yang sama
-                                                            $jamDelapan = \Carbon\Carbon::createFromFormat('Y-m-d H:i:s', $tel->time)->setTime(8, 0, 0);
-                                                    
+                                                            $jamDelapan = \Carbon\Carbon::createFromFormat(
+                                                                'Y-m-d H:i:s',
+                                                                $tel->time,
+                                                            )->setTime(8, 0, 0);
+
                                                             // Waktu yang diambil dari database
                                                             $time = \Carbon\Carbon::parse($tel->time);
-                                                    
+
                                                             // Hitung keterlambatan jika lebih dari jam 08:00
-                                                            $keterlambatan = $time->greaterThan($jamDelapan) ? round($time->diffInMinutes($jamDelapan)) : 0;
-                                                    
+                                                            $keterlambatan = $time->greaterThan($jamDelapan)
+                                                                ? round($time->diffInMinutes($jamDelapan))
+                                                                : 0;
+
                                                         @endphp
                                                         {{ abs($keterlambatan) }} Menit
                                                     </td>
 
-                                                    <td>{{$tel->time}}</td>
-                                                    
-                                                    
-                                            </tr>
+                                                    <td>{{ $tel->time }}</td>
+
+
+                                                </tr>
                                             @endforeach
 
                                         </tbody>
@@ -86,7 +93,7 @@
                                     <table class="datatable-init table">
                                         <thead>
                                             <tr>
-                                                
+
                                                 <td>No</td>
                                                 <td>Nama</td>
                                                 <td>Waktu terlambat</td>
@@ -94,19 +101,21 @@
                                         </thead>
                                         <tbody>
                                             @foreach ($tepat as $tep)
-                                                    
-                                            <tr>
-                                                <td>{{$loop->iteration}}</td>
-                                                <td>
-                                                    @php
-                                                        // Pastikan $tep sudah diinisialisasi sebelumnya
-                                                        $name = \App\Models\User::where('id', $tep->enhancer)->value('name');
-                                                    @endphp
-                                                    {{$name}}</td>
-                                                <td>
-                                                        
-                                                    {{$tep->time}} </td>
-                                            </tr>
+                                                <tr>
+                                                    <td>{{ $loop->iteration }}</td>
+                                                    <td>
+                                                        @php
+                                                            // Pastikan $tep sudah diinisialisasi sebelumnya
+                                                            $name = \App\Models\User::where(
+                                                                'id',
+                                                                $tep->enhancer,
+                                                            )->value('name');
+                                                        @endphp
+                                                        {{ $name }}</td>
+                                                    <td>
+
+                                                        {{ $tep->time }} </td>
+                                                </tr>
                                             @endforeach
 
                                         </tbody>
@@ -115,7 +124,7 @@
                             </div>
                         </div>
                     </div>
-                </div>
+                </div> --}}
                 <div class="nk-block">
                     <div class="card card-bordered card-preview">
                         <div class="card-inner">
@@ -129,7 +138,7 @@
                                         <th>Keluar</th>
                                         <th>Kehadiran</th>
                                         {{-- <th>Lokasi</th> --}}
-                                        <th>Action</th>
+                                        <th class="text-center">Action</th>
                                     </tr>
                                 </thead>
                                 <tbody>
@@ -169,25 +178,27 @@
                                             <td>{{ $clockIn ?: '-' }}</td>
                                             <td>{{ $clockOut ?: '-' }}</td>
                                             <td>
-                                            
+
                                                 @php
-                                                $clockInTime = strtotime($clockIn);
-                                                $clockInTime = strtotime($clockIn); // Assuming $clockIn is a time string like '08:30'
-                                                $comparisonTime = strtotime('08:00');
-                                                $differenceInMinutes = ($clockInTime > $comparisonTime) ? round(($clockInTime - $comparisonTime) / 60) : 0;
-                                                $difference = round(abs($clockInTime - $comparisonTime) / 60);
+                                                    $clockInTime = strtotime($clockIn);
+                                                    $clockInTime = strtotime($clockIn); // Assuming $clockIn is a time string like '08:30'
+                                                    $comparisonTime = strtotime('08:00');
+                                                    $differenceInMinutes =
+                                                        $clockInTime > $comparisonTime
+                                                            ? round(($clockInTime - $comparisonTime) / 60)
+                                                            : 0;
+                                                    $difference = round(abs($clockInTime - $comparisonTime) / 60);
                                                 @endphp
-                                                
+
                                                 @if ($clockInTime > $comparisonTime)
                                                     <span class="badge bg-danger">Terlambat</span><br>
-                                                    {{$differenceInMinutes}} Menit <br> after 08.00
+                                                    {{ $differenceInMinutes }} Menit <br> after 08.00
                                                 @else
                                                     <span class="badge bg-success">Tepat waktu</span> <br>
-                                                {{$difference}} Menit <br> before 08.00
-
+                                                    {{ $difference }} Menit <br> before 08.00
                                                 @endif
                                             </td>
-                                            
+
                                             {{-- <td>{{ $coordinate ?: '-' }}</td> --}}
                                             <td>
                                                 <ul class="nk-tb-actions gx-2">
@@ -206,32 +217,30 @@
                                                                     <li><a href="#"><em
                                                                                 class="icon ni ni-na"></em><span>Hapus</span></a>
                                                                     </li> --}}
-                                                    @if ($clockIn== null && $clockOut == null)
-                                                        
-                                                    
+                                                    @if ($clockIn == null && $clockOut == null)
                                                     @elseif($clockIn == null)
-                                                    <li><a href="{{ route('admin.print-kelolakehadiranpegawai-keluar', ['id' => $group->first()->id]) }}"
-                                                        target="_blank" class="btn btn-secondary btn-sm"><em
-                                                            class="icon ni ni-printer"></em><span>Keluar</span></a>
-                                                    </li>        
+                                                        <li><a href="{{ route('admin.print-kelolakehadiranpegawai-keluar', ['id' => $group->first()->id]) }}"
+                                                                target="_blank" class="btn btn-secondary btn-sm"><em
+                                                                    class="icon ni ni-printer"></em><span>Keluar</span></a>
+                                                        </li>
                                                     @elseif ($clockOut == null)
                                                         <li><a href="{{ route('admin.print-kelolakehadiranpegawai-masuk', ['id' => $group->first()->id]) }}"
-                                                            target="_blank" class="btn btn-secondary btn-sm"><em
-                                                            class="icon ni ni-printer"></em><span>Masuk</span></a>
+                                                                target="_blank" class="btn btn-secondary btn-sm"><em
+                                                                    class="icon ni ni-printer"></em><span>Masuk</span></a>
                                                         </li>
                                                     @else
                                                         <li><a href="{{ route('admin.print-kelolakehadiranpegawai-masuk', ['id' => $group->first()->id]) }}"
-                                                        target="_blank" class="btn btn-secondary btn-sm"><em
-                                                        class="icon ni ni-printer"></em><span>Masuk</span></a>
+                                                                target="_blank" class="btn btn-secondary btn-sm"><em
+                                                                    class="icon ni ni-printer"></em><span>Masuk</span></a>
                                                         </li>
                                                         <li><a href="{{ route('admin.print-kelolakehadiranpegawai-keluar', ['id' => $group->first()->id]) }}"
-                                                            target="_blank" class="btn btn-secondary btn-sm"><em
-                                                                class="icon ni ni-printer"></em><span>Keluar</span></a>
+                                                                target="_blank" class="btn btn-secondary btn-sm"><em
+                                                                    class="icon ni ni-printer"></em><span>Keluar</span></a>
                                                         </li>
                                                     @endif
-                                                    
+
                                                     {{-- @if ($clockOut) --}}
-                                                        
+
                                                     {{-- @endif --}}
                                                     {{-- </ul>
                                                             </div>

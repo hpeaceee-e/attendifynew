@@ -10,7 +10,7 @@
                     <div class="nk-block-head nk-block-head-lg wide-sm">
                         <div class="nk-block-head-content">
                             <div class="nk-block-head-sub"><a class="back-to" href="{{ route('admin.kelolajadwal') }}"><em
-                                        class="icon ni ni-arrow-left"></em><span>Back</span></a></div>
+                                        class="icon ni ni-chevron-left-circle-fill"></em><span>Back</span></a></div>
                             <h2 class="nk-block-title fw-normal">Edit Jadwal Pegawai</h2>
                         </div>
                     </div>
@@ -22,8 +22,42 @@
                                     @csrf
                                     <div class="preview-block">
                                         <span class="preview-title-lg overline-title">Edit Jadwal Pegawai</span>
+
                                         <div class="row gy-4">
-                                            <div class="col-sm-6">
+                                            <div class="col-sm-12">
+                                                <div class="form-group">
+                                                    <label for="shift" class="form-label">Shift</label>
+                                                    <div class="form-control-wrap">
+                                                        <input type="text" class="form-control" id="shift"
+                                                            name="shift" required>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <br>
+                                        <div class="row gy-4">
+                                            <div class="col-sm-4">
+                                                <div class="form-group">
+                                                    <label class="form-label" for="day">Nama Hari</label>
+                                                    <div class="form-control-wrap">
+                                                        <input type="text" class="form-control" id="day"
+                                                            name="day" required>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div class="col-sm-2">
+                                                <div class="form-group">
+                                                    <label class="form-label" for="abbreviation">Singkatan</label>
+                                                    <div class="form-control-wrap">
+                                                        <input type="text" class="form-control" id="abbreviation"
+                                                            name="abbreviation" required>
+                                                        @error('abbreviation')
+                                                            <small class="text-danger">{{ $message }}</small>
+                                                        @enderror
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div class="col-sm-2">
                                                 <div class="form-group">
                                                     <label class="form-label" for="clock_in">Jam Masuk</label>
                                                     <div class="form-control-wrap">
@@ -36,21 +70,8 @@
                                                     </div>
                                                 </div>
                                             </div>
-                                            <div class="col-sm-6">
-                                                <div class="form-group">
-                                                    <label class="form-label" for="clock_out">Jam Pulang</label>
-                                                    <div class="form-control-wrap">
-                                                        <input type="time" class="form-control" id="clock_out"
-                                                            name="clock_out"
-                                                            value="{{ \Carbon\Carbon::parse($schedules->clock_out)->format('H:i') }}"
-                                                            required>
-                                                        @error('clock_out')
-                                                            <small>{{ $message }}</small>
-                                                        @enderror
-                                                    </div>
-                                                </div>
-                                            </div>
-                                            <div class="col-sm-6">
+
+                                            <div class="col-sm-2">
                                                 <div class="form-group">
                                                     <label class="form-label" for="break">Istirahat</label>
                                                     <div class="form-control-wrap">
@@ -64,7 +85,22 @@
                                                     </div>
                                                 </div>
                                             </div>
+                                            <div class="col-sm-2">
+                                                <div class="form-group">
+                                                    <label class="form-label" for="clock_out">Jam Pulang</label>
+                                                    <div class="form-control-wrap">
+                                                        <input type="time" class="form-control" id="clock_out"
+                                                            name="clock_out"
+                                                            value="{{ \Carbon\Carbon::parse($schedules->clock_out)->format('H:i') }}"
+                                                            required>
+                                                        @error('clock_out')
+                                                            <small>{{ $message }}</small>
+                                                        @enderror
+                                                    </div>
+                                                </div>
+                                            </div>
                                         </div>
+
                                         <hr class="preview-hr">
                                         <div class="form-group">
                                             <button type="submit" class="btn btn-secondary">Update Jadwal</button>
