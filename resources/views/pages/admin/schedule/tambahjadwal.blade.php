@@ -39,7 +39,7 @@
                                                 </div>
                                             </div>
                                         </div>
-
+                                        <br>
                                         <div id="schedule-forms">
                                             <div class="row gy-4 schedule-form">
                                                 <div class="col-sm-4">
@@ -81,6 +81,9 @@
                                                         <div class="form-control-wrap">
                                                             <input type="time" class="form-control" name="break[]"
                                                                 required>
+                                                            @error('break.*')
+                                                                <small class="text-danger">{{ $message }}</small>
+                                                            @enderror
                                                         </div>
                                                     </div>
                                                 </div>
@@ -90,6 +93,9 @@
                                                         <div class="form-control-wrap">
                                                             <input type="time" class="form-control" name="clock_out[]"
                                                                 required>
+                                                            @error('clock_out.*')
+                                                                <small class="text-danger">{{ $message }}</small>
+                                                            @enderror
                                                         </div>
                                                     </div>
                                                 </div>

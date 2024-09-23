@@ -45,8 +45,13 @@
                                 <div class="dropdown-inner user-card-wrap bg-lighter d-none d-md-block">
                                     <div class="user-card">
                                         <div class="user-avatar bg-secondary ">
-                                            <img src="{{ asset('images/avatar.jpg') }}" alt="{{ auth()->user()->name }}"
-                                                class="img-fluid rounded-circle">
+                                            @php
+                                                $nameParts = explode(' ', auth()->user()->name);
+                                                $initials = strtoupper(
+                                                    $nameParts[0][0] . (isset($nameParts[1]) ? $nameParts[1][0] : ''),
+                                                );
+                                            @endphp
+                                            <span class="text-white">{{ $initials }}</span>
                                         </div>
                                         <div class="user-info">
                                             <span class="lead-text">{{ auth()->user()->name }}</span>
