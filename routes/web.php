@@ -62,14 +62,14 @@ Route::middleware([AutoLogout::class])->group(function () {
             Route::post('/updatepegawai/{id}', [EmployeController::class, 'update'])->name('editpegawaiupdate');
             Route::delete('/hapus/{id}', [EmployeController::class, 'destroy'])->name('deletepegawai');
             Route::get('/cetakpegawai', [EmployeController::class, 'cetakpegawai'])->name('print-kelolapegawai');
-            Route::get('restorepegawai/{id}', [AdminController::class, 'restore'])->name('restorepegawai');
-            Route::get('trashedpegawai', [AdminController::class, 'trashed'])->name('trashedpegawai');
+            // Route::get('restorepegawai/{id}', [AdminController::class, 'restore'])->name('restorepegawai');
+            // Route::get('trashedpegawai', [AdminController::class, 'trashed'])->name('trashedpegawai');
             Route::post('/input-pegawai', [EmployeController::class, 'input'])->name('input-excel');
             //trashed user
-            Route::get('/temporarydelete/{id}',[DeletedController::class,'deleteuser'])->name('userdeleted');
-            Route::get('/restoreuser/{id}',[DeletedController::class,'restoreuser'])->name('userrestore');
+            Route::get('/temporarydelete/{id}', [DeletedController::class, 'deleteuser'])->name('userdeleted');
+            Route::get('/restoreuser/{id}', [DeletedController::class, 'restoreuser'])->name('userrestore');
             //destroy user
-            Route::delete('/destroyuser/{id}',[DeletedController::class,'destroyuser'])->name('userdestroyed');
+            Route::delete('/destroyuser/{id}', [DeletedController::class, 'destroyuser'])->name('userdestroyed');
         });
 
         // Manage Attendance
@@ -98,6 +98,14 @@ Route::middleware([AutoLogout::class])->group(function () {
             Route::post('/update/{id}', [LeaveController::class, 'update'])->name('update-cuti');
             Route::get('/printkelolacuti', [LeaveController::class, 'cetakcuti'])->name('print-kelolacuti');
             Route::get('/printsatuancuti', [LeaveController::class, 'cetaksatuancuti'])->name('print-satuancuti');
+        });
+
+        Route::prefix('trashed.kelolasampah')->group(function () {
+            Route::get('/', [DeletedController::class, 'index'])->name('trashed');
+            Route::get('/temporarydelete/{id}', [DeletedController::class, 'deleteuser'])->name('userdeleted');
+            Route::get('/restoreuser/{id}', [DeletedController::class, 'restoreuser'])->name('userrestore');
+            //destroy user
+            Route::delete('/destroyuser/{id}', [DeletedController::class, 'destroyuser'])->name('userdestroyed');
         });
     });
 

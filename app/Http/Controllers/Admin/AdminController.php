@@ -24,13 +24,13 @@ class AdminController extends Controller
         // Menghitung pegawai hadir tepat waktu HARI INI
         $tepatHariIni = Attendance::whereRaw("TIME(time) < '08:00:00'")
             ->whereIn('enhancer', $user)
-            // ->whereDate('time', Carbon::today()) // untuk menampilkan data sesuai tanggal dan hari ini
+            ->whereDate('time', Carbon::today()) // untuk menampilkan data sesuai tanggal dan hari ini
             ->get();
 
         // Menghitung pegawai terlambat HARI INI
         $telatHariIni = Attendance::whereRaw("TIME(time) > '08:00:00'")
             ->whereIn('enhancer', $user)
-            // ->whereDate('time', Carbon::today()) // untuk menampilkan data sesuai tanggal dan hari ini
+            ->whereDate('time', Carbon::today()) // untuk menampilkan data sesuai tanggal dan hari ini
             ->get();
 
         // Menghitung total seluruh pegawai yang hadir tepat waktu (tidak dibatasi hari ini)

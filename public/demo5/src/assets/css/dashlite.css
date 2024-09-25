@@ -28880,6 +28880,7 @@ body.nav-shown {
   letter-spacing: 0.01em;
   text-transform: none;
   line-height: 1.25rem;
+  border-radius: 6px;
 }
 .nk-menu-link:hover, .active > .nk-menu-link {
   color: #2c3e50;
