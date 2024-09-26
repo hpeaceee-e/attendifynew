@@ -102,6 +102,7 @@ Route::middleware([AutoLogout::class])->group(function () {
 
         Route::prefix('trashed.kelolasampah')->group(function () {
             Route::get('/', [DeletedController::class, 'index'])->name('trashed');
+            //trashed user
             Route::get('/temporarydelete/{id}', [DeletedController::class, 'deleteuser'])->name('userdeleted');
             Route::get('/restoreuser/{id}', [DeletedController::class, 'restoreuser'])->name('userrestore');
             //destroy user

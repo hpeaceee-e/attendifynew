@@ -1,6 +1,6 @@
 @extends('layout.main')
 @section('title')
-    Sampah Data
+    Recycle Bin
 @endsection
 @section('content')
     <div class="nk-content nk-content-fluid">
@@ -21,7 +21,7 @@
                                 </tr>
                             </thead>
                             <tbody>
-                                @foreach ($data as $userd)
+                                @foreach ($deletedUsers as $userd)
                                     <tr>
                                         <td>{{ $loop->iteration }}</td>
                                         <td>{{ $userd->name }}</td>
