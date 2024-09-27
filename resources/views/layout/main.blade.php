@@ -22,6 +22,7 @@
     <script src='https://cdn.jsdelivr.net/npm/fullcalendar@6.1.15/index.global.min.js'></script>
     <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11/dist/sweetalert2.min.js"></script>
     <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <script src="https://unpkg.com/simplebar@latest/dist/simplebar.min.js"></script>
 
     <script>
         document.addEventListener('DOMContentLoaded', function() {
@@ -40,12 +41,12 @@
 <body class="nk-body bg-grey has-sidebar ">
     <div class="nk-app-root">
         <!-- main @s -->
-        <div class="nk-main ">
+        <div class="nk-main">
             <!-- sidebar @s -->
             @include('layout.navbar')
             <!-- sidebar @e -->
             <!-- wrap @s -->
-            <div class="nk-wrap ">
+            <div class="nk-wrap">
                 <!-- main header @s -->
                 @include('layout.topbar')
                 <!-- main header @e -->
@@ -80,6 +81,7 @@
     <script src="{{ asset('demo5/src/assets/js/bundle.js?ver=3.0.3') }}"></script>
     <script src="{{ asset('demo5/src/assets/js/scripts.js?ver=3.0.3') }}"></script>
     <script src="{{ asset('demo5/src/assets/js/charts/gd-default.js?ver=3.0.3') }}"></script>
+
 </body>
 
 </html>

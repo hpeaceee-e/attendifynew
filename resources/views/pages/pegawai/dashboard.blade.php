@@ -117,8 +117,11 @@
                                                     style="max-width: 100%; transform: scaleX(-1);">
                                             </div><!-- .col -->
                                             <!-- Left section: Welcome message and attendance button -->
-                                            <div class="col-6 d-flex flex-column justify-content-center">
-                                                <div class="card-title-group align-start mb-3">
+                                            <div class="col-6 d-flex flex-column justify-content-center align-items-end">
+                                                <!-- Menambahkan align-items-end -->
+                                                <div class="card-title-group align-start mb-3 text-end"
+                                                    style="direction: rtl; text-align: right;">
+                                                    <!-- Menambahkan style untuk arah teks -->
                                                     <div class="card-title">
                                                         <h6 class="title text-white">Selamat Datang di Sistem Kehadiran
                                                             Pegawai</h6>
@@ -133,6 +136,7 @@
                                                     </div>
                                                 </div>
                                             </div><!-- .col -->
+
 
 
                                         </div><!-- .row -->

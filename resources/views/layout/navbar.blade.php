@@ -9,8 +9,10 @@
             </a>
         </div>
         <div class="nk-menu-trigger me-n2">
-            <a href="#" class="nk-nav-toggle nk-quick-nav-icon d-xl-none" data-target="sidebarMenu"><em
-                    class="icon ni ni-arrow-left"></em></a>
+            {{-- <a href="#" class="nk-nav-toggle nk-quick-nav-icon" data-target="sidebarMenu"><em
+                    class="icon ni ni-arrow-left"></em></a> --}}
+            <a href="#" class="nk-nav-compact nk-quick-nav-icon d-none d-xl-inline-flex"
+                data-target="sidebarMenu"><em class="icon ni ni-menu"></em></a>
         </div>
 
     </div><!-- .nk-sidebar-element -->
@@ -42,12 +44,12 @@
                         <li class="nk-menu-item">
                             <a href="{{ route('admin.kelolakehadiranpegawai') }}" class="nk-menu-link">
                                 <span class="nk-menu-icon"><em class="icon ni ni-calendar-check"></em></span>
-                                <span class="nk-menu-text">Kelola Kehadiran Pegawai</span>
+                                <span class="nk-menu-text">Kelola Kehadiran</span>
                             </a>
                         <li class="nk-menu-item">
                             <a href="{{ route('admin.kelolajadwal') }}" class="nk-menu-link">
                                 <span class="nk-menu-icon"><em class="icon ni ni-calendar"></em></span>
-                                <span class="nk-menu-text">Kelola Jadwal Pegawai</span>
+                                <span class="nk-menu-text">Kelola Jadwal</span>
                             </a>
                         <li class="nk-menu-item">
                             <a href="{{ route('admin.kelolacuti') }}" class="nk-menu-link">
