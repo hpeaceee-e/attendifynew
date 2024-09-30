@@ -22,109 +22,18 @@
                                                 data-bs-toggle="modal" data-bs-target="#filterModal"><em
                                                     class="icon ni ni-filter"></em><span>Filter</span></a>
                                         </li>
-                                        <li><a href="{{ route('admin.print-kelolakehadiranpegawai') }}"
-                                                class="btn btn-secondary" target="_blank"><em
-                                                    class="icon ni ni-printer"></em><span>Cetak</span></a></li>
+                                        <li>
+                                            <a href="#" class="btn btn-secondary" target="_blank"
+                                                data-bs-toggle="modal" data-bs-target="#printModal">
+                                                <em class="icon ni ni-printer"></em><span>Cetak</span>
+                                            </a>
+                                        </li>
                                     </ul>
                                 </div>
                             </div><!-- .toggle-wrap -->
                         </div><!-- .nk-block-head-content -->
                     </div><!-- .nk-block-between -->
                 </div><!-- .nk-block-head -->
-                {{-- <div class="nk-block">
-                    <div class="card card-bordered card-preview">
-                        <div class="card-inner">
-                            <div class="row">
-                                <div class="col-md-6">
-                                    <p>Pegawai Yang Terlambat</p>
-                                    <table class="datatable-init table">
-                                        <thead>
-                                            <tr>
-                                                <td>No</td>
-                                                <td>Nama</td>
-                                                <td>Waktu terlambat</td>
-                                                <td>Waktu Absensi</td>
-                                            </tr>
-                                        </thead>
-                                        <tbody>
-                                            @foreach ($telat as $tel)
-                                                <tr>
-                                                    <td>{{ $loop->iteration }}</td>
-                                                    <td>
-                                                        @php
-                                                            // Pastikan $tep sudah diinisialisasi sebelumnya
-                                                            $name = \App\Models\User::where(
-                                                                'id',
-                                                                $tel->enhancer,
-                                                            )->value('name');
-                                                        @endphp
-                                                        {{ $name }}</td>
-                                                    <td>
-                                                        @php
-                                                            // Jam 08:00 pada tanggal yang sama
-                                                            $jamDelapan = \Carbon\Carbon::createFromFormat(
-                                                                'Y-m-d H:i:s',
-                                                                $tel->time,
-                                                            )->setTime(8, 0, 0);
-
-                                                            // Waktu yang diambil dari database
-                                                            $time = \Carbon\Carbon::parse($tel->time);
-
-                                                            // Hitung keterlambatan jika lebih dari jam 08:00
-                                                            $keterlambatan = $time->greaterThan($jamDelapan)
-                                                                ? round($time->diffInMinutes($jamDelapan))
-                                                                : 0;
-
-                                                        @endphp
-                                                        {{ abs($keterlambatan) }} Menit
-                                                    </td>
-
-                                                    <td>{{ $tel->time }}</td>
-
-
-                                                </tr>
-                                            @endforeach
-
-                                        </tbody>
-                                    </table>
-                                </div>
-                                <div class="col-md-6">
-                                    <p>Pegawai Yang Tepat Waktu</p>
-                                    <table class="datatable-init table">
-                                        <thead>
-                                            <tr>
-
-                                                <td>No</td>
-                                                <td>Nama</td>
-                                                <td>Waktu terlambat</td>
-                                            </tr>
-                                        </thead>
-                                        <tbody>
-                                            @foreach ($tepat as $tep)
-                                                <tr>
-                                                    <td>{{ $loop->iteration }}</td>
-                                                    <td>
-                                                        @php
-                                                            // Pastikan $tep sudah diinisialisasi sebelumnya
-                                                            $name = \App\Models\User::where(
-                                                                'id',
-                                                                $tep->enhancer,
-                                                            )->value('name');
-                                                        @endphp
-                                                        {{ $name }}</td>
-                                                    <td>
-
-                                                        {{ $tep->time }} </td>
-                                                </tr>
-                                            @endforeach
-
-                                        </tbody>
-                                    </table>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div> --}}
                 <div class="nk-block">
                     <div class="card card-bordered card-preview">
                         <div class="card-inner">
@@ -256,6 +165,84 @@
                         </div>
                     </div><!-- .card-preview -->
                 </div> <!-- nk-block -->
+                <!-- Modal Cetak -->
+                <div class="modal fade" id="printModal" tabindex="-1" aria-labelledby="printModalLabel" aria-hidden="true">
+                    <div class="modal-dialog">
+                        <div class="modal-content">
+                            <div class="modal-header">
+                                <h5 class="modal-title" id="printModalLabel">Cetak Kehadiran Pegawai</h5>
+                                <button type="button" class="btn-close" data-bs-dismiss="modal"
+                                    aria-label="Close"></button>
+                            </div>
+                            <form id="printForm" action="#" method="GET">
+                                <div class="modal-body">
+                                    <!-- Dropdown Pilihan Cetak -->
+                                    <div class="form-group">
+                                        <label for="printOption">Pilih Opsi Cetak</label>
+                                        <select name="printOption" id="printOption" class="form-control"
+                                            onchange="toggleDateInputs()">
+                                            <option value="all" selected>Cetak Semua</option>
+                                            <option value="byDate">Cetak Sesuai Tanggal</option>
+                                            <option value="byMonth">Cetak Sesuai Bulan</option>
+                                            <option value="byYear">Cetak Sesuai Tahun</option>
+                                        </select>
+                                    </div>
+
+                                    <!-- Input Tanggal -->
+                                    <div class="form-group" id="dateInput" style="display:none;">
+                                        <label class="form-label">Tanggal</label>
+                                        <div class="form-control-wrap">
+                                            <div class="form-icon form-icon-right">
+                                                <em class="icon ni ni-calendar-alt"></em>
+                                            </div>
+                                            <input type="text" data-date-format="dd M yyyy"
+                                                class="form-control date-picker" name="date">
+                                        </div>
+                                    </div>
+
+                                    <!-- Input Bulan -->
+                                    <div class="form-group" id="monthInput" style="display:none;">
+                                        <label class="form-label">Bulan</label>
+                                        <div class="form-control-wrap">
+                                            <input type="month" class="form-control" name="month">
+                                            {{-- <div class="form-icon form-icon-right">
+                                                <em class="icon ni ni-calendar"></em>
+                                            </div> --}}
+                                        </div>
+                                    </div>
+
+                                    <!-- Input Tahun -->
+                                    <div class="form-group" id="yearInput" style="display:none;">
+                                        <label class="form-label">Tahun</label>
+                                        <div class="form-control-wrap">
+                                            <input type="year" class="form-control" name="year"
+                                                placeholder="Tahun">
+                                            {{-- <div class="form-icon form-icon-right">
+                                                <em class="icon ni ni-calendar"></em>
+                                            </div> --}}
+                                        </div>
+                                    </div>
+
+
+                                    <!-- Filter Status Kehadiran -->
+                                    <div class="form-group">
+                                        <label for="status">Status Kehadiran</label>
+                                        <select name="status" id="status" class="form-control">
+                                            <option value="" selected>Semua</option>
+                                            <option value="Tepat Waktu">Tepat Waktu</option>
+                                            <option value="Terlambat">Terlambat</option>
+                                        </select>
+                                    </div>
+                                </div>
+                                <div class="modal-footer">
+                                    <button type="button" class="btn btn-secondary"
+                                        data-bs-dismiss="modal">Tutup</button>
+                                    <button type="submit" class="btn btn-primary">Cetak</button>
+                                </div>
+                            </form>
+                        </div>
+                    </div>
+                </div>
                 <!-- Modal Filter -->
                 <div class="modal fade" id="filterModal" tabindex="-1" aria-labelledby="filterModalLabel"
                     aria-hidden="true">
@@ -296,7 +283,8 @@
                                     </div>
                                 </div>
                                 <div class="modal-footer">
-                                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Tutup</button>
+                                    <button type="button" class="btn btn-secondary"
+                                        data-bs-dismiss="modal">Tutup</button>
                                     <button type="submit" class="btn btn-primary">Terapkan Filter</button>
                                 </div>
                             </form>
@@ -307,4 +295,13 @@
             </div>
         </div>
     </div>
+    <script>
+        // Fungsi untuk menampilkan input berdasarkan opsi cetak
+        function toggleDateInputs() {
+            var printOption = document.getElementById("printOption").value;
+            document.getElementById("dateInput").style.display = (printOption === "byDate") ? "block" : "none";
+            document.getElementById("monthInput").style.display = (printOption === "byMonth") ? "block" : "none";
+            document.getElementById("yearInput").style.display = (printOption === "byYear") ? "block" : "none";
+        }
+    </script>
 @endsection

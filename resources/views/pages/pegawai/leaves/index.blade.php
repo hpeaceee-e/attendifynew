@@ -242,14 +242,16 @@
         document.addEventListener('DOMContentLoaded', function() {
             var calendarEl = document.getElementById('calendar');
 
+            console.log('Calendar Element:', calendarEl); // Menampilkan elemen kalender
+
             var calendar = new FullCalendar.Calendar(calendarEl, {
                 initialView: 'dayGridMonth',
                 events: [
                     @foreach ($leaves as $item)
                         {
-                            title: '{{ $item->reason_verification }}',
+                            title: '{{ $item->reason }}',
                             start: '{{ $item->date }}',
-                            end: '{{ \Carbon\Carbon::parse($item->end_date)->addDay()->format('Y-m-d') }}', // Tambahkan satu hari
+                            end: '{{ \Carbon\Carbon::parse($item->end_date)->addDay()->format('Y-m-d') }}',
                             backgroundColor: @if ($item->status === null)
                                 '#f4bd0e'
                             @elseif ($item->status == '0')
@@ -269,7 +271,7 @@
                     @endforeach
                 ],
                 eventContent: function(info) {
-                    // Menambahkan gaya inline untuk memusatkan teks
+                    console.log('Event Info:', info); // Melihat data event
                     return {
                         html: `<div style="display: flex; justify-content: center; align-items: center; height: 100%; padding: 0;">${info.event.title}</div>`
                     };
@@ -278,6 +280,7 @@
 
             calendar.render();
         });
+
 
 
         function toggleFilters() {
