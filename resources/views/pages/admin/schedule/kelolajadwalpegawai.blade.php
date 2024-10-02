@@ -100,7 +100,7 @@
                         </div><!-- .card-preview -->
                     </div> <!-- nk-block -->
                     <div class="nk-block">
-                        <h3 class="nk-block-title page-title">Pembagian Jadwal Pegawai (didapatkan dari tabel user)</h3>
+                        <h3 class="nk-block-title page-title">Pembagian Jadwal Pegawai</h3>
                         <div class="card card-bordered card-preview">
                             <div class="card-inner">
                                 <table class="datatable-init table">
@@ -119,8 +119,14 @@
                                             <td>Nama Pegawai</td>
                                             <!-- Adjust this line according to your model -->
                                             <td>
-                                                Dropdown dari tabel schedulenya untuk memilih shift
+                                                <select name="schedule" class="form-control">
+                                                    <option value="shift">Shift</option>
+                                                    <option value="pegawai">Pegawai</option>
+                                                    <option value="internship">Internship</option>
+                                                    <option value="pkl_smk">PKL SMK</option>
+                                                </select>
                                             </td>
+
                                             {{-- @endforeach --}}
                                     </tbody>
                                 </table>
