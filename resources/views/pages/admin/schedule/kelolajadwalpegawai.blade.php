@@ -38,7 +38,7 @@
                                         <tr>
                                             <th class="text-center">No</th>
                                             <th>Shift</th>
-                                            <th class="text-center">Jam Kerja</th>
+                                            <th class="text-center">Waktu Kerja</th>
                                             <th class="text-center">Action</th>
                                         </tr>
                                     </thead>
@@ -54,15 +54,17 @@
                                                     $clockOut->diffInHours($clockIn) - $break->diffInHours($clockIn);
                                             @endphp
                                             <tr>
-                                                <td class="text-center">{{ $schedule->id }}</td>
-                                                <td>Pegawai</td>
+                                                <td class="text-center">{{ $loop->iteration }}</td>
+                                                <td>{{$schedule->shift_name}}</td>
                                                 <td>
-                                                    {{ $clockIn->format('H:i') }} - {{ $break->format('H:i') }} (Istirahat)
-                                                    - {{ $clockOut->format('H:i') }}
-                                                    <br>
-                                                    <small>Total Jam Kerja:
-                                                        {{-- {{ $workHours }} --}} 1231231 Jam
-                                                        jam</small>
+                                                    @php
+                                                    $datasd = \App\Models\ScheduleDayM::where('schedule_id', $schedule->id)->get();
+                                                    @endphp
+                                                
+                                                    @foreach ($datasd as $sd)  
+                                                        {{ $sd->days }} ==> Jam Masuk {{$sd->clock_in}} ==> Jam Istirahat {{$sd->break}} ==> Jam Pulang {{$sd->clock_out}} <br>
+                                                    @endforeach
+
                                                 </td>
                                                 <td>
                                                     <ul class="nk-tb-actions gx-2">
@@ -83,7 +85,7 @@
                                                                             </a>
                                                                         </li>
                                                                         <li>
-                                                                            <a href="#"><em
+                                                                            <a href="{{route('admin.delete-jadwal',$schedule->id)}}"><em
                                                                                     class="icon ni ni-na"></em><span>Hapus</span></a>
                                                                         </li>
                                                                     </ul>
@@ -109,25 +111,32 @@
                                             <th class="text-center">No</th>
                                             <th>Nama Pegawai</th>
                                             <th class="text-center">Jadwal</th>
-                                            {{-- <th class="text-center">Action</th> --}}
                                         </tr>
                                     </thead>
                                     <tbody>
-                                        {{-- @foreach ($schedules as $schedule) --}}
+                                        @foreach ($data as $d)
                                         <tr>
-                                            <td class="text-center">1</td>
-                                            <td>Nama Pegawai</td>
-                                            <!-- Adjust this line according to your model -->
+                                            @php
+                                                $name = \App\Models\Schedule::where('id',$d->schedule)->value('shift_name');
+                                                $id = \App\Models\Schedule::where('id',$d->schedule)->value('id');
+                                                $day = \App\Models\Schedule::all();
+                                            @endphp
+                                            <td class="text-center">{{$loop->iteration}}</td>
+                                            <td>{{$d->name}}</td>
                                             <td>
-                                                <select name="schedule" class="form-control">
-                                                    <option value="shift">Shift</option>
-                                                    <option value="pegawai">Pegawai</option>
-                                                    <option value="internship">Internship</option>
-                                                    <option value="pkl_smk">PKL SMK</option>
+                                                @if ($d->schedule == null)
+                                                <select name="schedule" class="form-control" data-id="{{ $d->id }}">
+                                                    <option value="shift" disabled>--Pilih Shift--</option>
+                                                    @foreach ($day as $dd)
+                                                    <option value="{{$dd->id}}">{{$dd->shift_name}}</option>
+                                                    @endforeach
                                                 </select>
+                                                @else
+                                                {{$name}}
+                                                @endif
                                             </td>
-
-                                            {{-- @endforeach --}}
+                                        </tr>
+                                        @endforeach
                                     </tbody>
                                 </table>
                                 <div class="mt-3">
@@ -136,6 +145,35 @@
                             </div>
                         </div><!-- .card-preview -->
                     </div> <!-- nk-block -->
+                    
+                    <script src="https://code.jquery.com/jquery-3.5.1.min.js"></script>
+                    <script>
+                        $(document).ready(function() {
+                            $('select[name="schedule"]').change(function() {
+                                var selectedValue = $(this).val();
+                                var employeeId = $(this).data('id');
+                    
+                                $.ajax({
+                                    url: "{{ route('admin.update.sch-jadwal') }}",
+                                    method: "POST",
+                                    data: {
+                                        id: employeeId,
+                                        schedule_id: selectedValue,
+                                        _token: '{{ csrf_token() }}'
+                                    },
+                                    success: function(response) {
+                                        if (response.success) {
+                                            alert('Data jadwal berhasil diupdate!');
+                                        }
+                                    },
+                                    error: function(xhr) {
+                                        alert('Terjadi kesalahan saat mengupdate data.');
+                                    }
+                                });
+                            });
+                        });
+                    </script>
+                    
 
                 </div>
             </div>

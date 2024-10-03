@@ -90,6 +90,8 @@ Route::middleware([AutoLogout::class])->group(function () {
             Route::get('/editjadwal/{id}', [ScheduleController::class, 'edit'])->name('editjadwal');
             Route::post('/updatejadwal/{id}', [ScheduleController::class, 'update'])->name('updatejadwal');
             Route::get('/printjadwal', [ScheduleController::class, 'print'])->name('print-jadwal');
+            Route::get('/delete/{id}', [ScheduleController::class, 'delete'])->name('delete-jadwal');
+            Route::post('/update-sch', [ScheduleController::class, 'update_sch'])->name('update.sch-jadwal');
         });
 
         Route::prefix('leave.kelolacuti')->group(function () {

@@ -12,9 +12,9 @@ class Schedule extends Model
     use SoftDeletes;
 
     protected $fillable = [
-        'clock_in',
-        'clock_out',
-        'break',
+        'shift_name',
+        'singkatan',
+
     ];
 
     public function users()

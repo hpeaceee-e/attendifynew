@@ -38,32 +38,40 @@
                                                     </div>
                                                 </div>
                                             </div>
+                                            <div class="col-sm-12">
+                                                <div class="form-group">
+                                                    <label class="form-label" for="abbreviation">Singkatan</label>
+                                                    <div class="form-control-wrap">
+                                                        <input type="text" class="form-control" name="abbreviation"
+                                                            required>
+                                                        @error('abbreviation.*')
+                                                            <small class="text-danger">{{ $message }}</small>
+                                                        @enderror
+                                                    </div>
+                                                </div>
+                                            </div>
                                         </div>
                                         <br>
                                         <div id="schedule-forms">
                                             <div class="row gy-4 schedule-form">
-                                                <div class="col-sm-4">
+                                                <div class="col-sm-3 mb-3">
                                                     <div class="form-group">
                                                         <label class="form-label" for="day">Nama Hari</label>
                                                         <div class="form-control-wrap">
-                                                            <input type="text" class="form-control" name="day[]"
-                                                                required>
+                                                            <select class="form-control" name="day[]" id="" required>
+                                                                <option value="Senin">Senin</option>
+                                                                <option value="Selasa">Selasa</option>
+                                                                <option value="Rabu">Rabu</option>
+                                                                <option value="Kamis">Kamis</option>
+                                                                <option value="Jumat">Jumat</option>
+                                                            </select>
+                                                            {{-- <input type="text" class="form-control" name="day[]"
+                                                                required> --}}
                                                         </div>
                                                     </div>
                                                 </div>
-                                                <div class="col-sm-2">
-                                                    <div class="form-group">
-                                                        <label class="form-label" for="abbreviation">Singkatan</label>
-                                                        <div class="form-control-wrap">
-                                                            <input type="text" class="form-control" name="abbreviation[]"
-                                                                required>
-                                                            @error('abbreviation.*')
-                                                                <small class="text-danger">{{ $message }}</small>
-                                                            @enderror
-                                                        </div>
-                                                    </div>
-                                                </div>
-                                                <div class="col-sm-2">
+                                                
+                                                <div class="col-sm-3">
                                                     <div class="form-group">
                                                         <label class="form-label" for="clock_in">Jam Masuk</label>
                                                         <div class="form-control-wrap">
@@ -75,7 +83,7 @@
                                                         </div>
                                                     </div>
                                                 </div>
-                                                <div class="col-sm-2">
+                                                <div class="col-sm-3">
                                                     <div class="form-group">
                                                         <label class="form-label" for="break">Istirahat</label>
                                                         <div class="form-control-wrap">
@@ -87,7 +95,7 @@
                                                         </div>
                                                     </div>
                                                 </div>
-                                                <div class="col-sm-2">
+                                                <div class="col-sm-3">
                                                     <div class="form-group">
                                                         <label class="form-label" for="clock_out">Jam Pulang</label>
                                                         <div class="form-control-wrap">
@@ -127,22 +135,22 @@
             newForm.classList.add('row', 'gy-4', 'schedule-form');
 
             newForm.innerHTML = `
-                <div class="col-sm-4">
+                <div class="col-sm-3 mb-3">
                     <div class="form-group">
 
                         <div class="form-control-wrap">
-                            <input type="text" class="form-control" name="day[]" required>
+                            <select class="form-control" name="day[]" id="" required>
+                                <option value="Senin">Senin</option>
+                                <option value="Selasa">Selasa</option>
+                                <option value="Rabu">Rabu</option>
+                                <option value="Kamis">Kamis</option>
+                                <option value="Jumat">Jumat</option>
+                            </select>
                         </div>
                     </div>
                 </div>
-                <div class="col-sm-2">
-                    <div class="form-group">
-                        <div class="form-control-wrap">
-                            <input type="text" class="form-control" name="abbreviation[]" required>
-                        </div>
-                    </div>
-                </div>
-                <div class="col-sm-2">
+               
+                <div class="col-sm-3">
                     <div class="form-group">
 
                         <div class="form-control-wrap">
@@ -150,7 +158,7 @@
                         </div>
                     </div>
                 </div>
-                <div class="col-sm-2">
+                <div class="col-sm-3">
                     <div class="form-group">
 
                         <div class="form-control-wrap">
@@ -158,7 +166,7 @@
                         </div>
                     </div>
                 </div>
-                <div class="col-sm-2">
+                <div class="col-sm-3">
                     <div class="form-group">
 
                         <div class="form-control-wrap">
