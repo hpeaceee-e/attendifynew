@@ -24,7 +24,7 @@
                                         <div class="col-md-4 d-flex flex-column align-items-center text-center mb-4">
                                             <!-- Display the current avatar -->
                                             <div class="img-fluid rounded-circle shadow-sm"
-                                                style="width: 150px; height: 150px; background-color: #f0f0f0; display: flex; align-items: center; justify-content: center; overflow: hidden;">
+                                                style="width: 150px; height: 150px; background-color: #2c3e50; display: flex; align-items: center; justify-content: center; overflow: hidden;">
                                                 @if ($item->avatar)
                                                     <img src="{{ asset($item->avatar) }}" alt="{{ $item->name }}'s avatar"
                                                         class="img-fluid"

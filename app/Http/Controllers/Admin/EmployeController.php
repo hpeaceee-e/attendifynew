@@ -20,7 +20,6 @@ class EmployeController extends Controller
     {
         // Mengambil data pegawai dari database
         $data = User::with('role', 'schedule')->get();
-
         // $deleteduser = User::where('delete_at' != null)->get();
         $deletedUsers = User::onlyTrashed()->get();
         $deleteby = User::onlyTrashed()->value('deleted_by');
@@ -181,33 +180,33 @@ class EmployeController extends Controller
 
 
 
-    public function destroy($id)
-    {
-        $user = User::findOrFail($id);
+    // public function destroy($id)
+    // {
+    //     $user = User::findOrFail($id);
 
-        if (!$user) {
-            return redirect()->route('admin.kelolapegawai')->with('error', 'Pegawai tidak ditemukan');
-        }
+    //     if (!$user) {
+    //         return redirect()->route('admin.kelolapegawai')->with('error', 'Pegawai tidak ditemukan');
+    //     }
 
-        $user->delete();
+    //     $user->delete();
 
-        return redirect()->route('admin.kelolapegawai')->with('success', 'Pegawai berhasil dihapus.');
-    }
+    //     return redirect()->route('admin.kelolapegawai')->with('success', 'Pegawai berhasil dihapus.');
+    // }
 
-    public function trashed()
-    {
-        $data = User::onlyTrashed()->get();
+    // public function trashed()
+    // {
+    //     $data = User::onlyTrashed()->get();
 
-        return view('pages.admin.managepegawai.trashed', compact('data'));
-    }
+    //     return view('pages.admin.managepegawai.trashed', compact('data'));
+    // }
 
-    public function restore($id)
-    {
-        $user = User::onlyTrashed()->findOrFail($id);
-        $user->restore();
+    // public function restore($id)
+    // {
+    //     $user = User::onlyTrashed()->findOrFail($id);
+    //     $user->restore();
 
-        return redirect()->route('admin.kelolapegawai')->with('success', 'Pegawai berhasil dikembalikan.');
-    }
+    //     return redirect()->route('admin.kelolapegawai')->with('success', 'Pegawai berhasil dikembalikan.');
+    // }
 
 
 

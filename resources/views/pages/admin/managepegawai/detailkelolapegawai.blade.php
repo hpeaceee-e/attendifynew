@@ -22,12 +22,24 @@
                                     <!-- Kiri: Informasi Personal -->
                                     <div class="col-md-4">
                                         <div class="text-center mb-4">
-                                            <img src="{{ asset($item->avatar) }}" alt="avatar"
-                                                class="img-fluid rounded-circle shadow-sm" style="max-width: 150px;">
+                                            <div class="img-fluid rounded-circle shadow-sm"
+                                                style="width: 150px; height: 150px; background-color: #2c3e50; display: flex; align-items: center; justify-content: center; margin: 0 auto; overflow: hidden;">
+                                                @if ($item->avatar)
+                                                    <img src="{{ asset($item->avatar) }}" alt="{{ $item->name }}'s avatar"
+                                                        class="img-fluid text-white"
+                                                        style="width: 100%; height: 100%; object-fit: cover;">
+                                                @else
+                                                    <span>
+                                                        No
+                                                    </span>
+                                                @endif
+                                            </div>
                                             <h5 class="mt-3">{{ $item->name }}</h5>
                                             <p class="text-muted">{{ $item->email }}</p>
                                         </div>
                                     </div>
+
+
 
                                     <!-- Kanan: Detail Informasi -->
                                     <div class="col-md-8">
@@ -65,7 +77,8 @@
                                                 <div class="form-group">
                                                     <label class="form-label">Status Akun</label>
                                                     <input type="text" class="form-control"
-                                                        value="{{ $item->status == 0 ? 'Aktif' : 'Tidak Aktif' }}" disabled>
+                                                        value="{{ $item->status == 0 ? 'Aktif' : 'Tidak Aktif' }}"
+                                                        disabled>
                                                 </div>
                                             </div>
                                             <div class="col-md-6">

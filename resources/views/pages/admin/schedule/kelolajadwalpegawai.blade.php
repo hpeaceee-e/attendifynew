@@ -30,16 +30,16 @@
                             </div><!-- .nk-block-head-content -->
                         </div><!-- .nk-block-between -->
                     </div><!-- .nk-block-head -->
-                    <div class="nk-block">
+                    <div class="nk-block ">
                         <div class="card card-bordered card-preview">
                             <div class="card-inner">
                                 <table class="datatable-init table">
                                     <thead>
                                         <tr>
-                                            <th class="text-center">No</th>
+                                            <th>No</th>
                                             <th>Shift</th>
-                                            <th class="text-center">Waktu Kerja</th>
-                                            <th class="text-center">Action</th>
+                                            <th>Waktu Kerja</th>
+                                            <th>Action</th>
                                         </tr>
                                     </thead>
                                     <tbody>
@@ -54,16 +54,27 @@
                                                     $clockOut->diffInHours($clockIn) - $break->diffInHours($clockIn);
                                             @endphp
                                             <tr>
-                                                <td class="text-center">{{ $loop->iteration }}</td>
-                                                <td>{{$schedule->shift_name}}</td>
+                                                <td>{{ $loop->iteration }}</td>
+                                                <td>{{ $schedule->shift_name }}</td>
                                                 <td>
                                                     @php
-                                                    $datasd = \App\Models\ScheduleDayM::where('schedule_id', $schedule->id)->get();
+                                                        $datasd = \App\Models\ScheduleDayM::where(
+                                                            'schedule_id',
+                                                            $schedule->id,
+                                                        )->get();
                                                     @endphp
-                                                
-                                                    @foreach ($datasd as $sd)  
-                                                        {{ $sd->days }} ==> Jam Masuk {{$sd->clock_in}} ==> Jam Istirahat {{$sd->break}} ==> Jam Pulang {{$sd->clock_out}} <br>
-                                                    @endforeach
+
+                                                    <table style="width: 100%;">
+                                                        @foreach ($datasd as $sd)
+                                                            <tr>
+                                                                <td>{{ $loop->iteration }}.</td>
+                                                                <td>{{ $sd->days }}</td>
+                                                                <td style="padding-left: 20px;">{{ $sd->clock_in }} -
+                                                                    {{ $sd->clock_out }}</td>
+                                                            </tr>
+                                                        @endforeach
+                                                    </table>
+                                                    <div style="padding-left: 20px;">: oakwoawk jam</div>
 
                                                 </td>
                                                 <td>
@@ -85,7 +96,8 @@
                                                                             </a>
                                                                         </li>
                                                                         <li>
-                                                                            <a href="{{route('admin.delete-jadwal',$schedule->id)}}"><em
+                                                                            <a
+                                                                                href="{{ route('admin.delete-jadwal', $schedule->id) }}"><em
                                                                                     class="icon ni ni-na"></em><span>Hapus</span></a>
                                                                         </li>
                                                                     </ul>
@@ -101,41 +113,45 @@
                             </div>
                         </div><!-- .card-preview -->
                     </div> <!-- nk-block -->
-                    <div class="nk-block">
+                    <div class="nk-block ">
                         <h3 class="nk-block-title page-title">Pembagian Jadwal Pegawai</h3>
                         <div class="card card-bordered card-preview">
                             <div class="card-inner">
                                 <table class="datatable-init table">
                                     <thead>
                                         <tr>
-                                            <th class="text-center">No</th>
+                                            <th>No</th>
                                             <th>Nama Pegawai</th>
-                                            <th class="text-center">Jadwal</th>
+                                            <th>Jadwal</th>
                                         </tr>
                                     </thead>
                                     <tbody>
                                         @foreach ($data as $d)
-                                        <tr>
-                                            @php
-                                                $name = \App\Models\Schedule::where('id',$d->schedule)->value('shift_name');
-                                                $id = \App\Models\Schedule::where('id',$d->schedule)->value('id');
-                                                $day = \App\Models\Schedule::all();
-                                            @endphp
-                                            <td class="text-center">{{$loop->iteration}}</td>
-                                            <td>{{$d->name}}</td>
-                                            <td>
-                                                @if ($d->schedule == null)
-                                                <select name="schedule" class="form-control" data-id="{{ $d->id }}">
-                                                    <option value="shift" disabled>--Pilih Shift--</option>
-                                                    @foreach ($day as $dd)
-                                                    <option value="{{$dd->id}}">{{$dd->shift_name}}</option>
-                                                    @endforeach
-                                                </select>
-                                                @else
-                                                {{$name}}
-                                                @endif
-                                            </td>
-                                        </tr>
+                                            <tr>
+                                                @php
+                                                    $name = \App\Models\Schedule::where('id', $d->schedule)->value(
+                                                        'shift_name',
+                                                    );
+                                                    $id = \App\Models\Schedule::where('id', $d->schedule)->value('id');
+                                                    $day = \App\Models\Schedule::all();
+                                                @endphp
+                                                <td>{{ $loop->iteration }}</td>
+                                                <td>{{ $d->name }}</td>
+                                                <td>
+                                                    @if ($d->schedule == null)
+                                                        <select name="schedule" class="form-control"
+                                                            data-id="{{ $d->id }}">
+                                                            <option value="shift" disabled>--Pilih Shift--</option>
+                                                            @foreach ($day as $dd)
+                                                                <option value="{{ $dd->id }}">{{ $dd->shift_name }}
+                                                                </option>
+                                                            @endforeach
+                                                        </select>
+                                                    @else
+                                                        {{ $name }}
+                                                    @endif
+                                                </td>
+                                            </tr>
                                         @endforeach
                                     </tbody>
                                 </table>
@@ -145,14 +161,14 @@
                             </div>
                         </div><!-- .card-preview -->
                     </div> <!-- nk-block -->
-                    
+
                     <script src="https://code.jquery.com/jquery-3.5.1.min.js"></script>
                     <script>
                         $(document).ready(function() {
                             $('select[name="schedule"]').change(function() {
                                 var selectedValue = $(this).val();
                                 var employeeId = $(this).data('id');
-                    
+
                                 $.ajax({
                                     url: "{{ route('admin.update.sch-jadwal') }}",
                                     method: "POST",
@@ -173,7 +189,7 @@
                             });
                         });
                     </script>
-                    
+
 
                 </div>
             </div>
