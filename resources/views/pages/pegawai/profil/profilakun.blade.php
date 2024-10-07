@@ -15,6 +15,28 @@
                         </div>
                         <h2 class="nk-block-title fw-normal"></h2>
                     </div>
+                    @if (session('success'))
+                        <script>
+                            Swal.fire({
+                                icon: 'success',
+                                title: 'Success',
+                                text: '{{ session('success') }}',
+                                timer: 3000,
+                                showConfirmButton: false
+                            });
+                        </script>
+                    @endif
+                    @if (session('error'))
+                        <script>
+                            Swal.fire({
+                                icon: 'error',
+                                title: 'Error',
+                                text: '{{ session('error') }}',
+                                timer: 3000,
+                                showConfirmButton: false
+                            });
+                        </script>
+                    @endif
                     <div class="nk-block nk-block-lg">
                         <div class="card card-bordered card-preview shadow-sm">
                             <div class="card-inner">

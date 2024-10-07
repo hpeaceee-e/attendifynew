@@ -34,6 +34,28 @@
                         </div><!-- .nk-block-head-content -->
                     </div><!-- .nk-block-between -->
                 </div><!-- .nk-block-head -->
+                @if (session('success'))
+                    <script>
+                        Swal.fire({
+                            icon: 'success',
+                            title: 'Success',
+                            text: '{{ session('success') }}',
+                            timer: 3000,
+                            showConfirmButton: false
+                        });
+                    </script>
+                @endif
+                @if (session('error'))
+                    <script>
+                        Swal.fire({
+                            icon: 'error',
+                            title: 'Error',
+                            text: '{{ session('error') }}',
+                            timer: 3000,
+                            showConfirmButton: false
+                        });
+                    </script>
+                @endif
                 <div class="nk-block">
                     <div class="card card-bordered card-preview">
                         <div class="card-inner py-3 border-bottom border-light ">

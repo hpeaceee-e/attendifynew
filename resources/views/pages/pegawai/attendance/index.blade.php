@@ -25,10 +25,32 @@
                     </div>
 
                     <!-- Notifikasi Sukses -->
-                    @if (session('success'))
+                    {{-- @if (session('success'))
                         <div class="alert alert-success mt-3">
                             {{ session('success') }}
                         </div>
+                    @endif --}}
+                    @if (session('success'))
+                        <script>
+                            Swal.fire({
+                                icon: 'success',
+                                title: 'Success',
+                                text: '{{ session('success') }}',
+                                timer: 3000,
+                                showConfirmButton: false
+                            });
+                        </script>
+                    @endif
+                    @if (session('error'))
+                        <script>
+                            Swal.fire({
+                                icon: 'error',
+                                title: 'Error',
+                                text: '{{ session('error') }}',
+                                timer: 3000,
+                                showConfirmButton: false
+                            });
+                        </script>
                     @endif
 
                     <!-- Pesan di luar waktu absensi -->
