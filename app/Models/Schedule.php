@@ -17,13 +17,24 @@ class Schedule extends Model
 
     ];
 
+
     public function users()
     {
         return $this->hasMany(User::class, 'schedule');
     }
 
+    public function schedule()
+    {
+        return $this->belongsTo(Schedule::class, 'schedule_id'); // Asumsi ada 'schedule_id' di tabel users
+    }
+
     public function attendances()
     {
         return $this->hasMany(Attendance::class);
+    }
+
+    public function days()
+    {
+        return $this->hasMany(ScheduleDayM::class, 'schedule_id', 'id');
     }
 }

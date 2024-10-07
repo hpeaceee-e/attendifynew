@@ -244,7 +244,7 @@
                                                                 <div class="form-group">
                                                                     <label class="form-label">Jam Kerja</label>
                                                                     <input type="text" class="form-control"
-                                                                        name="schedule" value="{{ $item->schedule }}"
+                                                                        name="schedule" value="{{ $schedule }}"
                                                                         disabled>
                                                                 </div>
                                                             </div>

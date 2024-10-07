@@ -37,13 +37,15 @@
                                     </thead>
                                     <tbody>
                                         @foreach ($schedules as $schedule)
-                                            <tr>
-                                                <td>{{ $loop->iteration }}</td>
-                                                <td>Senin, Selasa, Rabu, Kamis, Jum'at </td>
-                                                <td>{{ \Carbon\Carbon::parse($schedule->clock_in)->format('H:i') }}</td>
-                                                <td>{{ \Carbon\Carbon::parse($schedule->break)->format('H:i') }}</td>
-                                                <td>{{ \Carbon\Carbon::parse($schedule->clock_out)->format('H:i') }}</td>
-                                            </tr>
+                                            @foreach ($schedule->days as $day)
+                                                <tr>
+                                                    <td>{{ $loop->iteration }}</td>
+                                                    <td>{{ $day->days }}</td>
+                                                    <td>{{ \Carbon\Carbon::parse($day->clock_in)->format('H:i') }}</td>
+                                                    <td>{{ \Carbon\Carbon::parse($day->break)->format('H:i') }}</td>
+                                                    <td>{{ \Carbon\Carbon::parse($day->clock_out)->format('H:i') }}</td>
+                                                </tr>
+                                            @endforeach
                                         @endforeach
                                     </tbody>
                                 </table>

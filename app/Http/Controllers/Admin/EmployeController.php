@@ -20,6 +20,7 @@ class EmployeController extends Controller
     {
         // Mengambil data pegawai dari database
         $data = User::with('role', 'schedule')->get();
+        $data = User::where('role', 2)->get();
         // $deleteduser = User::where('delete_at' != null)->get();
         $deletedUsers = User::onlyTrashed()->get();
         $deleteby = User::onlyTrashed()->value('deleted_by');

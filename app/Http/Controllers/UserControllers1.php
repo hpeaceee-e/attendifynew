@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Models\Attendance;
 use App\Models\Leave;
 use App\Models\Role;
+use App\Models\Schedule;
 use App\Models\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
@@ -30,18 +31,20 @@ class UserControllers1 extends Controller
         $data = User::where('id', $id_user)->get();
         $same = User::where('id', $id_user)->value('role');
         $role = Role::where('id', $same)->value('name');
+        $same2 = User::where('id', $id_user)->value('schedule');
+        $schedule = Schedule::where('id', $same2)->value('shift_name');
         $act = User::where('id', $id_user)->value('status');
         if ($act == 0) {
             $active = "Aktif";
         } else {
             $active = "Tidak Aktif";
         }
-        $sched = User::where('id', $id_user)->value('schedule');
-        if ($act == 0) {
-            $schedule = "Shift 1";
-        } else {
-            $schedule = "Shift 2";
-        }
+        // $sched = User::where('id', $id_user)->value('schedule');
+        // if ($act == 0) {
+        //     $schedule = "Shift 1";
+        // } else {
+        //     $schedule = "Shift 2";
+        // }
 
         return view('pages.pegawai.profil.profilakun', compact('data', 'role', 'active', 'schedule'));
     }
