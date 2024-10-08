@@ -120,14 +120,11 @@
                                                 <div class="form-group">
                                                     <label class="form-label" for="schedule">Jadwal</label>
                                                     <div class="form-control-wrap">
-                                                        <select class="form-control" id="schedule" name="schedule"
-                                                            required>
-                                                            <option value="">Pilih Jadwal</option>
+                                                        <select class="form-control" id="schedule" name="schedule">
                                                             @foreach ($schedules as $schedule)
                                                                 <option value="{{ $schedule->id }}"
                                                                     {{ $schedule->id == $item->schedule ? 'selected' : '' }}>
-                                                                    {{ date('H:i', strtotime($schedule->clock_in)) }} -
-                                                                    {{ date('H:i', strtotime($schedule->clock_out)) }}
+                                                                    {{ $schedule->shift_name }}
                                                                 </option>
                                                             @endforeach
                                                         </select>

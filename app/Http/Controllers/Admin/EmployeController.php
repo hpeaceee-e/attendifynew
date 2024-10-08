@@ -11,20 +11,24 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Str;
 use Excel;
-
-
+use Illuminate\Support\Facades\Auth;
 
 class EmployeController extends Controller
 {
     public function index()
     {
+        $data = User::select('users.*', 'schedules.shift_name')
+            ->join('schedules', 'users.schedule', '=', 'schedules.id')
+            ->where('users.role', 2)
+            ->get();
         // Mengambil data pegawai dari database
-        $data = User::with('role', 'schedule')->get();
-        $data = User::where('role', 2)->get();
+        // $data = User::with('role', 'schedule')->get();
+        // $data = User::where('role', 2)->get();
         // $deleteduser = User::where('delete_at' != null)->get();
         $deletedUsers = User::onlyTrashed()->get();
         $deleteby = User::onlyTrashed()->value('deleted_by');
         $nama = User::where('id', $deleteby)->value('name');
+
 
         // dd($nama);
 
@@ -36,8 +40,8 @@ class EmployeController extends Controller
     {
         $item = User::findOrFail($id);
         $roles = Role::all();
-        $schedules = Schedule::all();
-        return view('pages.admin.managepegawai.detailkelolapegawai', compact('item', 'roles', 'schedules'));
+        $schedule = Schedule::where('id', $item->schedule)->first();
+        return view('pages.admin.managepegawai.detailkelolapegawai', compact('item', 'roles', 'schedule'));
     }
 
 
@@ -213,7 +217,12 @@ class EmployeController extends Controller
 
     public function cetakpegawai()
     {
-        $data = User::with('role', 'schedule')->get();
+        // Menggunakan join antara tabel 'users', 'schedules', dan 'roles'
+        $data = User::select('users.*', 'schedules.shift_name', 'roles.name as role_name')
+            ->join('schedules', 'users.schedule', '=', 'schedules.id')
+            ->join('roles', 'users.role', '=', 'roles.id') // Join ke tabel roles untuk mengambil nama role
+            ->where('users.role', 2)
+            ->get();
 
         // Menampilkan view dengan data pegawai
         return view('pages.admin.managepegawai.printkelolapegawai', compact('data'));

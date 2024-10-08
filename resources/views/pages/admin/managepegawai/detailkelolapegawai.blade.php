@@ -90,11 +90,12 @@
                                             </div>
                                             <div class="col-md-6">
                                                 <div class="form-group">
-                                                    <label class="form-label">Jadwal</label>
-                                                    <input type="text" class="form-control"
-                                                        value="{{ $item->schedule }}" disabled>
+                                                    <label class="form-label">Jam Kerja</label>
+                                                    <input type="text" class="form-control" id="schedule"
+                                                        name="schedule" value="{{ $schedule->shift_name }}" disabled>
                                                 </div>
                                             </div>
+
                                             <div class="col-md-6">
                                                 <div class="form-group">
                                                     <label class="form-label">Tempat Lahir</label>
@@ -132,8 +133,8 @@
                                             <div class="col-md-6">
                                                 <div class="form-group">
                                                     <label class="form-label">KTP</label>
-                                                    <input type="text" class="form-control" value="{{ $item->id_card }}"
-                                                        disabled>
+                                                    <input type="text" class="form-control"
+                                                        value="{{ $item->id_card }}" disabled>
                                                 </div>
                                             </div>
                                             <div class="col-md-12">

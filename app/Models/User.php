@@ -30,6 +30,7 @@ class User extends Authenticatable
         'email',
         'token',
         'role',
+        'schedule', // Foreign key schedule
         'deleted_at',
         'deleted_by'
     ];
@@ -61,8 +62,10 @@ class User extends Authenticatable
 
     public function schedule()
     {
-        return $this->belongsTo(Schedule::class);
+        // Jika foreign key di tabel `users` bernama `schedule`
+        return $this->belongsTo(Schedule::class, 'schedule', 'id');
     }
+
 
     // Relasi ke model Attendance
     public function attendances()

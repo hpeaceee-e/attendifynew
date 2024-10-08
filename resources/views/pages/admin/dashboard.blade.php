@@ -134,7 +134,7 @@
                                 <div class="card-inner">
                                     <div class="card-title-group align-start mb-3">
                                         <div class="card-title">
-                                            <h6 class="title">Daftar Pegawai Hadir :
+                                            <h6 class="title">Daftar Pegawai Tepat Waktu :
                                                 {{ \Carbon\Carbon::now()->translatedFormat('l, d F Y', 'id') }}</h6>
 
                                         </div>
@@ -145,7 +145,7 @@
                                                 <tr>
                                                     <th>No</th>
                                                     <th>Nama Pegawai</th>
-                                                    <th>Waktu Datang</th>
+                                                    <th>Waktu Masuk</th>
                                                     <th>Status</th>
                                                 </tr>
                                             </thead>

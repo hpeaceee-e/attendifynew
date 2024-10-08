@@ -20,12 +20,7 @@ class Schedule extends Model
 
     public function users()
     {
-        return $this->hasMany(User::class, 'schedule');
-    }
-
-    public function schedule()
-    {
-        return $this->belongsTo(Schedule::class, 'schedule_id'); // Asumsi ada 'schedule_id' di tabel users
+        return $this->hasMany(User::class, 'schedule', 'id');
     }
 
     public function attendances()

@@ -15,6 +15,9 @@
     <!-- StyleSheets  -->
     <link rel="stylesheet" href="{{ asset('demo5/src/assets/css/dashlite.css?ver=3.0.3') }}">
     <link id="skin-default" rel="stylesheet" href="{{ asset('demo5/src/assets/css/theme.css?ver=3.0.3') }}">
+    <link rel="stylesheet" type="text/css" href="./assets/css/libs/fontawesome-icons.css">
+
+
 </head>
 
 <body class="bg-white" onload="printPromot()">
@@ -63,9 +66,9 @@
                                         <td>{{ $d->name }}</td>
                                         <td>{{ $d->email }}</td>
                                         {{-- <td>{{ $d->password }}</td> --}}
-                                        <td>{{ $d->role }}</td>
+                                        <td>{{ $d->role_name }}</td>
                                         <td>{{ $d->created_at->format('d M Y') }}</td>
-                                        <td>{{ $d->schedule }}</td>
+                                        <td>{{ $d->shift_name }}</td>
                                         <td>
                                             <div class="user-card">
                                                 <div class="user-avatar bg-secondary">
