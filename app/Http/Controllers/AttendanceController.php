@@ -71,6 +71,8 @@ class AttendanceController extends Controller
         return view('pages.admin.attendance.kelolakehadiranpegawai', compact('attendancesGrouped', 'attendances', 'telat', 'tepat'));
     }
 
+    public function filtertanggal() {}
+
 
     public function cetakkehadiran()
     {

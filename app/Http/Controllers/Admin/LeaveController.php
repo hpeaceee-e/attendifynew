@@ -101,7 +101,7 @@ class LeaveController extends Controller
         return view('pages.admin.leave.printsatuancuti');
     }
 
-
+    public function filtercuti() {}
 
 
     public function destroy()

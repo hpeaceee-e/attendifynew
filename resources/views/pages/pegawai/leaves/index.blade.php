@@ -179,14 +179,14 @@
                     <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                 </div>
                 <div class="modal-body">
-                    <form action="#" method="GET">
+                    <form action="{{ route('pegawai.filtercuti') }}" method="POST">
+                        @csrf
                         <div class="mb-3">
                             <label for="category" class="form-label">Kategori</label>
                             <select name="category" id="category" class="form-select">
                                 <option value="">Pilih Kategori</option>
                                 <option value="annual">Cuti Tahunan</option>
                                 <option value="other">Cuti Lain-lain</option>
-                                <!-- Tambahkan kategori lain jika diperlukan -->
                             </select>
                         </div>
                         <div class="mb-3">
@@ -203,6 +203,7 @@
                             <button type="submit" class="btn btn-primary">Filter</button>
                         </div>
                     </form>
+
                 </div>
             </div>
         </div>

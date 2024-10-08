@@ -138,6 +138,8 @@ Route::middleware([AutoLogout::class])->group(function () {
             Route::post('/store', [LeavesController::class, 'store'])->name('store-cuti');
             Route::get('/leaves/{id}/edit', [LeavesController::class, 'edit'])->name('edit-cuti');
             Route::put('/update/{id}', [LeavesController::class, 'update'])->name('update-cuti');
+            Route::post('/filtercuti', [LeavesController::class, 'filtercuti'])->name('filtercuti');
+
 
             Route::get('/print', [LeavesController::class, 'print'])->name('print-cuti');
         });

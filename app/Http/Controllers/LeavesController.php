@@ -124,6 +124,33 @@ class LeavesController extends Controller
     }
 
 
+    public function filtercuti(Request $request)
+    {
+        // Get the currently authenticated user's ID
+        $id_user = Auth::user()->id;
+
+        // Initialize a query builder for the leaves table
+        $query = Leave::where('enhancer', $id_user);
+
+        // Filter by category if a category is selected
+        if ($request->has('category') && $request->category != '') {
+            $query->where('category', $request->category);
+        }
+
+        // Filter by status if a status is selected
+        if ($request->has('status') && $request->status != '') {
+            $query->where('status', $request->status);
+        }
+
+        // Get the filtered leaves with associated user data
+        $leaves = $query->with('user')->get();
+
+        // Fetch the name of the currently authenticated user
+        $name = User::where('id', $id_user)->value('name');
+
+        // Return the filtered data to the view
+        return view('pages.pegawai.leaves.index', compact('leaves', 'name'));
+    }
 
 
     public function print()
