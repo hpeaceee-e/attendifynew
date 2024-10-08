@@ -74,16 +74,51 @@
                         </div>
 
                         <!-- Script Jam Absensi -->
-                        <script>
-                            document.addEventListener('DOMContentLoaded', function() {
-                                var now = new Date();
-                                var hour = now.getHours();
-                                if (hour >= 15 && hour < 16) {
-                                    document.getElementById('attendance-btn').style.display = 'none';
-                                    document.getElementById('message').style.display = 'block';
+                        <?php
+                            // Get current day and time
+                            $currentDay = date('l'); // This returns day in English like "Monday"
+                            $currentTime = date('H:i:s'); // Current time in format HH:mm:ss
+                            
+                            // Translate current day into Bahasa Indonesia for matching
+                            $daysInIndonesian = [
+                                'Monday' => 'Senin',
+                                'Tuesday' => 'Selasa',
+                                'Wednesday' => 'Rabu',
+                                'Thursday' => 'Kamis',
+                                'Friday' => 'Jumat',
+                                'Saturday' => 'Sabtu',
+                                'Sunday' => 'Minggu'
+                            ];
+
+                            // Convert the current day to Indonesian
+                            $currentDayIndonesian = $daysInIndonesian[$currentDay];
+
+                            // Loop through the $jadwal data (schedule)
+                            foreach ($jadwal as $row) {
+                                // Check if today matches the schedule day
+                                if ($row->hari == $currentDayIndonesian) {
+                                    // Add 1 hour to the clock out time to define the cutoff for showing the button
+                                    $attendanceCutoff = date('H:i:s', strtotime($row->end_time . ' +1 hour'));
+
+                                    // Check if the current time is within the scheduled time + 1 hour
+                                    if ($currentTime >= $row->start_time && $currentTime <= $attendanceCutoff) {
+                                        // Check if the employee has already clocked in or out
+                                        if (is_null($row->clock_in) || is_null($row->clock_out)) {
+                                            // Show the attendance button if the current time is within range and no clock in/out exists
+                                            echo '<li><a id="attendance-btn" href="' . route('pegawai.tambah-attendance') . '" class="btn btn-secondary d-inline-block">Absen Masuk/Pulang</a></li>';
+                                        } else {
+                                            // Hide the button if the employee has already clocked in/out
+                                            echo '<!-- Button hidden as the employee has already clocked in/out -->';
+                                        }
+                                    } else {
+                                        // Hide the button if outside of the allowed time range
+                                        echo '<!-- Button hidden as current time is outside of schedule -->';
+                                    }
                                 }
-                            });
-                        </script>
+                            }
+                        ?>
+
+
                     </div>
                 </div>
             </div>

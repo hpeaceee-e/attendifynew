@@ -6,6 +6,7 @@ use Illuminate\Http\Request;
 use App\Models\Attendance;
 use App\Models\Role;
 use App\Models\Schedule;
+use App\Models\ScheduleDayM;
 use App\Models\User;
 use Illuminate\Support\Facades\Auth;
 
@@ -68,6 +69,8 @@ class AttendanceController extends Controller
             ];
         });
 
+        
+
         return view('pages.admin.attendance.kelolakehadiranpegawai', compact('attendancesGrouped', 'attendances', 'telat', 'tepat'));
     }
 
@@ -87,10 +90,16 @@ class AttendanceController extends Controller
     public function index()
     {
 
+        $userid= Auth::user()->id;
+        $user= User::find($userid);
+        $schedule = Schedule::find($user->schedule);
+        $jadwal = ScheduleDayM::where('schedule_id',$schedule->id)->get();
+        // dd($jadwal);
+        
         $id = Auth::user()->id;
         // dd($id);
         $attendances = Attendance::where('enhancer', $id)->get();
-        return view('pages.pegawai.attendance.index', compact('attendances'));
+        return view('pages.pegawai.attendance.index', compact('attendances','jadwal'));
     }
 
     // Tampilkan halaman presensi
