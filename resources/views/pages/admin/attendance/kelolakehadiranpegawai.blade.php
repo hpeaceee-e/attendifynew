@@ -43,125 +43,129 @@
                                         <th>No</th>
                                         <th>Pegawai</th>
                                         <th>Tanggal</th>
-                                        <th>Masuk</th>
-                                        <th>Keluar</th>
-                                        <th>Kehadiran</th>
-                                        {{-- <th>Lokasi</th> --}}
+                                        <th>Waktu</th>
+                                        <th>Status</th>
+                                        <th>Lebih Awal</th>
+                                        <th>Terlambat</th>
+                                        {{-- <th>Koordinat</th> --}}
                                         <th class="text-center">Action</th>
                                     </tr>
                                 </thead>
                                 <tbody>
-                                    @php
-                                        $attendancesGrouped = $attendances->groupBy('date');
-                                    @endphp
-
-                                    @foreach ($attendancesGrouped as $date => $group)
+                                    @foreach ($attendances as $attendance)
                                         @php
-                                            // Initialize variables
-                                            $clockIn = null;
-                                            $clockOut = null;
-                                            $coordinate = null;
-                                            $status = '-'; // Default status
+                                            // Get the corresponding schedule day for the date
+                                            $scheduleDay = $jadwal->where('date', $attendance->date)->first();
+                                            $clockIn = $scheduleDay ? $scheduleDay->clock_in : null;
+                                            $clockOut = $scheduleDay ? $scheduleDay->clock_out : null;
 
-                                            foreach ($group as $attendance) {
-                                                if ($attendance->status == 0) {
-                                                    $clockIn = \Carbon\Carbon::parse($attendance->time)->format('H:i');
-                                                    $coordinate = $attendance->coordinate;
-                                                } elseif ($attendance->status == 1) {
-                                                    $clockOut = \Carbon\Carbon::parse($attendance->time)->format('H:i');
-                                                }
+                                            // Initialize variables for late and early
+                                            $lateMinutes = 0;
+                                            $earlyMinutes = 0;
+                                            $isLate = false;
+                                            $isEarly = false;
+
+                                            // Check if the attendance time indicates lateness
+                                            if ($clockIn && $attendance->time > $clockIn) {
+                                                $isLate = true; // Late
+                                                // Calculate late minutes
+                                                $attendanceTime = \Carbon\Carbon::parse($attendance->time);
+                                                $scheduleTime = \Carbon\Carbon::parse($clockIn);
+                                                $lateMinutes = $attendanceTime->diffInMinutes($scheduleTime);
                                             }
 
-                                            if ($clockIn && $group->first()->schedule) {
-                                                $actualTime = \Carbon\Carbon::parse($clockIn);
-                                                $scheduledTime = \Carbon\Carbon::parse(
-                                                    $group->first()->schedule->clock_in,
-                                                );
-                                                $status = $actualTime <= $scheduledTime ? 'Tepat Waktu' : 'Terlambat';
+                                            // Check if the leave time indicates early leave
+                                            if ($clockOut && $attendance->time < $clockOut) {
+                                                $isEarly = true; // Early
+                                                // Calculate early minutes
+                                                $attendanceTime = \Carbon\Carbon::parse($attendance->time);
+                                                $scheduleTime = \Carbon\Carbon::parse($clockOut);
+                                                $earlyMinutes = $scheduleTime->diffInMinutes($attendanceTime);
                                             }
                                         @endphp
                                         <tr>
                                             <td>{{ $loop->iteration }}</td>
-                                            <td>{{ $group->first()->user->name }}</td>
-                                            <td>{{ \Carbon\Carbon::parse($date)->format('d M Y') }}</td>
-                                            <td>{{ $clockIn ?: '-' }}</td>
-                                            <td>{{ $clockOut ?: '-' }}</td>
+                                            <td>{{ $attendance->user->name }}</td>
+                                            <td>{{ \Carbon\Carbon::parse($attendance->date)->format('d M Y') }}
+                                            </td>
+                                            <td>{{ \Carbon\Carbon::parse($attendance->time)->format('H:i') }}</td>
+
+                                            {{-- Menampilkan status Masuk atau Pulang --}}
                                             <td>
-
-                                                @php
-                                                    $clockInTime = strtotime($clockIn);
-                                                    $clockInTime = strtotime($clockIn); // Assuming $clockIn is a time string like '08:30'
-                                                    $comparisonTime = strtotime('08:00');
-                                                    $differenceInMinutes =
-                                                        $clockInTime > $comparisonTime
-                                                            ? round(($clockInTime - $comparisonTime) / 60)
-                                                            : 0;
-                                                    $difference = round(abs($clockInTime - $comparisonTime) / 60);
-                                                @endphp
-
-                                                @if ($clockInTime > $comparisonTime)
-                                                    <span class="badge bg-danger">Terlambat</span><br>
-                                                    {{ $differenceInMinutes }} Menit <br> after 08.00
-                                                @else
-                                                    <span class="badge bg-success">Tepat waktu</span> <br>
-                                                    {{ $difference }} Menit <br> before 08.00
+                                                @if ($attendance->status == 0)
+                                                    <span class="badge bg-success">Masuk</span>
+                                                @elseif ($attendance->status == 1)
+                                                    <span class="badge bg-primary">Pulang</span>
                                                 @endif
                                             </td>
 
-                                            {{-- <td>{{ $coordinate ?: '-' }}</td> --}}
+
+                                            {{-- Codingan dulu untuk menghitung terlambat atau tepat waktu dalam 1 kolom --}}
+                                            {{-- @php
+                                                $clockInTime = strtotime($clockIn);
+                                                $clockInTime = strtotime($clockIn); // Assuming $clockIn is a time string like '08:30'
+                                                $comparisonTime = strtotime('08:00');
+                                                $differenceInMinutes =
+                                                    $clockInTime > $comparisonTime
+                                                        ? round(($clockInTime - $comparisonTime) / 60)
+                                                        : 0;
+                                                $difference = round(abs($clockInTime - $comparisonTime) / 60);
+                                            @endphp
+
+                                            @if ($clockInTime > $comparisonTime)
+                                                <span class="badge bg-danger">Terlambat</span><br>
+                                                {{ $differenceInMinutes }} Menit <br> after 08.00
+                                            @else
+                                                <span class="badge bg-success">Tepat waktu</span> <br>
+                                                {{ $difference }} Menit <br> before 08.00
+                                            @endif --}}
+
+
+                                            {{-- Kolom Lebih Awal --}}
                                             <td>
+                                                @if ($isEarly)
+                                                    <span style="color: green;">Lebih Awal: {{ $earlyMinutes }} menit</span>
+                                                @else
+                                                    -
+                                                @endif
+                                            </td>
+
+                                            {{-- Kolom Terlambat --}}
+                                            <td>
+                                                @if ($isLate)
+                                                    <span style="color: red;">Terlambat: {{ $lateMinutes }} menit</span>
+                                                @else
+                                                    -
+                                                @endif
+                                            </td>
+
+
+                                            {{-- Menampilkan koordinat --}}
+                                            {{-- <td>{{ $attendance->coordinate ?: '-' }}</td> --}}
+
+                                            <td class="text-center">
                                                 <ul class="nk-tb-actions gx-2">
-                                                    {{-- <li> --}}
-                                                    {{-- <div class="dropdown">
-                                                            <a href="#"
-                                                                class="btn btn-sm btn-icon btn-trigger dropdown-toggle"
-                                                                data-bs-toggle="dropdown">
-                                                                <em class="icon ni ni-more-h"></em>
-                                                            </a>
-                                                            <div class="dropdown-menu dropdown-menu-end">
-                                                                <ul class="link-list-opt no-bdr"> --}}
-                                                    {{-- <li><a href="#"><em
-                                                                                class="icon ni ni-edit"></em><span>Edit</span></a>
-                                                                    </li>
-                                                                    <li><a href="#"><em
-                                                                                class="icon ni ni-na"></em><span>Hapus</span></a>
-                                                                    </li> --}}
-                                                    @if ($clockIn == null && $clockOut == null)
-                                                    @elseif($clockIn == null)
-                                                        <li><a href="{{ route('admin.print-kelolakehadiranpegawai-keluar', ['id' => $group->first()->id]) }}"
-                                                                target="_blank" class="btn btn-secondary btn-sm"><em
-                                                                    class="icon ni ni-printer"></em><span>Keluar</span></a>
+                                                    {{-- Aksi cetak berdasarkan status --}}
+                                                    @if ($attendance->status == 0)
+                                                        <li><a href="{{ route('admin.print-kelolakehadiranpegawai-masuk', ['id' => $attendance->id]) }}"
+                                                                target="_blank" class="btn btn-secondary btn-sm">
+                                                                <em class="icon ni ni-printer"></em><span>Masuk</span></a>
                                                         </li>
-                                                    @elseif ($clockOut == null)
-                                                        <li><a href="{{ route('admin.print-kelolakehadiranpegawai-masuk', ['id' => $group->first()->id]) }}"
-                                                                target="_blank" class="btn btn-secondary btn-sm"><em
-                                                                    class="icon ni ni-printer"></em><span>Masuk</span></a>
-                                                        </li>
-                                                    @else
-                                                        <li><a href="{{ route('admin.print-kelolakehadiranpegawai-masuk', ['id' => $group->first()->id]) }}"
-                                                                target="_blank" class="btn btn-secondary btn-sm"><em
-                                                                    class="icon ni ni-printer"></em><span>Masuk</span></a>
-                                                        </li>
-                                                        <li><a href="{{ route('admin.print-kelolakehadiranpegawai-keluar', ['id' => $group->first()->id]) }}"
-                                                                target="_blank" class="btn btn-secondary btn-sm"><em
-                                                                    class="icon ni ni-printer"></em><span>Keluar</span></a>
+                                                    @elseif ($attendance->status == 1)
+                                                        <li><a href="{{ route('admin.print-kelolakehadiranpegawai-keluar', ['id' => $attendance->id]) }}"
+                                                                target="_blank" class="btn btn-secondary btn-sm">
+                                                                <em class="icon ni ni-printer"></em><span>Pulang</span></a>
                                                         </li>
                                                     @endif
-
-                                                    {{-- @if ($clockOut) --}}
-
-                                                    {{-- @endif --}}
-                                                    {{-- </ul>
-                                                            </div>
-                                                        </div> --}}
-                                                    {{-- </li> --}}
                                                 </ul>
                                             </td>
                                         </tr>
                                     @endforeach
-
                                 </tbody>
                             </table>
+
+
+
                         </div>
                     </div><!-- .card-preview -->
                 </div> <!-- nk-block -->
