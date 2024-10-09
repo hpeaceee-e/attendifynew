@@ -120,7 +120,7 @@
                                                                         <li>
                                                                             <a
                                                                                 href="{{ route('admin.delete-jadwal', $schedule->id) }}"><em
-                                                                                    class="icon ni ni-na"></em><span>Hapus</span></a>
+                                                                                    class="icon ni ni-trash"></em><span>Hapus</span></a>
                                                                         </li>
                                                                     </ul>
                                                                 </div>

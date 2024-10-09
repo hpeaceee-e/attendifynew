@@ -145,20 +145,45 @@
 
                                             <td class="text-center">
                                                 <ul class="nk-tb-actions gx-2">
-                                                    {{-- Aksi cetak berdasarkan status --}}
-                                                    @if ($attendance->status == 0)
-                                                        <li><a href="{{ route('admin.print-kelolakehadiranpegawai-masuk', ['id' => $attendance->id]) }}"
-                                                                target="_blank" class="btn btn-secondary btn-sm">
-                                                                <em class="icon ni ni-printer"></em><span>Masuk</span></a>
-                                                        </li>
-                                                    @elseif ($attendance->status == 1)
-                                                        <li><a href="{{ route('admin.print-kelolakehadiranpegawai-keluar', ['id' => $attendance->id]) }}"
-                                                                target="_blank" class="btn btn-secondary btn-sm">
-                                                                <em class="icon ni ni-printer"></em><span>Pulang</span></a>
-                                                        </li>
-                                                    @endif
+                                                    <li>
+                                                        <div class="dropdown">
+                                                            <a href="#"
+                                                                class="btn btn-icon btn-trigger toggle-expand me-n1"
+                                                                data-bs-toggle="dropdown">
+                                                                <em class="icon ni ni-more-h"></em>
+                                                            </a>
+                                                            <div class="dropdown-menu dropdown-menu-end">
+                                                                <ul class="link-list-opt no-bdr">
+                                                                    {{-- Aksi cetak berdasarkan status --}}
+                                                                    @if ($attendance->status == 0)
+                                                                        <li>
+                                                                            <a href="{{ route('admin.print-kelolakehadiranpegawai-masuk', ['id' => $attendance->id]) }}"
+                                                                                target="_blank" class="dropdown-item">
+                                                                                <em class="icon ni ni-printer"></em> Cetak
+                                                                                Masuk
+                                                                            </a>
+                                                                        </li>
+                                                                    @elseif ($attendance->status == 1)
+                                                                        <li>
+                                                                            <a href="{{ route('admin.print-kelolakehadiranpegawai-keluar', ['id' => $attendance->id]) }}"
+                                                                                target="_blank" class="dropdown-item">
+                                                                                <em class="icon ni ni-printer"></em> Cetak
+                                                                                Pulang
+                                                                            </a>
+                                                                        </li>
+                                                                    @endif
+
+                                                                    <li>
+                                                                        <a href="#"><em
+                                                                                class="icon ni ni-trash"></em><span>Hapus</span></a>
+                                                                    </li>
+                                                                </ul>
+                                                            </div>
+                                                        </div>
+                                                    </li>
                                                 </ul>
                                             </td>
+
                                         </tr>
                                     @endforeach
                                 </tbody>
