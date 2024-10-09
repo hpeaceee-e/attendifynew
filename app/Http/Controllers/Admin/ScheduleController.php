@@ -14,7 +14,7 @@ class ScheduleController extends Controller
     {
         $data = User::where('role', 2)->get();
         $schedules = Schedule::get();
-        return view('pages.admin.schedule.kelolajadwalpegawai', compact('schedules','data'));
+        return view('pages.admin.schedule.kelolajadwalpegawai', compact('schedules', 'data'));
     }
 
     public function create()
@@ -36,10 +36,10 @@ class ScheduleController extends Controller
         ]);
 
         $datascd = new Schedule();
-        $datascd->shift_name= $request->shift;
-        $datascd->singkatan= $request->abbreviation;
+        $datascd->shift_name = $request->shift;
+        $datascd->singkatan = $request->abbreviation;
         $datascd->save();
-        
+
         foreach ($request->day as $index => $d) {
             $data = new ScheduleDayM();
             $data->schedule_id = $datascd->id;
@@ -49,12 +49,11 @@ class ScheduleController extends Controller
             $data->clock_out = $request->clock_out[$index]; // Get the clock_out at the same index
             $data->save(); // Save the record
         }
-        
-            
-            return redirect()->route('admin.kelolajadwal')->with('success', 'Jadwal Pegawai berhasil ditambahkan!');
-        
+
+
+        return redirect()->route('admin.kelolajadwal')->with('success', 'Jadwal Pegawai berhasil ditambahkan!');
     }
-    
+
 
     public function show(Schedule $schedule)
     {
@@ -66,48 +65,48 @@ class ScheduleController extends Controller
         $schedules = Schedule::find($id);
         $dayes = ScheduleDayM::where('schedule_id', $id)->get();
 
-        return view('pages.admin.schedule.editjadwal', compact('schedules','dayes'));
+        return view('pages.admin.schedule.editjadwal', compact('schedules', 'dayes'));
     }
 
     public function update(Request $request, $id)
-{
-    // Validate input
-    $request->validate([
-        'shift' => 'required|string|max:255',
-        'abbreviation' => 'required|string|max:255',
-        'day' => 'required|array',
-        'clock_in' => 'required|array',
-        'break' => 'required|array',
-        'clock_out' => 'required|array',
-    ]);
+    {
+        // Validate input
+        $request->validate([
+            'shift' => 'required|string|max:255',
+            'abbreviation' => 'required|string|max:255',
+            'day' => 'required|array',
+            'clock_in' => 'required|array',
+            'break' => 'required|array',
+            'clock_out' => 'required|array',
+        ]);
 
-    // Find the schedule by ID
-    $schedule = Schedule::find($id);
+        // Find the schedule by ID
+        $schedule = Schedule::find($id);
 
-    if (!$schedule) {
-        return redirect()->back()->with('error', 'Schedule not found.');
+        if (!$schedule) {
+            return redirect()->back()->with('error', 'Schedule not found.');
+        }
+
+        // Update schedule shift and abbreviation
+        $schedule->shift_name = $request->input('shift');
+        $schedule->Singkatan = $request->input('abbreviation');
+        $schedule->save();
+
+        $data = ScheduleDayM::where('schedule_id', $id)->delete();
+
+        foreach ($request->day as $index => $d) {
+            $data = new ScheduleDayM();
+            $data->schedule_id = $schedule->id;
+            $data->days = $d; // Set the specific day
+            $data->clock_in = $request->clock_in[$index]; // Get the clock_in at the same index
+            $data->break = $request->break[$index]; // Get the break at the same index
+            $data->clock_out = $request->clock_out[$index]; // Get the clock_out at the same index
+            $data->save(); // Save the record
+        }
+
+
+        return redirect()->route('admin.kelolajadwal')->with('success', 'Schedule updated successfully.');
     }
-
-    // Update schedule shift and abbreviation
-    $schedule->shift_name = $request->input('shift');
-    $schedule->Singkatan = $request->input('abbreviation');
-    $schedule->save();
-
-    $data = ScheduleDayM::where('schedule_id',$id)->delete();
-
-    foreach ($request->day as $index => $d) {
-        $data = new ScheduleDayM();
-        $data->schedule_id = $schedule->id;
-        $data->days = $d; // Set the specific day
-        $data->clock_in = $request->clock_in[$index]; // Get the clock_in at the same index
-        $data->break = $request->break[$index]; // Get the break at the same index
-        $data->clock_out = $request->clock_out[$index]; // Get the clock_out at the same index
-        $data->save(); // Save the record
-    }
-    
-
-    return redirect()->route('admin.kelolajadwal')->with('success', 'Schedule updated successfully.');
-}
 
     public function destroy(Schedule $schedule)
     {
@@ -119,28 +118,28 @@ class ScheduleController extends Controller
         return view('pages.admin.schedule.printjadwal');
     }
 
-    public function delete($id){
+    public function delete($id)
+    {
         $data = Schedule::find($id);
         $data->delete();
 
-        $sch = ScheduleDayM::where('schedule_id',$data->id)->delete();
+        $sch = ScheduleDayM::where('schedule_id', $data->id)->delete();
 
-        return redirect()->back()->with('success','Jadwal Telah dihapus');
+        return redirect()->back()->with('success', 'Jadwal Telah dihapus');
     }
 
     public function update_sch(Request $request)
-{
-    $validatedData = $request->validate([
-        'id' => 'required|integer',
-        'schedule_id' => 'required|integer',
-    ]);
+    {
+        $validatedData = $request->validate([
+            'id' => 'required|integer',
+            'schedule_id' => 'required|integer',
+        ]);
 
-    // Temukan data yang ingin diperbarui
-    $employee = User::find($validatedData['id']);
-    $employee->schedule = $validatedData['schedule_id'];
-    $employee->save();
+        // Temukan data yang ingin diperbarui
+        $employee = User::find($validatedData['id']);
+        $employee->schedule = $validatedData['schedule_id'];
+        $employee->save();
 
-    return response()->json(['success' => true]);
-}
-
+        return response()->json(['success' => true]);
+    }
 }
