@@ -105,7 +105,7 @@
                                                         <span class="badge bg-danger">Ditolak</span>
                                                     @endif
                                                 </td>
-                                                <td>
+                                                {{-- <td>
                                                     <ul class="nk-tb-actions gx-2">
                                                         <li>
                                                             <a href="#" class="btn btn-sm btn-icon btn-trigger"
@@ -116,6 +116,40 @@
                                                                 data-reason="{{ $item->reason_verification }}">
                                                                 <em class="icon ni ni-more-h"></em>
                                                             </a>
+                                                        </li>
+                                                    </ul>
+                                                </td> --}}
+                                                <td>
+                                                    <ul class="nk-tb-actions gx-2">
+                                                        <li>
+                                                            <a href="#"
+                                                                class="btn btn-icon btn-trigger toggle-expand me-n1"
+                                                                data-bs-toggle="dropdown" aria-expanded="false">
+                                                                <em class="icon ni ni-more-h"></em>
+                                                            </a>
+                                                            <div class="dropdown-menu dropdown-menu-end">
+                                                                <ul class="link-list-opt no-bdr">
+                                                                    <li>
+                                                                        <a href="#" class="dropdown-item"
+                                                                            data-bs-toggle="modal"
+                                                                            data-bs-target="#confirmationModal"
+                                                                            data-id="{{ $item->id }}"
+                                                                            data-enhancer="{{ $item->enhancer }}"
+                                                                            data-status="{{ $item->status }}"
+                                                                            data-reason="{{ $item->reason_verification }}">
+                                                                            <em class="icon ni ni-check-circle"></em>
+                                                                            <span>Konfirmasi</span>
+                                                                            <!-- Optional: Add label for clarity -->
+                                                                        </a>
+                                                                    </li>
+                                                                    <li>
+                                                                        <a href="#" class="dropdown-item">
+                                                                            <em class="icon ni ni-trash"></em>
+                                                                            <span>Hapus</span>
+                                                                        </a>
+                                                                    </li>
+                                                                </ul>
+                                                            </div>
                                                         </li>
                                                     </ul>
                                                 </td>
@@ -188,16 +222,37 @@
                                                 <td>
                                                     <ul class="nk-tb-actions gx-2">
                                                         <li>
-                                                            <a href="#" class="btn btn-sm btn-icon btn-trigger"
-                                                                data-bs-toggle="modal" data-bs-target="#confirmationModal"
-                                                                data-id="{{ $item->id }}"
-                                                                data-status="{{ $item->status }}"
-                                                                data-reason="{{ $item->reason }}">
+                                                            <a href="#"
+                                                                class="btn btn-icon btn-trigger toggle-expand me-n1"
+                                                                data-bs-toggle="dropdown" aria-expanded="false">
                                                                 <em class="icon ni ni-more-h"></em>
                                                             </a>
+                                                            <div class="dropdown-menu dropdown-menu-end">
+                                                                <ul class="link-list-opt no-bdr">
+                                                                    <li>
+                                                                        <a href="#" class="dropdown-item"
+                                                                            data-bs-toggle="modal"
+                                                                            data-bs-target="#confirmationModal"
+                                                                            data-id="{{ $item->id }}"
+                                                                            data-status="{{ $item->status }}"
+                                                                            data-reason="{{ $item->reason }}">
+                                                                            <em class="icon ni ni-check-circle"></em>
+                                                                            <span>Konfirmasi</span>
+                                                                            <!-- Optional: Add label for clarity -->
+                                                                        </a>
+                                                                    </li>
+                                                                    <li>
+                                                                        <a href="#" class="dropdown-item">
+                                                                            <em class="icon ni ni-trash"></em>
+                                                                            <span>Hapus</span>
+                                                                        </a>
+                                                                    </li>
+                                                                </ul>
+                                                            </div>
                                                         </li>
                                                     </ul>
                                                 </td>
+
                                             </tr>
                                         @endif
                                     @endforeach
@@ -228,8 +283,8 @@
                                     aria-label="Close"></button>
                             </div>
                             @foreach ($leaves as $item)
-                                <form id="confirmationForm" action="{{ route('admin.update-cuti', ['id' => $item->id]) }}"
-                                    method="POST">
+                                <form id="confirmationForm"
+                                    action="{{ route('admin.update-cuti', ['id' => $item->id]) }}" method="POST">
                             @endforeach
                             @csrf
                             <input type="hidden" name="id" id="leave_id">

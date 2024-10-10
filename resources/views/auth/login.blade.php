@@ -69,7 +69,7 @@
                         <div class="form-group">
                             <div class="form-label-group">
                                 <label class="form-label" for="password">Password</label>
-                                <a class="link link-secondary link-sm" href="html/pages/auths/auth-reset-v2.html">Forgot
+                                <a class="link link-primary link-sm" href="{{ route('resetpassword') }}">Forgot
                                     Password?</a>
                             </div>
                             <div class="form-control-wrap">

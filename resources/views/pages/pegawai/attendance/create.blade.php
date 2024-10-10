@@ -15,7 +15,7 @@
         </div>
 
         <!-- Alert untuk dalam area yang diizinkan -->
-        <div id="inAreaAlert" class="alert alert-pro alert-secondary" style="display: none;">
+        <div id="inAreaAlert" class="alert alert-pro alert-success" style="display: none;">
             <div class="alert-text">
                 <h6>Lokasi Ditemukan</h6>
                 <p>Anda berada di lokasi yang diizinkan untuk absen.</p>
@@ -63,9 +63,26 @@
                 maxZoom: 18,
             }).addTo(map);
 
-            var allowedLatLng = [-6.557553, 107.4416366]; // Koordinat pusat
+            var allowedLatLng = [-6.557553, 107.4416366]; // Koordinat pusat PT Pratama Solusi Teknologi
             var allowedRadius = 30; // Radius 30 meter
 
+            // Tambahkan lingkaran dengan radius yang lebih besar untuk tes
+            var allowedCircle = L.circle(allowedLatLng, {
+                color: '#32cd32', // Warna hijau
+                fillColor: '#32cd32',
+                fillOpacity: 0.5, // Lebih transparan untuk melihat detail peta di bawahnya
+                radius: 100 // Ubah radius untuk memastikan lingkaran muncul
+            }).addTo(map);
+
+            // Lingkaran di luar area yang diizinkan (untuk menunjukkan batas luar)
+            // var outsideCircle = L.circle(allowedLatLng, {
+            //     color: 'red',
+            //     fillColor: 'red', // Warna merah solid tanpa transparansi
+            //     fillOpacity: 1, // Tidak transparan
+            //     radius: allowedRadius * 2 // Radius lebih besar dari yang diizinkan
+            // }).addTo(map);
+
+            // Hitung batas koordinat berdasarkan radius
             var latOffset = allowedRadius / 111320;
             var lngOffset = allowedRadius / (111320 * Math.cos(allowedLatLng[0] * Math.PI / 180));
 
@@ -73,11 +90,6 @@
             var northEast = [allowedLatLng[0] + latOffset, allowedLatLng[1] + lngOffset];
             var allowedBounds = L.latLngBounds(southWest, northEast);
 
-            var allowedRectangle = L.rectangle(allowedBounds, {
-                color: 'green',
-                weight: 1,
-                fillOpacity: 0.3
-            }).addTo(map);
 
             if (navigator.geolocation) {
                 Swal.fire({
@@ -107,7 +119,8 @@
             function onLocationFound(e) {
                 var radius = e.accuracy;
 
-                if (allowedBounds.contains(e.latlng)) {
+                // Cek apakah pengguna berada dalam area yang diizinkan
+                if (allowedCircle.getBounds().contains(e.latlng)) {
                     L.marker(e.latlng).addTo(map)
                         .bindPopup("Lokasi Anda dalam radius " + radius + " meter.").openPopup();
                     document.getElementById('coordinate').value = e.latlng.lat + "," + e.latlng.lng;
