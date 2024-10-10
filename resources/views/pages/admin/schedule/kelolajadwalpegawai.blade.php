@@ -96,7 +96,7 @@
                                                             </tr>
                                                         @endforeach
                                                     </table>
-                                                    <div style="padding-left: 20px;">Total : ____ jam</div>
+                                                    <div style="padding-left: 20px;">: oakwoawk jam</div>
 
                                                 </td>
                                                 <td>
@@ -135,7 +135,7 @@
                             </div>
                         </div><!-- .card-preview -->
                     </div> <!-- nk-block -->
-                    <div class="nk-block">
+                    <div class="nk-block ">
                         <h3 class="nk-block-title page-title">Pembagian Jadwal Pegawai</h3>
                         <div class="card card-bordered card-preview">
                             <div class="card-inner">
@@ -149,41 +149,42 @@
                                     </thead>
                                     <tbody>
                                         @foreach ($data as $d)
-                                            @php
-                                                $name = \App\Models\Schedule::where('id', $d->schedule)->value(
-                                                    'shift_name',
-                                                );
-                                                $day = \App\Models\Schedule::all();
-                                            @endphp
                                             <tr>
+                                                @php
+                                                    $name = \App\Models\Schedule::where('id', $d->schedule)->value(
+                                                        'shift_name',
+                                                    );
+                                                    $id = \App\Models\Schedule::where('id', $d->schedule)->value('id');
+                                                    $day = \App\Models\Schedule::all();
+                                                @endphp
                                                 <td>{{ $loop->iteration }}</td>
                                                 <td>{{ $d->name }}</td>
                                                 <td>
-                                                    <select name="schedule" class="form-control schedule-select"
-                                                        data-id="{{ $d->id }}">
-                                                        <option value="shift" disabled>--Pilih Shift--</option>
-                                                        @foreach ($day as $dd)
-                                                            <option value="{{ $dd->id }}"
-                                                                {{ $d->schedule == $dd->id ? 'selected' : '' }}>
-                                                                {{ $dd->shift_name }}
-                                                            </option>
-                                                        @endforeach
-                                                    </select>
+                                                    @if ($d->schedule == null)
+                                                        <select name="schedule" class="form-control"
+                                                            data-id="{{ $d->id }}">
+                                                            <option value="shift" disabled>--Pilih Shift--</option>
+                                                            @foreach ($day as $dd)
+                                                                <option value="{{ $dd->id }}">{{ $dd->shift_name }}
+                                                                </option>
+                                                            @endforeach
+                                                        </select>
+                                                    @else
+                                                        {{ $name }}
+                                                    @endif
                                                 </td>
                                             </tr>
                                         @endforeach
                                     </tbody>
                                 </table>
                                 <div class="mt-3">
-                                    <button type="submit" class="btn btn-secondary" id="save-schedule">Simpan
-                                        Jadwal</button>
+                                    <button type="submit" class="btn btn-secondary">Simpan Jadwal</button>
                                 </div>
                             </div>
                         </div><!-- .card-preview -->
                     </div> <!-- nk-block -->
 
                     <script src="https://code.jquery.com/jquery-3.5.1.min.js"></script>
-                    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
                     <script>
                         $(document).ready(function() {
                             // Attach change event listener to select elements
@@ -271,7 +272,6 @@
                             });
                         });
                     </script>
-
 
 
 
