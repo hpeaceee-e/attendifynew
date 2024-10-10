@@ -96,7 +96,7 @@
                                                             </tr>
                                                         @endforeach
                                                     </table>
-                                                    <div style="padding-left: 20px;">: oakwoawk jam</div>
+                                                    <div style="padding-left: 20px;">Total : ____ jam</div>
 
                                                 </td>
                                                 <td>
@@ -135,7 +135,7 @@
                             </div>
                         </div><!-- .card-preview -->
                     </div> <!-- nk-block -->
-                    <div class="nk-block ">
+                    <div class="nk-block">
                         <h3 class="nk-block-title page-title">Pembagian Jadwal Pegawai</h3>
                         <div class="card card-bordered card-preview">
                             <div class="card-inner">
@@ -149,48 +149,49 @@
                                     </thead>
                                     <tbody>
                                         @foreach ($data as $d)
+                                            @php
+                                                $name = \App\Models\Schedule::where('id', $d->schedule)->value(
+                                                    'shift_name',
+                                                );
+                                                $day = \App\Models\Schedule::all();
+                                            @endphp
                                             <tr>
-                                                @php
-                                                    $name = \App\Models\Schedule::where('id', $d->schedule)->value(
-                                                        'shift_name',
-                                                    );
-                                                    $id = \App\Models\Schedule::where('id', $d->schedule)->value('id');
-                                                    $day = \App\Models\Schedule::all();
-                                                @endphp
                                                 <td>{{ $loop->iteration }}</td>
                                                 <td>{{ $d->name }}</td>
                                                 <td>
-                                                    @if ($d->schedule == null)
-                                                        <select name="schedule" class="form-control"
-                                                            data-id="{{ $d->id }}">
-                                                            <option value="shift" disabled>--Pilih Shift--</option>
-                                                            @foreach ($day as $dd)
-                                                                <option value="{{ $dd->id }}">{{ $dd->shift_name }}
-                                                                </option>
-                                                            @endforeach
-                                                        </select>
-                                                    @else
-                                                        {{ $name }}
-                                                    @endif
+                                                    <select name="schedule" class="form-control schedule-select"
+                                                        data-id="{{ $d->id }}">
+                                                        <option value="shift" disabled>--Pilih Shift--</option>
+                                                        @foreach ($day as $dd)
+                                                            <option value="{{ $dd->id }}"
+                                                                {{ $d->schedule == $dd->id ? 'selected' : '' }}>
+                                                                {{ $dd->shift_name }}
+                                                            </option>
+                                                        @endforeach
+                                                    </select>
                                                 </td>
                                             </tr>
                                         @endforeach
                                     </tbody>
                                 </table>
                                 <div class="mt-3">
-                                    <button type="submit" class="btn btn-secondary">Simpan Jadwal</button>
+                                    <button type="submit" class="btn btn-secondary" id="save-schedule">Simpan
+                                        Jadwal</button>
                                 </div>
                             </div>
                         </div><!-- .card-preview -->
                     </div> <!-- nk-block -->
 
                     <script src="https://code.jquery.com/jquery-3.5.1.min.js"></script>
+                    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
                     <script>
                         $(document).ready(function() {
-                            $('select[name="schedule"]').change(function() {
+                            // Attach change event listener to select elements
+                            $('select.schedule-select').change(function() {
                                 var selectedValue = $(this).val();
                                 var employeeId = $(this).data('id');
 
+                                // Send AJAX request to update the schedule
                                 $.ajax({
                                     url: "{{ route('admin.update.sch-jadwal') }}",
                                     method: "POST",
@@ -201,16 +202,77 @@
                                     },
                                     success: function(response) {
                                         if (response.success) {
-                                            alert('Data jadwal berhasil diupdate!');
+                                            Swal.fire({
+                                                icon: 'success',
+                                                title: 'Berhasil!',
+                                                text: 'Data jadwal berhasil diupdate!',
+                                                timer: 2000,
+                                                showConfirmButton: false
+                                            });
+                                        } else {
+                                            Swal.fire({
+                                                icon: 'error',
+                                                title: 'Gagal!',
+                                                text: 'Gagal mengupdate jadwal. Coba lagi.',
+                                                timer: 2000,
+                                                showConfirmButton: false
+                                            });
                                         }
                                     },
                                     error: function(xhr) {
-                                        alert('Terjadi kesalahan saat mengupdate data.');
+                                        Swal.fire({
+                                            icon: 'error',
+                                            title: 'Error!',
+                                            text: 'Terjadi kesalahan saat mengupdate data.',
+                                            timer: 2000,
+                                            showConfirmButton: false
+                                        });
                                     }
+                                });
+                            });
+
+                            // Handle form submission (if you want to save multiple schedules at once)
+                            $('#save-schedule').click(function() {
+                                $('select.schedule-select').each(function() {
+                                    var selectedValue = $(this).val();
+                                    var employeeId = $(this).data('id');
+
+                                    // Send AJAX request to update each schedule
+                                    $.ajax({
+                                        url: "{{ route('admin.update.sch-jadwal') }}",
+                                        method: "POST",
+                                        data: {
+                                            id: employeeId,
+                                            schedule_id: selectedValue,
+                                            _token: '{{ csrf_token() }}'
+                                        },
+                                        success: function(response) {
+                                            if (response.success) {
+                                                Swal.fire({
+                                                    icon: 'success',
+                                                    title: 'Berhasil!',
+                                                    text: 'Jadwal berhasil diperbarui!',
+                                                    timer: 2000,
+                                                    showConfirmButton: false
+                                                });
+                                            }
+                                        },
+                                        error: function(xhr) {
+                                            Swal.fire({
+                                                icon: 'error',
+                                                title: 'Error!',
+                                                text: 'Kesalahan saat mengupdate jadwal.',
+                                                timer: 2000,
+                                                showConfirmButton: false
+                                            });
+                                        }
+                                    });
                                 });
                             });
                         });
                     </script>
+
+
 
 
                 </div>

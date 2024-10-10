@@ -9,7 +9,7 @@
     <meta name="description"
         content="A powerful and conceptual apps base dashboard template that especially build for developers and programmers.">
     <!-- Fav Icon  -->
-    <link rel="shortcut icon" href="{{ asset('demo5/src/images/favicon.png') }}">
+    <link rel="shortcut icon" href="{{ asset('demo5/src/images/kehadirangacor.png') }}">
     <!-- Page Title  -->
     <title>Jadwal Pegawai</title>
     <!-- StyleSheets  -->
@@ -45,20 +45,44 @@
                                 <tr>
                                     <th>No</th>
                                     <th>Shift</th>
-                                    <th>Jam Masuk</th>
-                                    <th>Jam Keluar</th>
-                                    <th>Istirahat</th>
+                                    <th>Waktu</th>
                                 </tr>
                             </thead>
                             <tbody>
-                                <tr>
-                                    <td>1</td>
-                                    <td>Shift A</td>
-                                    <td>08.00</td>
-                                    <td>16.00</td>
-                                    <td>12.00</td>
-                                </tr>
+                                @foreach ($schedules as $schedule)
+                                    @php
+                                        $clockIn = \Carbon\Carbon::parse($schedule->clock_in);
+                                        $break = \Carbon\Carbon::parse($schedule->break);
+                                        $clockOut = \Carbon\Carbon::parse($schedule->clock_out);
 
+                                        // Calculate total work hours
+                                        $workHours = $clockOut->diffInHours($clockIn) - $break->diffInHours($clockIn);
+                                    @endphp
+                                    <tr>
+                                        <td>{{ $loop->iteration }}</td>
+                                        <td>{{ $schedule->shift_name }}</td>
+                                        <td>
+                                            @php
+                                                $datasd = \App\Models\ScheduleDayM::where(
+                                                    'schedule_id',
+                                                    $schedule->id,
+                                                )->get();
+                                            @endphp
+
+                                            <table style="width: 100%;">
+                                                @foreach ($datasd as $sd)
+                                                    <tr>
+                                                        <td>{{ $loop->iteration }}.</td>
+                                                        <td>{{ $sd->days }}</td>
+                                                        <td style="padding-left: 20px;">{{ $sd->clock_in }} -
+                                                            {{ $sd->clock_out }}</td>
+                                                    </tr>
+                                                @endforeach
+                                            </table>
+                                            <div style="padding-left: 20px;">Total : ____ jam</div>
+                                        </td>
+                                    </tr>
+                                @endforeach
                             </tbody>
 
                         </table>

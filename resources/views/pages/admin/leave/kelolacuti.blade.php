@@ -137,7 +137,7 @@
                                                                             data-enhancer="{{ $item->enhancer }}"
                                                                             data-status="{{ $item->status }}"
                                                                             data-reason="{{ $item->reason_verification }}">
-                                                                            <em class="icon ni ni-check-circle"></em>
+                                                                            <em class="icon ni ni-check-circle-cut"></em>
                                                                             <span>Konfirmasi</span>
                                                                             <!-- Optional: Add label for clarity -->
                                                                         </a>

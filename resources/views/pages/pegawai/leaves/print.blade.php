@@ -59,10 +59,29 @@
                                 @foreach ($leaves as $item)
                                     <tr>
                                         <td>{{ $loop->iteration }}</td>
-                                        <td>Cuti Lain-lain</td>
+                                        <td>
+
+                                            @if ($item->category == 'annual')
+                                                Tahunan
+                                            @elseif ($item->category == 'other')
+                                                Lain-lain
+                                            @endif
+                                        </td>
                                         {{-- <td>{{ $item->user->name }}</td> --}}
-                                        <td>{{ $item->reason_verification }}</td>
-                                        <td>Contoh : Menikah, Sakit, Dll</td>
+                                        <td>{{ $item->reason }}</td>
+                                        <td>
+                                            @if (empty($item->subcategory))
+                                                Tahunan
+                                            @elseif ($item->subcategory == 'sick')
+                                                Sakit
+                                            @elseif ($item->subcategory == 'married')
+                                                Menikah
+                                            @elseif ($item->subcategory == 'important_reason')
+                                                Beralasan Penting
+                                            @elseif ($item->subcategory == 'pilgrimage')
+                                                Beribadah Haji
+                                            @endif
+                                        </td>
                                         {{-- <td>{{ \Carbon\Carbon::parse($item->created_at)->format('d M Y') }}</td> --}}
                                         <td>{{ \Carbon\Carbon::parse($item->date)->format('d M Y') }}</td>
                                         <td>{{ \Carbon\Carbon::parse($item->end_date)->format('d M Y') }}</td>

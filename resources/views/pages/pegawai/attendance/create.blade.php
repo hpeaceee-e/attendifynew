@@ -74,14 +74,6 @@
                 radius: 100 // Ubah radius untuk memastikan lingkaran muncul
             }).addTo(map);
 
-            // Lingkaran di luar area yang diizinkan (untuk menunjukkan batas luar)
-            // var outsideCircle = L.circle(allowedLatLng, {
-            //     color: 'red',
-            //     fillColor: 'red', // Warna merah solid tanpa transparansi
-            //     fillOpacity: 1, // Tidak transparan
-            //     radius: allowedRadius * 2 // Radius lebih besar dari yang diizinkan
-            // }).addTo(map);
-
             // Hitung batas koordinat berdasarkan radius
             var latOffset = allowedRadius / 111320;
             var lngOffset = allowedRadius / (111320 * Math.cos(allowedLatLng[0] * Math.PI / 180));
@@ -90,31 +82,50 @@
             var northEast = [allowedLatLng[0] + latOffset, allowedLatLng[1] + lngOffset];
             var allowedBounds = L.latLngBounds(southWest, northEast);
 
+            // Tampilkan SweetAlert untuk meminta izin lokasi
+            Swal.fire({
+                title: 'Izinkan akses lokasi',
+                text: "Kami perlu mengakses lokasi Anda untuk melakukan absensi. Izinkan?",
+                icon: 'warning',
+                showCancelButton: true,
+                confirmButtonText: 'Izinkan',
+                cancelButtonText: 'Tolak',
+                reverseButtons: true
+            }).then((result) => {
+                if (result.isConfirmed) {
+                    if (navigator.geolocation) {
+                        Swal.fire({
+                            icon: 'info',
+                            title: 'Mendeteksi lokasi Anda...',
+                            text: 'Silakan tunggu beberapa saat.',
+                            allowOutsideClick: false,
+                            showConfirmButton: false,
+                            didOpen: () => {
+                                Swal.showLoading();
+                            }
+                        });
 
-            if (navigator.geolocation) {
-                Swal.fire({
-                    icon: 'info',
-                    title: 'Mendeteksi lokasi Anda...',
-                    text: 'Silakan tunggu beberapa saat.',
-                    allowOutsideClick: false,
-                    showConfirmButton: false,
-                    didOpen: () => {
-                        Swal.showLoading();
+                        // Mulai mendapatkan lokasi setelah izin diberikan oleh pengguna
+                        map.locate({
+                            setView: true,
+                            maxZoom: 16,
+                            watch: false
+                        });
+                    } else {
+                        Swal.fire({
+                            icon: 'error',
+                            title: 'Oops...',
+                            text: 'Geolokasi tidak didukung oleh browser ini.'
+                        });
                     }
-                });
-
-                map.locate({
-                    setView: true,
-                    maxZoom: 16,
-                    watch: false
-                });
-            } else {
-                Swal.fire({
-                    icon: 'error',
-                    title: 'Oops...',
-                    text: 'Geolokasi tidak didukung oleh browser ini.'
-                });
-            }
+                } else {
+                    Swal.fire({
+                        icon: 'info',
+                        title: 'Akses lokasi ditolak',
+                        text: 'Anda tidak dapat melakukan absensi tanpa akses lokasi.'
+                    });
+                }
+            });
 
             function onLocationFound(e) {
                 var radius = e.accuracy;

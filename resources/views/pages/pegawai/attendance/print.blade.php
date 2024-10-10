@@ -4,7 +4,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="shortcut icon" href="{{ asset('demo5/src/images/favicon.png') }}">
+    <link rel="shortcut icon" href="{{ asset('demo5/src/images/kehadirangacor.png') }}">
     <title>Print Kehadiran</title>
     <link rel="stylesheet" href="{{ asset('demo5/src/assets/css/dashlite.css?ver=3.0.3') }}">
     <link id="skin-default" rel="stylesheet" href="{{ asset('demo5/src/assets/css/theme.css?ver=3.0.3') }}">
@@ -114,10 +114,30 @@
                 border: none;
             }
 
+            .leaflet-pane,
+            .leaflet-tile,
+            .leaflet-marker-icon,
+            .leaflet-popup,
+            .leaflet-control {
+                visibility: visible !important;
+                opacity: 1 !important;
+            }
+
+            .leaflet-container {
+                height: 300px !important;
+                /* atau sesuaikan dengan kebutuhan */
+            }
+
+            .leaflet-tile-container {
+                filter: none !important;
+                /* Pastikan tiles tidak di-filter dalam mode cetak */
+            }
+
             #mapPrint {
                 height: 300px;
                 width: 100%;
                 border: none;
+                display: block !important;
             }
 
             .btn {
@@ -127,7 +147,7 @@
     </style>
 </head>
 
-<body>
+<body onload="printPromot()">
     <div class="container">
         <div class="invoice-brand text-center">
             <img src="{{ asset('demo5/src/images/logo-dark.png') }}"
@@ -158,24 +178,41 @@
     <link rel="stylesheet" href="https://unpkg.com/leaflet@1.7.1/dist/leaflet.css" />
     <script src="https://unpkg.com/leaflet@1.7.1/dist/leaflet.js"></script>
     <script>
+        var map; // Deklarasi map di luar fungsi
+
         document.addEventListener('DOMContentLoaded', function() {
             var latitude = {{ $latitude }};
             var longitude = {{ $longitude }};
 
             if (latitude && longitude) {
-                var map = L.map('mapPrint').setView([latitude, longitude], 13);
+                // Inisialisasi peta
+                map = L.map('mapPrint').setView([latitude, longitude], 13);
                 L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
                     maxZoom: 15,
                 }).addTo(map);
                 L.marker([latitude, longitude]).addTo(map);
 
-                // Pastikan ukuran peta di-update dengan benar
-                map.invalidateSize();
+                // Memastikan peta di-render ulang setelah tiles dimuat
+                map.on('tileload', function() {
+                    map.invalidateSize();
+                });
             } else {
                 document.getElementById('mapPrint').innerText = "Koordinat tidak tersedia.";
             }
         });
+
+        function printPromot() {
+            // Tunggu sebentar hingga peta selesai dimuat, lalu cetak
+            setTimeout(function() {
+                if (map) {
+                    map.invalidateSize(); // Memvalidasi ulang ukuran peta
+                }
+                window.print();
+            }, 1500); // Penundaan 1.5 detik untuk memastikan peta dimuat
+        }
     </script>
+
+
 </body>
 
 </html>

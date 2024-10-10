@@ -115,7 +115,8 @@ class ScheduleController extends Controller
 
     public function print()
     {
-        return view('pages.admin.schedule.printjadwal');
+        $schedules = Schedule::get();
+        return view('pages.admin.schedule.printjadwal', compact('schedules'));
     }
 
     public function delete($id)
