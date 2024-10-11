@@ -188,11 +188,6 @@
                                             <div class="nk-block-head-content">
                                                 <h3 class="nk-block-title page-title">Calendar</h3>
                                             </div><!-- .nk-block-head-content -->
-                                            {{-- <div class="nk-block-head-content d-flex">
-                                                <a class="link link-primary" data-bs-toggle="modal"
-                                                    href="#addEventPopup"><em class="icon ni ni-plus"></em> <span>Add
-                                                        Event</span></a>
-                                            </div><!-- .nk-block-head-content --> --}}
                                         </div><!-- .nk-block-between -->
                                     </div><!-- .nk-block-head -->
                                 </div>

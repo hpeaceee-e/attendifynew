@@ -30,9 +30,9 @@
                                         <tr>
                                             <th>No</th>
                                             <th>Hari</th>
-                                            <th>Jam Masuk</th>
-                                            <th>Jam Istirahat</th>
-                                            <th>Jam Pulang</th>
+                                            <th class="text-center">Jam Masuk</th>
+                                            <th class="text-center">Jam Istirahat</th>
+                                            <th class="text-center">Jam Pulang</th>
                                         </tr>
                                     </thead>
                                     <tbody>
@@ -41,9 +41,12 @@
                                                 <tr>
                                                     <td>{{ $loop->iteration }}</td>
                                                     <td>{{ $day->days }}</td>
-                                                    <td>{{ \Carbon\Carbon::parse($day->clock_in)->format('H:i') }}</td>
-                                                    <td>{{ \Carbon\Carbon::parse($day->break)->format('H:i') }}</td>
-                                                    <td>{{ \Carbon\Carbon::parse($day->clock_out)->format('H:i') }}</td>
+                                                    <td class="text-center">
+                                                        {{ \Carbon\Carbon::parse($day->clock_in)->format('H:i') }}</td>
+                                                    <td class="text-center">
+                                                        {{ \Carbon\Carbon::parse($day->break)->format('H:i') }}</td>
+                                                    <td class="text-center">
+                                                        {{ \Carbon\Carbon::parse($day->clock_out)->format('H:i') }}</td>
                                                 </tr>
                                             @endforeach
                                         @endforeach
