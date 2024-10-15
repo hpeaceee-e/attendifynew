@@ -11,112 +11,89 @@
                 <div class="nk-block-head nk-block-head-sm">
                     <div class="nk-block-between">
                         <div class="nk-block-head-content">
-                            <div class="toggle-wrap nk-block-tools-toggle">
-                                {{-- <div class="container" style="padding-top: 30px;"> --}}
-                                <!-- Tombol Absen Masuk/Pulang dan Cetak -->
-                                <div class="mt-5 d-flex align-items-center">
-                                    <ul class="nk-block-tools g-3">
-                                        <!-- Tombol Absen Masuk/Pulang -->
-                                        <li><a id="attendance-btn" href="{{ route('pegawai.tambah-attendance') }}"
-                                                class="btn btn-secondary d-inline-block">
-                                                Absen Masuk/Pulang
-                                            </a></li>
+                            <div class="mt-5 d-flex align-items-center">
+                                <ul class="nk-block-tools g-3">
+                                    <!-- Tombol Absen Masuk/Pulang -->
+                                    @php
+                                        // Mengambil data hari ini
+                                        $today = \Carbon\Carbon::today();
+                                        $days = \Carbon\Carbon::parse($today)->locale('id')->dayName;
 
-                                        <!-- Spacer to push the print button to the right -->
-                                        <div class="ms-auto">
-                                            <!-- Tombol Cetak -->
-                                            <li>
-                                                <a href="#" class="btn btn-secondary d-inline-block"
-                                                    data-bs-toggle="modal" data-bs-target="#printModal">
-                                                    <em class="icon ni ni-printer"></em> Cetak
-                                                </a>
-                                            </li>
-                                        </div>
-                                    </ul>
 
-                                </div>
+                                        $jadwalin = $jadwal_detail->where('days', $days)->first();
+                                        // dd($jadwalin);
+                            
+                                        
+                                        if ($jadwalin) {
+                                           // Mengambil jam clockin dan clockout sebagai objek Carbon
+                                            $clockin = \Carbon\Carbon::parse($jadwalin->clock_in); // Mengambil sebagai objek Carbon
+                                            $clockout = \Carbon\Carbon::parse($jadwalin->clock_out); // Mengambil sebagai objek Carbon
+                                            $now = \Carbon\Carbon::now();
 
-                                <!-- Pesan Sukses/Error -->
-                                @if (session('success'))
-                                    <script>
-                                        Swal.fire({
-                                            icon: 'success',
-                                            title: 'Success',
-                                            text: '{{ session('success') }}',
-                                            timer: 3000,
-                                            showConfirmButton: false
-                                        });
-                                    </script>
-                                @endif
-                                @if (session('error'))
-                                    <script>
-                                        Swal.fire({
-                                            icon: 'error',
-                                            title: 'Error',
-                                            text: '{{ session('error') }}',
-                                            timer: 3000,
-                                            showConfirmButton: false
-                                        });
-                                    </script>
-                                @endif
+                                            // Menentukan waktu untuk absensi masuk dan pulang
+                                            $satuJamDariClockin = $clockin->copy()->addHour(); // Menambahkan satu jam dari waktu clockin
+                                            $jamEmpat = $clockin->copy()->setHour(16); // Jam 4 sore
 
-                                <!-- Pesan di luar waktu absensi -->
-                                <div id="message" style="display: none;">
-                                    <div class="alert alert-warning d-flex align-items-center" role="alert">
-                                        <i class="fas fa-exclamation-triangle me-2"></i>
-                                        <div>
-                                            <strong>Perhatian!</strong> Sudah tidak memasuki waktu absensi.
-                                        </div>
+                                            // dd($clockout); // Menampilkan satu jam dari clockin
+
+                            
+                                            // Menampilkan tombol berdasarkan kondisi
+                                            if ($now <= $satuJamDariClockin) {
+                                                // Menampilkan tombol untuk absen masuk
+                                                echo '<li><a id="attendance-btn" href="' . route('pegawai.tambah-attendance') . '" class="btn btn-secondary d-inline-block">Absen Masuk</a></li>';
+                                            } elseif ($now >= $clockout) {
+                                                // Menampilkan tombol untuk absen pulang
+                                                echo '<li><a id="attendance-btn" href="' . route('pegawai.tambah-attendance') . '" class="btn btn-secondary d-inline-block">Absen Pulang</a></li>';
+                                            }
+                                        }
+                                    @endphp
+                            
+                                    <!-- Spacer to push the print button to the right -->
+                                    <div class="ms-auto">
+                                        <!-- Tombol Cetak -->
+                                        <li>
+                                            <a href="#" class="btn btn-secondary d-inline-block" data-bs-toggle="modal" data-bs-target="#printModal">
+                                                <em class="icon ni ni-printer"></em> Cetak
+                                            </a>
+                                        </li>
+                                    </div>
+                                </ul>
+                            </div>
+                            
+                            <!-- Pesan Sukses/Error -->
+                            @if (session('success'))
+                                <script>
+                                    Swal.fire({
+                                        icon: 'success',
+                                        title: 'Success',
+                                        text: '{{ session('success') }}',
+                                        timer: 3000,
+                                        showConfirmButton: false
+                                    });
+                                </script>
+                            @endif
+                            @if (session('error'))
+                                <script>
+                                    Swal.fire({
+                                        icon: 'error',
+                                        title: 'Error',
+                                        text: '{{ session('error') }}',
+                                        timer: 3000,
+                                        showConfirmButton: false
+                                    });
+                                </script>
+                            @endif
+                            
+                            <!-- Pesan di luar waktu absensi -->
+                            <div id="message" style="display: none;">
+                                <div class="alert alert-warning d-flex align-items-center" role="alert">
+                                    <i class="fas fa-exclamation-triangle me-2"></i>
+                                    <div>
+                                        <strong>Perhatian!</strong> Sudah tidak memasuki waktu absensi.
                                     </div>
                                 </div>
-                                {{-- </div> --}}
                             </div>
-                        </div>
-
-                        <!-- Script Jam Absensi -->
-                        <?php
-                            // Get current day and time
-                            $currentDay = date('l'); // This returns day in English like "Monday"
-                            $currentTime = date('H:i:s'); // Current time in format HH:mm:ss
                             
-                            // Translate current day into Bahasa Indonesia for matching
-                            $daysInIndonesian = [
-                                'Monday' => 'Senin',
-                                'Tuesday' => 'Selasa',
-                                'Wednesday' => 'Rabu',
-                                'Thursday' => 'Kamis',
-                                'Friday' => 'Jumat',
-                                'Saturday' => 'Sabtu',
-                                'Sunday' => 'Minggu'
-                            ];
-
-                            // Convert the current day to Indonesian
-                            $currentDayIndonesian = $daysInIndonesian[$currentDay];
-
-                            // Loop through the $jadwal data (schedule)
-                            foreach ($jadwal as $row) {
-                                // Check if today matches the schedule day
-                                if ($row->hari == $currentDayIndonesian) {
-                                    // Add 1 hour to the clock out time to define the cutoff for showing the button
-                                    $attendanceCutoff = date('H:i:s', strtotime($row->end_time . ' +1 hour'));
-
-                                    // Check if the current time is within the scheduled time + 1 hour
-                                    if ($currentTime >= $row->start_time && $currentTime <= $attendanceCutoff) {
-                                        // Check if the employee has already clocked in or out
-                                        if (is_null($row->clock_in) || is_null($row->clock_out)) {
-                                            // Show the attendance button if the current time is within range and no clock in/out exists
-                                            echo '<li><a id="attendance-btn" href="' . route('pegawai.tambah-attendance') . '" class="btn btn-secondary d-inline-block">Absen Masuk/Pulang</a></li>';
-                                        } else {
-                                            // Hide the button if the employee has already clocked in/out
-                                            echo '<!-- Button hidden as the employee has already clocked in/out -->';
-                                        }
-                                    } else {
-                                        // Hide the button if outside of the allowed time range
-                                        echo '<!-- Button hidden as current time is outside of schedule -->';
-                                    }
-                                }
-                            }
-                        ?>
 
 
                     </div>

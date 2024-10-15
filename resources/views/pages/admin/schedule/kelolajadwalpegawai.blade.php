@@ -80,7 +80,6 @@
                                                 <td>{{ $schedule->shift_name }}</td>
                                                 <td>
                                                     @php
-                                                        use Carbon\Carbon;
 
                                                         $datasd = \App\Models\ScheduleDayM::where('schedule_id', $schedule->id)->get();
                                                         $total = 0;
@@ -96,8 +95,8 @@
 
                                                             @php
                                                                 // Convert clock_in and clock_out to Carbon instances
-                                                                $clockIn = Carbon::parse($sd->clock_in);
-                                                                $clockOut = Carbon::parse($sd->clock_out);
+                                                                $clockIn = \Carbon\Carbon::parse($sd->clock_in);
+                                                                $clockOut = \Carbon\Carbon::parse($sd->clock_out);
 
                                                                 // Calculate the difference in hours
                                                                 $hours = $clockOut->diffInHours($clockIn);
@@ -107,7 +106,7 @@
                                                             @endphp
                                                         @endforeach
                                                     </table>
-                                                    <div style="padding-left: 20px;">: {{ $total }} jam</div>
+                                                    <div style="padding-left: 20px;">: Total {{ abs($total) }} jam</div>
 
 
                                                 </td>
