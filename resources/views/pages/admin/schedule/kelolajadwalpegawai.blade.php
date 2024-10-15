@@ -80,10 +80,9 @@
                                                 <td>{{ $schedule->shift_name }}</td>
                                                 <td>
                                                     @php
-                                                        $datasd = \App\Models\ScheduleDayM::where(
-                                                            'schedule_id',
-                                                            $schedule->id,
-                                                        )->get();
+
+                                                        $datasd = \App\Models\ScheduleDayM::where('schedule_id', $schedule->id)->get();
+                                                        $total = 0;
                                                     @endphp
 
                                                     <table style="width: 100%;">
@@ -91,12 +90,24 @@
                                                             <tr>
                                                                 <td>{{ $loop->iteration }}.</td>
                                                                 <td>{{ $sd->days }}</td>
-                                                                <td style="padding-left: 20px;">{{ $sd->clock_in }} -
-                                                                    {{ $sd->clock_out }}</td>
+                                                                <td style="padding-left: 20px;">{{ $sd->clock_in }} - {{ $sd->clock_out }}</td>
                                                             </tr>
+
+                                                            @php
+                                                                // Convert clock_in and clock_out to Carbon instances
+                                                                $clockIn = \Carbon\Carbon::parse($sd->clock_in);
+                                                                $clockOut = \Carbon\Carbon::parse($sd->clock_out);
+
+                                                                // Calculate the difference in hours
+                                                                $hours = $clockOut->diffInHours($clockIn);
+
+                                                                // Add the hours to the total
+                                                                $total += $hours;
+                                                            @endphp
                                                         @endforeach
                                                     </table>
-                                                    <div style="padding-left: 20px;">: oakwoawk jam</div>
+                                                    <div style="padding-left: 20px;">: Total {{ abs($total) }} jam</div>
+
 
                                                 </td>
                                                 <td>

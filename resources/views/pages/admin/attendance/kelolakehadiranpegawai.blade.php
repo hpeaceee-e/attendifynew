@@ -54,41 +54,57 @@
                                 <tbody>
                                     @foreach ($attendances as $attendance)
                                         @php
-                                            // Get the corresponding schedule day for the date
-                                            $scheduleDay = $jadwal->where('date', $attendance->date)->first();
-                                            $clockIn = $scheduleDay ? $scheduleDay->clock_in : null;
-                                            $clockOut = $scheduleDay ? $scheduleDay->clock_out : null;
-
-                                            // Initialize variables for late and early
+                                            $orang = \App\Models\User::where('id', $attendance->enhancer)->value('schedule');
+                                            $jadwal = \App\Models\Schedule::where('id', $orang)->value('id');
+                                            $jadwal_detail = \App\Models\ScheduleDayM::where('schedule_id', $jadwal)->get();
+                                            // Mendapatkan nama hari dari attendance date dalam bahasa Indonesia
+                                            $attendanceDay = \Carbon\Carbon::parse($attendance->date)->locale('id')->dayName;
+                                            
+                                            // Mencari jadwal yang sesuai dengan hari presensi
+                                            $jadwalForDay = $jadwal_detail->firstWhere('days', $attendanceDay);
+                                            
+                                            // Inisialisasi variabel untuk telat dan lebih awal
                                             $lateMinutes = 0;
                                             $earlyMinutes = 0;
                                             $isLate = false;
                                             $isEarly = false;
 
-                                            // Check if the attendance time indicates lateness
-                                            if ($clockIn && $attendance->time > $clockIn) {
-                                                $isLate = true; // Late
-                                                // Calculate late minutes
-                                                $attendanceTime = \Carbon\Carbon::parse($attendance->time);
-                                                $scheduleTime = \Carbon\Carbon::parse($clockIn);
-                                                $lateMinutes = $attendanceTime->diffInMinutes($scheduleTime);
-                                            }
+                                            // Ambil jam clock in dan clock out jika ada
+                                            $clockIn = $jadwalForDay ? $jadwalForDay->clock_in : null;
+                                            $clockOut = $jadwalForDay ? $jadwalForDay->clock_out : null;
 
-                                            // Check if the leave time indicates early leave
-                                            if ($clockOut && $attendance->time < $clockOut) {
-                                                $isEarly = true; // Early
-                                                // Calculate early minutes
-                                                $attendanceTime = \Carbon\Carbon::parse($attendance->time);
-                                                $scheduleTime = \Carbon\Carbon::parse($clockOut);
-                                                $earlyMinutes = $scheduleTime->diffInMinutes($attendanceTime);
+                                            $absenTime = \Carbon\Carbon::parse($attendance->time)->setDate(1970, 1, 1);
+                                            $clockIn = $jadwalForDay ? \Carbon\Carbon::createFromFormat('H:i:s', $jadwalForDay->clock_in)->setDate(1970, 1, 1) : null;
+                                            
+                                            if ($attendance->status == 0 && $clockIn) {
+                                                if ($absenTime->greaterThan($clockIn)) {
+                                                    $isLate = true;
+                                                    $lateMinutes = abs($absenTime->diffInMinutes($clockIn));
+                                                } elseif ($absenTime->lessThan($clockIn)) {
+                                                    $isEarly = true;
+                                                    $earlyMinutes = abs($clockIn->diffInMinutes($absenTime));
+                                                }
+                                            }
+                                            
+                                            $clockOut = $jadwalForDay ? \Carbon\Carbon::createFromFormat('H:i:s', $jadwalForDay->clock_out)->setDate(1970, 1, 1) : null;
+
+                                            // Jika status adalah 1 (pulang)
+                                            if ($attendance->status == 1 && $clockOut) {
+                                                if ($absenTime->greaterThan($clockOut)) {
+                                                    $isLate = true;
+                                                    $lateMinutes = abs($absenTime->diffInMinutes($clockOut));
+                                                } elseif ($absenTime->lessThan($clockOut)) {
+                                                    $isEarly = true;
+                                                    $earlyMinutes = abs($clockOut->diffInMinutes($absenTime));
+                                                }
                                             }
                                         @endphp
+
                                         <tr>
                                             <td>{{ $loop->iteration }}</td>
                                             <td>{{ $attendance->user->name }}</td>
-                                            <td>{{ \Carbon\Carbon::parse($attendance->date)->format('d M Y') }}
-                                            </td>
-                                            <td>{{ \Carbon\Carbon::parse($attendance->time)->format('H:i') }}</td>
+                                            <td>{{ \Carbon\Carbon::parse($attendance->date)->format('d M Y') }}</td>
+                                            <td>{{ $absenTime->format('H:i') }}</td>
 
                                             {{-- Menampilkan status Masuk atau Pulang --}}
                                             <td>
@@ -98,28 +114,6 @@
                                                     <span class="badge bg-primary">Pulang</span>
                                                 @endif
                                             </td>
-
-
-                                            {{-- Codingan dulu untuk menghitung terlambat atau tepat waktu dalam 1 kolom --}}
-                                            {{-- @php
-                                                $clockInTime = strtotime($clockIn);
-                                                $clockInTime = strtotime($clockIn); // Assuming $clockIn is a time string like '08:30'
-                                                $comparisonTime = strtotime('08:00');
-                                                $differenceInMinutes =
-                                                    $clockInTime > $comparisonTime
-                                                        ? round(($clockInTime - $comparisonTime) / 60)
-                                                        : 0;
-                                                $difference = round(abs($clockInTime - $comparisonTime) / 60);
-                                            @endphp
-
-                                            @if ($clockInTime > $comparisonTime)
-                                                <span class="badge bg-danger">Terlambat</span><br>
-                                                {{ $differenceInMinutes }} Menit <br> after 08.00
-                                            @else
-                                                <span class="badge bg-success">Tepat waktu</span> <br>
-                                                {{ $difference }} Menit <br> before 08.00
-                                            @endif --}}
-
 
                                             {{-- Kolom Lebih Awal --}}
                                             <td>
@@ -139,43 +133,33 @@
                                                 @endif
                                             </td>
 
-
-                                            {{-- Menampilkan koordinat --}}
-                                            {{-- <td>{{ $attendance->coordinate ?: '-' }}</td> --}}
-
                                             <td class="text-center">
                                                 <ul class="nk-tb-actions gx-2">
                                                     <li>
                                                         <div class="dropdown">
-                                                            <a href="#"
-                                                                class="btn btn-icon btn-trigger toggle-expand me-n1"
-                                                                data-bs-toggle="dropdown">
+                                                            <a href="#" class="btn btn-icon btn-trigger toggle-expand me-n1" data-bs-toggle="dropdown">
                                                                 <em class="icon ni ni-more-h"></em>
                                                             </a>
                                                             <div class="dropdown-menu dropdown-menu-end">
                                                                 <ul class="link-list-opt no-bdr">
-                                                                    {{-- Aksi cetak berdasarkan status --}}
                                                                     @if ($attendance->status == 0)
                                                                         <li>
                                                                             <a href="{{ route('admin.print-kelolakehadiranpegawai-masuk', ['id' => $attendance->id]) }}"
-                                                                                target="_blank" class="dropdown-item">
-                                                                                <em class="icon ni ni-printer"></em> Cetak
-                                                                                Masuk
+                                                                            target="_blank" class="dropdown-item">
+                                                                                <em class="icon ni ni-printer"></em> Cetak Masuk
                                                                             </a>
                                                                         </li>
                                                                     @elseif ($attendance->status == 1)
                                                                         <li>
                                                                             <a href="{{ route('admin.print-kelolakehadiranpegawai-keluar', ['id' => $attendance->id]) }}"
-                                                                                target="_blank" class="dropdown-item">
-                                                                                <em class="icon ni ni-printer"></em> Cetak
-                                                                                Pulang
+                                                                            target="_blank" class="dropdown-item">
+                                                                                <em class="icon ni ni-printer"></em> Cetak Pulang
                                                                             </a>
                                                                         </li>
                                                                     @endif
 
                                                                     <li>
-                                                                        <a href="#"><em
-                                                                                class="icon ni ni-trash"></em><span>Hapus</span></a>
+                                                                        <a href="#"><em class="icon ni ni-trash"></em><span>Hapus</span></a>
                                                                     </li>
                                                                 </ul>
                                                             </div>
@@ -183,9 +167,10 @@
                                                     </li>
                                                 </ul>
                                             </td>
-
                                         </tr>
                                     @endforeach
+
+
                                 </tbody>
                             </table>
 

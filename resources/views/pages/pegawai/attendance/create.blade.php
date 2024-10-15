@@ -63,24 +63,16 @@
                 maxZoom: 18,
             }).addTo(map);
 
-            var allowedLatLng = [-6.557553, 107.4416366]; // Koordinat pusat PT Pratama Solusi Teknologi
-            var allowedRadius = 30; // Radius 30 meter
+            var allowedLatLng = [-6.557553, 107.4416366]; // Koordinat PT Pratama Solusi Teknologi
+            var allowedRadius = 30; // Radius 30 meter yang diizinkan
 
-            // Tambahkan lingkaran dengan radius yang lebih besar untuk tes
+            // Tambahkan lingkaran untuk area yang diizinkan
             var allowedCircle = L.circle(allowedLatLng, {
-                color: '#32cd32', // Warna hijau
+                color: '#32cd32', 
                 fillColor: '#32cd32',
-                fillOpacity: 0.5, // Lebih transparan untuk melihat detail peta di bawahnya
-                radius: 100 // Ubah radius untuk memastikan lingkaran muncul
+                fillOpacity: 0.5,
+                radius: allowedRadius // Radius yang diizinkan
             }).addTo(map);
-
-            // Hitung batas koordinat berdasarkan radius
-            var latOffset = allowedRadius / 111320;
-            var lngOffset = allowedRadius / (111320 * Math.cos(allowedLatLng[0] * Math.PI / 180));
-
-            var southWest = [allowedLatLng[0] - latOffset, allowedLatLng[1] - lngOffset];
-            var northEast = [allowedLatLng[0] + latOffset, allowedLatLng[1] + lngOffset];
-            var allowedBounds = L.latLngBounds(southWest, northEast);
 
             // Tampilkan SweetAlert untuk meminta izin lokasi
             Swal.fire({
@@ -130,10 +122,15 @@
             function onLocationFound(e) {
                 var radius = e.accuracy;
 
+                // Tambahkan marker untuk lokasi pengguna
+                var userMarker = L.marker(e.latlng).addTo(map)
+                    .bindPopup("Lokasi Anda dalam radius " + radius + " meter.").openPopup();
+                
+                // Pusatkan peta pada pengguna
+                map.setView(e.latlng, 18);
+
                 // Cek apakah pengguna berada dalam area yang diizinkan
                 if (allowedCircle.getBounds().contains(e.latlng)) {
-                    L.marker(e.latlng).addTo(map)
-                        .bindPopup("Lokasi Anda dalam radius " + radius + " meter.").openPopup();
                     document.getElementById('coordinate').value = e.latlng.lat + "," + e.latlng.lng;
 
                     Swal.close();
@@ -169,10 +166,7 @@
             map.on('locationfound', onLocationFound);
 
             map.on('locationerror', function(e) {
-                // Tampilkan alert gagal mendapatkan lokasi
                 document.getElementById('locationErrorAlert').style.display = 'block';
-
-                // Sembunyikan tombol submit absensi jika lokasi gagal ditemukan
                 document.getElementById('submitContainer').style.display = "none";
 
                 Swal.fire({
