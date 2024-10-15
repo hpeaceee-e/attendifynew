@@ -67,6 +67,8 @@
                                         <li><a href="html/user-profile-activity.html"><em
                                                     class="icon ni ni-activity-alt"></em><span>Login
                                                     Activity</span></a></li>
+                                        <li><a class="dark-switch" href="#"><em
+                                                    class="icon ni ni-moon"></em><span>Dark Mode</span></a></li>
 
                                     </ul>
                                 </div>

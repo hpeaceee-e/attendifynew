@@ -1,4 +1,4 @@
-<div id="sidebar" class="nk-sidebar nk-sidebar-fixed" data-content="sidebarMenu" style="background-color: #ffffff; ">
+<div id="sidebar" class="nk-sidebar nk-sidebar-fixed" data-content="sidebarMenu">
     <div class="nk-sidebar-element nk-sidebar-head">
         <div class="nk-sidebar-brand">
             <a href="{{ route('pegawai.pages.pegawai.dashboard') }}" class="logo-link nk-sidebar-logo">

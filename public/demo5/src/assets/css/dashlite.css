@@ -276,11 +276,11 @@ sup {
 }
 
 a {
-  color: #3a8dfe;
+  color: #2c3e50;
   text-decoration: none;
 }
 a:hover {
-  color: #0770fe;
+  color: #2c3e50;
   text-decoration: none;
 }
 
@@ -28520,7 +28520,7 @@ body.nav-shown {
 }
 .nk-sidebar {
   position: absolute;
-  background: #f5f6fa;
+  background: #fff;
   height: 100%;
   min-height: 100vh;
   top: 0;
