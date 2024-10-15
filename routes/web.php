@@ -25,6 +25,9 @@ use Symfony\Component\HttpFoundation\Response;
 Route::get('/', [LoginController::class, 'index'])->name('auth.login');
 Route::post('/login-proses', [LoginController::class, 'login_proses'])->name('login-proses');
 Route::get('/logout', [LoginController::class, 'logout'])->name('logout');
+Route::get('/resetpassword', [LoginController::class, 'resetpassword'])->name('resetpassword');
+Route::post('/resetpassword', [LoginController::class, 'gantipassword'])->name('gantipassword');
+
 
 
 

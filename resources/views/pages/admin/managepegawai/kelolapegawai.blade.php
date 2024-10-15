@@ -134,7 +134,7 @@
                                                                         <li>
                                                                             <a
                                                                                 href="{{ route('admin.userdeleted', $d->id) }}"><em
-                                                                                    class="icon ni ni-na"></em><span>Hapus</span></a>
+                                                                                    class="icon ni ni-trash"></em><span>Hapus</span></a>
                                                                         </li>
                                                                         {{-- <li><a href="#"
                                                                                     onclick="event.preventDefault(); document.getElementById('delete-form-{{ $d->id }}').submit();"><em

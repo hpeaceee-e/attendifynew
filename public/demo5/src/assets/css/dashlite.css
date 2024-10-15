@@ -25131,7 +25131,7 @@ When it's NOT activated, the fc-button classes won't even be in the DOM.
 }
 
 .fc .fc-button-primary {
-  color: #fff;
+  color: #2C3E50;
   color: var(--fc-button-text-color, #fff);
   background-color: #2C3E50;
   background-color: var(--fc-button-bg-color, #2C3E50);
@@ -25140,8 +25140,8 @@ When it's NOT activated, the fc-button classes won't even be in the DOM.
 }
 
 .fc .fc-button-primary:hover {
-  color: #2C3E50 !important;
-  color: var(--fc-button-text-color, #2C3E50);
+  color: #fff !important;
+  color: var(--fc-button-text-color, #fff);
   background-color: #2C3E50 !important;
   background-color: var(--fc-button-hover-bg-color, #2C3E50);
   border-color: #2C3E50 !important;
@@ -25283,7 +25283,7 @@ When it's NOT activated, the fc-button classes won't even be in the DOM.
   border: none !important;
 }
 .fc .fc-toolbar.fc-header-toolbar .fc-toolbar-chunk .fc-prev-button:hover, .fc .fc-toolbar.fc-header-toolbar .fc-toolbar-chunk .fc-prev-button:focus, .fc .fc-toolbar.fc-header-toolbar .fc-toolbar-chunk .fc-next-button:hover, .fc .fc-toolbar.fc-header-toolbar .fc-toolbar-chunk .fc-next-button:focus {
-  background: transparent !important;
+  background: #1e2b37 !important;
   box-shadow: none !important;
 }
 

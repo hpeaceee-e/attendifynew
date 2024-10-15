@@ -36,13 +36,15 @@
                                         <td class="text-center">
                                             <div class="d-flex justify-content-center">
                                                 <a href="{{ route('admin.userrestore', $userd->id) }}"
-                                                    class="btn btn-sm btn-success me-2">Restore</a>
+                                                    class="btn btn-sm btn-success me-2"> <em
+                                                        class="icon ni ni-undo"></em><span>Restore</span></a>
                                                 <form action="{{ route('admin.userdestroyed', $userd->id) }}" method="POST"
                                                     class="d-inline">
                                                     @csrf
                                                     @method('DELETE')
-                                                    <button type="submit" class="btn btn-sm btn-danger">Delete
-                                                        Permanently</button>
+                                                    <button type="submit" class="btn btn-sm btn-danger"><em
+                                                            class="icon ni ni-na"></em><span>Delete
+                                                            Permanantly</span></button>
                                                 </form>
                                             </div>
                                         </td>

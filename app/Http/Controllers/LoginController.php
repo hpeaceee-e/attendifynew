@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Hash;
 
 class LoginController extends Controller
 {
@@ -44,5 +45,26 @@ class LoginController extends Controller
     {
         Auth::logout();
         return redirect()->route('auth.login')->with('succes', 'Kamu berhasil Logout');
+    }
+
+    public function resetpassword()
+    {
+        return view('auth.resetpassword');
+    }
+
+    public function gantipassword(Request $request)
+    {
+        // Validasi input
+        $validatedData = $request->validate([
+            'password' => 'required|min:6|confirmed',
+        ]);
+
+        // Ganti password pengguna
+        $user = auth()->user(); // Pastikan pengguna sudah login
+
+        $user->password = Hash::make($validatedData['password']);
+        $user->save();
+
+        return redirect()->route('succes')->with('status', 'Password berhasil diubah.');
     }
 }

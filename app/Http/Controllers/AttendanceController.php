@@ -15,64 +15,48 @@ class AttendanceController extends Controller
     public function kehadiran()
     {
         $user = User::where('role', '!=', 1)->pluck('id')->toArray();
+        $userid = Auth::user()->id;
+        $user = User::find($userid);
+        $schedule = Schedule::find($user->schedule);
+        $jadwal = ScheduleDayM::where('schedule_id', $schedule->id)->get();
 
-        $tepat = Attendance::whereRaw("TIME(`time`) < '08:00:00'")
-            ->whereIn('enhancer', $user)
-            ->get();
-
-        $telat = Attendance::whereRaw("TIME(`time`) > '08:00:00'")
-            ->whereIn('enhancer', $user)
-            ->get();
-
-
-        // dd($tepat);
-
-        // Retrieve all attendances with their schedules
-        $attendances = Attendance::with('schedule', 'user')
+        // Retrieve all attendances for display
+        $attendances = Attendance::with('user')
             ->whereHas('user', function ($query) {
                 $query->where('role', '2'); // Assuming '2' is the role ID for 'pegawai'
             })
+            ->orderBy('date', 'asc')
+            ->orderBy('time', 'asc')
             ->get();
 
-        // Process the attendances to group by date and format the data
-        $attendancesGrouped = $attendances->groupBy('date')->map(function ($group) {
-            $clockIn = null;
-            $clockOut = null;
-            $coordinate = null;
-            $status = ''; // Default status as empty string
+        // // Menambahkan informasi waktu kehadiran
+        // foreach ($attendances as $attendance) {
+        //     $clockInTime = strtotime($attendance->time); // Waktu pegawai
+        //     $comparisonTime = strtotime('08:00'); // Waktu acuan
 
-            foreach ($group as $attendance) {
-                if ($attendance->status == 0) {
-                    // Status 0 indicates 'Masuk'
-                    $clockIn = \Carbon\Carbon::parse($attendance->time);
-                    $coordinate = $attendance->coordinate;
-                } elseif ($attendance->status == 1) {
-                    // Status 1 indicates 'Pulang'
-                    $clockOut = \Carbon\Carbon::parse($attendance->time);
-                }
-            }
+        //     // Hitung status kehadiran
+        //     if ($clockInTime < $comparisonTime) {
+        //         // Jika datang sebelum jam 08:00
+        //         $attendance->status_kehadiran = 'Tepat waktu';
+        //         $attendance->difference = round(abs($clockInTime - $comparisonTime) / 60); // Hitung lebih awal
+        //     } elseif ($clockInTime >= $comparisonTime) {
+        //         // Jika datang setelah jam 08:00
+        //         $attendance->status_kehadiran = 'Terlambat';
+        //         $attendance->difference = round(($clockInTime - $comparisonTime) / 60); // Hitung terlambat
+        //     } else {
+        //         // Jika datang setelah jam 12 malam
+        //         $attendance->status_kehadiran = 'Tepat waktu';
+        //         $attendance->difference = round(abs($clockInTime - $comparisonTime) / 60); // Tetap hitung perbedaan waktu
+        //     }
+        // }
 
-            if ($clockIn && $group->first()->schedule) {
-                $scheduledTime = \Carbon\Carbon::parse($group->first()->schedule->clock_in);
-
-                // Compare actual clock-in time with scheduled time
-                $status = $clockIn <= $scheduledTime ? 'Tepat Waktu' : 'Terlambat';
-            }
-
-            return [
-                'clockIn' => $clockIn ? $clockIn->format('H:i') : '-',
-                'clockOut' => $clockOut ? $clockOut->format('H:i') : '-',
-                'coordinate' => $coordinate,
-                'status' => $status,
-                'userName' => $group->first()->user->name,
-                'date' => \Carbon\Carbon::parse($group->first()->date)->format('d M Y'),
-            ];
-        });
-
-        
-
-        return view('pages.admin.attendance.kelolakehadiranpegawai', compact('attendancesGrouped', 'attendances', 'telat', 'tepat'));
+        return view('pages.admin.attendance.kelolakehadiranpegawai', compact('attendances', 'jadwal'));
     }
+
+
+
+
+
 
     public function filtertanggal() {}
 
@@ -90,16 +74,16 @@ class AttendanceController extends Controller
     public function index()
     {
 
-        $userid= Auth::user()->id;
-        $user= User::find($userid);
+        $userid = Auth::user()->id;
+        $user = User::find($userid);
         $schedule = Schedule::find($user->schedule);
-        $jadwal = ScheduleDayM::where('schedule_id',$schedule->id)->get();
+        $jadwal = ScheduleDayM::where('schedule_id', $schedule->id)->get();
         // dd($jadwal);
-        
+
         $id = Auth::user()->id;
         // dd($id);
         $attendances = Attendance::where('enhancer', $id)->get();
-        return view('pages.pegawai.attendance.index', compact('attendances','jadwal'));
+        return view('pages.pegawai.attendance.index', compact('attendances', 'jadwal'));
     }
 
     // Tampilkan halaman presensi

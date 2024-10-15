@@ -29,6 +29,7 @@ class User extends Authenticatable
         'username',
         'email',
         'token',
+        'id_card',
         'role',
         'schedule', // Foreign key schedule
         'deleted_at',

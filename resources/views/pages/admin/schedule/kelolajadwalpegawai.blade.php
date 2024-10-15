@@ -132,7 +132,7 @@
                                                                         <li>
                                                                             <a
                                                                                 href="{{ route('admin.delete-jadwal', $schedule->id) }}"><em
-                                                                                    class="icon ni ni-na"></em><span>Hapus</span></a>
+                                                                                    class="icon ni ni-trash"></em><span>Hapus</span></a>
                                                                         </li>
                                                                     </ul>
                                                                 </div>
@@ -199,10 +199,12 @@
                     <script src="https://code.jquery.com/jquery-3.5.1.min.js"></script>
                     <script>
                         $(document).ready(function() {
-                            $('select[name="schedule"]').change(function() {
+                            // Attach change event listener to select elements
+                            $('select.schedule-select').change(function() {
                                 var selectedValue = $(this).val();
                                 var employeeId = $(this).data('id');
 
+                                // Send AJAX request to update the schedule
                                 $.ajax({
                                     url: "{{ route('admin.update.sch-jadwal') }}",
                                     method: "POST",
@@ -213,16 +215,76 @@
                                     },
                                     success: function(response) {
                                         if (response.success) {
-                                            alert('Data jadwal berhasil diupdate!');
+                                            Swal.fire({
+                                                icon: 'success',
+                                                title: 'Berhasil!',
+                                                text: 'Data jadwal berhasil diupdate!',
+                                                timer: 2000,
+                                                showConfirmButton: false
+                                            });
+                                        } else {
+                                            Swal.fire({
+                                                icon: 'error',
+                                                title: 'Gagal!',
+                                                text: 'Gagal mengupdate jadwal. Coba lagi.',
+                                                timer: 2000,
+                                                showConfirmButton: false
+                                            });
                                         }
                                     },
                                     error: function(xhr) {
-                                        alert('Terjadi kesalahan saat mengupdate data.');
+                                        Swal.fire({
+                                            icon: 'error',
+                                            title: 'Error!',
+                                            text: 'Terjadi kesalahan saat mengupdate data.',
+                                            timer: 2000,
+                                            showConfirmButton: false
+                                        });
                                     }
+                                });
+                            });
+
+                            // Handle form submission (if you want to save multiple schedules at once)
+                            $('#save-schedule').click(function() {
+                                $('select.schedule-select').each(function() {
+                                    var selectedValue = $(this).val();
+                                    var employeeId = $(this).data('id');
+
+                                    // Send AJAX request to update each schedule
+                                    $.ajax({
+                                        url: "{{ route('admin.update.sch-jadwal') }}",
+                                        method: "POST",
+                                        data: {
+                                            id: employeeId,
+                                            schedule_id: selectedValue,
+                                            _token: '{{ csrf_token() }}'
+                                        },
+                                        success: function(response) {
+                                            if (response.success) {
+                                                Swal.fire({
+                                                    icon: 'success',
+                                                    title: 'Berhasil!',
+                                                    text: 'Jadwal berhasil diperbarui!',
+                                                    timer: 2000,
+                                                    showConfirmButton: false
+                                                });
+                                            }
+                                        },
+                                        error: function(xhr) {
+                                            Swal.fire({
+                                                icon: 'error',
+                                                title: 'Error!',
+                                                text: 'Kesalahan saat mengupdate jadwal.',
+                                                timer: 2000,
+                                                showConfirmButton: false
+                                            });
+                                        }
+                                    });
                                 });
                             });
                         });
                     </script>
+
 
 
                 </div>

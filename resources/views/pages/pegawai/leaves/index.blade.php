@@ -252,7 +252,7 @@
 
                         <div class="modal-footer">
                             <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Tutup</button>
-                            <button type="submit" class="btn btn-primary">Cetak</button>
+                            <button type="submit" class="btn btn-primary" target="_blank">Cetak</button>
                         </div>
                     </form>
                 </div>
