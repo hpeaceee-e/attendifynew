@@ -11,7 +11,7 @@
 
             <!-- Tombol untuk memilih status kehadiran -->
             <div class="form-group">
-                <label for="status">Pengajuan Cuti Pegawai</label>
+                <label for="status">Pengajuan Cuti</label>
                 <select name="status" id="status" class="form-select js-select2 select2-hidden-accesible valid"
                     onchange="toggleReasonField()">
                     <option value="0">Diterima</option>
