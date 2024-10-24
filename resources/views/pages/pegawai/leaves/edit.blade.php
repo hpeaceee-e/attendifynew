@@ -33,7 +33,8 @@
                                             <div class="form-group">
                                                 <label class="form-label" for="kategori">Kategori Cuti</label>
                                                 <div class="form-control-wrap">
-                                                    <select class="form-control" id="kategori" name="category" disabled>
+                                                    <select class="form-select js-select2 select2-hidden-accesible valid"
+                                                        id="kategori" name="category" disabled>
                                                         <option value="annual"
                                                             {{ $leave->category == 'annual' ? 'selected' : '' }}>Cuti
                                                             Tahunan</option>
@@ -53,8 +54,9 @@
                                                     <div class="form-group">
                                                         <label class="form-label" for="subkategori">Subkategori</label>
                                                         <div class="form-control-wrap">
-                                                            <select class="form-control" id="subkategori" name="subcategory"
-                                                                disabled>
+                                                            <select
+                                                                class="form-select js-select2 select2-hidden-accesible valid"
+                                                                id="subkategori" name="subcategory" disabled>
                                                                 <option value="sick"
                                                                     {{ $leave->subcategory == 'sick' ? 'selected' : '' }}>
                                                                     Sakit</option>
@@ -148,6 +150,10 @@
     </div>
 
     <script>
+        $(document).ready(function() {
+            // Inisialisasi Select2 setelah DOM siap
+            $('.js-select2').select2();
+        });
         document.addEventListener('DOMContentLoaded', function() {
             // Mendapatkan elemen-elemen form
             var kategoriSelect = document.getElementById('kategori');

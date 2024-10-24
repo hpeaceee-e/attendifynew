@@ -54,15 +54,21 @@
                                 <tbody>
                                     @foreach ($attendances as $attendance)
                                         @php
-                                            $orang = \App\Models\User::where('id', $attendance->enhancer)->value('schedule');
+                                            $orang = \App\Models\User::where('id', $attendance->enhancer)->value(
+                                                'schedule',
+                                            );
                                             $jadwal = \App\Models\Schedule::where('id', $orang)->value('id');
-                                            $jadwal_detail = \App\Models\ScheduleDayM::where('schedule_id', $jadwal)->get();
+                                            $jadwal_detail = \App\Models\ScheduleDayM::where(
+                                                'schedule_id',
+                                                $jadwal,
+                                            )->get();
                                             // Mendapatkan nama hari dari attendance date dalam bahasa Indonesia
-                                            $attendanceDay = \Carbon\Carbon::parse($attendance->date)->locale('id')->dayName;
-                                            
+                                            $attendanceDay = \Carbon\Carbon::parse($attendance->date)->locale('id')
+                                                ->dayName;
+
                                             // Mencari jadwal yang sesuai dengan hari presensi
                                             $jadwalForDay = $jadwal_detail->firstWhere('days', $attendanceDay);
-                                            
+
                                             // Inisialisasi variabel untuk telat dan lebih awal
                                             $lateMinutes = 0;
                                             $earlyMinutes = 0;
@@ -74,8 +80,13 @@
                                             $clockOut = $jadwalForDay ? $jadwalForDay->clock_out : null;
 
                                             $absenTime = \Carbon\Carbon::parse($attendance->time)->setDate(1970, 1, 1);
-                                            $clockIn = $jadwalForDay ? \Carbon\Carbon::createFromFormat('H:i:s', $jadwalForDay->clock_in)->setDate(1970, 1, 1) : null;
-                                            
+                                            $clockIn = $jadwalForDay
+                                                ? \Carbon\Carbon::createFromFormat(
+                                                    'H:i:s',
+                                                    $jadwalForDay->clock_in,
+                                                )->setDate(1970, 1, 1)
+                                                : null;
+
                                             if ($attendance->status == 0 && $clockIn) {
                                                 if ($absenTime->greaterThan($clockIn)) {
                                                     $isLate = true;
@@ -85,8 +96,13 @@
                                                     $earlyMinutes = abs($clockIn->diffInMinutes($absenTime));
                                                 }
                                             }
-                                            
-                                            $clockOut = $jadwalForDay ? \Carbon\Carbon::createFromFormat('H:i:s', $jadwalForDay->clock_out)->setDate(1970, 1, 1) : null;
+
+                                            $clockOut = $jadwalForDay
+                                                ? \Carbon\Carbon::createFromFormat(
+                                                    'H:i:s',
+                                                    $jadwalForDay->clock_out,
+                                                )->setDate(1970, 1, 1)
+                                                : null;
 
                                             // Jika status adalah 1 (pulang)
                                             if ($attendance->status == 1 && $clockOut) {
@@ -137,7 +153,9 @@
                                                 <ul class="nk-tb-actions gx-2">
                                                     <li>
                                                         <div class="dropdown">
-                                                            <a href="#" class="btn btn-icon btn-trigger toggle-expand me-n1" data-bs-toggle="dropdown">
+                                                            <a href="#"
+                                                                class="btn btn-icon btn-trigger toggle-expand me-n1"
+                                                                data-bs-toggle="dropdown">
                                                                 <em class="icon ni ni-more-h"></em>
                                                             </a>
                                                             <div class="dropdown-menu dropdown-menu-end">
@@ -145,21 +163,24 @@
                                                                     @if ($attendance->status == 0)
                                                                         <li>
                                                                             <a href="{{ route('admin.print-kelolakehadiranpegawai-masuk', ['id' => $attendance->id]) }}"
-                                                                            target="_blank" class="dropdown-item">
-                                                                                <em class="icon ni ni-printer"></em> Cetak Masuk
+                                                                                target="_blank" class="dropdown-item">
+                                                                                <em class="icon ni ni-printer"></em> Cetak
+                                                                                Masuk
                                                                             </a>
                                                                         </li>
                                                                     @elseif ($attendance->status == 1)
                                                                         <li>
                                                                             <a href="{{ route('admin.print-kelolakehadiranpegawai-keluar', ['id' => $attendance->id]) }}"
-                                                                            target="_blank" class="dropdown-item">
-                                                                                <em class="icon ni ni-printer"></em> Cetak Pulang
+                                                                                target="_blank" class="dropdown-item">
+                                                                                <em class="icon ni ni-printer"></em> Cetak
+                                                                                Pulang
                                                                             </a>
                                                                         </li>
                                                                     @endif
 
                                                                     <li>
-                                                                        <a href="#"><em class="icon ni ni-trash"></em><span>Hapus</span></a>
+                                                                        <a href="#"><em
+                                                                                class="icon ni ni-trash"></em><span>Hapus</span></a>
                                                                     </li>
                                                                 </ul>
                                                             </div>
@@ -193,9 +214,10 @@
                                     <!-- Dropdown Pilihan Cetak -->
                                     <div class="form-group">
                                         <label for="printOption">Pilih Opsi Cetak</label>
-                                        <select name="printOption" id="printOption" class="form-control"
+                                        <select name="printOption" id="printOption"
+                                            class="form-select js-select2 select2-hidden-accesible valid"
                                             onchange="toggleDateInputs()">
-                                            <option value="all" selected>Cetak Semua</option>
+                                            <option value="all">Cetak Semua</option>
                                             <option value="byDate">Cetak Sesuai Tanggal</option>
                                             <option value="byMonth">Cetak Sesuai Bulan</option>
                                             <option value="byYear">Cetak Sesuai Tahun</option>
@@ -238,11 +260,12 @@
                                     </div>
 
 
-                                    <!-- Filter Status Kehadiran -->
+                                    <!-- Ceetak Status Kehadiran -->
                                     <div class="form-group">
                                         <label for="status">Status Kehadiran</label>
-                                        <select name="status" id="status" class="form-control">
-                                            <option value="" selected>Semua</option>
+                                        <select name="status" id="status1"
+                                            class="form-select js-select2 select2-hidden-accesible valid">
+                                            <option value="Semua">Semua</option>
                                             <option value="Tepat Waktu">Tepat Waktu</option>
                                             <option value="Terlambat">Terlambat</option>
                                         </select>
@@ -273,7 +296,7 @@
                                     {{-- <div class="form-group">
                                         <label for="date">Tanggal</label>
                                         <input type="text" name="date" id="date" class="form-control date-picker"
-                                            data-date-format="dd M yyyy">
+                                            data-date-format="dd M yyyy">1
                                     </div> --}}
                                     <div class="form-group">
                                         <label class="form-label">Tanggal</label>
@@ -289,8 +312,9 @@
                                     <!-- Filter Status Kehadiran -->
                                     <div class="form-group">
                                         <label for="status">Status Kehadiran</label>
-                                        <select name="status" id="status" class="form-control">
-                                            <option value="" selected>Semua</option>
+                                        <select name="status" id="status2"
+                                            class="form-select js-select2 select2-hidden-accesible valid">
+                                            <option value="Semua">Semua</option>
                                             <option value="Tepat Waktu">Tepat Waktu</option>
                                             <option value="Terlambat">Terlambat</option>
                                         </select>
@@ -310,6 +334,12 @@
         </div>
     </div>
     <script>
+        $(document).ready(function() {
+            $('#status1').select2();
+            $('#status2').select2(); // Inisialisasi Select2 pada elemen dengan id "status"
+            $('#printOption').select2(); // Inisialisasi Select2 pada elemen dengan id "printOption"
+        });
+
         // Fungsi untuk menampilkan input berdasarkan opsi cetak
         function toggleDateInputs() {
             var printOption = document.getElementById("printOption").value;

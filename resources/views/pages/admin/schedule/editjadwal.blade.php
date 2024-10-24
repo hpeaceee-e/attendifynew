@@ -56,7 +56,9 @@
                                                     <div class="form-group">
                                                         <label class="form-label" for="day">Nama Hari</label>
                                                         <div class="form-control-wrap">
-                                                            <select class="form-control" name="day[]" required>
+                                                            <select
+                                                                class="form-select js-select2 select2-hidden-accesible valid"
+                                                                name="day[]" required>
                                                                 <option value="Senin"
                                                                     {{ $d->days == 'Senin' ? 'selected' : '' }}>Senin
                                                                 </option>
@@ -155,7 +157,7 @@
                 <div class="col-sm-3 mb-3">
                     <div class="form-group">
                         <div class="form-control-wrap">
-                            <select class="form-control" name="day[]" required>
+                            <select class="form-select js-select2 select2-hidden-accesible valid" name="day[]" required>
                                 <option value="Senin">Senin</option>
                                 <option value="Selasa">Selasa</option>
                                 <option value="Rabu">Rabu</option>

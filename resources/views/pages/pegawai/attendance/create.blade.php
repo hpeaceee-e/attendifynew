@@ -36,7 +36,7 @@
             <!-- Tombol untuk memilih status kehadiran -->
             <div class="form-group">
                 <label for="status">Status Kehadiran</label>
-                <select name="status" id="status" class="form-control">
+                <select name="status" id="status" class="form-select js-select2 select2-hidden-accesible valid">
                     <option value="0">Masuk</option>
                     <option value="1">Pulang</option>
                 </select>
@@ -68,7 +68,7 @@
 
             // Tambahkan lingkaran untuk area yang diizinkan
             var allowedCircle = L.circle(allowedLatLng, {
-                color: '#32cd32', 
+                color: '#32cd32',
                 fillColor: '#32cd32',
                 fillOpacity: 0.5,
                 radius: allowedRadius // Radius yang diizinkan
@@ -125,7 +125,7 @@
                 // Tambahkan marker untuk lokasi pengguna
                 var userMarker = L.marker(e.latlng).addTo(map)
                     .bindPopup("Lokasi Anda dalam radius " + radius + " meter.").openPopup();
-                
+
                 // Pusatkan peta pada pengguna
                 map.setView(e.latlng, 18);
 

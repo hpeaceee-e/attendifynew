@@ -183,16 +183,16 @@
                         @csrf
                         <div class="mb-3">
                             <label for="category" class="form-label">Kategori</label>
-                            <select name="category" id="category" class="form-select">
-                                <option value="">Pilih Kategori</option>
+                            <select name="category" id="category"
+                                class="form-select js-select2 select2-hidden-accesible valid">
                                 <option value="annual">Cuti Tahunan</option>
                                 <option value="other">Cuti Lain-lain</option>
                             </select>
                         </div>
                         <div class="mb-3">
                             <label for="status" class="form-label">Status</label>
-                            <select name="status" id="status" class="form-select">
-                                <option value="">Pilih Status</option>
+                            <select name="status"
+                                id="status"class="form-select js-select2 select2-hidden-accesible valid">
                                 <option value="0">Disetujui</option>
                                 <option value="1">Ditolak</option>
                                 <option value="">Menunggu</option>
@@ -222,7 +222,8 @@
                         <!-- Pilihan untuk mencetak semua atau berdasarkan filter -->
                         <div class="mb-3">
                             <label for="printType" class="form-label">Jenis Cetak</label>
-                            <select name="print_type" id="printType" class="form-select" onchange="toggleFilters()">
+                            <select name="print_type" id="printType"
+                                class="form-select js-select2 select2-hidden-accesible valid" onchange="toggleFilters()">
                                 <option value="all">Cetak Semua</option>
                                 <option value="filtered">Cetak Berdasarkan Kategori dan Status</option>
                             </select>
@@ -232,8 +233,8 @@
                         <div id="filters" style="display: none;">
                             <div class="mb-3">
                                 <label for="printCategory" class="form-label">Kategori</label>
-                                <select name="category" id="printCategory" class="form-select">
-                                    <option value="">Pilih Kategori</option>
+                                <select name="category" id="printCategory"
+                                    class="form-select js-select2 select2-hidden-accesible valid">
                                     <option value="annual">Cuti Tahunan</option>
                                     <option value="other">Cuti Lain-lain</option>
                                     <!-- Tambahkan kategori lain jika diperlukan -->
@@ -241,8 +242,8 @@
                             </div>
                             <div class="mb-3">
                                 <label for="printStatus" class="form-label">Status</label>
-                                <select name="status" id="printStatus" class="form-select">
-                                    <option value="">Pilih Status</option>
+                                <select name="status" id="printStatus"
+                                    class="form-select js-select2 select2-hidden-accesible valid">
                                     <option value="0">Disetujui</option>
                                     <option value="1">Ditolak</option>
                                     {{-- <option value="">Menunggu</option> --}}

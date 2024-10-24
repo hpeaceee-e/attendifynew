@@ -58,7 +58,9 @@
                                                     <div class="form-group">
                                                         <label class="form-label" for="day">Nama Hari</label>
                                                         <div class="form-control-wrap">
-                                                            <select class="form-control" name="day[]" id="" required>
+                                                            <select
+                                                                class="form-select js-select2 select2-hidden-accesible valid"
+                                                                name="day[]" id="" required>
                                                                 <option value="Senin">Senin</option>
                                                                 <option value="Selasa">Selasa</option>
                                                                 <option value="Rabu">Rabu</option>
@@ -70,7 +72,7 @@
                                                         </div>
                                                     </div>
                                                 </div>
-                                                
+
                                                 <div class="col-sm-3">
                                                     <div class="form-group">
                                                         <label class="form-label" for="clock_in">Jam Masuk</label>

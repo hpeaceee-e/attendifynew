@@ -40,8 +40,9 @@
                                                 <input type="text" name="enhancer" value="{{ Auth::user()->id }}" hidden>
                                                 <label class="form-label" for="kategori">Kategori Cuti</label>
                                                 <div class="form-control-wrap">
-                                                    <select class="form-control" id="kategori" name="category" required>
-                                                        <option value="">Pilih Kategori</option>
+                                                    <select class="form-select js-select2 select2-hidden-accesible valid"
+                                                        id="kategori" name="category" required>
+
                                                         <option value="annual">Cuti Tahunan</option>
                                                         <option value="other">Cuti Lain-lain</option>
                                                     </select>
@@ -54,8 +55,10 @@
                                                 <div class="form-group">
                                                     <label class="form-label" for="subkategori">Subkategori</label>
                                                     <div class="form-control-wrap">
-                                                        <select class="form-control" id="subkategori" name="subcategory">
-                                                            <option value="">Pilih Subkategori</option>
+                                                        <select
+                                                            class="form-select js-select2 select2-hidden-accesible valid"
+                                                            id="subkategori" name="subcategory">
+
                                                             <option value="sick">Sakit</option>
                                                             <option value="married">Menikah</option>
                                                             <option value="important_reason">Beralasan Penting</option>
@@ -134,16 +137,17 @@
     </div>
 
     <script>
-        document.addEventListener('DOMContentLoaded', function() {
+        $(document).ready(function() {
+            $('#kategori').select2(); // Inisialisasi Select2
+
             // Mendapatkan elemen-elemen form
-            var kategoriSelect = document.getElementById('kategori');
             var formAlasan = document.getElementById('form-alasan');
             var formLain = document.getElementById('form-lain');
             var formTanggal = document.getElementById('form-tanggal');
 
             // Menampilkan form berdasarkan pilihan kategori
-            kategoriSelect.addEventListener('change', function() {
-                var kategori = this.value;
+            $('#kategori').on('change', function() {
+                var kategori = $(this).val(); // Menggunakan jQuery untuk mendapatkan nilai
 
                 if (kategori === 'annual') {
                     formAlasan.style.display = 'block';

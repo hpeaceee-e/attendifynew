@@ -66,8 +66,10 @@
                                                 <div class="form-group">
                                                     <label class="form-label" for="role">Role</label>
                                                     <div class="form-control-wrap">
-                                                        <select class="form-control" id="role" name="role">
-                                                            <option value="">Pilih Role</option>
+                                                        <select
+                                                            class="form-select js-select2 select2-hidden-accesible valid"
+                                                            id="role" name="role" placeholder="Pilih Role">
+
                                                             @foreach ($roles as $role)
                                                                 <option value="{{ $role->id }}"
                                                                     {{ old('role') == $role->id ? 'selected' : '' }}>

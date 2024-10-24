@@ -81,7 +81,10 @@
                                                 <td>
                                                     @php
 
-                                                        $datasd = \App\Models\ScheduleDayM::where('schedule_id', $schedule->id)->get();
+                                                        $datasd = \App\Models\ScheduleDayM::where(
+                                                            'schedule_id',
+                                                            $schedule->id,
+                                                        )->get();
                                                         $total = 0;
                                                     @endphp
 
@@ -90,7 +93,8 @@
                                                             <tr>
                                                                 <td>{{ $loop->iteration }}.</td>
                                                                 <td>{{ $sd->days }}</td>
-                                                                <td style="padding-left: 20px;">{{ $sd->clock_in }} - {{ $sd->clock_out }}</td>
+                                                                <td style="padding-left: 20px;">{{ $sd->clock_in }} -
+                                                                    {{ $sd->clock_out }}</td>
                                                             </tr>
 
                                                             @php
@@ -172,9 +176,9 @@
                                                 <td>{{ $d->name }}</td>
                                                 <td>
                                                     @if ($d->schedule == null)
-                                                        <select name="schedule" class="form-control"
+                                                        <select name="schedule"
+                                                            class="form-select js-select2 select2-hidden-accesible valid"
                                                             data-id="{{ $d->id }}">
-                                                            <option value="shift" disabled>--Pilih Shift--</option>
                                                             @foreach ($day as $dd)
                                                                 <option value="{{ $dd->id }}">{{ $dd->shift_name }}
                                                                 </option>

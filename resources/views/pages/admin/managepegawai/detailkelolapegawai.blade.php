@@ -55,8 +55,9 @@
                                                 <div class="form-group">
                                                     <label class="form-label" for="role">Hak Akses</label>
                                                     <div class="form-control-wrap">
-                                                        <select class="form-control" id="role" name="role" disabled>
-                                                            <option value="">Pilih Role</option>
+                                                        <select
+                                                            class="form-select js-select2 select2-hidden-accesible valid"
+                                                            id="role" name="role" disabled>
                                                             @foreach ($roles as $role)
                                                                 <option value="{{ $role->id }}"
                                                                     {{ $role->id == $item->role ? 'selected' : '' }}>

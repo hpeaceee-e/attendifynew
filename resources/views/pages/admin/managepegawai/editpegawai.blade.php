@@ -71,8 +71,10 @@
                                                 <div class="form-group">
                                                     <label class="form-label" for="role">Hak Akses</label>
                                                     <div class="form-control-wrap">
-                                                        <select class="form-control" id="role" name="role" disabled>
-                                                            <option value="">Pilih Role</option>
+                                                        <select
+                                                            class="form-select js-select2 select2-hidden-accesible valid"
+                                                            id="role" name="role">
+
                                                             @foreach ($roles as $role)
                                                                 <option value="{{ $role->id }}"
                                                                     {{ $role->id == $item->role ? 'selected' : '' }}>
@@ -96,7 +98,9 @@
                                                 <div class="form-group">
                                                     <label class="form-label" for="status">Status</label>
                                                     <div class="form-control-wrap">
-                                                        <select class="form-control" id="status" name="status" disabled>
+                                                        <select
+                                                            class="form-select js-select2 select2-hidden-accesible valid"
+                                                            id="status" name="status">
                                                             <option value="0"
                                                                 {{ $item->status == 0 ? 'selected' : '' }}>Aktif</option>
                                                             <option value="1"
@@ -120,7 +124,9 @@
                                                 <div class="form-group">
                                                     <label class="form-label" for="schedule">Jadwal</label>
                                                     <div class="form-control-wrap">
-                                                        <select class="form-control" id="schedule" name="schedule">
+                                                        <select
+                                                            class="form-select js-select2 select2-hidden-accesible valid"
+                                                            id="schedule" name="schedule">
                                                             @foreach ($schedules as $schedule)
                                                                 <option value="{{ $schedule->id }}"
                                                                     {{ $schedule->id == $item->schedule ? 'selected' : '' }}>

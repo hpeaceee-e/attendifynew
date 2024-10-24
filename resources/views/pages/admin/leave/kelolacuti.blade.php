@@ -100,7 +100,7 @@
                                                     @if ($item->status == null)
                                                         <span class="badge bg-warning">Menunggu</span>
                                                     @elseif($item->status == '0')
-                                                        <span class="badge bg-success">Disetujui</span>
+                                                        <span class="badge bg-success">Diterima</span>
                                                     @elseif($item->status == '1')
                                                         <span class="badge bg-danger">Ditolak</span>
                                                     @endif
@@ -214,7 +214,7 @@
                                                     @if ($item->status == null)
                                                         <span class="badge bg-warning">Menunggu</span>
                                                     @elseif($item->status == '0')
-                                                        <span class="badge bg-success">Disetujui</span>
+                                                        <span class="badge bg-success">Diterima</span>
                                                     @elseif($item->status == '1')
                                                         <span class="badge bg-danger">Ditolak</span>
                                                     @endif
@@ -272,7 +272,7 @@
 
 
 
-                <!-- Modal -->
+                <!-- Modal Konfirmasi Cuti-->
                 <div class="modal fade" id="confirmationModal" tabindex="-1" aria-labelledby="confirmationModalLabel"
                     aria-hidden="true">
                     <div class="modal-dialog">
@@ -290,14 +290,13 @@
                             <input type="hidden" name="id" id="leave_id">
                             {{-- <input type="hidden" name="enhancer" id="enhancer_id"> --}}
                             <!-- Menambahkan hidden field untuk enhancer -->
-
                             <div class="modal-body">
                                 <div class="form-group">
                                     <label for="status">Status Pengajuan Cuti</label>
                                     <input type="text" name="enhancer" value="{{ $item->enhancer }} " hidden>
-                                    <select name="status" id="status" class="form-control"
+                                    <select name="status" id="status"
+                                        class="form-select js-select2 select2-hidden-accesible valid"
                                         onchange="toggleReasonField()" required>
-                                        <option value="" disabled selected>Pilih Status</option>
                                         <option value="0">Diterima</option>
                                         <option value="1">Ditolak</option>
                                     </select>
@@ -335,8 +334,9 @@
                                     <!-- Pilih Jenis Cetak -->
                                     <div class="form-group">
                                         <label for="print_option">Pilih Jenis Cetak</label>
-                                        <select name="print_option" id="print_option" class="form-control" required>
-                                            <option value="" disabled selected>Pilih Jenis Cetak</option>
+                                        <select name="print_option" id="print_option"
+                                            class="form-select js-select2 select2-hidden-accesible valid" required>
+
                                             <option value="all">Cetak Semua</option>
                                             <option value="individual">Cetak Individu</option>
                                         </select>
@@ -345,8 +345,9 @@
                                     <!-- Pilih Pegawai (untuk Cetak Individu) -->
                                     <div class="form-group" id="individual-option" style="display: none;">
                                         <label for="leave_id_print">Pilih Pegawai</label>
-                                        <select name="leave_id" id="leave_id_print" class="form-control">
-                                            <option value="" disabled selected>Pilih Pegawai</option>
+                                        <select name="leave_id" id="leave_id_print"
+                                            class="form-select js-select2 select2-hidden-accesible valid">
+
                                             @foreach ($leaves as $item)
                                                 <option value="{{ $item->id }}">{{ $item->user->name }}</option>
                                             @endforeach
@@ -356,8 +357,9 @@
                                     <!-- Pilih Kategori -->
                                     <div class="form-group" id="category-option" style="display: none;">
                                         <label for="category">Pilih Kategori</label>
-                                        <select name="category" id="category" class="form-control">
-                                            <option value="" disabled selected>Pilih Kategori</option>
+                                        <select name="category" id="category"
+                                            class="form-select js-select2 select2-hidden-accesible valid">
+
                                             <option value="tahunan">Tahunan</option>
                                             <option value="lain-lain">Lain-lain</option>
                                         </select>
@@ -366,9 +368,10 @@
                                     <!-- Pilih Status -->
                                     <div class="form-group" id="status-option" style="display: none;">
                                         <label for="status">Pilih Status</label>
-                                        <select name="status" id="status" class="form-control">
-                                            <option value="" disabled selected>Pilih Status</option>
-                                            <option value="approved">Disetujui</option>
+                                        <select name="status" id="status2"
+                                            class="form-select js-select2 select2-hidden-accesible valid">
+
+                                            <option value="approved">Diterima</option>
                                             <option value="rejected">Ditolak</option>
                                             <option value="pending">Menunggu</option>
                                         </select>
@@ -390,6 +393,12 @@
     </div>
 
     <script>
+        $(document).ready(function() {
+            $('#status1').select2();
+            $('#status2').select2(); // Inisialisasi Select2 pada elemen dengan id "status"
+            $('#printOption').select2(); // Inisialisasi Select2 pada elemen dengan id "printOption"
+        });
+
         document.addEventListener('DOMContentLoaded', function() {
             var calendarEl = document.getElementById('calendar');
 
