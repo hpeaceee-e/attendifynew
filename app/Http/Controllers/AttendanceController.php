@@ -54,7 +54,10 @@ class AttendanceController extends Controller
     }
 
 
-
+    public function rekap()
+    {
+        return view('pages.admin.attendance.rekapitulasi');
+    }
 
 
 
@@ -83,10 +86,10 @@ class AttendanceController extends Controller
         $id = Auth::user()->id;
         // dd($id);
         $orang = Auth::user()->schedule;
-        $jadwal = Schedule::where('id',$orang)->value('id');
-        $jadwal_detail = ScheduleDayM::where('schedule_id',$jadwal)->get();
+        $jadwal = Schedule::where('id', $orang)->value('id');
+        $jadwal_detail = ScheduleDayM::where('schedule_id', $jadwal)->get();
         $attendances = Attendance::where('enhancer', $id)->get();
-        return view('pages.pegawai.attendance.index', compact('attendances', 'jadwal','jadwal_detail'));
+        return view('pages.pegawai.attendance.index', compact('attendances', 'jadwal', 'jadwal_detail'));
     }
 
     // Tampilkan halaman presensi

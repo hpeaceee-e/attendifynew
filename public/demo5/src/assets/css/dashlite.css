@@ -29025,13 +29025,13 @@ body.nav-shown {
   display: block;
 }
 .nk-menu-sub .nk-menu-link:hover {
-  color: #0971fe;
+  color: #2c3e50;
 }
 .is-theme .nk-menu-sub .nk-menu-link:hover {
   color: #fff;
 }
 .nk-menu-sub .active > .nk-menu-link {
-  color: #0971fe;
+  color: #2c3e50;
 }
 .is-theme .nk-menu-sub .active > .nk-menu-link {
   color: #fff;

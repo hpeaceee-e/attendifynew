@@ -69,7 +69,6 @@
                                                         <select
                                                             class="form-select js-select2 select2-hidden-accesible valid"
                                                             id="role" name="role" placeholder="Pilih Role">
-
                                                             @foreach ($roles as $role)
                                                                 <option value="{{ $role->id }}"
                                                                     {{ old('role') == $role->id ? 'selected' : '' }}>

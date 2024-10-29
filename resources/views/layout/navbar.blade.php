@@ -41,11 +41,22 @@
                                 <span class="nk-menu-text">Kelola Pegawai</span>
                             </a>
                         </li><!-- .nk-menu-item -->
-                        <li class="nk-menu-item">
-                            <a href="{{ route('admin.kelolakehadiranpegawai') }}" class="nk-menu-link">
+                        <li class="nk-menu-item has-sub">
+                            <a href="#" class="nk-menu-link nk-menu-toggle">
                                 <span class="nk-menu-icon"><em class="icon ni ni-calendar-check"></em></span>
                                 <span class="nk-menu-text">Kelola Kehadiran</span>
                             </a>
+                            <ul class="nk-menu-sub">
+                                <li class="nk-menu-item">
+                                    <a href="{{ route('admin.kelolakehadiranpegawai') }}" class="nk-menu-link"><span
+                                            class="nk-menu-text">Pegawai</span></a>
+                                </li>
+                                <li class="nk-menu-item">
+                                    <a href="{{ route('admin.rekapitulasi') }}" class="nk-menu-link"><span
+                                            class="nk-menu-text">Rekapitulasi</span></a>
+                                </li>
+                            </ul>
+                        </li>
                         <li class="nk-menu-item">
                             <a href="{{ route('admin.kelolajadwal') }}" class="nk-menu-link">
                                 <span class="nk-menu-icon"><em class="icon ni ni-calendar"></em></span>
