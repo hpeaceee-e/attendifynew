@@ -57,7 +57,7 @@
                                 </thead>
                                 <tbody>
                                     @foreach ($attendances as $attendance)
-                                        @php
+                                        {{-- @php
                                             $orang = \App\Models\User::where('id', $attendance->enhancer)->value(
                                                 'schedule',
                                             );
@@ -118,7 +118,72 @@
                                                     $earlyMinutes = abs($clockOut->diffInMinutes($absenTime));
                                                 }
                                             }
+                                        @endphp --}}
+
+                                        @php
+                                            $orang = \App\Models\User::where('id', $attendance->enhancer)->value(
+                                                'schedule',
+                                            );
+                                            $jadwal = \App\Models\Schedule::where('id', $orang)->value('id');
+                                            $jadwal_detail = \App\Models\ScheduleDayM::where(
+                                                'schedule_id',
+                                                $jadwal,
+                                            )->get();
+
+                                            // Mendapatkan nama hari dari attendance date dalam bahasa Indonesia
+                                            $attendanceDay = \Carbon\Carbon::parse($attendance->date)->locale('id')
+                                                ->dayName;
+
+                                            // Mencari jadwal yang sesuai dengan hari presensi
+                                            $jadwalForDay = $jadwal_detail->firstWhere('days', $attendanceDay);
+
+                                            // Inisialisasi variabel untuk telat dan lebih awal
+                                            $lateMinutes = 0;
+                                            $earlyMinutes = 0;
+                                            $isLate = false;
+                                            $isEarly = false;
+
+                                            // Ambil jam clock in dan clock out jika ada
+                                            $clockIn = $jadwalForDay ? $jadwalForDay->clock_in : null;
+                                            $clockOut = $jadwalForDay ? $jadwalForDay->clock_out : null;
+
+                                            $absenTime = \Carbon\Carbon::parse($attendance->time)->setDate(1970, 1, 1);
+                                            $clockIn = $jadwalForDay
+                                                ? \Carbon\Carbon::createFromFormat(
+                                                    'H:i:s',
+                                                    $jadwalForDay->clock_in,
+                                                )->setDate(1970, 1, 1)
+                                                : null;
+
+                                            if ($attendance->status == 0 && $clockIn) {
+                                                if ($absenTime->greaterThan($clockIn)) {
+                                                    $isLate = true;
+                                                    $lateMinutes = round(abs($absenTime->diffInMinutes($clockIn))); // Membulatkan
+                                                } elseif ($absenTime->lessThan($clockIn)) {
+                                                    $isEarly = true;
+                                                    $earlyMinutes = round(abs($clockIn->diffInMinutes($absenTime))); // Membulatkan
+                                                }
+                                            }
+
+                                            $clockOut = $jadwalForDay
+                                                ? \Carbon\Carbon::createFromFormat(
+                                                    'H:i:s',
+                                                    $jadwalForDay->clock_out,
+                                                )->setDate(1970, 1, 1)
+                                                : null;
+
+                                            // Jika status adalah 1 (pulang)
+                                            if ($attendance->status == 1 && $clockOut) {
+                                                if ($absenTime->greaterThan($clockOut)) {
+                                                    $isLate = true;
+                                                    $lateMinutes = round(abs($absenTime->diffInMinutes($clockOut))); // Membulatkan
+                                                } elseif ($absenTime->lessThan($clockOut)) {
+                                                    $isEarly = true;
+                                                    $earlyMinutes = round(abs($clockOut->diffInMinutes($absenTime))); // Membulatkan
+                                                }
+                                            }
                                         @endphp
+
 
                                         <tr>
                                             <td>{{ $loop->iteration }}</td>
@@ -131,14 +196,14 @@
                                                 @if ($attendance->status == 0)
                                                     <span class="badge bg-success">Masuk</span>
                                                 @elseif ($attendance->status == 1)
-                                                    <span class="badge bg-primary">Pulang</span>
+                                                    <span class="badge bg-danger">Pulang</span>
                                                 @endif
                                             </td>
 
                                             {{-- Kolom Lebih Awal --}}
                                             <td>
                                                 @if ($isEarly)
-                                                    <span style="color: green;">Lebih Awal: {{ $earlyMinutes }} menit</span>
+                                                    <span> {{ $earlyMinutes }} menit</span>
                                                 @else
                                                     -
                                                 @endif
@@ -147,7 +212,7 @@
                                             {{-- Kolom Terlambat --}}
                                             <td>
                                                 @if ($isLate)
-                                                    <span style="color: red;">Terlambat: {{ $lateMinutes }} menit</span>
+                                                    <span>{{ $lateMinutes }} menit</span>
                                                 @else
                                                     -
                                                 @endif
@@ -294,14 +359,8 @@
                                 <button type="button" class="btn-close" data-bs-dismiss="modal"
                                     aria-label="Close"></button>
                             </div>
-                            <form id="filterForm" action="#" method="GET">
+                            <form id="filterForm" action="{{ route('admin.filterKehadiran') }}" method="GET">
                                 <div class="modal-body">
-                                    <!-- Filter Tanggal -->
-                                    {{-- <div class="form-group">
-                                        <label for="date">Tanggal</label>
-                                        <input type="text" name="date" id="date" class="form-control date-picker"
-                                            data-date-format="dd M yyyy">1
-                                    </div> --}}
                                     <div class="form-group">
                                         <label class="form-label">Tanggal</label>
                                         <div class="form-control-wrap">
@@ -311,17 +370,6 @@
                                             <input type="text" data-date-format="dd M yyyy"
                                                 class="form-control date-picker" id="date" name="date" required>
                                         </div>
-                                    </div>
-
-                                    <!-- Filter Status Kehadiran -->
-                                    <div class="form-group">
-                                        <label for="status">Status Kehadiran</label>
-                                        <select name="status" id="status2"
-                                            class="form-select js-select2 select2-hidden-accesible valid">
-                                            <option value="Semua">Semua</option>
-                                            <option value="Tepat Waktu">Tepat Waktu</option>
-                                            <option value="Terlambat">Terlambat</option>
-                                        </select>
                                     </div>
                                 </div>
                                 <div class="modal-footer">

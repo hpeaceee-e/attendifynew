@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use App\Models\Attendance;
 use App\Models\Role;
+use Carbon\Carbon;
 use App\Models\Schedule;
 use App\Models\ScheduleDayM;
 use App\Models\User;
@@ -29,29 +30,44 @@ class AttendanceController extends Controller
             ->orderBy('time', 'asc')
             ->get();
 
-        // // Menambahkan informasi waktu kehadiran
-        // foreach ($attendances as $attendance) {
-        //     $clockInTime = strtotime($attendance->time); // Waktu pegawai
-        //     $comparisonTime = strtotime('08:00'); // Waktu acuan
-
-        //     // Hitung status kehadiran
-        //     if ($clockInTime < $comparisonTime) {
-        //         // Jika datang sebelum jam 08:00
-        //         $attendance->status_kehadiran = 'Tepat waktu';
-        //         $attendance->difference = round(abs($clockInTime - $comparisonTime) / 60); // Hitung lebih awal
-        //     } elseif ($clockInTime >= $comparisonTime) {
-        //         // Jika datang setelah jam 08:00
-        //         $attendance->status_kehadiran = 'Terlambat';
-        //         $attendance->difference = round(($clockInTime - $comparisonTime) / 60); // Hitung terlambat
-        //     } else {
-        //         // Jika datang setelah jam 12 malam
-        //         $attendance->status_kehadiran = 'Tepat waktu';
-        //         $attendance->difference = round(abs($clockInTime - $comparisonTime) / 60); // Tetap hitung perbedaan waktu
-        //     }
-        // }
 
         return view('pages.admin.attendance.kelolakehadiranpegawai', compact('attendances', 'jadwal'));
     }
+
+
+
+    public function filterKehadiran(Request $request)
+    {
+        $user = User::where('role', '!=', 1)->pluck('id')->toArray();
+        $userid = Auth::user()->id;
+        $user = User::find($userid);
+        $schedule = Schedule::find($user->schedule);
+        $jadwal = ScheduleDayM::where('schedule_id', $schedule->id)->get();
+
+        // Ambil parameter filter tanggal dari request dan konversi formatnya
+        $date = $request->input('date');
+        if ($date) {
+            // Konversi format tanggal dari 'dd M yyyy' ke 'Y-m-d'
+            $date = Carbon::createFromFormat('d M Y', $date)->format('Y-m-d');
+        }
+
+        // Query untuk filter kehadiran berdasarkan tanggal saja
+        $attendances = Attendance::with('user')
+            ->whereHas('user', function ($query) {
+                $query->where('role', '2'); // Asumsi '2' adalah role untuk 'pegawai'
+            })
+            ->when($date, function ($query, $date) {
+                return $query->whereDate('date', $date);
+            })
+            ->orderBy('date', 'asc')
+            ->orderBy('time', 'asc')
+            ->get();
+
+        return view('pages.admin.attendance.kelolakehadiranpegawai', compact('attendances', 'jadwal'));
+    }
+
+
+
 
 
     public function rekap()

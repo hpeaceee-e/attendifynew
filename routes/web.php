@@ -78,6 +78,7 @@ Route::middleware([AutoLogout::class])->group(function () {
         // Manage Attendance
         Route::prefix('attendance.kelolakehadiranpegawai')->group(function () {
             Route::get('/', [AttendanceController::class, 'kehadiran'])->name('kelolakehadiranpegawai');
+            Route::get('/filter-kehadiran', [AttendanceController::class, 'filterKehadiran'])->name('filterKehadiran');
             Route::get('/rekapitulasi', [AttendanceController::class, 'rekap'])->name('rekapitulasi');
             Route::get('/cetakkehadiranpegawai', [AttendanceController::class, 'cetakkehadiran'])->name('print-kelolakehadiranpegawai');
             Route::get('/cetakkehadiranpegawaimasuk/{id}', [AttendanceController::class, 'cetakkehadiranmasuk'])->name('print-kelolakehadiranpegawai-masuk');
