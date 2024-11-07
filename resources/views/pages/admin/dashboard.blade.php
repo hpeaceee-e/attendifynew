@@ -9,7 +9,31 @@
                 {{-- UNTUK MENAMPILKAN BAHWA DISINI SUDAH LOGIN TAMPILAN ADMIN --}}
                 <div class="nk-block">
                     <div class="row g-gs">
-                        <div class="col-xl-4 col-md-6">
+                        <div class="col-md-6">
+                            <div class="card card-bordered card-preview">
+                                <div class="card-inner">
+                                    <div class="card-head text-center">
+                                        <h6 class="title">Total Pegawai</h6>
+                                    </div>
+                                    <div class="nk-ck-sm">
+                                        <canvas class="pie-chart" id="pieChartData"></canvas>
+                                    </div>
+                                </div>
+                            </div><!-- .card-preview -->
+                        </div>
+                        <div class="col-md-6">
+                            <div class="card card-bordered card-preview">
+                                <div class="card-inner">
+                                    <div class="card-head text-center">
+                                        <h6 class="title">Statistik Kehadiran</h6>
+                                    </div>
+                                    <div class="nk-ck-sm">
+                                        <canvas class="pie-chart" id="pieChartData2"></canvas>
+                                    </div>
+                                </div>
+                            </div><!-- .card-preview -->
+                        </div>
+                        {{-- <div class="col-xl-4 col-md-6">
                             <div class="card card-bordered card-full">
                                 <div class="card-inner">
                                     <div class="card-title-group align-start mb-3">
@@ -28,9 +52,9 @@
                                     </div>
                                 </div>
                             </div><!-- .card -->
-                        </div><!-- .col -->
+                        </div><!-- .col --> --}}
 
-                        <div class="col-xl-4 col-md-6">
+                        {{-- <div class="col-xl-4 col-md-6">
                             <div class="card card-bordered card-full">
                                 <div class="card-inner">
                                     <div class="card-title-group align-start mb-3">
@@ -49,9 +73,9 @@
                                     </div>
                                 </div>
                             </div><!-- .card -->
-                        </div><!-- .col -->
+                        </div><!-- .col --> --}}
 
-                        <div class="col-xl-4 col-md-6">
+                        {{-- <div class="col-xl-4 col-md-6">
                             <div class="card card-bordered card-full">
                                 <div class="card-inner">
                                     <div class="card-title-group align-start mb-3">
@@ -81,7 +105,7 @@
                                     </div>
                                 </div>
                             </div><!-- .card -->
-                        </div><!-- .col -->
+                        </div><!-- .col --> --}}
 
                         <div class="col-md-6">
                             <div class="card card-bordered card-full">
@@ -203,4 +227,96 @@
             </div>
         </div>
     </div>
+
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <script>
+        document.addEventListener("DOMContentLoaded", function() {
+            var ctx = document.getElementById('pieChartData').getContext('2d');
+            var pieChart = new Chart(ctx, {
+                type: 'pie',
+                data: {
+                    labels: ['Laki-Laki', 'Perempuan'], // Sesuaikan label
+                    datasets: [{
+                        data: [10, 2], // Sesuaikan data
+                        backgroundColor: ['#b695ff', '#f4aaa4'], // Sesuaikan warna
+                    }]
+                },
+                options: {
+                    responsive: true,
+                    maintainAspectRatio: false,
+                    plugins: {
+                        tooltip: {
+                            enabled: true,
+                            backgroundColor: '#eff6ff',
+                            titleFont: {
+                                size: 13,
+                                color: '#6783b8'
+                            },
+                            titleMarginBottom: 6,
+                            bodyFont: {
+                                color: '#9eaecf',
+                                size: 12
+                            },
+                            bodySpacing: 4,
+                            padding: 10,
+                            displayColors: false,
+                            callbacks: {
+                                title: function(tooltipItem) {
+                                    return tooltipItem[0].label;
+                                },
+                                label: function(tooltipItem) {
+                                    return tooltipItem.raw + ' BTC';
+                                }
+                            }
+                        }
+                    },
+                }
+            });
+        });
+        document.addEventListener("DOMContentLoaded", function() {
+            var ctx = document.getElementById('pieChartData2').getContext('2d');
+            var pieChart = new Chart(ctx, {
+                type: 'pie',
+                data: {
+                    labels: ['Cuti', 'Tidak Hadir', 'Masuk', 'Pulang', 'Absen'], // Sesuaikan label
+                    datasets: [{
+                        data: [10, 2, 200, 200, 400], // Sesuaikan data
+                        backgroundColor: ['#b695ff', '#f4aaa4', '#39e369', '#cce339',
+                            '#5fc2b5'
+                        ], // Sesuaikan warna
+                    }]
+                },
+                options: {
+                    responsive: true,
+                    maintainAspectRatio: false,
+                    plugins: {
+                        tooltip: {
+                            enabled: true,
+                            backgroundColor: '#eff6ff',
+                            titleFont: {
+                                size: 13,
+                                color: '#6783b8'
+                            },
+                            titleMarginBottom: 6,
+                            bodyFont: {
+                                color: '#9eaecf',
+                                size: 12
+                            },
+                            bodySpacing: 4,
+                            padding: 10,
+                            displayColors: false,
+                            callbacks: {
+                                title: function(tooltipItem) {
+                                    return tooltipItem[0].label;
+                                },
+                                label: function(tooltipItem) {
+                                    return tooltipItem.raw + ' BTC';
+                                }
+                            }
+                        }
+                    },
+                }
+            });
+        });
+    </script>
 @endsection
