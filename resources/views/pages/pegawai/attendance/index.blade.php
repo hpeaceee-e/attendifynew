@@ -1,7 +1,7 @@
 @extends('layout.pegawai.main')
 
 @section('title')
-    Pegawai {{ auth()->user()->name }}
+    Absensi {{ auth()->user()->name }}
 @endsection
 
 @section('content-pegawai')

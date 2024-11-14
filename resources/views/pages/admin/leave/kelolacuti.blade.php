@@ -1,6 +1,6 @@
 @extends('layout.main')
 @section('title')
-    Kelola Cuti dan Izin
+    Kelola Cuti / Izin Pegawai
 @endsection
 @section('content')
     <div class="nk-content nk-content-fluid">
@@ -11,9 +11,9 @@
                 <div class="nk-block-head nk-block-head-sm">
                     <div class="nk-block-between">
                         <div class="nk-block-head-content">
-                            <h3 class="nk-block-title page-title">Kelola Cuti & Izin Pegawai</h3>
+                            <h3 class="nk-block-title page-title">Kelola Cuti atau Izin Pegawai</h3>
                             <div class="nk-block-des text-soft">
-                                <p>Kamu mempunyai {{ count($leaves) }} Pengajuan Cuti dan Izin.</p>
+                                <p>Kamu mempunyai {{ count($leaves) }} Pengajuan Cuti atau Izin.</p>
                             </div>
                         </div><!-- .nk-block-head-content -->
                         <div class="nk-block-head-content">

@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
+use App\Models\Leave;
 use App\Models\Attendance;
 use App\Models\Role;
 use Carbon\Carbon;
@@ -73,6 +74,11 @@ class AttendanceController extends Controller
     public function rekap()
     {
         return view('pages.admin.attendance.rekapitulasi');
+    }
+
+    public function cetakrekap()
+    {
+        return view('pages.admin.attendance.cetakrekapitulasi');
     }
 
 

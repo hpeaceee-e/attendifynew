@@ -23,7 +23,7 @@
                                                     class="icon ni ni-filter"></em><span>Filter</span></a>
                                         </li>
                                         <li><a href="#" class="btn btn-secondary" target="_blank"
-                                                data-bs-toggle="modal" data-bs-target="#filterModal"><em
+                                                data-bs-toggle="modal" data-bs-target="#validasiModal"><em
                                                     class="icon ni ni-clipboad-check"></em><span>Validasi</span></a>
                                         </li>
                                         <li>
@@ -369,6 +369,50 @@
                                             </div>
                                             <input type="text" data-date-format="dd M yyyy"
                                                 class="form-control date-picker" id="date" name="date" required>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="modal-footer">
+                                    <button type="button" class="btn btn-secondary"
+                                        data-bs-dismiss="modal">Tutup</button>
+                                    <button type="submit" class="btn btn-primary">Terapkan Filter</button>
+                                </div>
+                            </form>
+                        </div>
+                    </div>
+                </div>
+
+                {{-- validasi modal --}}
+                <div class="modal fade" id="validasiModal" tabindex="-1" aria-labelledby="validasiModalLabel"
+                    aria-hidden="true">
+                    <div class="modal-dialog">
+                        <div class="modal-content">
+                            <div class="modal-header">
+                                <h5 class="modal-title" id="validasiModalLabel">Validasi Kehadiran Pegawai</h5>
+                                <button type="button" class="btn-close" data-bs-dismiss="modal"
+                                    aria-label="Close"></button>
+                            </div>
+                            <form id="filterForm" action="{{ route('admin.filterKehadiran') }}" method="GET">
+                                <div class="modal-body">
+                                    <div class="form-group">
+                                        <label class="form-label">Nama Pegawai</label>
+                                        <div class="form-control-wrap">
+                                            <select name="status" id="status1"
+                                                class="form-select js-select2 select2-hidden-accesible valid">
+                                                @foreach ($attendances as $item)
+                                                    <option value="{{ $item->id }}">{{ $item->user->name }}</option>
+                                                @endforeach
+                                            </select>
+                                        </div>
+                                    </div>
+                                    <div class="form-group">
+                                        <label class="form-label">Status Kehadiran</label>
+                                        <div class="form-control-wrap">
+                                            <select name="status" id="status1"
+                                                class="form-select js-select2 select2-hidden-accesible valid">
+                                                <option value="Semua">Masuk</option>
+                                                <option value="Tepat Waktu">Pulang</option>
+                                            </select>
                                         </div>
                                     </div>
                                 </div>

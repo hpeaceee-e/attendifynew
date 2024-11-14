@@ -18,8 +18,8 @@
                                         data-target="pageMenu"><em class="icon ni ni-menu-alt-r"></em></a>
                                     <div class="toggle-expand-content" data-content="pageMenu">
                                         <ul class="nk-block-tools g-3">
-                                            <li><a href="{{ route('admin.print-kelolapegawai') }}" class="btn btn-secondary"
-                                                    target="_blank"><em
+                                            <li><a href="{{ route('admin.print-cetakrekapitulasi') }}"
+                                                    class="btn btn-secondary" target="_blank"><em
                                                         class="icon ni ni-printer"></em><span>Cetak</span></a></li>
                                         </ul>
                                     </div>
@@ -70,15 +70,44 @@
                                         <tr>
                                             <td>1</td>
                                             <td>Hafizh Alfaris</td>
-                                            {{-- <td>{{ $d->role }}</td> --}}
                                             <td>5</td>
                                             <td>5</td>
                                             <td>5</td>
                                             <td>6</td>
                                             <td>0</td>
-                                            <td>10</td>
+                                            <td>3</td>
                                         </tr>
                                         {{-- @endforeach --}}
+                                        <tr>
+                                            <td>2</td>
+                                            <td>Ali Rahman</td>
+                                            <td>18</td>
+                                            <td>18</td>
+                                            <td>1</td>
+                                            <td>2</td>
+                                            <td>1</td>
+                                            <td>2</td>
+                                        </tr>
+                                        <tr>
+                                            <td>3</td>
+                                            <td>Siti Nurhayati</td>
+                                            <td>16</td>
+                                            <td>16</td>
+                                            <td>0</td>
+                                            <td>4</td>
+                                            <td>3</td>
+                                            <td>0</td>
+                                        </tr>
+                                        <tr>
+                                            <td>4</td>
+                                            <td>Indra Wijaya</td>
+                                            <td>14</td>
+                                            <td>14</td>
+                                            <td>3</td>
+                                            <td>5</td>
+                                            <td>4</td>
+                                            <td>1</td>
+                                        </tr>
                                     </tbody>
                                 </table>
                             </div>
