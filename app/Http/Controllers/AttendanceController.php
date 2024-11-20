@@ -73,7 +73,10 @@ class AttendanceController extends Controller
 
     public function rekap()
     {
-        return view('pages.admin.attendance.rekapitulasi');
+        $data = Attendance::select('enhancer')->distinct()->get();
+
+        // dd($data);
+        return view('pages.admin.attendance.rekapitulasi',compact('data'));
     }
 
     public function cetakrekap()
