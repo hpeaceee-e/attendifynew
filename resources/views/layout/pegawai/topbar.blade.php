@@ -87,7 +87,6 @@
                             <div class="dropdown-menu dropdown-menu-xl dropdown-menu-end">
                                 <div class="dropdown-head">
                                     <span class="sub-title nk-dropdown-title">Notifications</span>
-                                    <a class="text-secondary" href="#">Mark All as Read</a>
                                 </div>
                                 <div class="dropdown-body">
                                     <div class="nk-notification">

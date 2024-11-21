@@ -73,10 +73,15 @@ class AttendanceController extends Controller
 
     public function rekap()
     {
-        $data = Attendance::select('enhancer')->distinct()->get();
+        $data = Attendance::select('enhancer')
+            ->distinct()
+            ->whereHas('user', function ($query) {
+                $query->where('role', '=', 2); // Sesuaikan dengan ID role untuk pegawai
+            })
+            ->get();
 
         // dd($data);
-        return view('pages.admin.attendance.rekapitulasi',compact('data'));
+        return view('pages.admin.attendance.rekapitulasi', compact('data'));
     }
 
     public function cetakrekap()
@@ -156,36 +161,36 @@ class AttendanceController extends Controller
         return view('pages.pegawai.attendance.print', compact('attendance', 'latitude', 'longitude', 'name'));
     }
 
-    public function cetakkehadiranmasuk($id)
-    {
-        $attendance = Attendance::where('id', $id)
-            ->where('status', 0)
-            ->firstOrFail(); // Mengambil data yang ada, atau gagal jika tidak ditemukan
+    // public function cetakkehadiranmasuk($id)
+    // {
+    //     $attendance = Attendance::where('id', $id)
+    //         ->where('status', 0)
+    //         ->firstOrFail(); // Mengambil data yang ada, atau gagal jika tidak ditemukan
 
-        // dd($attendance); // Cek apakah data ditemukan
+    //     // dd($attendance); // Cek apakah data ditemukan
 
-        $coordinates = explode(',', $attendance->coordinate);
-        $latitude = $coordinates[0] ?? null;
-        $longitude = $coordinates[1] ?? null;
+    //     $coordinates = explode(',', $attendance->coordinate);
+    //     $latitude = $coordinates[0] ?? null;
+    //     $longitude = $coordinates[1] ?? null;
 
-        return view('pages.admin.attendance.printkehadiran-masuk', compact('attendance', 'latitude', 'longitude'));
-    }
+    //     return view('pages.admin.attendance.printkehadiran-masuk', compact('attendance', 'latitude', 'longitude'));
+    // }
 
 
-    public function cetakkehadirankeluar($id)
-    {
-        $attendance = Attendance::where('id', $id)
-            ->where('status', 1)
-            ->firstOrFail(); // Mengambil data yang ada, atau gagal jika tidak ditemukan
+    // public function cetakkehadirankeluar($id)
+    // {
+    //     $attendance = Attendance::where('id', $id)
+    //         ->where('status', 1)
+    //         ->firstOrFail(); // Mengambil data yang ada, atau gagal jika tidak ditemukan
 
-        // dd($attendance); // Cek apakah data ditemukan
+    //     // dd($attendance); // Cek apakah data ditemukan
 
-        // Mengolah string coordinate menjadi array
-        $coordinates = explode(',', $attendance->coordinate);
-        $latitude = $coordinates[0] ?? null;
-        $longitude = $coordinates[1] ?? null;
+    //     // Mengolah string coordinate menjadi array
+    //     $coordinates = explode(',', $attendance->coordinate);
+    //     $latitude = $coordinates[0] ?? null;
+    //     $longitude = $coordinates[1] ?? null;
 
-        // Tampilkan tampilan print
-        return view('pages.admin.attendance.printkehadiran-keluar', compact('attendance', 'latitude', 'longitude'));
-    }
+    //     // Tampilkan tampilan print
+    //     return view('pages.admin.attendance.printkehadiran-keluar', compact('attendance', 'latitude', 'longitude'));
+    // }
 }

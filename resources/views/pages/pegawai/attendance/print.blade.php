@@ -150,8 +150,8 @@
 <body onload="printPromot()">
     <div class="container">
         <div class="invoice-brand text-center">
-            <img src="{{ asset('demo5/src/images/logo-dark.png') }}"
-                srcset="{{ asset('demo5/src/images/logo-dark2x.png 2x') }}" alt="Logo">
+            <img src="{{ asset('demo5/src/images/kehadiranmantap.png') }}"
+                srcset="{{ asset('demo5/src/images/kehadiranmantap.png 2x') }}" alt="Logo">
         </div>
         <div class="invoice-head">
             <div class="invoice-contact">

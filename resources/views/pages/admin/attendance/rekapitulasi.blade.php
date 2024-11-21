@@ -68,58 +68,62 @@
                                     <tbody>
                                         {{-- @foreach ($data as $index => $d) --}}
                                         @foreach ($data as $d)
-                                        <tr>
-                                            <td>{{$loop->iteration}}</td>
-                                            <td>@php
-                                                    $name = \App\Models\User::where('id',$d->enhancer)->value('name');
-                                                    $ids = \App\Models\User::where('id',$d->enhancer)->value('id');
+                                            <tr>
+                                                <td>{{ $loop->iteration }}</td>
+                                                <td>@php
+                                                    $name = \App\Models\User::where('id', $d->enhancer)->value('name');
+                                                    $ids = \App\Models\User::where('id', $d->enhancer)->value('id');
                                                     // dd($ids);
                                                 @endphp
-                                            {{$name}}
-                                            </td>
-                                            <td>
-                                                @php
-                                                    $countmasuk =\App\Models\Attendance::where('enhancer',$ids)->where('status','0')->count();
-                                                    // dd($countmasuk);
-                                                @endphp
-                                                {{$countmasuk}}
-                                            </td>
-                                            <td>
-                                                @php
-                                                    $countpulang =\App\Models\Attendance::where('enhancer',$ids)->where('status','1')->count();
-                                                    // dd($countmasuk);
-                                                @endphp
-                                                {{$countpulang}}
-                                            </td>
-                                            <td>
-                                                @php
-                                                    $lebihawal = \App\Models\Attendance::where('enhancer', $ids)
-                                                        ->where('status','1')
-                                                        ->whereTime('created_at', '<', '16:00:00')
+                                                    {{ $name }}
+                                                </td>
+                                                <td>
+                                                    @php
+                                                        $countmasuk = \App\Models\Attendance::where('enhancer', $ids)
+                                                            ->where('status', '0')
+                                                            ->count();
+                                                        // dd($countmasuk);
+                                                    @endphp
+                                                    {{ $countmasuk }}
+                                                </td>
+                                                <td>
+                                                    @php
+                                                        $countpulang = \App\Models\Attendance::where('enhancer', $ids)
+                                                            ->where('status', '1')
+                                                            ->count();
+                                                        // dd($countmasuk);
+                                                    @endphp
+                                                    {{ $countpulang }}
+                                                </td>
+                                                <td>
+                                                    @php
+                                                        $lebihawal = \App\Models\Attendance::where('enhancer', $ids)
+                                                            ->where('status', '1')
+                                                            ->whereTime('created_at', '<', '16:00:00')
+                                                            ->count();
+                                                    @endphp
+                                                    {{ $lebihawal }}
+                                                </td>
+                                                <td>@php
+                                                    $terlambat = \App\Models\Attendance::where('enhancer', $ids)
+                                                        ->where('status', '0')
+                                                        ->whereTime('created_at', '>', '08:00:00')
                                                         ->count();
                                                 @endphp
-                                                {{$lebihawal}}
-                                            </td>
-                                            <td>@php
-                                                $terlambat = \App\Models\Attendance::where('enhancer', $ids)
-                                                    ->where('status','0')
-                                                    ->whereTime('created_at', '>', '08:00:00')
-                                                    ->count();
-                                            @endphp
-                                            {{$terlambat}}
-                                            </td>
-                                            <td></td>
-                                            <td>@php
-                                                $cuti = \App\Models\Leave::where('enhancer', $ids)
-                                                    ->where('status','0')
-                                                    ->count();
-                                            @endphp
-                                            {{$cuti}}</td>
-                                        </tr>
+                                                    {{ $terlambat }}
+                                                </td>
+                                                <td></td>
+                                                <td>@php
+                                                    $cuti = \App\Models\Leave::where('enhancer', $ids)
+                                                        ->where('status', '0')
+                                                        ->count();
+                                                @endphp
+                                                    {{ $cuti }}</td>
+                                            </tr>
                                         @endforeach
 
                                         {{-- @endforeach --}}
-                                        
+
                                     </tbody>
                                 </table>
                             </div>
@@ -134,21 +138,9 @@
                     <div class="nk-block-head-content">
                         <h3 class="nk-block-title page-title">Rank Kehadiran</h3>
                     </div>
-                    <div class="nk-block-head-content">
-                        <div class="toggle-wrap nk-block-tools-toggle">
-                            <a href="#" class="btn btn-icon btn-trigger toggle-expand me-n1"
-                                data-target="pageMenu"><em class="icon ni ni-menu-alt-r"></em></a>
-                            <div class="toggle-expand-content" data-content="pageMenu">
-                                <ul class="nk-block-tools g-3">
-                                    <li><a href="{{ route('admin.print-cetakrekapitulasi') }}"
-                                            class="btn btn-secondary" target="_blank"><em
-                                                class="icon ni ni-printer"></em><span>Cetak</span></a></li>
-                                </ul>
-                            </div>
-                        </div><!-- .toggle-wrap -->
-                    </div><!-- .nk-block-head-content -->
                 </div><!-- .nk-block-between -->
             </div><!-- .nk-block-head -->
+
             <div class="nk-block nk-block-lg">
                 <div class="card card-bordered card-preview">
                     <div class="card-inner text-center">
@@ -157,25 +149,27 @@
                             <div class="col-lg-4 col-md-6 mb-3">
                                 <div class="card shadow-sm">
                                     <div class="card-header bg-light text-primary">
-                                        <h5 class="mb-0">🏅 Rank 2</h5>
+                                        <h5 class="mb-0">🥈 Rank 2</h5>
                                     </div>
                                     <div class="card-body">
-                                        <img src="https://via.placeholder.com/150" alt="Employee Image" class="img-fluid rounded-circle mb-3" style="width: 100px; height: 100px;">
+                                        <img src="https://via.placeholder.com/150" alt="Employee Image"
+                                            class="img-fluid rounded-circle mb-3" style="width: 100px; height: 100px;">
                                         <h6 class="font-weight-bold">Jane Doe</h6>
-                                        <p class="mb-0 text-muted">Sales Specialist</p>
+                                        <p class="mb-0 text-muted">Kehadiran : 80 %</p>
                                     </div>
                                 </div>
                             </div>
-                            <!-- Rank 1 (highlighted) -->
+                            <!-- Rank 1 -->
                             <div class="col-lg-4 col-md-12 mb-3">
-                                <div class="card shadow-lg border-primary">
-                                    <div class="card-header bg-primary text-white">
-                                        <h4 class="mb-0">🏆 Rank 1</h4>
+                                <div class="card shadow-lg border-secondary">
+                                    <div class="card-header bg-secondary text-white">
+                                        <h4 class="mb-0">🥇 Rank 1</h4>
                                     </div>
                                     <div class="card-body">
-                                        <img src="https://via.placeholder.com/150" alt="Employee Image" class="img-fluid rounded-circle mb-3" style="width: 120px; height: 120px;">
+                                        <img src="https://via.placeholder.com/150" alt="Employee Image"
+                                            class="img-fluid rounded-circle mb-3" style="width: 120px; height: 120px;">
                                         <h5 class="font-weight-bold">John Smith</h5>
-                                        <p class="mb-0 text-muted">Team Leader</p>
+                                        <p class="mb-0 text-muted">Kehadiran : 100% </p>
                                     </div>
                                 </div>
                             </div>
@@ -183,20 +177,66 @@
                             <div class="col-lg-4 col-md-6 mb-3">
                                 <div class="card shadow-sm">
                                     <div class="card-header bg-light text-primary">
-                                        <h5 class="mb-0">🎖 Rank 3</h5>
+                                        <h5 class="mb-0">🥉 Rank 3</h5>
                                     </div>
                                     <div class="card-body">
-                                        <img src="https://via.placeholder.com/150" alt="Employee Image" class="img-fluid rounded-circle mb-3" style="width: 100px; height: 100px;">
+                                        <img src="https://via.placeholder.com/150" alt="Employee Image"
+                                            class="img-fluid rounded-circle mb-3" style="width: 100px; height: 100px;">
                                         <h6 class="font-weight-bold">Emily Carter</h6>
-                                        <p class="mb-0 text-muted">Software Developer</p>
+                                        <p class="mb-0 text-muted">Kehadiran : 70%</p>
                                     </div>
                                 </div>
                             </div>
                         </div>
                     </div>
+
+                    <!-- Tabel untuk Rank 4 ke Bawah -->
+                    {{-- <div class="card-footer mt-4"> --}}
+                    <div class="card-inner">
+                        <table class="datatable-init table">
+                            <thead>
+                                <tr>
+                                    <th class="text-center">Rank</th>
+                                    <th class="text-center">Nama</th>
+                                    <th class="text-center">Kehadiran (%)</th>
+                                    <th class="text-center">Sanksi</th>
+                                    <th class="text-center">Peringatan</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <!-- Rank 4 ke Bawah -->
+                                <tr>
+                                    <td class="text-center">4</td>
+                                    <td>Tom Green</td>
+                                    <td class="text-center">65%</td>
+                                    <td class="text-center">
+                                        <span class="text-danger">Ya</span> <!-- Sanksi jika < 70% -->
+                                    </td>
+                                    <td class="text-center">
+                                        <button class="btn btn-sm btn-warning" onclick="sendWarning('Tom Green')">Kirim
+                                            Peringatan</button>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td class="text-center">5</td>
+                                    <td>Linda Johnson</td>
+                                    <td class="text-center">50%</td>
+                                    <td class="text-center">
+                                        <span class="text-danger">Ya</span> <!-- Sanksi jika < 70% -->
+                                    </td>
+                                    <td class="text-center">
+                                        <button class="btn btn-sm btn-warning" onclick="sendWarning('Linda Johnson')">Kirim
+                                            Peringatan</button>
+                                    </td>
+                                </tr>
+                                <!-- Tambahkan data lainnya sesuai kebutuhan -->
+                            </tbody>
+                        </table>
+                    </div>
+                    {{-- </div> --}}
                 </div><!-- .card-preview -->
             </div>
-            
+
 
             {{-- Sanksi --}}
             <div class="nk-block-head nk-block-head-sm">
@@ -210,9 +250,9 @@
                                 data-target="pageMenu"><em class="icon ni ni-menu-alt-r"></em></a>
                             <div class="toggle-expand-content" data-content="pageMenu">
                                 <ul class="nk-block-tools g-3">
-                                    <li><a href="{{ route('admin.print-cetakrekapitulasi') }}"
-                                            class="btn btn-secondary" target="_blank"><em
-                                                class="icon ni ni-printer"></em><span>Cetak</span></a></li>
+                                    <li><a href="{{ route('admin.print-cetakrekapitulasi') }}" class="btn btn-secondary"
+                                            target="_blank"><em class="icon ni ni-printer"></em><span>Cetak</span></a>
+                                    </li>
                                 </ul>
                             </div>
                         </div><!-- .toggle-wrap -->
@@ -238,58 +278,62 @@
                             <tbody>
                                 {{-- @foreach ($data as $index => $d) --}}
                                 @foreach ($data as $d)
-                                <tr>
-                                    <td>{{$loop->iteration}}</td>
-                                    <td>@php
-                                            $name = \App\Models\User::where('id',$d->enhancer)->value('name');
-                                            $ids = \App\Models\User::where('id',$d->enhancer)->value('id');
+                                    <tr>
+                                        <td class="text-center">{{ $loop->iteration }}</td>
+                                        <td>@php
+                                            $name = \App\Models\User::where('id', $d->enhancer)->value('name');
+                                            $ids = \App\Models\User::where('id', $d->enhancer)->value('id');
                                             // dd($ids);
                                         @endphp
-                                    {{$name}}
-                                    </td>
-                                    <td>
-                                        @php
-                                            $countmasuk =\App\Models\Attendance::where('enhancer',$ids)->where('status','0')->count();
-                                            // dd($countmasuk);
-                                        @endphp
-                                        {{$countmasuk}}
-                                    </td>
-                                    <td>
-                                        @php
-                                            $countpulang =\App\Models\Attendance::where('enhancer',$ids)->where('status','1')->count();
-                                            // dd($countmasuk);
-                                        @endphp
-                                        {{$countpulang}}
-                                    </td>
-                                    <td>
-                                        @php
-                                            $lebihawal = \App\Models\Attendance::where('enhancer', $ids)
-                                                ->where('status','1')
-                                                ->whereTime('created_at', '<', '16:00:00')
+                                            {{ $name }}
+                                        </td>
+                                        <td class="text-center">
+                                            @php
+                                                $countmasuk = \App\Models\Attendance::where('enhancer', $ids)
+                                                    ->where('status', '0')
+                                                    ->count();
+                                                // dd($countmasuk);
+                                            @endphp
+                                            {{ $countmasuk }}
+                                        </td>
+                                        <td class="text-center">
+                                            @php
+                                                $countpulang = \App\Models\Attendance::where('enhancer', $ids)
+                                                    ->where('status', '1')
+                                                    ->count();
+                                                // dd($countmasuk);
+                                            @endphp
+                                            {{ $countpulang }}
+                                        </td>
+                                        <td class="text-center">
+                                            @php
+                                                $lebihawal = \App\Models\Attendance::where('enhancer', $ids)
+                                                    ->where('status', '1')
+                                                    ->whereTime('created_at', '<', '16:00:00')
+                                                    ->count();
+                                            @endphp
+                                            {{ $lebihawal }}
+                                        </td>
+                                        <td class="text-center">@php
+                                            $terlambat = \App\Models\Attendance::where('enhancer', $ids)
+                                                ->where('status', '0')
+                                                ->whereTime('created_at', '>', '08:00:00')
                                                 ->count();
                                         @endphp
-                                        {{$lebihawal}}
-                                    </td>
-                                    <td>@php
-                                        $terlambat = \App\Models\Attendance::where('enhancer', $ids)
-                                            ->where('status','0')
-                                            ->whereTime('created_at', '>', '08:00:00')
-                                            ->count();
-                                    @endphp
-                                    {{$terlambat}}
-                                    </td>
-                                    <td></td>
-                                    <td>@php
-                                        $cuti = \App\Models\Leave::where('enhancer', $ids)
-                                            ->where('status','0')
-                                            ->count();
-                                    @endphp
-                                    {{$cuti}}</td>
-                                </tr>
+                                            {{ $terlambat }}
+                                        </td>
+                                        <td></td>
+                                        <td>@php
+                                            $cuti = \App\Models\Leave::where('enhancer', $ids)
+                                                ->where('status', '0')
+                                                ->count();
+                                        @endphp
+                                            {{ $cuti }}</td>
+                                    </tr>
                                 @endforeach
 
                                 {{-- @endforeach --}}
-                                
+
                             </tbody>
                         </table>
                     </div>
@@ -297,5 +341,11 @@
             </div>
         </div>
     </div>
-
+    <!-- Script untuk Tombol Peringatan -->
+    <script>
+        function sendWarning(employeeName) {
+            alert("Peringatan telah dikirim ke " + employeeName);
+            // Anda bisa menambahkan logika untuk mengirim notifikasi
+        }
+    </script>
 @endsection

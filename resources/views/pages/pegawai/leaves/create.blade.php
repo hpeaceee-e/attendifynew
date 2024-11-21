@@ -42,7 +42,6 @@
                                                 <div class="form-control-wrap">
                                                     <select class="form-select js-select2 select2-hidden-accesible valid"
                                                         id="kategori" name="category" required>
-
                                                         <option value="annual">Cuti Tahunan</option>
                                                         <option value="other">Cuti Lain-lain</option>
                                                     </select>
