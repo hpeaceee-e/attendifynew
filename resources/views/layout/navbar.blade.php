@@ -2,9 +2,9 @@
     <div class="nk-sidebar-element nk-sidebar-head">
         <div class="nk-sidebar-brand">
             <a href="{{ route('admin.pages.admin.dashboard') }}" class="logo-link nk-sidebar-logo">
-                <img class="logo-light logo-img" src="{{ asset('demo5/src/images/kehadiranmantap.png') }}"
-                    srcset="{{ asset('demo5/src/images/kehadiranmantap.png') }} 2x" alt="logo">
-                <img class="logo-dark logo-img" src="{{ asset('demo5/src/images/kehadiranmantap.png') }}"
+                <img class="logo-light logo-img" src="{{ asset('demo5/src/images/logo-kehadiran-darkmode.png') }}"
+                    srcset="{{ asset('demo5/src/images/logo-kehadiran-darkmode.png') }} 2x" alt="logo">
+                <img class="logo-dark logo-img" src="{{ asset('demo5/src/images/logo-kehadiran-darkmode.png') }}"
                     srcset="{{ asset('demo5/src/images/kehadiranmantap.png') }} 2x" alt="logo-dark">
             </a>
         </div>
