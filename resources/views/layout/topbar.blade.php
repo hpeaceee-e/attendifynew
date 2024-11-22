@@ -69,8 +69,8 @@
                                         <li><a href="{{ route('logout') }}"><em
                                                     class="icon ni ni-signout"></em><span>Logout
                                                 </span></a></li>
-                                        <li><a class="dark-switch" href="#"><em
-                                                    class="icon ni ni-moon"></em><span>Dark Mode</span></a></li>
+                                        {{-- <li><a class="dark-switch" href="#"><em
+                                                    class="icon ni ni-moon"></em><span>Dark Mode</span></a></li> --}}
                                     </ul>
                                 </div>
                             </div>

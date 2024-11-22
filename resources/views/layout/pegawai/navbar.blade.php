@@ -2,10 +2,8 @@
     <div class="nk-sidebar-element nk-sidebar-head">
         <div class="nk-sidebar-brand">
             <a href="{{ route('pegawai.pages.pegawai.dashboard') }}" class="logo-link nk-sidebar-logo">
-                <img class="logo-light logo-img" src="{{ asset('demo5/src/images/logo-kehadiran-darkmode.png') }}"
-                    srcset="{{ asset('demo5/src/images/logo-kehadiran-darkmode.png') }} 1x" alt="logo">
-                <img class="logo-dark logo-img" src="{{ asset('demo5/src/images/logo-kehadiran-darkmode.png') }}"
-                    srcset="{{ asset('demo5/src/images/logo-kehadiran-darkmode.png') }} 1x" alt="logo-dark">
+                <img class="logo-dark logo-img" src="{{ asset('demo5/src/images/logonew1.png') }}"
+                    srcset="{{ asset('demo5/src/images/logonew1.png') }}" alt="logo-dark">
             </a>
         </div>
         <div class="nk-menu-trigger me-n2">
