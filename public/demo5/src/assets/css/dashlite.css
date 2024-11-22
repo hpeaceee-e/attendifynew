@@ -15611,7 +15611,7 @@ div.dataTables_wrapper div.dataTables_length .input-group-lg > select,
   color: #364a63;
 }
 .nav-tabs .nav-link:focus {
-  color: #0971fe;
+  color: #2c3e50;
 }
 .nav-tabs .nav-link:before, .nav-tabs .nav-link:after {
   position: absolute;
@@ -15622,11 +15622,11 @@ div.dataTables_wrapper div.dataTables_length .input-group-lg > select,
   right: 0;
   bottom: 0;
   height: 3px;
-  background: #0971fe;
+  background: #2c3e50;
   opacity: 0;
 }
 .nav-tabs .nav-link.active {
-  color: #0971fe;
+  color: #2c3e50;
   border: none;
   background-color: transparent;
 }

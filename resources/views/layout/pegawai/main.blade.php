@@ -25,7 +25,15 @@
     <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
     <script src="https://unpkg.com/simplebar@latest/dist/simplebar.min.js"></script>
     <script src="https://unpkg.com/leaflet@1.7.1/dist/leaflet.js"></script>
+    <style>
+        .img-fluid:hover {
+            opacity: 0.8;
+        }
 
+        .position-relative:hover .position-absolute {
+            opacity: 1;
+        }
+    </style>
     <script>
         document.addEventListener('DOMContentLoaded', function() {
             var calendarEl = document.getElementById('calendar');
