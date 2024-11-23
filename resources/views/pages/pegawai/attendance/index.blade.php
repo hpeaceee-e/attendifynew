@@ -9,56 +9,63 @@
         <div class="container-xl wide-lg">
             <div class="nk-content-body">
                 <div class="nk-block-head nk-block-head-sm">
+                    <!-- Pesan Peringatan jika sudah melebihi waktu absensi -->
+                    <div id="message" style="display: none;">
+                        <div class="alert alert-pro alert-danger">
+                            <div class="alert-text">
+                                <strong>Perhatian!</strong> Sudah melewati waktu absensi masuk.
+                            </div>
+                        </div>
+                    </div>
                     <div class="nk-block-between">
                         <div class="nk-block-head-content">
-                            <div class="mt-5 d-flex align-items-center">
+                            <!-- Tombol Absen Masuk/Pulang -->
+                            @php
+                                // Mengambil data hari ini
+                                $today = \Carbon\Carbon::today();
+                                $days = \Carbon\Carbon::parse($today)->locale('id')->dayName;
+
+                                $jadwalin = $jadwal_detail->where('days', $days)->first();
+
+                                if ($jadwalin) {
+                                    // Mengambil jam clockin dan clockout sebagai objek Carbon
+                                    $clockin = \Carbon\Carbon::parse($jadwalin->clock_in); // Mengambil sebagai objek Carbon
+                                    $clockout = \Carbon\Carbon::parse($jadwalin->clock_out); // Mengambil sebagai objek Carbon
+                                    $now = \Carbon\Carbon::now();
+
+                                    // Cek apakah sudah lewat waktu clock-in dan belum mendekati waktu pulang
+                                    if ($now > $clockin && $now < $clockout) {
+                                        // Tampilkan pesan peringatan jika waktu lebih dari clock-in dan sebelum clock-out
+                                        echo '<script>
+                                            document.getElementById("message").style.display = "block";
+                                        </script>';
+                                    }
+
+                                    // Menampilkan tombol berdasarkan kondisi waktu
+                                    if ($now <= $clockin) {
+                                        // Menampilkan tombol untuk absen masuk jika waktu belum lewat dari clock-in
+                                        echo '<li><a id="attendance-btn" href="' .
+                                            route('pegawai.tambah-attendance') .
+                                            '" class="btn btn-secondary d-inline-block">Absen Masuk</a></li>';
+                                    } elseif ($now >= $clockout && $now <= $toleransiPulang) {
+                                        // Menampilkan tombol untuk absen pulang jika sudah lebih dari clock-out dengan toleransi 30 menit
+                                        echo '<li><a id="attendance-btn" href="' .
+                                            route('pegawai.tambah-attendance') .
+                                            '" class="btn btn-secondary d-inline-block">Absen Pulang</a></li>';
+                                    }
+                                }
+                            @endphp
+                        </div>
+                        <div class="nk-block-head-content">
+                            <div class="toggle-wrap nk-block-tools-toggle">
                                 <ul class="nk-block-tools g-3">
-                                    <!-- Tombol Absen Masuk/Pulang -->
-                                    @php
-                                        // Mengambil data hari ini
-                                        $today = \Carbon\Carbon::today();
-                                        $days = \Carbon\Carbon::parse($today)->locale('id')->dayName;
-
-                                        $jadwalin = $jadwal_detail->where('days', $days)->first();
-                                        // dd($jadwalin);
-
-                                        if ($jadwalin) {
-                                            // Mengambil jam clockin dan clockout sebagai objek Carbon
-                                            $clockin = \Carbon\Carbon::parse($jadwalin->clock_in); // Mengambil sebagai objek Carbon
-                                            $clockout = \Carbon\Carbon::parse($jadwalin->clock_out); // Mengambil sebagai objek Carbon
-                                            $now = \Carbon\Carbon::now();
-
-                                            // Menentukan waktu untuk absensi masuk dan pulang
-                                            $satuJamDariClockin = $clockin->copy()->addHour(); // Menambahkan satu jam dari waktu clockin
-                                            $jamEmpat = $clockin->copy()->setHour(16); // Jam 4 sore
-
-                                            // dd($clockout); // Menampilkan satu jam dari clockin
-
-                                            // Menampilkan tombol berdasarkan kondisi
-                                            if ($now <= $satuJamDariClockin) {
-                                                // Menampilkan tombol untuk absen masuk
-                                                echo '<li><a id="attendance-btn" href="' .
-                                                    route('pegawai.tambah-attendance') .
-                                                    '" class="btn btn-secondary d-inline-block">Absen Masuk</a></li>';
-                                            } elseif ($now >= $clockout) {
-                                                // Menampilkan tombol untuk absen pulang
-                                                echo '<li><a id="attendance-btn" href="' .
-                                                    route('pegawai.tambah-attendance') .
-                                                    '" class="btn btn-secondary d-inline-block">Absen Pulang</a></li>';
-                                            }
-                                        }
-                                    @endphp
-
-                                    <!-- Spacer to push the print button to the right -->
-                                    <div class="ms-auto">
-                                        <!-- Tombol Cetak -->
-                                        <li>
-                                            <a href="#" class="btn btn-secondary d-inline-block" data-bs-toggle="modal"
-                                                data-bs-target="#printModal">
-                                                <em class="icon ni ni-printer"></em> Cetak
-                                            </a>
-                                        </li>
-                                    </div>
+                                    <!-- Tombol Cetak -->
+                                    <li>
+                                        <a href="#" class="btn btn-secondary d-inline-block" data-bs-toggle="modal"
+                                            data-bs-target="#printModal">
+                                            <em class="icon ni ni-printer"></em> Cetak
+                                        </a>
+                                    </li>
                                 </ul>
                             </div>
 
@@ -86,17 +93,6 @@
                                 </script>
                             @endif
 
-                            <!-- Pesan di luar waktu absensi -->
-                            <div id="message" style="display: none;">
-                                <div class="alert alert-warning d-flex align-items-center" role="alert">
-                                    <i class="fas fa-exclamation-triangle me-2"></i>
-                                    <div>
-                                        <strong>Perhatian!</strong> Sudah tidak memasuki waktu absensi.
-                                    </div>
-                                </div>
-                            </div>
-
-
 
                         </div>
                     </div>
@@ -104,7 +100,7 @@
             </div>
 
             <!-- Tabel Kehadiran -->
-            <div class="container mt-2">
+            <div class="nk-block nk-block-lg">
                 <div class="card card-bordered card-preview">
                     <div class="card-inner">
                         <h4 class="card-title text-center mt-1">Absensi Anda</h4>

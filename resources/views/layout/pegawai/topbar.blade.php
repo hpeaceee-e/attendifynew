@@ -64,11 +64,11 @@
                                         <li><a href="{{ route('pegawai.profilakun') }}"><em
                                                     class="icon ni ni-account-setting-alt"></em><span>Informasi
                                                     Akun</span></a></li>
-                                        <li><a href="html/user-profile-activity.html"><em
+                                        {{-- <li><a href="html/user-profile-activity.html"><em
                                                     class="icon ni ni-activity-alt"></em><span>Login
                                                     Activity</span></a></li>
                                         <li><a class="dark-switch" href="#"><em
-                                                    class="icon ni ni-moon"></em><span>Dark Mode</span></a></li>
+                                                    class="icon ni ni-moon"></em><span>Dark Mode</span></a></li> --}}
 
                                     </ul>
                                 </div>
@@ -87,7 +87,6 @@
                             <div class="dropdown-menu dropdown-menu-xl dropdown-menu-end">
                                 <div class="dropdown-head">
                                     <span class="sub-title nk-dropdown-title">Notifications</span>
-                                    <a class="text-secondary" href="#">Mark All as Read</a>
                                 </div>
                                 <div class="dropdown-body">
                                     <div class="nk-notification">

@@ -9,7 +9,7 @@
     <meta name="description"
         content="A powerful and conceptual apps base dashboard template that especially build for developers and programmers.">
     <!-- Fav Icon -->
-    <link rel="shortcut icon" href="{{ asset('demo5/src/images/kehadirangacor.png') }}">
+    <link rel="shortcut icon" href="{{ asset('demo5/src/images/faviconlogo.png') }}">
     <!-- Page Title -->
     <title>Login Kehadiran</title>
     <!-- StyleSheets -->
@@ -37,11 +37,11 @@
                     <div class="brand-logo pb-5">
                         <a href="{{ route('auth.login') }}" class="logo-link">
                             <img class="logo-light logo-img logo-img-lg"
-                                src="{{ asset('demo5/src/images/kehadiranmantap.png') }}"
-                                srcset="{{ asset('demo5/src/images/kehadiranmantap.png') }} 2x" alt="logo">
+                                src="{{ asset('demo5/src/images/logonew1.png') }}"
+                                srcset="{{ asset('demo5/src/images/logonew1.png') }}" alt="logo">
                             <img class="logo-dark logo-img logo-img-lg"
-                                src="{{ asset('demo5/src/images/kehadiranmantap.png') }}"
-                                srcset="{{ asset('demo5/src/images/kehadiranmantap.png') }} 2x" alt="logo-dark">
+                                src="{{ asset('demo5/src/images/logonew1.png') }}"
+                                srcset="{{ asset('demo5/src/images/logonew1.png') }}" alt="logo-dark">
                         </a>
                     </div>
                     <div class="nk-block-head">

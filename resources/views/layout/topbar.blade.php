@@ -69,13 +69,13 @@
                                         <li><a href="{{ route('logout') }}"><em
                                                     class="icon ni ni-signout"></em><span>Logout
                                                 </span></a></li>
-                                        <li><a class="dark-switch" href="#"><em
-                                                    class="icon ni ni-moon"></em><span>Dark Mode</span></a></li>
+                                        {{-- <li><a class="dark-switch" href="#"><em
+                                                    class="icon ni ni-moon"></em><span>Dark Mode</span></a></li> --}}
                                     </ul>
                                 </div>
                             </div>
                         </li><!-- .dropdown -->
-                        <li class="dropdown notification-dropdown me-n1">
+                        {{-- <li class="dropdown notification-dropdown me-n1">
                             <a href="#" class="dropdown-toggle nk-quick-nav-icon" data-bs-toggle="dropdown">
                                 <div class="icon-status icon-status-info"><em class="icon ni ni-bell"></em></div>
                             </a>
@@ -112,7 +112,7 @@
                                         <a href="#" class="text-secondary">View All</a>
                                     </div>
                                 </div>
-                        </li><!-- .dropdown -->
+                        </li><!-- .dropdown --> --}}
                     </ul><!-- .nk-quick-nav -->
                 </div><!-- .nk-header-tools -->
             </div><!-- .nk-header-wrap -->

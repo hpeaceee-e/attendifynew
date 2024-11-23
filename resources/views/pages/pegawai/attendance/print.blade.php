@@ -4,7 +4,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="shortcut icon" href="{{ asset('demo5/src/images/kehadirangacor.png') }}">
+    <link rel="shortcut icon" href="{{ asset('demo5/src/images/faviconlogo.png') }}">
     <title>Print Kehadiran</title>
     <link rel="stylesheet" href="{{ asset('demo5/src/assets/css/dashlite.css?ver=3.0.3') }}">
     <link id="skin-default" rel="stylesheet" href="{{ asset('demo5/src/assets/css/theme.css?ver=3.0.3') }}">
@@ -150,8 +150,8 @@
 <body onload="printPromot()">
     <div class="container">
         <div class="invoice-brand text-center">
-            <img src="{{ asset('demo5/src/images/logo-dark.png') }}"
-                srcset="{{ asset('demo5/src/images/logo-dark2x.png 2x') }}" alt="Logo">
+            <img src="{{ asset('demo5/src/images/logonew1.png') }}"
+                srcset="{{ asset('demo5/src/images/logonew1.png') }}" alt="Logo">
         </div>
         <div class="invoice-head">
             <div class="invoice-contact">

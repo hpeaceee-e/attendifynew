@@ -45,7 +45,7 @@
                                         <!-- Kiri: Informasi Personal -->
                                         <div class="col-md-4 d-flex flex-column align-items-center text-center mb-4">
                                             <!-- Display the current avatar -->
-                                            <div class="img-fluid rounded-circle shadow-sm"
+                                            {{-- <div class="img-fluid rounded-circle shadow-sm"
                                                 style="width: 150px; height: 150px; background-color: #2c3e50; display: flex; align-items: center; justify-content: center; overflow: hidden;">
                                                 @if ($item->avatar)
                                                     <img src="{{ asset($item->avatar) }}" alt="{{ $item->name }}'s avatar"
@@ -70,7 +70,36 @@
                                                         name="avatar" class="form-control-file">
                                                 </div>
                                                 <button type="submit" class="btn btn-secondary mt-2">Update Avatar</button>
+                                            </form> --}}
+                                            <div class="position-relative img-fluid rounded-circle shadow-sm"
+                                                style="width: 150px; height: 150px; background-color: #2c3e50; display: flex; align-items: center; justify-content: center; overflow: hidden; cursor: pointer;"
+                                                onclick="document.getElementById('avatarInput').click()">
+                                                @if ($item->avatar)
+                                                    <img src="{{ asset($item->avatar) }}" alt="{{ $item->name }}'s avatar"
+                                                        class="img-fluid"
+                                                        style="width: 100%; height: 100%; object-fit: cover;">
+                                                @endif
+                                                <!-- Text Overlay -->
+                                                <div class="position-absolute text-white d-flex align-items-center justify-content-center"
+                                                    style="top: 0; left: 0; width: 100%; height: 100%; background-color: rgba(0, 0, 0, 0.5); opacity: 0; transition: opacity 0.3s;">
+                                                    <span style="font-size: 14px;">Upload Image / Ganti Foto</span>
+                                                </div>
+                                            </div>
+
+                                            <h5 class="mt-3">{{ $item->name }}</h5>
+                                            <p class="text-muted">{{ $item->email }}</p>
+
+                                            <!-- Avatar Upload Form -->
+                                            <form id="avatarForm" action="{{ route('pegawai.updateAvatar', $item->id) }}"
+                                                method="POST" enctype="multipart/form-data">
+                                                @csrf
+                                                @method('PATCH')
+                                                <input type="file" id="avatarInput" accept=".jpg,.jpeg,.png"
+                                                    name="avatar" class="d-none"
+                                                    onchange="document.getElementById('avatarForm').submit()">
                                             </form>
+
+
                                         </div>
 
 

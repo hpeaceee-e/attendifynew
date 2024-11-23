@@ -83,7 +83,7 @@ class EmployeController extends Controller
             'name' => 'required|string|regex:/^[A-Za-z\s]+$/|max:80',
             'role' => 'required|integer|exists:roles,id',
             'email' => 'nullable|string|email|max:80|unique:users,email',
-            'password' => 'required|string|min:8',
+            'password' => 'required|string|min:8|regex:/[A-Z]/|regex:/[0-9]/|regex:/[\W_]/',
         ]);
         // Hitung jumlah user yang ada untuk menentukan username
         $lastUsername = User::where('username', '!=', 'admin')->orderBy('username', 'desc')->value('username');
@@ -227,7 +227,6 @@ class EmployeController extends Controller
         // Menampilkan view dengan data pegawai
         return view('pages.admin.managepegawai.printkelolapegawai', compact('data'));
     }
-
     public function input(Request $request)
     {
         // dd($request->all());

@@ -9,7 +9,7 @@
     <meta name="description"
         content="A powerful and conceptual apps base dashboard template that especially build for developers and programmers.">
     <!-- Fav Icon  -->
-    <link rel="shortcut icon" href="{{ asset('demo5/src/images/kehadirangacor.png') }}">
+    <link rel="shortcut icon" href="{{ asset('demo5/src/images/faviconlogo.png') }}">
     <!-- Page Title  -->
     <title>Jadwal Pegawai</title>
     <!-- StyleSheets  -->
@@ -22,8 +22,8 @@
         <div class="invoice invoice-print">
             <div class="invoice-wrap">
                 <div class="invoice-brand text-center">
-                    <img src="{{ asset('demo5/src/images/logo-dark.png') }}"
-                        srcset="{{ asset('demo5/src/images/logo-dark2x.png 2x') }}" alt="">
+                    <img src="{{ asset('demo5/src/images/logonew1.png') }}"
+                        srcset="{{ asset('demo5/src/images/logonew1.png 2x') }}" alt="">
                 </div>
                 <div class="invoice-head">
                     <div class="invoice-contact">
