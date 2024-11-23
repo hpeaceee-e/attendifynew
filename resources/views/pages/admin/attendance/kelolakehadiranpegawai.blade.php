@@ -57,68 +57,7 @@
                                 </thead>
                                 <tbody>
                                     @foreach ($attendances as $attendance)
-                                        {{-- @php
-                                            $orang = \App\Models\User::where('id', $attendance->enhancer)->value(
-                                                'schedule',
-                                            );
-                                            $jadwal = \App\Models\Schedule::where('id', $orang)->value('id');
-                                            $jadwal_detail = \App\Models\ScheduleDayM::where(
-                                                'schedule_id',
-                                                $jadwal,
-                                            )->get();
-                                            // Mendapatkan nama hari dari attendance date dalam bahasa Indonesia
-                                            $attendanceDay = \Carbon\Carbon::parse($attendance->date)->locale('id')
-                                                ->dayName;
-
-                                            // Mencari jadwal yang sesuai dengan hari presensi
-                                            $jadwalForDay = $jadwal_detail->firstWhere('days', $attendanceDay);
-
-                                            // Inisialisasi variabel untuk telat dan lebih awal
-                                            $lateMinutes = 0;
-                                            $earlyMinutes = 0;
-                                            $isLate = false;
-                                            $isEarly = false;
-
-                                            // Ambil jam clock in dan clock out jika ada
-                                            $clockIn = $jadwalForDay ? $jadwalForDay->clock_in : null;
-                                            $clockOut = $jadwalForDay ? $jadwalForDay->clock_out : null;
-
-                                            $absenTime = \Carbon\Carbon::parse($attendance->time)->setDate(1970, 1, 1);
-                                            $clockIn = $jadwalForDay
-                                                ? \Carbon\Carbon::createFromFormat(
-                                                    'H:i:s',
-                                                    $jadwalForDay->clock_in,
-                                                )->setDate(1970, 1, 1)
-                                                : null;
-
-                                            if ($attendance->status == 0 && $clockIn) {
-                                                if ($absenTime->greaterThan($clockIn)) {
-                                                    $isLate = true;
-                                                    $lateMinutes = abs($absenTime->diffInMinutes($clockIn));
-                                                } elseif ($absenTime->lessThan($clockIn)) {
-                                                    $isEarly = true;
-                                                    $earlyMinutes = abs($clockIn->diffInMinutes($absenTime));
-                                                }
-                                            }
-
-                                            $clockOut = $jadwalForDay
-                                                ? \Carbon\Carbon::createFromFormat(
-                                                    'H:i:s',
-                                                    $jadwalForDay->clock_out,
-                                                )->setDate(1970, 1, 1)
-                                                : null;
-
-                                            // Jika status adalah 1 (pulang)
-                                            if ($attendance->status == 1 && $clockOut) {
-                                                if ($absenTime->greaterThan($clockOut)) {
-                                                    $isLate = true;
-                                                    $lateMinutes = abs($absenTime->diffInMinutes($clockOut));
-                                                } elseif ($absenTime->lessThan($clockOut)) {
-                                                    $isEarly = true;
-                                                    $earlyMinutes = abs($clockOut->diffInMinutes($absenTime));
-                                                }
-                                            }
-                                        @endphp --}}
+                                        
 
                                         @php
                                             $orang = \App\Models\User::where('id', $attendance->enhancer)->value(

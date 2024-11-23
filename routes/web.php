@@ -86,6 +86,7 @@ Route::middleware([AutoLogout::class])->group(function () {
             Route::get('/cetakkehadiranpegawaikeluar/{id}', [AttendanceController::class, 'cetakkehadirankeluar'])->name('print-kelolakehadiranpegawai-keluar');
             Route::get('/print-selection', [AttendanceController::class, 'printSelection'])->name('print-selection');
             Route::post('/print-selected', [AttendanceController::class, 'printSelected'])->name('print-selected');
+            Route::get('/send/{id}', [AttendanceController::class, 'send'])->name('kelolakehadiranpegawai.send');
         });
 
         // Manage Schedules

@@ -160,9 +160,9 @@
                                         <h5 class="mb-0">🏅 Rank 2</h5>
                                     </div>
                                     <div class="card-body">
-                                        <img src="https://via.placeholder.com/150" alt="Employee Image" class="img-fluid rounded-circle mb-3" style="width: 100px; height: 100px;">
-                                        <h6 class="font-weight-bold">Jane Doe</h6>
-                                        <p class="mb-0 text-muted">Sales Specialist</p>
+                                        <img src="}{{asset($secondUser->avatar)}}" alt="Employee Image" class="img-fluid rounded-circle mb-3" style="width: 100px; height: 100px;">
+                                        <h6 class="font-weight-bold">{{$secondUser->name}}</h6>
+                                        <p class="mb-0 text-muted">{{$secondUser->email}}</p>
                                     </div>
                                 </div>
                             </div>
@@ -173,9 +173,9 @@
                                         <h4 class="mb-0">🏆 Rank 1</h4>
                                     </div>
                                     <div class="card-body">
-                                        <img src="https://via.placeholder.com/150" alt="Employee Image" class="img-fluid rounded-circle mb-3" style="width: 120px; height: 120px;">
-                                        <h5 class="font-weight-bold">John Smith</h5>
-                                        <p class="mb-0 text-muted">Team Leader</p>
+                                        <img src="{{ asset($topUser->avatar) }}" alt="Employee Image" class="img-fluid rounded-circle mb-3" style="width: 120px; height: 120px;">
+                                        <h5 class="font-weight-bold">{{$topUser->name}}</h5>
+                                        <p class="mb-0 text-muted">{{$topUser->email}}</p>
                                     </div>
                                 </div>
                             </div>
@@ -186,9 +186,9 @@
                                         <h5 class="mb-0">🎖 Rank 3</h5>
                                     </div>
                                     <div class="card-body">
-                                        <img src="https://via.placeholder.com/150" alt="Employee Image" class="img-fluid rounded-circle mb-3" style="width: 100px; height: 100px;">
-                                        <h6 class="font-weight-bold">Emily Carter</h6>
-                                        <p class="mb-0 text-muted">Software Developer</p>
+                                        <img src="{{asset($thirdUser->avatar)}}" alt="Employee Image" class="img-fluid rounded-circle mb-3" style="width: 100px; height: 100px;">
+                                        <h6 class="font-weight-bold">{{$thirdUser->name}}</h6>
+                                        <p class="mb-0 text-muted">{{$thirdUser->email}}</p>
                                     </div>
                                 </div>
                             </div>
@@ -227,66 +227,29 @@
                                 <tr>
                                     <th>No</th>
                                     <th>Nama Pegawai</th>
-                                    <th>Masuk</th>
-                                    <th>Pulang</th>
-                                    <th>Pulang Lebih Awal</th>
-                                    <th>Terlambat Masuk</th>
-                                    <th>Tidak Masuk</th>
-                                    <th>Cuti</th>
+                                    <th>Total Terlambat</th>
+                                    <th>Action</th>
                                 </tr>
                             </thead>
                             <tbody>
-                                {{-- @foreach ($data as $index => $d) --}}
-                                @foreach ($data as $d)
-                                <tr>
-                                    <td>{{$loop->iteration}}</td>
-                                    <td>@php
-                                            $name = \App\Models\User::where('id',$d->enhancer)->value('name');
-                                            $ids = \App\Models\User::where('id',$d->enhancer)->value('id');
-                                            // dd($ids);
-                                        @endphp
-                                    {{$name}}
-                                    </td>
-                                    <td>
-                                        @php
-                                            $countmasuk =\App\Models\Attendance::where('enhancer',$ids)->where('status','0')->count();
-                                            // dd($countmasuk);
-                                        @endphp
-                                        {{$countmasuk}}
-                                    </td>
-                                    <td>
-                                        @php
-                                            $countpulang =\App\Models\Attendance::where('enhancer',$ids)->where('status','1')->count();
-                                            // dd($countmasuk);
-                                        @endphp
-                                        {{$countpulang}}
-                                    </td>
-                                    <td>
-                                        @php
-                                            $lebihawal = \App\Models\Attendance::where('enhancer', $ids)
-                                                ->where('status','1')
-                                                ->whereTime('created_at', '<', '16:00:00')
-                                                ->count();
-                                        @endphp
-                                        {{$lebihawal}}
-                                    </td>
-                                    <td>@php
-                                        $terlambat = \App\Models\Attendance::where('enhancer', $ids)
-                                            ->where('status','0')
-                                            ->whereTime('created_at', '>', '08:00:00')
-                                            ->count();
-                                    @endphp
-                                    {{$terlambat}}
-                                    </td>
-                                    <td></td>
-                                    <td>@php
-                                        $cuti = \App\Models\Leave::where('enhancer', $ids)
-                                            ->where('status','0')
-                                            ->count();
-                                    @endphp
-                                    {{$cuti}}</td>
-                                </tr>
+                                @foreach ($data as $index => $d)
+                                    @foreach ($usersWithLateCount as $ul)
+                                        @if ($ul['user_id'] == $d->enhancer)  <!-- Ensure that the user_id matches the enhancer -->
+                                        <tr>
+                                            <td>{{$loop->iteration}}</td>
+                                            <td>
+                                                @php
+                                                    $name = \App\Models\User::where('id', $ul['user_id'])->value('name');
+                                                @endphp
+                                                {{$name}}
+                                            </td>
+                                            <td>{{$ul['late_count']}}</td>
+                                            <td><a href="{{route('admin.kelolakehadiranpegawai.send',$ul['user_id'])}}" class="btn btn-danger">Send Email</a></td>
+                                        </tr>
+                                        @endif
+                                    @endforeach
                                 @endforeach
+                                
 
                                 {{-- @endforeach --}}
                                 

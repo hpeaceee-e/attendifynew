@@ -175,26 +175,23 @@
                                                 <td>{{ $loop->iteration }}</td>
                                                 <td>{{ $d->name }}</td>
                                                 <td>
-                                                    @if ($d->schedule == null)
-                                                        <select name="schedule"
-                                                            class="form-select js-select2 select2-hidden-accesible valid"
-                                                            data-id="{{ $d->id }}">
-                                                            @foreach ($day as $dd)
-                                                                <option value="{{ $dd->id }}">{{ $dd->shift_name }}
-                                                                </option>
-                                                            @endforeach
-                                                        </select>
-                                                    @else
-                                                        {{ $name }}
-                                                    @endif
+                                                    <select name="schedule" class="form-select schedule-select" data-id="{{ $d->id }}">
+                                                        @foreach ($day as $dd)
+                                                            <option value="{{ $dd->id }}" 
+                                                                @if($dd->id == old('schedule', $d->schedule)) selected @endif>
+                                                                {{ $dd->shift_name }}
+                                                            </option>
+                                                        @endforeach
+                                                    </select>
+                                                    
+                                                   
                                                 </td>
+                                                    
                                             </tr>
                                         @endforeach
                                     </tbody>
                                 </table>
-                                <div class="mt-3">
-                                    <button type="submit" class="btn btn-secondary">Simpan Jadwal</button>
-                                </div>
+                                
                             </div>
                         </div><!-- .card-preview -->
                     </div> <!-- nk-block -->
@@ -247,8 +244,11 @@
                                 });
                             });
 
-                            // Handle form submission (if you want to save multiple schedules at once)
+                            // Handle the "Simpan Jadwal" button click
                             $('#save-schedule').click(function() {
+                                var allSchedulesUpdated = true; // Flag to check if all schedules were updated successfully
+
+                                // Iterate over each select element to update schedules
                                 $('select.schedule-select').each(function() {
                                     var selectedValue = $(this).val();
                                     var employeeId = $(this).data('id');
@@ -263,33 +263,38 @@
                                             _token: '{{ csrf_token() }}'
                                         },
                                         success: function(response) {
-                                            if (response.success) {
+                                            if (!response.success) {
+                                                allSchedulesUpdated = false; // If any schedule fails, update the flag
+                                            }
+                                        },
+                                        error: function(xhr) {
+                                            allSchedulesUpdated = false; // If AJAX fails, update the flag
+                                        },
+                                        complete: function() {
+                                            // Once all AJAX requests are done, show success or error message
+                                            if (allSchedulesUpdated) {
                                                 Swal.fire({
                                                     icon: 'success',
                                                     title: 'Berhasil!',
-                                                    text: 'Jadwal berhasil diperbarui!',
+                                                    text: 'Semua jadwal berhasil diperbarui!',
+                                                    timer: 2000,
+                                                    showConfirmButton: false
+                                                });
+                                            } else {
+                                                Swal.fire({
+                                                    icon: 'error',
+                                                    title: 'Gagal!',
+                                                    text: 'Beberapa jadwal gagal diperbarui.',
                                                     timer: 2000,
                                                     showConfirmButton: false
                                                 });
                                             }
-                                        },
-                                        error: function(xhr) {
-                                            Swal.fire({
-                                                icon: 'error',
-                                                title: 'Error!',
-                                                text: 'Kesalahan saat mengupdate jadwal.',
-                                                timer: 2000,
-                                                showConfirmButton: false
-                                            });
                                         }
                                     });
                                 });
                             });
                         });
                     </script>
-
-
-
                 </div>
             </div>
         </div>
