@@ -151,10 +151,16 @@
                                     <div class="card-header bg-light text-primary">
                                         <h5 class="mb-0">🥈 Rank 2</h5>
                                     </div>
-                                    <div class="card-body">
-                                        <img src="}{{asset($secondUser->avatar)}}" alt="Employee Image" class="img-fluid rounded-circle mb-3" style="width: 100px; height: 100px;">
-                                        <h6 class="font-weight-bold">{{$secondUser->name}}</h6>
-                                        <p class="mb-0 text-muted">{{$secondUser->email}}</p>
+                                    <div class="card-body text-center">
+                                        @if ($secondUser->avatar)
+                                            <img src="{{ asset($secondUser->avatar) }}" alt="Employee Image"
+                                                class="img-fluid rounded-circle mb-3"
+                                                style="width: 120px; height: 120px; object-fit: cover;">
+                                        @else
+                                            <div class="img-placeholder rounded-circle mb-3"></div>
+                                        @endif
+                                        <h6 class="font-weight-bold">{{ $secondUser->name }}</h6>
+                                        <p class="mb-0 text-muted">{{ $secondUser->email }}</p>
                                     </div>
                                 </div>
                             </div>
@@ -165,72 +171,36 @@
                                         <h4 class="mb-0">🥇 Rank 1</h4>
                                     </div>
                                     <div class="card-body">
-                                        <img src="{{ asset($topUser->avatar) }}" alt="Employee Image" class="img-fluid rounded-circle mb-3" style="width: 120px; height: 120px;">
-                                        <h5 class="font-weight-bold">{{$topUser->name}}</h5>
-                                        <p class="mb-0 text-muted">{{$topUser->email}}</p>
+                                        <img src="{{ asset($topUser->avatar) }}" alt="Employee Image"
+                                            class="img-fluid rounded-circle mb-3" style="width: 120px; height: 120px;">
+                                        <h5 class="font-weight-bold">{{ $topUser->name }}</h5>
+                                        <p class="mb-0 text-muted">{{ $topUser->email }}</p>
                                     </div>
                                 </div>
                             </div>
                             <!-- Rank 3 -->
-                            <div class="col-lg-4 col-md-6 mb-3">
+                            <div class="col-lg-4 c  ol-md-6 mb-3">
                                 <div class="card shadow-sm">
                                     <div class="card-header bg-light text-primary">
                                         <h5 class="mb-0">🥉 Rank 3</h5>
                                     </div>
-                                    <div class="card-body">
-                                        <img src="{{asset($thirdUser->avatar)}}" alt="Employee Image" class="img-fluid rounded-circle mb-3" style="width: 100px; height: 100px;">
-                                        <h6 class="font-weight-bold">{{$thirdUser->name}}</h6>
-                                        <p class="mb-0 text-muted">{{$thirdUser->email}}</p>
+                                    <div class="card-body text-center">
+                                        @if ($thirdUser->avatar)
+                                            <img src="{{ asset($thirdUser->avatar) }}" alt="Employee Image"
+                                                class="img-fluid rounded-circle mb-3"
+                                                style="width: 120px; height: 120px; object-fit: cover;">
+                                        @else
+                                            <div class="img-placeholder rounded-circle mb-3"></div>
+                                        @endif
+                                        <h6 class="font-weight-bold">{{ $thirdUser->name }}</h6>
+                                        <p class="mb-0 text-muted">{{ $thirdUser->email }}</p>
                                     </div>
                                 </div>
                             </div>
+
+
                         </div>
                     </div>
-
-                    <!-- Tabel untuk Rank 4 ke Bawah -->
-                    {{-- <div class="card-footer mt-4"> --}}
-                    <div class="card-inner">
-                        <table class="datatable-init table">
-                            <thead>
-                                <tr>
-                                    <th class="text-center">Rank</th>
-                                    <th class="text-center">Nama</th>
-                                    <th class="text-center">Kehadiran (%)</th>
-                                    <th class="text-center">Sanksi</th>
-                                    <th class="text-center">Peringatan</th>
-                                </tr>
-                            </thead>
-                            <tbody>
-                                <!-- Rank 4 ke Bawah -->
-                                <tr>
-                                    <td class="text-center">4</td>
-                                    <td>Tom Green</td>
-                                    <td class="text-center">65%</td>
-                                    <td class="text-center">
-                                        <span class="text-danger">Ya</span> <!-- Sanksi jika < 70% -->
-                                    </td>
-                                    <td class="text-center">
-                                        <button class="btn btn-sm btn-warning" onclick="sendWarning('Tom Green')">Kirim
-                                            Peringatan</button>
-                                    </td>
-                                </tr>
-                                <tr>
-                                    <td class="text-center">5</td>
-                                    <td>Linda Johnson</td>
-                                    <td class="text-center">50%</td>
-                                    <td class="text-center">
-                                        <span class="text-danger">Ya</span> <!-- Sanksi jika < 70% -->
-                                    </td>
-                                    <td class="text-center">
-                                        <button class="btn btn-sm btn-warning" onclick="sendWarning('Linda Johnson')">Kirim
-                                            Peringatan</button>
-                                    </td>
-                                </tr>
-                                <!-- Tambahkan data lainnya sesuai kebutuhan -->
-                            </tbody>
-                        </table>
-                    </div>
-                    {{-- </div> --}}
                 </div><!-- .card-preview -->
             </div>
 
@@ -247,9 +217,9 @@
                                 data-target="pageMenu"><em class="icon ni ni-menu-alt-r"></em></a>
                             <div class="toggle-expand-content" data-content="pageMenu">
                                 <ul class="nk-block-tools g-3">
-                                    <li><a href="{{ route('admin.print-cetakrekapitulasi') }}" class="btn btn-secondary"
+                                    {{-- <li><a href="{{ route('admin.print-cetakrekapitulasi') }}" class="btn btn-secondary"
                                             target="_blank"><em class="icon ni ni-printer"></em><span>Cetak</span></a>
-                                    </li>
+                                    </li> --}}
                                 </ul>
                             </div>
                         </div><!-- .toggle-wrap -->
@@ -271,22 +241,26 @@
                             <tbody>
                                 @foreach ($data as $index => $d)
                                     @foreach ($usersWithLateCount as $ul)
-                                        @if ($ul['user_id'] == $d->enhancer)  <!-- Ensure that the user_id matches the enhancer -->
-                                        <tr>
-                                            <td>{{$loop->iteration}}</td>
-                                            <td>
-                                                @php
-                                                    $name = \App\Models\User::where('id', $ul['user_id'])->value('name');
-                                                @endphp
-                                                {{$name}}
-                                            </td>
-                                            <td>{{$ul['late_count']}}</td>
-                                            <td><a href="{{route('admin.kelolakehadiranpegawai.send',$ul['user_id'])}}" class="btn btn-danger">Send Email</a></td>
-                                        </tr>
+                                        @if ($ul['user_id'] == $d->enhancer)
+                                            <!-- Ensure that the user_id matches the enhancer -->
+                                            <tr>
+                                                <td>{{ $loop->iteration }}</td>
+                                                <td>
+                                                    @php
+                                                        $name = \App\Models\User::where('id', $ul['user_id'])->value(
+                                                            'name',
+                                                        );
+                                                    @endphp
+                                                    {{ $name }}
+                                                </td>
+                                                <td>{{ $ul['late_count'] }}</td>
+                                                <td><a href="{{ route('admin.kelolakehadiranpegawai.send', $ul['user_id']) }}"
+                                                        class="btn btn-danger">Kirim Peringatan</a></td>
+                                            </tr>
                                         @endif
                                     @endforeach
                                 @endforeach
-                                
+
 
                                 {{-- @endforeach --}}
 
